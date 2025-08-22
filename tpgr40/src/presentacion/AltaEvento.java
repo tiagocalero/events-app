@@ -10,118 +10,82 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class AltaEvento {
-	private JInternalFrame frmConsultaEventos;
-	private JLabel lblEventos;
-	private JComboBox comboBoxEventos;
-	private JLabel lblNombre;
-	private JButton btnNewButton;
-	private final JTextField txtEjemplo = new JTextField();
-	private JTextField txtCc;
-	private JTextField txtEstaEsLa;
-	private JLabel lblFecha;
+	private JInternalFrame frmAltaEvento;
+	private JTextField textField;
+	private JTextField textField_1;
 	private JTextField textField_2;
-	private JLabel lblCategoras;
-	private JLabel lblEdiciones;
-	private JComboBox comboBoxEventos_2;
-	private JComboBox comboBoxEventos_3;
 	
 	public AltaEvento() {
 		
-		frmConsultaEventos = new JInternalFrame();
-		frmConsultaEventos.setResizable(true);
-		frmConsultaEventos.setIconifiable(true);
-		frmConsultaEventos.setMaximizable(true);
-		frmConsultaEventos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frmConsultaEventos.setClosable(true);
-		frmConsultaEventos.setTitle("Consultar un Evento");
-		frmConsultaEventos.setBounds(30, 30, 700, 600);
-		frmConsultaEventos.getContentPane().setLayout(null);
+		frmAltaEvento = new JInternalFrame();
+		frmAltaEvento.setResizable(true);
+		frmAltaEvento.setIconifiable(true);
+		frmAltaEvento.setMaximizable(true);
+		frmAltaEvento.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frmAltaEvento.setClosable(true);
+		frmAltaEvento.setTitle("Alta de Evento");
+		frmAltaEvento.setBounds(30, 30, 402, 376);
+		frmAltaEvento.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		lblEventos = new JLabel("Eventos");
-		lblEventos.setBounds(0, 0, 492, 60);
-        lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        frmConsultaEventos.getContentPane().add(lblEventos);
-        
-                
-                comboBoxEventos = new JComboBox();
-                comboBoxEventos.setBounds(27, 53, 188, 146);
-                
-        comboBoxEventos.addItem("Selecciona un Evento");
-        comboBoxEventos.addItem("Evento 1");
-        comboBoxEventos.addItem("Evento 2");
-        frmConsultaEventos.getContentPane().add(comboBoxEventos);
-        
-        lblNombre = new JLabel("Nombre:");
-        lblNombre.setBounds(235, 54, 121, 37);
-        lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-        //lblNombre.setBounds(100, 100, 170, 14);
-        frmConsultaEventos.getContentPane().add(lblNombre);
-        txtEjemplo.setEditable(false);
-        txtEjemplo.setText("Congreso Internacional de Cardiología");
-        txtEjemplo.setBounds(374, 54, 255, 37);
-        frmConsultaEventos.getContentPane().add(txtEjemplo);
-        txtEjemplo.setColumns(10);
-        
-        btnNewButton = new JButton("Consultar");
-        btnNewButton.setBounds(27, 234, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton);
-        
-        JLabel lblSigla = new JLabel("Sigla:");
-        lblSigla.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSigla.setBounds(235, 103, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblSigla);
-        
-        txtCc = new JTextField();
-        txtCc.setEditable(false);
-        txtCc.setText("CC");
-        txtCc.setColumns(10);
-        txtCc.setBounds(374, 103, 255, 37);
-        frmConsultaEventos.getContentPane().add(txtCc);
-        
-        JLabel lblDescripcin = new JLabel("Descripción:");
-        lblDescripcin.setHorizontalAlignment(SwingConstants.CENTER);
-        lblDescripcin.setBounds(235, 152, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblDescripcin);
-        
-        txtEstaEsLa = new JTextField();
-        txtEstaEsLa.setEditable(false);
-        txtEstaEsLa.setText("Esta es la descripción del Congreso Internacional de Cardiología");
-        txtEstaEsLa.setColumns(10);
-        txtEstaEsLa.setBounds(374, 152, 255, 129);
-        frmConsultaEventos.getContentPane().add(txtEstaEsLa);
-        
-        lblFecha = new JLabel("Fecha:");
-        lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
-        lblFecha.setBounds(235, 293, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblFecha);
-        
-        textField_2 = new JTextField();
-        textField_2.setText("Ejemplo");
-        textField_2.setColumns(10);
-        textField_2.setBounds(374, 293, 255, 37);
-        frmConsultaEventos.getContentPane().add(textField_2);
-        
-        lblCategoras = new JLabel("Categorías: ");
-        lblCategoras.setHorizontalAlignment(SwingConstants.LEFT);
-        lblCategoras.setBounds(27, 361, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblCategoras);
-        
-        lblEdiciones = new JLabel("Ediciones: ");
-        lblEdiciones.setHorizontalAlignment(SwingConstants.LEFT);
-        lblEdiciones.setBounds(342, 361, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblEdiciones);
-        
-        comboBoxEventos_2 = new JComboBox();
-        comboBoxEventos_2.setBounds(27, 410, 287, 146);
-        frmConsultaEventos.getContentPane().add(comboBoxEventos_2);
-        
-        comboBoxEventos_3 = new JComboBox();
-        comboBoxEventos_3.setBounds(342, 410, 287, 146);
-        frmConsultaEventos.getContentPane().add(comboBoxEventos_3);
-
+		JPanel panel = new JPanel();
+		frmAltaEvento.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
 		
+		textField = new JTextField();
+		textField.setBounds(193, 24, 140, 26);
+		panel.add(textField);
+		textField.setColumns(10);
 		
+		textField_1 = new JTextField();
+		textField_1.setBounds(193, 74, 140, 26);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(193, 124, 140, 26);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Nombre:");
+		lblNewLabel.setBounds(43, 24, 140, 16);
+		panel.add(lblNewLabel);
+		
+		JLabel lblDescripcin = new JLabel("Descripción:");
+		lblDescripcin.setBounds(43, 74, 140, 16);
+		panel.add(lblDescripcin);
+		
+		JLabel lblSigla = new JLabel("Sigla:");
+		lblSigla.setBounds(43, 124, 140, 16);
+		panel.add(lblSigla);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Categoría 1");
+		chckbxNewCheckBox.setBounds(193, 174, 140, 23);
+		panel.add(chckbxNewCheckBox);
+		
+		JLabel lblCategoras = new JLabel("Categorías:");
+		lblCategoras.setBounds(43, 174, 140, 16);
+		panel.add(lblCategoras);
+		
+		JCheckBox chckbxCategora_1 = new JCheckBox("Categoría 2");
+		chckbxCategora_1.setBounds(193, 209, 140, 23);
+		panel.add(chckbxCategora_1);
+		
+		JCheckBox chckbxCategora = new JCheckBox("Categoría 3");
+		chckbxCategora.setBounds(193, 244, 140, 23);
+		panel.add(chckbxCategora);
+		
+		JPanel panel_1 = new JPanel();
+		frmAltaEvento.getContentPane().add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("Crear");
+		panel_1.add(btnNewButton);
 	}
 }

@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.stream.Stream;
 import categoria;
-import dtevento;
+import DTEvento;
 
 public class Evento {
 	private String nombre;
