@@ -12,6 +12,10 @@ import javax.swing.JMenuItem;
 public class Principal{
 	
 	private JFrame frmPrincipal;
+	private AltaEvento altEventoInternalFrame;
+	private AltaPatrocinio altPatInternalFrame;
+    private ConsultaEventos conEventoInternalFrame;
+    private ModDatosUsr modDatosUsrInternalFrame;
 	
 	public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
