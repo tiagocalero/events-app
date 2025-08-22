@@ -1,14 +1,25 @@
 package logica;
 import Usuario;
+import Edicion;
+import DTOrganizador;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Organizador extends Usuario {
 	private String descripcion;
 	private String link;
+	private map<String, Edicion> ediciones;
 	
 	public Organizador(String nick, String nom, String c, String desc, String link) {
 		super(nick, nom, c);
 		this.descripcion = desc;
 		this.link = link;
+	}
+	
+	@override
+	public DTOrganizador getDatos() {
+		DTOrganizador res = new DTOrganizador(getNickname(), getNombre(), getCorreo(), descripcion, link);
+		return res;
 	}
 	
 	@override
