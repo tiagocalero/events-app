@@ -1,6 +1,6 @@
 package logica;
 import Usuario;
-import edicion;
+import Edicion;
 import DTOrganizador;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
 public class Organizador extends Usuario {
 	private String descripcion;
 	private String link;
-	private map<
+	private map<String, Edicion> ediciones;
 	
 	public Organizador(String nick, String nom, String c, String desc, String link) {
 		super(nick, nom, c);
