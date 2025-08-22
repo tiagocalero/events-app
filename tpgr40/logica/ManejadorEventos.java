@@ -29,4 +29,9 @@ public class ManejadorEventos {
 		Evento e = Evento(nombre, sigla, descripcion, fechaAlta, categorias);
 		eventos.put(nombre, e)
 	}
+
+	// Devuelve una copia del map de eventos sobre el que se puede iterar
+	public Map<String, Evento> eventos() {
+        return Map.copyOf(eventos);
+    }
 }

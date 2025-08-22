@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.stream.Stream;
 import categoria;
 import DTEvento;
@@ -42,8 +43,8 @@ public class Evento {
 	public DTEvento getDatos() {
 		List<String> nomCategorias = 
 			categorias.stream()
-				 	  .map(c -> c.getNombre())
-					  .collect(Collectors.toList());
+				 	  .map(c -> c.getNombre()) // Convierte cada categoría en su nombre
+					  .collect(Collectors.toList()); // Junta los resultados en una lista
 		
 		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias);
 	}
@@ -52,8 +53,8 @@ public class Evento {
 		return ediciones.get(nombre);
 	}
 	
-	public Stream<Map.Entry<String, Edicion>> obtenerEdiciones() {
-		return ediciones.entrySet().stream();
+	public Map<String, Edicion> obtenerEdiciones() {
+		return Map.copyOf(ediciones);
 	}
 	
 	public void agregarCategoria(Categoria c) {
