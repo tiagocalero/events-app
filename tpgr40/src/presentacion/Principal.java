@@ -8,15 +8,37 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 
-public class Principal extends JFrame {
+
+public class Principal{
+	
+	private JFrame frmPrincipal;
+	
+	public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            
+                try {
+                    Principal window = new Principal();
+                    window.frmPrincipal.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        });
+    }
+	
+	
 	public Principal() {
+		inicializar();
+	}
+	
+	private void inicializar() {
+		frmPrincipal = new JFrame();
+		frmPrincipal.setTitle("Eventos.uy");
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		frmPrincipal.setJMenuBar(menuBar);
 		
 		JMenu menuSistema = new JMenu("Sistema");
         menuBar.add(menuSistema);
-        
         JMenuItem menuSalir = new JMenuItem("Salir");
         menuSistema.add(menuSalir);
         
@@ -30,12 +52,12 @@ public class Principal extends JFrame {
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
         menuEventos.add(menuAltaPatrocinio);
         
-        
-        
-        
-        
-		
+        JMenu menUsuario = new JMenu("Usuarios");
+        menuBar.add(menUsuario);
+        JMenuItem menuModDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
+        menUsuario.add(menuModDatosUsuario);
 	}
+
 
 
 
