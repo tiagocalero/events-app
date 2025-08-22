@@ -18,10 +18,15 @@ public class Usuario {
 		return nickname;
 	}
 	
-	public DTUsuario getDatos() {
-		DTUsuario res = new DTUsuario(nickname, nombre, correo);
-		return res;
+	public String getNombre() {
+		return nombre;
 	}
+	
+	public String getCorreo() {
+		return correo;
+	}
+	
+	public abstract DTUsuario getDatos() {}
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;

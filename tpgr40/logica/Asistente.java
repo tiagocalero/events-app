@@ -1,6 +1,7 @@
 package logica;
 import DTFecha;
 import Usuario;
+import DTAsistente;
 
 public class Asistente extends Usuario {
 	private String apellido;
@@ -10,6 +11,12 @@ public class Asistente extends Usuario {
 		super(nick, nom, c);
 		this.apellido = ap;
 		this.nacimiento = fecha;
+	}
+	
+	@override
+	public DTAsistente getDatos() {
+		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
+		return res;
 	}
 	
 	@override
