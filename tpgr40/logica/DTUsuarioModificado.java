@@ -4,5 +4,4 @@ public class DTUsuario {
 	public DTUsuarioModificado(String nom) {
 		this.nombre = nom;
 	}
-	
 }

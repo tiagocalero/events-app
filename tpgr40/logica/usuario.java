@@ -23,7 +23,10 @@ public class Usuario {
 		return res;
 	}
 	
-	public void modificar(DTUsuarioModificado datos) {
-		this.nombre = datos.nombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public abstract void modificar(DTUsuarioModificado datos) {}
 	}
 }
