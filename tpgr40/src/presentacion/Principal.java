@@ -1,18 +1,27 @@
 package presentacion;
 
-import javax.swing.JFrame;
-import javax.swing.JToolBar;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
+import java.awt.EventQueue;
 
-public class Principal extends JFrame{
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+
+
+public class Principal extends JFrame {
 	public Principal() {
-		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JComboBox comboBox = new JComboBox();
-		getContentPane().add(comboBox, BorderLayout.NORTH);
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu menuSistema = new JMenu("Sistema");
+        menuBar.add(menuSistema);
+        
+        JMenu menuEventos = new JMenu("Eventos");
+        menuBar.add(menuEventos);
+		
 	}
+
+
 
 }
