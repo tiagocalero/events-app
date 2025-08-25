@@ -4,15 +4,15 @@ import categoria;
 import DTEvento;
 import Evento;
 
-public class ManejadorEventos {
+public class ManejadorEvento {
 	private Map<String, Evento> eventos;
-    private static ManejadorEventos instance;
+    private static ManejadorEvento instance;
 
     private ManejadorEventos() {}
 
-    public static ManejadorEventos getInstance() {
+    public static ManejadorEvento getInstance() {
         if (instance == null) {
-            instance = new ManejadorEventos();
+            instance = new ManejadorEvento();
         }
         return instance;
     }
