@@ -14,6 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JPanel;
 
 public class ModificarDatosOrganizador {
 	private JInternalFrame frmConsultaEventos;
@@ -36,7 +37,7 @@ public class ModificarDatosOrganizador {
 		frmConsultaEventos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmConsultaEventos.setClosable(true);
 		frmConsultaEventos.setTitle("Modificar Datos de Usuario");
-		frmConsultaEventos.setBounds(30, 30, 700, 653);
+		frmConsultaEventos.setBounds(30, 30, 696, 484);
 		frmConsultaEventos.getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Usuario");
