@@ -27,6 +27,7 @@ public class ModificarDatosAsistente {
 	private JTextField textField_2;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JButton btnNewButton_2;
 	
 	public ModificarDatosAsistente() {
 		
@@ -37,7 +38,7 @@ public class ModificarDatosAsistente {
 		frmConsultaEventos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frmConsultaEventos.setClosable(true);
 		frmConsultaEventos.setTitle("Modificar Datos de Usuario");
-		frmConsultaEventos.setBounds(30, 30, 702, 399);
+		frmConsultaEventos.setBounds(30, 30, 706, 442);
 		frmConsultaEventos.getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Usuario");
@@ -118,6 +119,10 @@ public class ModificarDatosAsistente {
         });
         btnNewButton_1.setBounds(407, 310, 188, 37);
         frmConsultaEventos.getContentPane().add(btnNewButton_1);
+        
+        btnNewButton_2 = new JButton("Cancelar");
+        btnNewButton_2.setBounds(407, 359, 188, 37);
+        frmConsultaEventos.getContentPane().add(btnNewButton_2);
 
 		
 		
