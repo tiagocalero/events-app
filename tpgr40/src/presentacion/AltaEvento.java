@@ -86,13 +86,6 @@ public class AltaEvento {
 		chckbxCategora.setBounds(193, 244, 140, 23);
 		panel.add(chckbxCategora);
 		
-		List listm = new DefaultListModel();
-		listm.setBounds(28, 209, 138, 76);
-		listm.addElement("asd");
-		list = new JList(listm);
-		panel.add(list);
-		
-		
 		JPanel panel_1 = new JPanel();
 		frmAltaEvento.getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
