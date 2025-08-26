@@ -88,6 +88,25 @@ public class TRegistro {
 		
 
 	}
+	
+	public set<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
+		
+		Set<DTEdicion> resultado = new HashSet<>();
+		
+		for (TipoRegistro tr : ed.obtenerEdiciones.values()) {
+			DTEdicion dtr = new DTTRegistro(
+					
+				dtr.getCupo(),
+				dtr.getCosto(),
+				dtr.getNombre(),
+				dtr.getDescripcion(),
+		        );
+		    resultado.add(dtr);
+			
+        }
+		return resultado;
+	
+	}
 }
 
 	
