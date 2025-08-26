@@ -17,17 +17,22 @@ public class ManejadorEvento {
         return instance;
     }
     
-	public existe(String nombre) {
+	public bool existe(String nombre) {
 		return eventos.containsKey(nombre);
 	}
 	
-	public obtener(String nombre) {
+	public String obtener(String nombre) {
 		return eventos.get(nombre);
 	}
 	
-	public crearEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias) {
+	public bool crearEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias) {
+		if (existe(nombre))
+			return false;
+		
 		Evento e = Evento(nombre, sigla, descripcion, fechaAlta, categorias);
 		eventos.put(nombre, e)
+		
+		return true;
 	}
 
 	// Devuelve una copia del map de eventos sobre el que se puede iterar

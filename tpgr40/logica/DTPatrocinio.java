@@ -5,7 +5,7 @@ public class DTPatrocinio {
 	private String tipoRegistro;
 	private int cantRegistros;
 	
-	public DTPatrocinio(String codigo, TipoNivelPatrocinio tipo, float monto, String tipoRegistro, cantRegistros) {
+	public DTPatrocinio(String codigo, TipoNivelPatrocinio tipo, float monto, String tipoRegistro, int cantRegistros) {
 		this.codigo = codigo;
 		this.tipo = tipo;
 		this.monto = monto;
