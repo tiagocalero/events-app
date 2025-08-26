@@ -1,6 +1,14 @@
 package logica
 
+import Evento;
+import Edicion;
+import ManejadorEvento;
+import DTPatrocinio;
+import java.time.LocalDate;
+
 public class ControladorEventos{
+	private Evento evento;
+	private Edicion edicion;
 	
 	private static volatile ControladorEvento instance;
 	private ControladorEvento();
@@ -27,4 +35,24 @@ public class ControladorEventos{
 		
 	}
 	
+	public List<String> listarPatrocinios() {
+		return edicion.getNombresPatrocinios();
+	}
+	
+	public DTPatrocinio consultaPatrocinio(String nomPatrocinio) {
+		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
+		
+		evento = NULL;
+		edicion = NULL;
+		
+		return dtp;
+	}
+	
+	public boolean ingresarDatosEvento(String nombre, String descripción, String siglas, List<String> categorias) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+        LocalDate fechaActual = LocalDate.now();
+		
+		return m.crearEvento(nombre, descripcion, sigla, fechaActual, categorias);	
+	}
 }

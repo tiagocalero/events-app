@@ -25,7 +25,7 @@ public class ManejadorEvento {
 		return eventos.get(nombre);
 	}
 	
-	public bool crearEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias) {
+	public boolean crearEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias) {
 		if (existe(nombre))
 			return false;
 		
