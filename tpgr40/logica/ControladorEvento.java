@@ -42,8 +42,8 @@ public class ControladorEventos{
 	public DTPatrocinio consultaPatrocinio(String nomPatrocinio) {
 		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
 		
-		evento = NULL;
-		edicion = NULL;
+		evento = null;
+		edicion = null;
 		
 		return dtp;
 	}
