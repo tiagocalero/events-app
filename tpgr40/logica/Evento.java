@@ -19,9 +19,8 @@ public class Evento {
 		this.fechaAlta = fechaAlta;
 		
 		ManejadorCategoria mc = ManejadorCategoria.getInstance();
-		for (String cat: categorias) {
+		for (String cat: categorias)
 			mc.asignar(cat, this);
-		}
 	}
 
 	public String getNombre() {

@@ -10,12 +10,13 @@ public class Patrocinio {
 	private float monto;
 	private TipoNivelPatrocinio tipo;
 	private LocalDate fecha;
+	private int cantRegistros;
 	
 	private Edicion edicion;
 	private Institucion institucion;
-	private List<CantRegistro> cantRegistros;
+	private TipoRegistro tp;
 	
-	public Patrocinio(String codigo, float monto, TipoNivelPatrocinio tipo, localDate fecha, Edicion e, Institucion i) {
+	public Patrocinio(String codigo, float monto, TipoNivelPatrocinio tipo, localDate fecha, int cantRegistros, Edicion e, Institucion i, TipoRegistro tp) {
 		edicion = e;
 		institucion = i;
 		
@@ -23,12 +24,18 @@ public class Patrocinio {
 		this.monto = monto;
 		this.tipo = tipo;
 		this.fecha = fecha;
+		this.cantRegistros = cantRegistros;
 
+		tp.agregarPatrocinio(this);
 		i.agregarPatrocinio(this);
 		e.agregarPatrocinio(this);
 	}
 	
-	public void agregarCantRegistro(CantRegistro cr) {
-		cantRegistros.add(cr)
+	public DTPatrocinio getDatos() {
+		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros);
+	}
+	
+	public void setCantRegistro(CantRegistro cr) {
+		cantRegistro = cr;
 	}
 }
