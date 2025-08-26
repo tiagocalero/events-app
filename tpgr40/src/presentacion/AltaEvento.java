@@ -1,6 +1,7 @@
 package presentacion;
 
 import java.awt.BorderLayout;
+import javax.swing.*;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
