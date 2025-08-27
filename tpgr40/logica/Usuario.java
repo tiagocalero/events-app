@@ -3,7 +3,7 @@ import DTUsuario.java;
 import DTUsuarioModificado.java;
 
 
-public class Usuario {
+public abstract class Usuario {
 	private String nickname;
 	private String nombre;
 	private String correo;
@@ -26,12 +26,11 @@ public class Usuario {
 		return correo;
 	}
 	
-	public abstract DTUsuario getDatos() {}
+	public abstract DTUsuario getDatos();
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	
-	public abstract void modificar(DTUsuarioModificado datos) {}
-	}
+	public abstract void modificar(DTUsuarioModificado datos);
 }

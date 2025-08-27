@@ -1,4 +1,4 @@
-public class DTUsuario {
+public abstract class DTUsuarioModificado {
 	private String nombre;
 	
 	public DTUsuarioModificado(String nom) {

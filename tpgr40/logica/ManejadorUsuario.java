@@ -5,13 +5,17 @@ import Usuario;
 
 public class ManejadorUsuario {
 	private Map<String, Usuario> usuarios;
-    private static ManejadorUsuario instance;
+    private static volatile ManejadorUsuario instance;
 
     private ManejadorUsuario() {}
 
     public static ManejadorUsuario getInstance() {
         if (instance == null) {
-            instance = new ManejadorUsuario();
+            synchronized (ManejadorUsuario.class) {
+                if (instance == null) {
+                    instance = new ManejadorUsuario();
+                }
+            }
         }
         return instance;
     }
