@@ -1,4 +1,5 @@
 package logica;
+import java.util.stream.Collectors;
 import Usuario;
 
 
@@ -22,5 +23,9 @@ public class ManejadorUsuario {
 
     public List<String> organizadores() {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Organizador).map(usuario->usuario.getNickname()).collect(Collectors.tolist());
+    }
+
+    public List<String> usuarios() {
+        return this.usuarios.values().stream().map(usuario->usuario.getNickname()).collect(Collectors.tolist());
     }
 }

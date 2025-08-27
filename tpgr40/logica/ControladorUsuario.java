@@ -25,4 +25,10 @@ public class ControladorUsuario{
         return m.organizadores();
     }
 
+	public List<String> listarUsuarios(){
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+
+        return m.usuarios();
+	}
+
 }  
