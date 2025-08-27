@@ -1,11 +1,16 @@
+
 import DTAsistente;
 import ManejadorUsuario;
 import Asistente;
+import Usuario;
+import ManejadorUsuario;
+
 
 public class ControladorUsuario{
-	
+	private Usuario usuario;
+
 	private static volatile ControladorUsuario instance;
-	private Controladorusuario();
+	private ControladorUsuario(){};
 	
 	public static ControladorUsuario getInstance() {
 		if (instance == null) {
@@ -41,4 +46,16 @@ public class ControladorUsuario{
 		return res;
 	}
 
-    
+    public List<String> listarOrganizadores(){
+        ManejadorUsuario m = ManejadorUsuario.getInstance();
+
+        return m.organizadores();
+    }
+
+	public List<String> listarUsuarios(){
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+
+        return m.usuarios();
+	}
+
+}  

@@ -1,4 +1,4 @@
-package logica
+package logica;
 
 import Evento;
 import Edicion;
@@ -14,7 +14,7 @@ public class ControladorEvento{
 	private Institucion institucion;
 	
 	private static volatile ControladorEvento instance;
-	private ControladorEvento();
+	private ControladorEvento(){};
 	
 	public static ControladorEvento getInstance() {
 		if (instance == null) {
@@ -57,7 +57,7 @@ public class ControladorEvento{
 			return false;
 		
         LocalDate fechaActual = LocalDate.now();
-		new Patrocinio(dtp.codigo, dtp.monto, dtp.tipo, fechaActual, dtp.cantRegistros, edicion, institucion, tp)
+		new Patrocinio(dtp.codigo, dtp.monto, dtp.tipo, fechaActual, dtp.cantRegistros, edicion, institucion, tp);
 		
 		return true;
 	}
@@ -85,6 +85,21 @@ public class ControladorEvento{
 
 	public DTEdicion elegirEdicion(Edicion edicion) {
 		return edicion.getDatos();
+	}
+
+
+	//Asumo que se hizo el chequeo de que el nombre no exista
+	public void altaEdicion(String nombreEvento, Organizador nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+
+		Evento evento = m.obtener(nombreEvento);
+
+		ManejadorUsuario mu = ManejadorUsuario.getInstance();
+
+		Usuario organizador = mu.obtener(nickanameOrganizador);
+
+		new Edicion(evento, organizador, nombre, sigla, ciudad, pais);
+
 	}
 
 }

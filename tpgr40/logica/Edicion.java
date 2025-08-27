@@ -7,7 +7,7 @@ import Organizador;
 import Registro;
 import Patrocinio;
 import DTEdicion;
-
+import Evento;
 
 public class Edicion {
 	private String pais;
@@ -20,8 +20,17 @@ public class Edicion {
     private List<Patrocinio> patrocinios;
     private List<TRegistro> tRegistros;
     private Organizador organizador;
+    private Evento evento;
     private List<Registro> registros;
 
+    public Edicion(Evento evento, Organizador organizaddor, String nombre, String sigla, String ciudad, String pais) {
+        this.evento = evento;
+        this.orgnaizador = organizador;
+        this.nombre = nombre;
+        this.sigla = sigla;
+        this.ciudad = ciudad;
+        this.pais = pais;
+    }
 
 	public DTEdicion getDatos() {
 		List<String> codigoPatrocinios = patrocinios.stream().map(p -> p.getCodigo()).collect(Collectors.toList());
