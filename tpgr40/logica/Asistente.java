@@ -33,4 +33,8 @@ public class Asistente extends Usuario {
 		this.apellido = datosA.apellido;
 		this.nacimiento = datosA.nacimiento;
 	}
+
+	public String getApellido() {
+		return apellido;
+	}
 }

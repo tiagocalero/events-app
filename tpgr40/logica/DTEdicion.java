@@ -9,7 +9,10 @@ public class DTEdicion {
     private DTFecha fechaAlta;
     private String sigla;
     private String nombre;
-    
+    private List<String> patrocinios;
+    private List<String> tRegistros;    
+    private List<String> asistentes;
+    private String organizador;
 
     public DTEdicion(String pais, String ciudad, DTFecha fechaInicio, DTFecha fechaFin, DTFecha fechaAlta, String sigla, String nombre) {
     	

@@ -5,9 +5,10 @@ import Edicion;
 import ManejadorEvento;
 import ManejadorInstitucion;
 import DTPatrocinio;
+import DTEdicion;
 import java.time.LocalDate;
 
-public class ControladorEventos{
+public class ControladorEvento{
 	private Evento evento;
 	private Edicion edicion;
 	private Institucion institucion;
@@ -19,7 +20,7 @@ public class ControladorEventos{
 		if (instance == null) {
 			synchronized (ControladorEvento.class) {
 				if (instance == null) {
-					instance = new ControladorUsuario();
+					instance = new ControladorEvento();
 				}
 			}
 		}
@@ -81,4 +82,9 @@ public class ControladorEventos{
 		
 		return m.crearEvento(nombre, descripcion, sigla, fechaActual, categorias);	
 	}
+
+	public DTEdicion elegirEdicion(Edicion edicion) {
+		return edicion.getDatos();
+	}
+
 }
