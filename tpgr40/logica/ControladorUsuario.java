@@ -42,6 +42,23 @@ public class ControladorUsuario{
 		}
 		return res;
 	}
+	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
+	public bool darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro) {
+		ManejadorUsuario me = ManejadorEvento::getInstance();
+		//falta hacer
+		bool estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion);
+		TRegistro t = me.encontrarRegistroDeEdicion(nombreTRegistro, nombreEdicion);
+		
+		
+		if (t.getGupo() == 0 || estaAsistente) {
+			return false;
+		}
+		//falta hacer
+		int costo = t.getCosto();
+		Registro nuevoRegistro = new Registro(asistente, edicion, t, costo);
+		
+		
+	}
 
     public List<String> listarOrganizadores(){
         ManejadorUsuario m = ManejadorUsuario.getInstance();
