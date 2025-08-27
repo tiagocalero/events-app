@@ -1,6 +1,6 @@
-package logica
+package logica;
 
-import Institucion
+import logica.Institucion;
 
 public class ControladorInstitucion{
 	//private Institucion institucion;

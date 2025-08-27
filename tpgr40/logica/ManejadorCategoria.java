@@ -1,19 +1,48 @@
-import Categoria;
+package logica;
+
+import logica.Categoria;
 
 public class ManejadorCategoria {
 	private Map<String, Categoria> categorias;
-    private static ManejadorCategoria instance;
+    private static volatile ManejadorCategoria instance;
 
     private ManejadorCategoria() {}
 
     public static ManejadorCategoria getInstance() {
         if (instance == null) {
-            instance = new ManejadorCategoria();
+            synchronized (ManejadorCategoria.class) {
+                if (instance == null) {
+                    instance = new ManejadorCategoria();
+                }
+            }
         }
         return instance;
     }
+    
+    public void altaCategoria(String nombreCategoria) {
+    	Categria nuevaCat = new Categoria(nombreCategoria);
+    	categorias.put(nombreCategoria, nuevaCat);
+    }
+    
+    public boolean existe(String nombreCategoria) {
+    	return categorias.containsKey(nombreCategoria);
+    }
+    
+    public void asignar(String cat, Evento evento) {
+    	if (!categorias.containsKey(nombreCategoria)) {
+    		Categria nuevaCat = new Categoria(nombreCategoria);
+        	categorias.put(nombreCategoria, nuevaCat);
+        	nuevaCat.crearLink(evento);
+        	evento.agregarCategoria(nuevaCat);
+    	}
+    	else {
+    		Categoria categoria = get(cat);
+    		categoria.crearLink(evento);
+    		evento.agregarCategoria(cat);
+    	}
+    }
 
-	// Devuelve una copia del map de eventos sobre el que se puede iterar
+	// Devuelve una copia del map de categorías sobre el que se puede iterar
 	public Map<String, Categoria> categorias() {
         return Map.copyOf(categorias);
     }

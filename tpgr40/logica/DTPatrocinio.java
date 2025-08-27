@@ -1,3 +1,5 @@
+package logica;
+
 public class DTPatrocinio {
 	private String codigo;
 	private TipoNivelPatrocinio tipo;

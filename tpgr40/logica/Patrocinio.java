@@ -1,9 +1,10 @@
-import java.time.LocalDate;
+package logica;
 
-import DTPatrocinio;
-import Edicion;
-import Institucion;
-import CantRegistro;
+import java.time.LocalDate;
+import logica.DTPatrocinio;
+import logica.Edicion;
+import logica.Institucion;
+import logica.CantRegistro;
 
 public class Patrocinio {
 	private String codigo;

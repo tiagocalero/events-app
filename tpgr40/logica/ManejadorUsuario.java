@@ -1,9 +1,9 @@
 package logica;
+
 import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.Map;
-import Usuario;
-
+import logica.Usuario;
 
 public class ManejadorUsuario {
 	private Map<String, Usuario> usuarios;

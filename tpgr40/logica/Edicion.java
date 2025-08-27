@@ -1,13 +1,15 @@
+package logica;
+
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Stream;
-import categoria;
-import TRegistro;
-import Organizador;
-import Registro;
-import Patrocinio;
-import DTEdicion;
-import Evento;
+import logica.categoria;
+import logica.TRegistro;
+import logica.Organizador;
+import logica.Registro;
+import logica.Patrocinio;
+import logica.DTEdicion;
+import logica.Evento;
 
 public class Edicion {
 	private String pais;

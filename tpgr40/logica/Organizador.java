@@ -1,7 +1,8 @@
 package logica;
-import Usuario;
-import Edicion;
-import DTOrganizador;
+
+import logica.Usuario;
+import logica.Edicion;
+import logica.DTOrganizador;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;

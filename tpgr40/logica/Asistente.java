@@ -1,12 +1,12 @@
 package logica;
-import DTFecha;
-import Usuario;
-import DTAsistente;
-import Institucion;
+import logica.DTFecha;
+import logica.Usuario;
+import logica.DTAsistente;
+import logica.Institucion;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
-import Registro;
+import logica.Registro;
 
 public class Asistente extends Usuario {
 	private String apellido;

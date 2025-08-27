@@ -1,3 +1,5 @@
+package logica;
+
 public class DTOrganizador extends DTUsuario {
 	private String descripcion;
 	private String link;

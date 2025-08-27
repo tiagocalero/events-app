@@ -1,4 +1,5 @@
-import DTUsuarioModificado.java;
+package logica;
+import logica.DTUsuarioModificado.java;
 
 public class DTAsistenteModificado extends DTUsuarioModificado {
 	private String apellido;

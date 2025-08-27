@@ -1,8 +1,10 @@
+package logica;
+
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Stream;
-import categoria;
-import DTEvento;
+import logica.Categoria;
+import logica.DTEvento;
 
 public class Evento {
 	private String nombre;

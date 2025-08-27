@@ -1,12 +1,12 @@
 package logica;
 
-import Evento;
-import Edicion;
-import ManejadorEvento;
-import ManejadorInstitucion;
-import ManejadorCategoria;
-import DTPatrocinio;
-import DTEdicion;
+import logica.Evento;
+import logica.Edicion;
+import logica.ManejadorEvento;
+import logica.ManejadorInstitucion;
+import logica.ManejadorCategoria;
+import logica.DTPatrocinio;
+import logica.DTEdicion;
 import java.time.LocalDate;
 
 public class ControladorEvento{
@@ -112,7 +112,7 @@ public class ControladorEvento{
 	public List<String> listarCategorias() {
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
 		
-		return m.categorias().stream().map(c -> c.getNombre()).collect(Collectors.toList())
+		return m.categorias().stream().map(c -> c.getNombre()).collect(Collectors.toList());
 	}
 	
 	public boolean ingresarDatosEvento(String nombre, String descripción, String siglas, List<String> categorias) {

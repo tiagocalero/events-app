@@ -1,9 +1,10 @@
+package logica;
 
-import Registro;
-import Edicion;
-import Evento;
-import DTEdicion;
-import DTTRegistro;
+import logica.Registro;
+import logica.Edicion;
+import logica.Evento;
+import logica.DTEdicion;
+import logica.DTTRegistro;
 
 
 //hay una coleccion (map) de tipos de registro globales llamada TRegistrosGlobales
@@ -14,8 +15,7 @@ public class TRegistro {
 	private float costo;
 	private int cupo;
 	private set<Registro> registro;
-	private Edicion edicion;
-	private set<cantRegistro> cantReg;
+	private List<Edicion> edicion;
 	
 	public TRegistro(String nom, String desc, float costo, int cupo) {
 		this.nombre = nom;
@@ -63,14 +63,14 @@ public class TRegistro {
 	
 	}
 	
-	public bool crearTipoRegistro(Edicion ed, String nombre, String descripcion, float costo, int cupo) {
-		if ed.contains(nombre){
+	public boolean crearTipoRegistro(Edicion ed, String nombre, String descripcion, float costo, int cupo) {
+		if (ed.contains(nombre))
 			return false;
-		}
+		
 		TRegistro tr = new TipoRegistro(nombre, descripcion, costo, cupo);
 		
 		ed.add(tr);
-		
+		return true;
 	}
 	
 	public DTTRegistro seleccionarTipoRegistro(String nombre){
@@ -99,7 +99,7 @@ public class TRegistro {
 				dtr.getCupo(),
 				dtr.getCosto(),
 				dtr.getNombre(),
-				dtr.getDescripcion(),
+				dtr.getDescripcion()
 		        );
 		    resultado.add(dtr);
 			

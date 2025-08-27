@@ -1,7 +1,8 @@
 package logica;
+
 import java.time.LocalDate;
-import Asistente;
-import Edicion;
+import logica.Asistente;
+import logica.Edicion;
 
 
 public class Registro{

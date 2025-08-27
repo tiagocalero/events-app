@@ -43,8 +43,7 @@ public class ConsultaEventos {
 		lblEventos.setBounds(0, 0, 492, 60);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         frmConsultaEventos.getContentPane().add(lblEventos);
-        
-                
+
                 comboBoxEventos = new JComboBox();
                 comboBoxEventos.setBounds(27, 53, 188, 43);
                 

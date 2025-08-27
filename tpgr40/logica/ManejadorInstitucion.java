@@ -1,6 +1,6 @@
 package logica;
 
-import Institucion;
+import logica.Institucion;
 
 public class ManejadorInstitucion {
 	private Map<String, Insitucion> instituciones;
@@ -8,23 +8,23 @@ public class ManejadorInstitucion {
 
     private ManejadorInstitucion() {}
 
-    public static ManejadorInstitucion() getInstance() {
+    public static ManejadorInstitucion getInstance() {
         if (instance == null) {
-            synchronized (ManejadorInstitucion().class) {
+            synchronized (ManejadorInstitucion.class) {
                 if (instance == null) {
-                    instance = new ManejadorInstitucion()();
+                    instance = new ManejadorInstitucion();
                 }
             }
         }
         return instance;
     }
     
-    public altaInstitucion(String nombre, String desc, String url) {
+    public void altaInstitucion(String nombre, String desc, String url) {
     	Institucion nuevaInst = new Institucion(nombre, desc, url);
     	instituciones.put(nombre, nuevaInst);
     }
     
-    public bool existe(String nombre) {
+    public boolean existe(String nombre) {
     	bool res = instituciones.containsKey(nombre);
     	return res;
     }

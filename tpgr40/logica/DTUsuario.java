@@ -1,3 +1,5 @@
+package logica;
+
 public class DTUsuario {
 	private String nickname;
 	private String nombre;

@@ -1,4 +1,6 @@
-import Patrocinio;
+package logica;
+
+import logica.Patrocinio;
 
 public class Institucion {
 	private String nombre;
@@ -12,7 +14,7 @@ public class Institucion {
 		this.url = url;
 	}	
 	
-	public existePatrocinio(Edicion e) {
+	public boolean existePatrocinio(Edicion e) {
 		for (Patrocinio p: patrocinios) {
 			if (p.buscarEdicion(e))
 				return true;

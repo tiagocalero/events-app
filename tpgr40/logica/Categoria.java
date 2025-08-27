@@ -1,6 +1,6 @@
-package logica
+package logica;
 
-import Evento;
+import logica.Evento;
 
 public class Categoria {
 	private String nombre;

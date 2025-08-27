@@ -1,7 +1,7 @@
 package logica;
-import DTUsuario.java;
-import DTUsuarioModificado.java;
 
+import logica.DTUsuario;
+import logica.DTUsuarioModificado;
 
 public abstract class Usuario {
 	private String nickname;

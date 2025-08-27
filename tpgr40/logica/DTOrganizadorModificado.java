@@ -1,4 +1,5 @@
-import DTUsuarioModificado.java;
+package logica;
+import logica.DTUsuarioModificado;
 
 public class DTOrganizadorModificado extends DTUsuarioModificado {
 	private String descripcion;

@@ -1,10 +1,10 @@
 package logica;
-import DTAsistente;
-import DTFecha;
-import DTEdicion;
-import ManejadorUsuario;
-import Asistente;
-import Usuario;
+import logica.DTAsistente;
+import logica.DTFecha;
+import logica.DTEdicion;
+import logica.ManejadorUsuario;
+import logica.Asistente;
+import logica.Usuario;
 
 public class ControladorUsuario{
 	private Usuario usuario;
@@ -25,7 +25,7 @@ public class ControladorUsuario{
 	
 	}
 	public set<DTAsistente> listarAsistentes() {
-		set<DTAsistente> res = new set<DTAsistente>;
+		set<DTAsistente> res;
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		for (Usuario u : m.usuarios()) {
 			if (u instanceof Asistente e) {
@@ -44,7 +44,7 @@ public class ControladorUsuario{
 	}
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
 	public bool darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro) {
-		ManejadorUsuario me = ManejadorEvento::getInstance();
+		ManejadorUsuario me = ManejadorEvento.getInstance();
 		//falta hacer
 		bool estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion);
 		TRegistro t = me.encontrarRegistroDeEdicion(nombreTRegistro, nombreEdicion);

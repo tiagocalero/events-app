@@ -1,8 +1,8 @@
-package logica
+package logica;
 
-import Categoria
+import logica.Categoria;
 
-public class ControladorEvento{
+public class ControladorCategoria{
 	//private Categoria categoria;
 		
 	private static volatile ControladorCatgeoria instance;
@@ -27,3 +27,4 @@ public class ControladorEvento{
 		}
 		return bool;
 	}
+}
