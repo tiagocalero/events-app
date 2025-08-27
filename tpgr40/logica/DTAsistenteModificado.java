@@ -1,10 +1,11 @@
-import DTUsuarioModificado;
+import DTUsuarioModificado.java;
 
 public class DTAsistenteModificado extends DTUsuarioModificado {
 	private String apellido;
 	private DTFecha nacimiento;
 	
-	public DTAsistenteModificado(String ap, DTFecha fecha) {
+	public DTAsistenteModificado(String nom, String ap, DTFecha fecha) {
+		super(nom);
 		this.apellido = ap;
 		this.nacimiento = fecha;
 	}
