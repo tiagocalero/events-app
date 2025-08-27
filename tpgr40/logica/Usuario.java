@@ -35,6 +35,4 @@ public abstract class Usuario {
 	public abstract void modificar(DTUsuarioModificado datos);
 
 	public abstract void consulta();
-
-	
 }

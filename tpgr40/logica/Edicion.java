@@ -46,4 +46,7 @@ public class Edicion {
 		return patrocinios.stream().map(p -> p.getInstitucion().getNombre()).collect(Collectors.toList());
 	}
 
+    public String getNombre() {
+        return this.nombre;
+    }
 }
