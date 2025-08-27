@@ -3,12 +3,14 @@ package logica
 import Evento;
 import Edicion;
 import ManejadorEvento;
+import ManejadorInstitucion;
 import DTPatrocinio;
 import java.time.LocalDate;
 
 public class ControladorEventos{
 	private Evento evento;
 	private Edicion edicion;
+	private Institucion institucion;
 	
 	private static volatile ControladorEvento instance;
 	private ControladorEvento();
@@ -33,6 +35,30 @@ public class ControladorEventos{
 			res.put(entry.nombre);
 		}
 		
+	}
+	
+	public boolean elegirInstitucion(String nombre) {
+		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
+		
+		Institucion i = m.obtener(nombre);
+		
+		if (!i.existePatrocinio(edicion))
+			return false;
+	
+		institucion = i;
+		return true;
+	}
+	
+	public boolean crearPatrocinio(DTPatrocinio dtp) {
+		TipoRegistro tp = edicion.obtenerTipoRegistro(dtp.tipoRegistro);
+		float costo = tp.getCosto();
+		if (costo * dtp.cantRegistros > 0.2 * dtp.monto)
+			return false;
+		
+        LocalDate fechaActual = LocalDate.now();
+		new Patrocinio(dtp.codigo, dtp.monto, dtp.tipo, fechaActual, dtp.cantRegistros, edicion, institucion, tp)
+		
+		return true;
 	}
 	
 	public List<String> listarPatrocinios() {

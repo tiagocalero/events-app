@@ -35,6 +35,10 @@ public class Patrocinio {
 		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros);
 	}
 	
+	public boolean buscarEdicion(Edicion e) {
+		return e == edicion;
+	}
+	
 	public void setCantRegistro(CantRegistro cr) {
 		cantRegistro = cr;
 	}
