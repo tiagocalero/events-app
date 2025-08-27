@@ -5,6 +5,7 @@ import DTAsistente;
 import Institucion;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.stream.Collectors;
 import Registro;
 
 public class Asistente extends Usuario {
@@ -17,6 +18,8 @@ public class Asistente extends Usuario {
 		super(nick, nom, c);
 		this.apellido = ap;
 		this.nacimiento = fecha;
+		this.institucion = NULL;
+		this.registros = new HashMap<Registro>();
 	}
 	
 	@override
@@ -36,5 +39,10 @@ public class Asistente extends Usuario {
 
 	public String getApellido() {
 		return apellido;
+	}
+
+	@override
+	public List<DTRegistro> consulta() {
+		return registros.stream().map(registros->registros.getDatos()).collect(Collectors.tolist()); //?? chequear
 	}
 }

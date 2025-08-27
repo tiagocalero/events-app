@@ -33,9 +33,29 @@ public class ControladorEvento{
 		
 		List<String> res = new ArrayList();
 		Map<Evento> eventos = m.eventos();
-		for (Map.Entry<String,Evento> entry : eventos.entrySet()) {
+		for (Map.Entry<String,Evento> entry : eventos.keySet()) {
 			res.put(entry.nombre);
 		}
+		return res;
+	}
+	
+	public DTEvento informacionEvento (String nombre) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento eventoBuscado = m.obtener(nombre);
+		DTEvento res = eventoBuscado.getDatos();
+		return res;
+	}
+	
+	public List<String> listarEdiciones(String nombreEvento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento eventoBuscado = m.obtener(nombre);
+		Map<Edcion> ediciones = eventoBuscado.getEdiciones();
+		List<String> res = new ArrayList();
+		for (Map.Entry<String,Evento> entry : eventos.keySet()) {
+			res.put(entry.nombre);
+		}
+		return res;
+		
 	}
 	
 	// Devuelve una lista con todas las ediciones del evento
