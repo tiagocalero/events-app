@@ -1,10 +1,10 @@
 package logica;
 import DTAsistente;
+import DTFecha;
+import DTEdicion;
 import ManejadorUsuario;
 import Asistente;
 import Usuario;
-import ManejadorUsuario;
-
 
 public class ControladorUsuario{
 	private Usuario usuario;
@@ -24,7 +24,7 @@ public class ControladorUsuario{
 	
 	
 	}
-	public set<DTAsistente> listarAsistentes(){
+	public set<DTAsistente> listarAsistentes() {
 		set<DTAsistente> res = new set<DTAsistente>;
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		for (Usuario u : m.usuarios()) {
@@ -60,17 +60,17 @@ public class ControladorUsuario{
 		
 	}
 
-    public List<String> listarOrganizadores(){
+    public List<String> listarOrganizadores() {
         ManejadorUsuario m = ManejadorUsuario.getInstance();
         return m.organizadores();
     }
 
-	public List<String> listarUsuarios(){
+	public List<String> listarUsuarios() {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
         return m.usuarios();
 	}
 
-	public DTUsuario elegirUsuario(String nickname){
+	public DTUsuario elegirUsuario(String nickname) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		Usuario u = m.obtener(nickname);
 		usuario = u;
@@ -82,4 +82,29 @@ public class ControladorUsuario{
 		usuario = NULL;
 	}
 
+	// Retorna false si ya existe un usuario con ese nickname o correo,
+	// Retorna true si no existe y se creo el usuario correctamente.
+	public bool altaAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, ap, nac);
+	}
+
+	public bool altaOrganizador(String nick, String nom, String c, String desc, String link) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearOrganizador(nick, nom, c, desc, link);
+	}
+
+	public List<DTEdicion> consultaOrganizador() {
+		assert usuario instanceof Organizador;
+		return usuario.consulta();
+	}
+
+	public List<DTRegistro> consultaAsistente() {
+		assert usuario instanceof Asistente;
+		return usuario.consulta();
+	}
+
+	public void liberarMemoria() {
+		usuario = NULL;
+	}
 }

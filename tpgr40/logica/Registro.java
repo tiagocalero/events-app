@@ -8,8 +8,13 @@ public class Registro{
     private LocalDate fecha;
     private Asistente asistente;
 
+    public Registro(){};
 
     public String getApellidoAsistente(){
         return asistente.getApellido();
+    }
+
+    public DTRegistro getDatos(){
+        return new DTRegistro(costo, fecha);
     }
 }

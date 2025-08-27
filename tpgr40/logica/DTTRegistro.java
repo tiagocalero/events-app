@@ -9,7 +9,6 @@ public class DTTRegistro {
     
 
     public DTTRegistro(int cupo, float costo, String nombre, String descripcion) {
-    	
         this.cupo = cupo;
         this.costo = costo;
         this.nombre = nombre;
