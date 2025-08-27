@@ -43,7 +43,7 @@ public class TRegistro {
 	}
 	public List<DTEdicion> seleccionarEvento(Evento e){
 		
-		List<DTEdicion> resultado = new HashSet<>();
+		List<DTEdicion> resultado;
 		
 		for (Edicion ed : e.obtenerEdiciones.values()) {
 			DTEdicion dte = new DTEdicion(
@@ -91,7 +91,7 @@ public class TRegistro {
 	
 	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
 		
-		List<DTEdicion> resultado = new HashSet<>();
+		List<DTEdicion> resultado;
 		
 		for (TipoRegistro tr : ed.obtenerEdiciones.values()) {
 			DTEdicion dtr = new DTTRegistro(

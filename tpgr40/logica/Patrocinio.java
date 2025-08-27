@@ -5,6 +5,7 @@ import logica.DTPatrocinio;
 import logica.Edicion;
 import logica.Institucion;
 import logica.CantRegistro;
+import logica.TipoNivelPatrocinio;
 
 public class Patrocinio {
 	private String codigo;
