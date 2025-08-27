@@ -25,7 +25,6 @@ public class ManejadorInstitucion {
     }
     
     public boolean existe(String nombre) {
-    	bool res = instituciones.containsKey(nombre);
-    	return res;
+    	return instituciones.containsKey(nombre);
     }
 }

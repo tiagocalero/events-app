@@ -39,7 +39,7 @@ public class ManejadorUsuario {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.tolist());
     }
 
-    public bool crearAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
+    public boolean crearAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
         if(!(usuarios.containsKey(nick) || emails.containsKey(c))){
             Asistente a = new Asistente(nick, nom, c, ap, nac);
             usuarios.put(nick, a);
@@ -49,7 +49,7 @@ public class ManejadorUsuario {
         return false;
     }
 
-	public bool crearOrganizador(String nick, String nom, String c, String desc, String link) {
+	public boolean crearOrganizador(String nick, String nom, String c, String desc, String link) {
         if(!(usuarios.containsKey(nick) || emails.containsKey(c))){
             Organizador o = new Organizador(nick, nom, c, desc, link);
             usuarios.put(nick, o);

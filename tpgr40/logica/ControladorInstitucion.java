@@ -19,9 +19,9 @@ public class ControladorInstitucion{
 		return instance;
 	}
 	
-	public bool altaInstitucion(String nombre, String desc, String url) {
+	public boolean altaInstitucion(String nombre, String desc, String url) {
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
-		bool res = m.existe(nombre);
+		boolean res = m.existe(nombre);
 		if (!res) {
 			m.altaInstitucion(nombre, desc, url);
 		}

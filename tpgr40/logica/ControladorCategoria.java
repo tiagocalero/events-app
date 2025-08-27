@@ -19,12 +19,12 @@ public class ControladorCategoria{
 		return instance;
 	}
 	
-	public bool altaCategoria(String nombreCategoria) {
+	public boolean altaCategoria(String nombreCategoria) {
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
-		bool existe = m.existe(nombreCategoria);
-		if (!bool) {
+		boolean existe = m.existe(nombreCategoria);
+		if (!existe) {
 			m.altaCategoria(nombreCategoria);
 		}
-		return bool;
+		return existe;
 	}
 }

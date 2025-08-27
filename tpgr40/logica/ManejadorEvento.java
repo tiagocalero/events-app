@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
+import java.util.Map;
 import logica.Categoria;
 import logica.DTEvento;
 import logica.Evento;
@@ -19,7 +20,7 @@ public class ManejadorEvento {
         return instance;
     }
     
-	public bool existe(String nombre) {
+	public boolean existe(String nombre) {
 		return eventos.containsKey(nombre);
 	}
 	
