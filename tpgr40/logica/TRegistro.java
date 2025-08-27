@@ -5,7 +5,7 @@ import logica.Edicion;
 import logica.Evento;
 import logica.DTEdicion;
 import logica.DTTRegistro;
-
+import java.util.List;
 
 //hay una coleccion (map) de tipos de registro globales llamada TRegistrosGlobales
 public class TRegistro {
@@ -14,7 +14,7 @@ public class TRegistro {
 	private String descripcion; 
 	private float costo;
 	private int cupo;
-	private set<Registro> registro;
+	private List<Registro> registro;
 	private List<Edicion> edicion;
 	
 	public TRegistro(String nom, String desc, float costo, int cupo) {
@@ -41,9 +41,9 @@ public class TRegistro {
 	public float getCupo() {
 		return this.cupo;
 	}
-	public set<DTEdicion> seleccionarEvento(Evento e){
+	public List<DTEdicion> seleccionarEvento(Evento e){
 		
-		Set<DTEdicion> resultado = new HashSet<>();
+		List<DTEdicion> resultado = new HashSet<>();
 		
 		for (Edicion ed : e.obtenerEdiciones.values()) {
 			DTEdicion dte = new DTEdicion(
@@ -89,9 +89,9 @@ public class TRegistro {
 
 	}
 	
-	public set<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
+	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
 		
-		Set<DTEdicion> resultado = new HashSet<>();
+		List<DTEdicion> resultado = new HashSet<>();
 		
 		for (TipoRegistro tr : ed.obtenerEdiciones.values()) {
 			DTEdicion dtr = new DTTRegistro(

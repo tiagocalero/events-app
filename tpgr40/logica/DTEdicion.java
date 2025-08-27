@@ -1,5 +1,7 @@
 package logica;
+
 import logica.DTFecha;
+import java.util.List;
 
 public class DTEdicion {
 	

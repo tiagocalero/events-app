@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import logica.Asistente;
 import logica.Edicion;
 
-
 public class Registro{
     private float costo;
     private LocalDate fecha;

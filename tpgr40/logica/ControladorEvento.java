@@ -8,6 +8,10 @@ import logica.ManejadorCategoria;
 import logica.DTPatrocinio;
 import logica.DTEdicion;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class ControladorEvento{
 	private Evento evento;
@@ -33,7 +37,7 @@ public class ControladorEvento{
 		
 		List<String> res = new ArrayList();
 		Map<Evento> eventos = m.eventos();
-		for (Map.Entry<String,Evento> entry : eventos.keySet()) {
+		for (String entry : eventos.keySet()) {
 			res.put(entry.nombre);
 		}
 		return res;
@@ -49,11 +53,12 @@ public class ControladorEvento{
 	public List<String> listarEdiciones(String nombreEvento) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtener(nombre);
-		Map<Edcion> ediciones = eventoBuscado.getEdiciones();
-		List<String> res = new ArrayList();
-		for (Map.Entry<String,Evento> entry : eventos.keySet()) {
+		Map<Edicion> ediciones = eventoBuscado.getEdiciones();
+		List<String> res;
+		
+		for (String entry : eventos.keySet())
 			res.put(entry.nombre);
-		}
+		
 		return res;
 		
 	}
@@ -69,7 +74,7 @@ public class ControladorEvento{
 	// Devuelve una lista con todas las instituciones de la edición
 	public List<String> elegirEdicion(String nombreEdicion) {
 		edicion = evento.getEdicion(nombreEdicion);
-		return edicion.getInstituciones().stream().map(i -> i.getNombre());
+		return edicion.getInstituciones();
 	}
 	
 	public boolean elegirInstitucion(String nombreInstitucion) {
@@ -85,13 +90,13 @@ public class ControladorEvento{
 	}
 	
 	public boolean crearPatrocinio(DTPatrocinio dtp) {
-		TipoRegistro tp = edicion.obtenerTipoRegistro(dtp.tipoRegistro);
+		TipoRegistro tp = edicion.obtenerTipoRegistro(dtp.getTipoRegistro());
 		float costo = tp.getCosto();
-		if (costo * dtp.cantRegistros > 0.2 * dtp.monto)
+		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
 			return false;
 		
         LocalDate fechaActual = LocalDate.now();
-		new Patrocinio(dtp.codigo, dtp.monto, dtp.tipo, fechaActual, dtp.cantRegistros, edicion, institucion, tp);
+		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), edicion, institucion, tp);
 		
 		return true;
 	}
@@ -112,10 +117,12 @@ public class ControladorEvento{
 	public List<String> listarCategorias() {
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
 		
-		return m.categorias().stream().map(c -> c.getNombre()).collect(Collectors.toList());
+		List<Categoria> categorias = new ArrayList<>(m.categorias().values());
+		
+		return categorias.stream().map(c -> c.getNombre()).collect(Collectors.toList());
 	}
 	
-	public boolean ingresarDatosEvento(String nombre, String descripción, String siglas, List<String> categorias) {
+	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
         LocalDate fechaActual = LocalDate.now();
@@ -128,7 +135,7 @@ public class ControladorEvento{
 	}
 
 	//Asumo que se hizo el chequeo de que el nombre no exista
-	public void altaEdicion(String nombreEvento, Organizador nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
+	public void altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 
 		Evento evento = m.obtener(nombreEvento);
@@ -137,7 +144,7 @@ public class ControladorEvento{
 
 		Usuario organizador = mu.obtener(nickanameOrganizador);
 
-		new Edicion(evento, organizador, nombre, sigla, ciudad, pais);
+		new Edicion(evento, (Organizador) organizador, nombre, sigla, ciudad, pais);
 
 	}
 

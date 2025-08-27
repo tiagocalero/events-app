@@ -5,6 +5,8 @@ import logica.DTEdicion;
 import logica.ManejadorUsuario;
 import logica.Asistente;
 import logica.Usuario;
+import java.util.List;
+import java.util.Set;
 
 public class ControladorUsuario{
 	private Usuario usuario;
@@ -24,8 +26,8 @@ public class ControladorUsuario{
 	
 	
 	}
-	public set<DTAsistente> listarAsistentes() {
-		set<DTAsistente> res;
+	public Set<DTAsistente> listarAsistentes() {
+		Set<DTAsistente> res;
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		for (Usuario u : m.usuarios()) {
 			if (u instanceof Asistente e) {
@@ -44,13 +46,12 @@ public class ControladorUsuario{
 	}
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
 	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro) {
-		ManejadorUsuario me = ManejadorEvento.getInstance();
+		ManejadorEvento me = ManejadorEvento.getInstance();
 		//falta hacer
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion);
 		TRegistro t = me.encontrarRegistroDeEdicion(nombreTRegistro, nombreEdicion);
-		
-		
-		if (t.getGupo() == 0 || estaAsistente)
+
+		if (t.getCupo() == 0 || estaAsistente)
 			return false;
 
 		//falta hacer
@@ -77,7 +78,7 @@ public class ControladorUsuario{
 
 	public void modificarDatosUsuario(DTUsuarioModificado datos) {
 		usuario.modificar(datos);
-		usuario = NULL;
+		usuario = null;
 	}
 
 	// Retorna false si ya existe un usuario con ese nickname o correo,
@@ -103,6 +104,6 @@ public class ControladorUsuario{
 	}
 
 	public void liberarMemoria() {
-		usuario = NULL;
+		usuario = null;
 	}
 }

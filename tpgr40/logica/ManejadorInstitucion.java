@@ -1,10 +1,11 @@
 package logica;
 
 import logica.Institucion;
+import java.util.Map;
 
 public class ManejadorInstitucion {
 	private Map<String, Insitucion> instituciones;
-    private static volatile ManejadorCategoria instance;
+    private static volatile ManejadorInstitucion instance;
 
     private ManejadorInstitucion() {}
 

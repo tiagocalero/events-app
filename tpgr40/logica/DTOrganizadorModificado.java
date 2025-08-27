@@ -1,4 +1,5 @@
 package logica;
+
 import logica.DTUsuarioModificado;
 
 public class DTOrganizadorModificado extends DTUsuarioModificado {
@@ -7,7 +8,7 @@ public class DTOrganizadorModificado extends DTUsuarioModificado {
 	
 	public DTOrganizadorModificado(String nom, String desc, String link) {
 		super(nom);
-		this.descricpcion = desc;
+		this.descripcion = desc;
 		this.link = link;
 	}
 }

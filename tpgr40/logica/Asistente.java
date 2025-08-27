@@ -5,6 +5,7 @@ import logica.DTAsistente;
 import logica.Institucion;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import logica.Registro;
 
@@ -22,13 +23,13 @@ public class Asistente extends Usuario {
 		this.registros = new HashMap<Registro>();
 	}
 	
-	@override
+	@Override
 	public DTAsistente getDatos() {
 		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
 		return res;
 	}
 	
-	@override
+	@Override
 	public void modificar(DTUsuarioModificado datos) {
 		assert datos instanceof DTAsistenteModificado;
 		DTAsistenteModificado datosA = (DTAsistenteModificado) datos;
@@ -41,7 +42,7 @@ public class Asistente extends Usuario {
 		return apellido;
 	}
 
-	@override
+	@Override
 	public List<DTRegistro> consulta() {
 		return registros.stream().map(registros->registros.getDatos()).collect(Collectors.tolist()); //?? chequear
 	}

@@ -11,7 +11,6 @@ public class DTAsistente extends DTUsuario {
 		this.nacimiento = fecha;
 	}
 	
-	public String getApellido( ) {return apellido; }
-	public DTFecha getNacimiento( ) {return nacimiento; }
-	
+	public String getApellido( ) { return apellido; }
+	public DTFecha getNacimiento( ) { return nacimiento; }
 }

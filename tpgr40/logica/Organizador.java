@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Organizador extends Usuario {
 	private String descripcion;
 	private String link;
-	private map<String, Edicion> ediciones;
+	private Map<String, Edicion> ediciones;
 	
 	public Organizador(String nick, String nom, String c, String desc, String link) {
 		super(nick, nom, c);
@@ -19,13 +19,13 @@ public class Organizador extends Usuario {
 		this.ediciones = new HashMap<String, Edicion>();
 	}
 	
-	@override
+	@Override
 	public DTOrganizador getDatos() {
 		DTOrganizador res = new DTOrganizador(getNickname(), getNombre(), getCorreo(), descripcion, link);
 		return res;
 	}
 	
-	@override
+	@Override
 	public void modificar(DTUsuarioModificado datos) {
 		assert datos instanceof DTOrganizadorModificado;
 		DTOrganizadorModificado datosO = (DTOrganizadorModificado) datos;
@@ -34,7 +34,7 @@ public class Organizador extends Usuario {
 		this.link = datosO.link;
 	}
 
-	@override
+	@Override
 	public List<DTEdicion> consulta(){
 		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.tolist()); //?? chequear
 	}

@@ -1,6 +1,7 @@
 package logica;
 
 import logica.Categoria;
+import java.util.Map;
 
 public class ManejadorCategoria {
 	private Map<String, Categoria> categorias;
@@ -20,7 +21,7 @@ public class ManejadorCategoria {
     }
     
     public void altaCategoria(String nombreCategoria) {
-    	Categria nuevaCat = new Categoria(nombreCategoria);
+    	Categoria nuevaCat = new Categoria(nombreCategoria);
     	categorias.put(nombreCategoria, nuevaCat);
     }
     
@@ -29,16 +30,15 @@ public class ManejadorCategoria {
     }
     
     public void asignar(String cat, Evento evento) {
-    	if (!categorias.containsKey(nombreCategoria)) {
-    		Categria nuevaCat = new Categoria(nombreCategoria);
-        	categorias.put(nombreCategoria, nuevaCat);
+    	if (!categorias.containsKey(cat)) {
+    		Categoria nuevaCat = new Categoria(cat);
+        	categorias.put(cat, nuevaCat);
         	nuevaCat.crearLink(evento);
         	evento.agregarCategoria(nuevaCat);
-    	}
-    	else {
-    		Categoria categoria = get(cat);
+    	} else {
+    		Categoria categoria = categorias.get(cat);
     		categoria.crearLink(evento);
-    		evento.agregarCategoria(cat);
+    		evento.agregarCategoria(categoria);
     	}
     }
 

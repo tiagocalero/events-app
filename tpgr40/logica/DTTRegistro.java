@@ -1,4 +1,5 @@
 package logica;
+
 import logica.DTFecha;
 
 public class DTTRegistro {

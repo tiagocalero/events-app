@@ -2,9 +2,11 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.List;
 import java.util.stream.Stream;
 import logica.Categoria;
 import logica.DTEvento;
+import java.util.stream.Collectors;
 
 public class Evento {
 	private String nombre;

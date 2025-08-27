@@ -1,6 +1,7 @@
 package logica;
 
 import logica.Evento;
+import java.util.Map;
 
 public class Categoria {
 	private String nombre;

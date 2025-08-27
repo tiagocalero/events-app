@@ -3,6 +3,7 @@ package logica;
 import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import logica.Usuario;
 
 public class ManejadorUsuario {
@@ -57,6 +58,11 @@ public class ManejadorUsuario {
             return true;
         }
         return false;
+    }
+
+	// Devuelve una copia del map de usuarios sobre el que se puede iterar
+	public Map<String, Usuario> usuarios() {
+        return Map.copyOf(usuarios);
     }
 
     public void liberarMemoria() {

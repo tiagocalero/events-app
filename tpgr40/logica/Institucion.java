@@ -1,6 +1,7 @@
 package logica;
 
 import logica.Patrocinio;
+import java.util.List;
 
 public class Institucion {
 	private String nombre;
@@ -21,5 +22,9 @@ public class Institucion {
 		}
 		
 		return false;	
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 }
