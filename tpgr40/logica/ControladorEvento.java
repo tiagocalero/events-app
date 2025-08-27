@@ -4,6 +4,7 @@ import Evento;
 import Edicion;
 import ManejadorEvento;
 import ManejadorInstitucion;
+import ManejadorCategoria;
 import DTPatrocinio;
 import DTEdicion;
 import java.time.LocalDate;
@@ -51,8 +52,6 @@ public class ControladorEvento{
 		return edicion.getInstituciones().stream().map(i -> i.getNombre());
 	}
 	
-	public List<String> 
-	
 	public boolean elegirInstitucion(String nombreInstitucion) {
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
 		
@@ -90,6 +89,12 @@ public class ControladorEvento{
 		return dtp;
 	}
 	
+	public List<String> listarCategorias() {
+		ManejadorCategoria m = ManejadorCategoria.getInstance();
+		
+		return m.categorias().stream().map(c -> c.getNombre()).collect(Collectors.toList())
+	}
+	
 	public boolean ingresarDatosEvento(String nombre, String descripción, String siglas, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
@@ -101,7 +106,6 @@ public class ControladorEvento{
 	public DTEdicion elegirEdicion(Edicion edicion) {
 		return edicion.getDatos();
 	}
-
 
 	//Asumo que se hizo el chequeo de que el nombre no exista
 	public void altaEdicion(String nombreEvento, Organizador nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {

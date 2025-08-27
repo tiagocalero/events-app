@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 import java.util.stream.Stream;
-import categoria;
+import Categoria;
 import DTEvento;
 import Evento;
 
@@ -8,7 +8,7 @@ public class ManejadorEvento {
 	private Map<String, Evento> eventos;
     private static ManejadorEvento instance;
 
-    private ManejadorEventos() {}
+    private ManejadorEvento() {}
 
     public static ManejadorEvento getInstance() {
         if (instance == null) {
