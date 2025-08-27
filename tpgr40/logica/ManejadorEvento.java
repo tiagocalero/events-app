@@ -21,7 +21,7 @@ public class ManejadorEvento {
 		return eventos.containsKey(nombre);
 	}
 	
-	public String obtener(String nombre) {
+	public Evento obtener(String nombre) {
 		return eventos.get(nombre);
 	}
 	
@@ -30,7 +30,7 @@ public class ManejadorEvento {
 			return false;
 		
 		Evento e = Evento(nombre, sigla, descripcion, fechaAlta, categorias);
-		eventos.put(nombre, e)
+		eventos.put(nombre, e);
 		
 		return true;
 	}

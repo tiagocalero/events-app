@@ -1,7 +1,12 @@
+import Usuario;
+import ManejadorUsuario;
+
+
 public class ControladorUsuario{
-	
+	private Usuario usuario;
+
 	private static volatile ControladorUsuario instance;
-	private Controladorusuario();
+	private ControladorUsuario(){};
 	
 	public static ControladorUsuario getInstance() {
 		if (instance == null) {
@@ -14,4 +19,10 @@ public class ControladorUsuario{
 		return instance;
 	}
 
-    
+    public List<String> listarOrganizadores(){
+        ManejadorUsuario m = ManejadorUsuario.getInstance();
+
+        return m.organizadores();
+    }
+
+}  
