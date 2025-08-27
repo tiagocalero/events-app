@@ -40,6 +40,10 @@ public class Edicion {
         List<String> apellidosAsistentes = registros.stream().map(r -> r.getApellidoAsistente()).collect(Collectors.toList());
 		
 		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, apellidosAsistentes, organizador.getNombre());
-	}    
+	}
+	
+	public List<String> getInstituciones() {
+		return patrocinios.stream().map(p -> p.getInstitucion().getNombre()).collect(Collectors.toList());
+	}
 
 }

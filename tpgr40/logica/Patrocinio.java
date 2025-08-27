@@ -46,4 +46,8 @@ public class Patrocinio {
 	public void setCantRegistro(CantRegistro cr) {
 		cantRegistro = cr;
 	}
+	
+	public Institucion getInstitucion() {
+		return institucion;
+	}
 }

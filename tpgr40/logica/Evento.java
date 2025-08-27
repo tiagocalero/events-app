@@ -48,11 +48,11 @@ public class Evento {
 		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias);
 	}
 	
-	public Edicion obtenerEdicion(String nombre) {
+	public Edicion getEdicion(String nombre) {
 		return ediciones.get(nombre);
 	}
 	
-	public Map<String, Edicion> obtenerEdiciones() {
+	public Map<String, Edicion> getEdiciones() {
 		return Map.copyOf(ediciones);
 	}
 	

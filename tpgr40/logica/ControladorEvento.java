@@ -35,13 +35,28 @@ public class ControladorEvento{
 		for (Map.Entry<String,Evento> entry : eventos.entrySet()) {
 			res.put(entry.nombre);
 		}
-		
 	}
 	
-	public boolean elegirInstitucion(String nombre) {
+	// Devuelve una lista con todas las ediciones del evento
+	public List<String> elegirEvento(String nombreEvento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		evento = m.obtener(nombreEvento);
+		return new ArrayList<>(evento.getEdiciones().keySet());
+	}
+	
+	// Devuelve una lista con todas las instituciones de la edición
+	public List<String> elegirEdicion(String nombreEdicion) {
+		edicion = evento.getEdicion(nombreEdicion);
+		return edicion.getInstituciones().stream().map(i -> i.getNombre());
+	}
+	
+	public List<String> 
+	
+	public boolean elegirInstitucion(String nombreInstitucion) {
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
 		
-		Institucion i = m.obtener(nombre);
+		Institucion i = m.obtener(nombreInstitucion);
 		
 		if (!i.existePatrocinio(edicion))
 			return false;
