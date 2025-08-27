@@ -5,7 +5,7 @@ import Categoria
 public class ControladorEvento{
 	//private Categoria categoria;
 		
-	private static volatile ControladorCtageoria instance;
+	private static volatile ControladorCatgeoria instance;
 	private ControladorCategoria(){};
 	
 	public static ControladorCategoria getInstance() {
