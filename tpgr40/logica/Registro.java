@@ -1,12 +1,14 @@
 package logica;
 import java.time.LocalDate;
 import Asistente;
+import Edicion;
 
 
 public class Registro{
     private float costo;
     private LocalDate fecha;
     private Asistente asistente;
+    private Edicion edicion;
 
     public Registro(){};
 
@@ -15,6 +17,6 @@ public class Registro{
     }
 
     public DTRegistro getDatos(){
-        return new DTRegistro(costo, fecha);
+        return new DTRegistro(costo, fecha, edicion.getNombre());
     }
 }
