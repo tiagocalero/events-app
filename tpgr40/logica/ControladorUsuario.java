@@ -107,4 +107,6 @@ public class ControladorUsuario{
 	public void liberarMemoria() {
 		usuario = NULL;
 	}
+
+	
 }

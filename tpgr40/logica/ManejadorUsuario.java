@@ -35,8 +35,8 @@ public class ManejadorUsuario {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Organizador).map(usuario->usuario.getNickname()).collect(Collectors.tolist());
     }
 
-    public List<String> usuarios() {
-        return this.usuarios.values().stream().map(usuario->usuario.getNickname()).collect(Collectors.tolist());
+    public List<String> asistentes() {
+        return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.tolist());
     }
 
     public bool crearAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
