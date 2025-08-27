@@ -1,17 +1,17 @@
-public class ControladorEvento{
-	private Evento evento;
-	private Edicion edicion;
+public class ControladorUsuario{
 	
-	private static volatile ControladorEvento instance;
-	private ControladorEvento();
+	private static volatile ControladorUsuario instance;
+	private Controladorusuario();
 	
-	public static ControladorEvento getInstance() {
+	public static ControladorUsuario getInstance() {
 		if (instance == null) {
-			synchronized (ControladorEvento.class) {
+			synchronized (ControladorUsuario.class) {
 				if (instance == null) {
-					instance = new ControladorEvento();
+					instance = new ControladorUsuario();
 				}
 			}
 		}
 		return instance;
 	}
+
+    
