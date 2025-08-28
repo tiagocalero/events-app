@@ -44,20 +44,6 @@ public class ControladorUsuario{
 		}
 		return res;
 	}
-	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
-	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro) {
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		//falta hacer
-		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion);
-		TRegistro t = me.encontrarRegistroDeEdicion(nombreTRegistro, nombreEdicion);
-
-		if (t.getCupo() == 0 || estaAsistente)
-			return false;
-
-		//falta hacer
-		int costo = t.getCosto();
-		Registro nuevoRegistro = new Registro(asistente, edicion, t, costo);
-	}
 
     public List<String> listarOrganizadores() {
         ManejadorUsuario m = ManejadorUsuario.getInstance();

@@ -7,7 +7,6 @@ import logica.DTEdicion;
 import logica.DTTRegistro;
 import java.util.List;
 
-//hay una coleccion (map) de tipos de registro globales llamada TRegistrosGlobales
 public class TRegistro {
 	
 	private String nombre; 
@@ -41,72 +40,7 @@ public class TRegistro {
 	public float getCupo() {
 		return this.cupo;
 	}
-	public List<DTEdicion> seleccionarEvento(Evento e){
-		
-		List<DTEdicion> resultado;
-		
-		for (Edicion ed : e.obtenerEdiciones.values()) {
-			DTEdicion dte = new DTEdicion(
-					
-				 ed.getPais(),
-		         ed.getCiudad(),
-		         ed.getFechaInicio(),
-		         ed.getFechaFin(),
-		         ed.getFechaAlta(),
-		         ed.getSigla(),
-		         ed.getNombre()
-		        );
-		    resultado.add(dte);
-			
-        }
-		return resultado;
-	
-	}
-	
-	public boolean crearTipoRegistro(Edicion ed, String nombre, String descripcion, float costo, int cupo) {
-		if (ed.contains(nombre))
-			return false;
-		
-		TRegistro tr = new TipoRegistro(nombre, descripcion, costo, cupo);
-		
-		ed.add(tr);
-		return true;
-	}
-	
-	public DTTRegistro seleccionarTipoRegistro(String nombre){
-			
-		TRegistro tr = TRegistrosGlobales.get(nombre);
-		
-		DTTRegistro dtr = new DTTRegistro(
-			tr.getCupo(), 
-			tr.getCosto(), 
-			tr.getNombre(), 
-			tr.getDesc()
-		);
-		
-		return dtr;
-		
 
-	}
-	
-	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
-		
-		List<DTEdicion> resultado;
-		
-		for (TipoRegistro tr : ed.obtenerEdiciones.values()) {
-			DTEdicion dtr = new DTTRegistro(
-					
-				dtr.getCupo(),
-				dtr.getCosto(),
-				dtr.getNombre(),
-				dtr.getDescripcion()
-		        );
-		    resultado.add(dtr);
-			
-        }
-		return resultado;
-	
-	}
 }
 
 	

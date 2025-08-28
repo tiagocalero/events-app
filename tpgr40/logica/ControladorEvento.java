@@ -147,5 +147,85 @@ public class ControladorEvento{
 		new Edicion(evento, (Organizador) organizador, nombre, sigla, ciudad, pais);
 
 	}
+	//seria el evento del controlador?
+	public List<DTEdicion> seleccionarEvento(Evento e){
+		
+		List<DTEdicion> resultado;
+		
+		for (Edicion ed : e.obtenerEdiciones.values()) {
+			DTEdicion dte = new DTEdicion(
+					
+				 ed.getPais(),
+		         ed.getCiudad(),
+		         ed.getFechaInicio(),
+		         ed.getFechaFin(),
+		         ed.getFechaAlta(),
+		         ed.getSigla(),
+		         ed.getNombre()
+		        );
+		    resultado.add(dte);
+			
+        }
+		return resultado;
+		//esto seria con la edicion del controlador? 
+		public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
+			
+			List<DTEdicion> resultado;
+			
+			for (TipoRegistro tr : ed.obtenerEdiciones.values()) {
+				DTEdicion dtr = new DTTRegistro(
+						
+					dtr.getCupo(),
+					dtr.getCosto(),
+					dtr.getNombre(),
+					dtr.getDescripcion()
+			        );
+			    resultado.add(dtr);
+				
+	        }
+			return resultado;
+		
+		}
+	}
+	//PRE:: hay un registro en edicion con string nombre
+	public DTTRegistro seleccionarTipoRegistro(String nombre){
+		
+		TRegistro tr = edicion.obtenerTRegistro(nombre);
+		
+		DTTRegistro dtr = new DTTRegistro(
+			tr.getCupo(), 
+			tr.getCosto(), 
+			tr.getNombre(), 
+			tr.getDesc()
+		);
+		
+		return dtr;
+		
+
+	}
+	public boolean crearTipoRegistro(String nombre, String descripcion, float costo, int cupo) {
+		if (edicion.contains(nombre))
+			return false;
+		
+		TRegistro tr = new TipoRegistro(nombre, descripcion, costo, cupo);
+		
+		edicion.add(tr);
+		return true;
+	}
+	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
+	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		//falta hacer
+		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
+		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion);
+
+		if (t.getCupo() == 0 || estaAsistente)
+			return false;
+
+		//falta hacer
+		int costo = t.getCosto();
+		Registro nuevoRegistro = new Registro(asistente, edicion, t, costo);
+	}
+
 
 }

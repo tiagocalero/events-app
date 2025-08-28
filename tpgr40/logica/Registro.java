@@ -15,6 +15,7 @@ public class Registro{
     public String getApellidoAsistente(){
         return asistente.getApellido();
     }
+    public Asistente getAsistente() { return asistente; }
 
     public DTRegistro getDatos(){
         return new DTRegistro(costo, fecha, edicion.getNombre());

@@ -28,6 +28,7 @@ public class Asistente extends Usuario {
 		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
 		return res;
 	}
+	public String getNick() { return nick; }
 	
 	@Override
 	public void modificar(DTUsuarioModificado datos) {

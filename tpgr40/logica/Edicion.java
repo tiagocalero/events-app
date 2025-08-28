@@ -52,4 +52,13 @@ public class Edicion {
     public String getNombre() {
         return this.nombre;
     }
+    public List<Registro> getRegistros() {
+        return List.copyOf(registros);
+    }
+    
+    //necesito que tRegistros sea map
+    /*public TRegistro obtenerTRegistro(String nombre) {
+    	return 
+    }*/
+    		
 }

@@ -20,6 +20,7 @@ public class ManejadorEvento {
         return instance;
     }
     
+    
 	public boolean existe(String nombre) {
 		return eventos.containsKey(nombre);
 	}
@@ -42,4 +43,18 @@ public class ManejadorEvento {
 	public Map<String, Evento> eventos() {
         return Map.copyOf(eventos);
     }
+	
+	public String buscarEvento(
+	public boolean estaAsistenteEnEdicion(String nickAsistente, String nickEdicion, String nickEvento) {
+		
+		Evento evento = eventos.get(nickEvento);
+		Edicion edicion = evento.obtenerEdicion(nickEdicion);
+		return edicion.getRegistros().stream()
+	            .anyMatch(r -> r.getAsistente().getNick().equals(nickAsistente));
+	}
+	//falta esto
+	public TRegistro encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion) {
+		
+	}
+	
 }
