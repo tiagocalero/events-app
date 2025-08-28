@@ -13,7 +13,7 @@ public class Asistente extends Usuario {
 	private String apellido;
 	private DTFecha nacimiento;
 	private Institucion institucion;
-	private set<Registro> registros;
+	private Set<Registro> registros;
 	
 	public Asistente(String nick, String nom, String c, String ap, DTFecha fecha) {
 		super(nick, nom, c);

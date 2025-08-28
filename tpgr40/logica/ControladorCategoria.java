@@ -3,7 +3,7 @@ package logica;
 import logica.Categoria;
 
 public class ControladorCategoria{
-	private static volatile ControladorCatgeoria instance;
+	private static volatile ControladorCategoria instance;
 	private ControladorCategoria(){};
 	
 	public static ControladorCategoria getInstance() {

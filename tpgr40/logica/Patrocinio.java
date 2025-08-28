@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import logica.DTPatrocinio;
 import logica.Edicion;
 import logica.Institucion;
-import logica.CantRegistro;
+//import logica.CantRegistro;
 import logica.TipoNivelPatrocinio;
 
 public class Patrocinio {
@@ -16,9 +16,9 @@ public class Patrocinio {
 	
 	private Edicion edicion;
 	private Institucion institucion;
-	private TipoRegistro tp;
+	private TRegistro tp;
 	
-	public Patrocinio(String codigo, float monto, TipoNivelPatrocinio tipo, localDate fecha, int cantRegistros, Edicion e, Institucion i, TipoRegistro tp) {
+	public Patrocinio(String codigo, float monto, TipoNivelPatrocinio tipo, LocalDate fecha, int cantRegistros, Edicion e, Institucion i, TRegistro tp) {
 		edicion = e;
 		institucion = i;
 		
@@ -33,9 +33,9 @@ public class Patrocinio {
 		e.agregarPatrocinio(this);
 	}
 	
-	public DTPatrocinio getDatos() {
+	/*public DTPatrocinio getDatos() {
 		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros);
-	}
+	} */
 
 	public String getCodigo() {
 		return codigo;
@@ -45,9 +45,9 @@ public class Patrocinio {
 		return e == edicion;
 	}
 	
-	public void setCantRegistro(CantRegistro cr) {
+	/* public void setCantRegistro(CantRegistro cr) {
 		cantRegistro = cr;
-	}
+	} */
 	
 	public Institucion getInstitucion() {
 		return institucion;

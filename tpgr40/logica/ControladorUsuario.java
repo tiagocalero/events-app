@@ -30,7 +30,8 @@ public class ControladorUsuario{
 		Set<DTAsistente> res;
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		for (Usuario u : m.usuarios()) {
-			if (u instanceof Asistente e) {
+			if (u instanceof Asistente) {
+				Asistente e = (Asistente) u;
 				// DTAsistente dts = new DTAsistente(
 				// 		e.getNick(),
 				// 		e.getNom(),

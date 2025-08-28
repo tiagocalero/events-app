@@ -3,6 +3,7 @@ package logica;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 import java.util.Map;
+import java.util.List;
 import logica.Categoria;
 import logica.DTEvento;
 import logica.Evento;
@@ -44,6 +45,7 @@ public class ManejadorEvento {
         return Map.copyOf(eventos);
     }
 	
+	/*
 	public String buscarEvento(
 	public boolean estaAsistenteEnEdicion(String nickAsistente, String nickEdicion, String nickEvento) {
 		
@@ -52,9 +54,12 @@ public class ManejadorEvento {
 		return edicion.getRegistros().stream()
 	            .anyMatch(r -> r.getAsistente().getNick().equals(nickAsistente));
 	}
-	//falta esto
+
+	*/
+
+	/*falta esto
 	public TRegistro encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion) {
 		
 	}
-	
+	*/
 }

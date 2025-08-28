@@ -24,10 +24,10 @@ public class TRegistro {
 		
 	}
 	
-	public void agregarCantRegistro(CantRegistro cr) {
+	/* public void agregarCantRegistro(CantRegistro cr) {
 		cantReg.add(cr);
 		
-	}
+	} */
 	public float getNombre() {
 		return this.nombre;
 	}

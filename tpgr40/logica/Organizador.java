@@ -5,6 +5,7 @@ import logica.Edicion;
 import logica.DTOrganizador;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Organizador extends Usuario {

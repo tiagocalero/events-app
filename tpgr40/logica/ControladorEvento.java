@@ -167,8 +167,9 @@ public class ControladorEvento{
 			
         }
 		return resultado;
+	}
 		//esto seria con la edicion del controlador? 
-		public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
+	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
 			
 			List<DTEdicion> resultado;
 			
@@ -185,8 +186,8 @@ public class ControladorEvento{
 	        }
 			return resultado;
 		
-		}
 	}
+
 	//PRE:: hay un registro en edicion con string nombre
 	public DTTRegistro seleccionarTipoRegistro(String nombre){
 		
@@ -200,9 +201,9 @@ public class ControladorEvento{
 		);
 		
 		return dtr;
-		
-
+	
 	}
+
 	public boolean crearTipoRegistro(String nombre, String descripcion, float costo, int cupo) {
 		if (edicion.contains(nombre))
 			return false;

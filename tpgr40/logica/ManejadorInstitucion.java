@@ -4,7 +4,7 @@ import logica.Institucion;
 import java.util.Map;
 
 public class ManejadorInstitucion {
-	private Map<String, Insitucion> instituciones;
+	private Map<String, Institucion> instituciones;
     private static volatile ManejadorInstitucion instance;
 
     private ManejadorInstitucion() {}

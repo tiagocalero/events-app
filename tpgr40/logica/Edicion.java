@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.List;
 import java.util.stream.Stream;
-import logica.categoria;
+import logica.Categoria;
 import logica.TRegistro;
 import logica.Organizador;
 import logica.Registro;
