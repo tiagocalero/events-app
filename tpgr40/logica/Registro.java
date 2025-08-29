@@ -12,8 +12,8 @@ public class Registro{
 
     public Registro(){};
 
-    public String getApellidoAsistente(){
-        return asistente.getApellido();
+    public String getNicknameAsistente(){
+        return asistente.getNickname();
     }
     public Asistente getAsistente() { return asistente; }
 
