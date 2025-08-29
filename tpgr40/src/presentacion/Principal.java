@@ -40,7 +40,7 @@ public class Principal extends JFrame {
 	private void inicializar() {
 		frmPrincipal = new JFrame();
 		frmPrincipal.setTitle("Eventos.uy");
-		
+	    frmPrincipal.setSize(800, 600);
 		JMenuBar menuBar = new JMenuBar();
 		frmPrincipal.setJMenuBar(menuBar);
 		
