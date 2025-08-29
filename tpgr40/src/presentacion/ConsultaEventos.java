@@ -1,15 +1,20 @@
 package presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.GridLayout;
 import javax.swing.JTextArea;
-import javax.swing.DropMode;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import logica.ControladorEvento;
+import logica.DTEvento;
 
 public class ConsultaEventos extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;
@@ -43,12 +48,15 @@ public class ConsultaEventos extends JInternalFrame {
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
-                comboBoxEventos = new JComboBox();
-                comboBoxEventos.setBounds(27, 53, 188, 43);
-                
+        comboBoxEventos = new JComboBox();
+        comboBoxEventos.setBounds(27, 53, 188, 43);
+        
+        ControladorEvento c = ControladorEvento.getInstance();
         comboBoxEventos.addItem("Selecciona un Evento");
-        comboBoxEventos.addItem("Evento 1");
-        comboBoxEventos.addItem("Evento 2");
+        
+        for (String e: c.listarEventos()) {
+        	comboBoxEventos.addItem(e);
+        }
         getContentPane().add(comboBoxEventos);
         
         lblNombre = new JLabel("Nombre:");
@@ -64,6 +72,11 @@ public class ConsultaEventos extends JInternalFrame {
         
         btnNewButton = new JButton("Consultar");
         btnNewButton.setBounds(27, 114, 188, 37);
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdConsultar(e);
+            }
+        });
         getContentPane().add(btnNewButton);
         
         JLabel lblSigla = new JLabel("Sigla:");
@@ -90,7 +103,6 @@ public class ConsultaEventos extends JInternalFrame {
         
         textField_2 = new JTextField();
         textField_2.setEditable(false);
-        textField_2.setText("26/08/2025");
         textField_2.setColumns(10);
         textField_2.setBounds(374, 293, 255, 37);
         getContentPane().add(textField_2);
@@ -107,14 +119,10 @@ public class ConsultaEventos extends JInternalFrame {
         
         comboBoxEventos_2 = new JComboBox();
         comboBoxEventos_2.setBounds(27, 410, 287, 146);
-        comboBoxEventos_2.addItem("Medicina");
-        comboBoxEventos_2.addItem("Biología");
         getContentPane().add(comboBoxEventos_2);
         
         comboBoxEventos_3 = new JComboBox();
         comboBoxEventos_3.setBounds(342, 410, 287, 146);
-        comboBoxEventos_3.addItem("Edición 2024");
-        comboBoxEventos_3.addItem("Edición 2025");
         getContentPane().add(comboBoxEventos_3);
         
         txtrEstaEsLa = new JTextArea();
@@ -124,8 +132,22 @@ public class ConsultaEventos extends JInternalFrame {
         txtrEstaEsLa.setLineWrap(true);
         txtrEstaEsLa.setBounds(374, 152, 255, 129);
         getContentPane().add(txtrEstaEsLa);
-
-		
-		
 	}
+
+	protected void cmdConsultar(ActionEvent e) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		ControladorEvento c = ControladorEvento.getInstance();
+		
+		DTEvento evento = c.informacionEvento((String) comboBoxEventos.getSelectedItem());
+        txtEjemplo.setText(evento.getNombre());
+        txtCc.setText(evento.getSigla());
+        txtrEstaEsLa.setText(evento.getDescripcion());
+        textField_2.setText(evento.getFechaAlta().format(formatter));
+        comboBoxEventos_2.removeAllItems();
+        for (String cat: evento.getCategorias())
+        	comboBoxEventos_2.addItem(cat);
+        comboBoxEventos_3.removeAllItems();
+        for (String ed: evento.getEdiciones())
+        	comboBoxEventos_3.addItem(ed);
+    }
 }

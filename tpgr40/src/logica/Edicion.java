@@ -42,9 +42,9 @@ public class Edicion {
 
 	public DTEdicion getDatos() {
 		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
-        List<String> nombreTRegistros = tRegistros.stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
+        //List<String> nombreTRegistros = tRegistros.keySet().stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
+		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
         List<String> nickAsistentes = registros.stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
-
 
 		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, nickAsistentes, organizador.getNickname());
 	}
@@ -82,9 +82,13 @@ public class Edicion {
     }
     
     public List<Registro> getRegistros() {
-        return new ArrayList<>(registros.keySet());
+        return new ArrayList<>(registros);
     }
     
+	public List<TRegistro> getTRegistros() {
+	    return new ArrayList<>(tRegistros);
+	}
+	
     public void agregarPatrocinio(Patrocinio p) {
     	patrocinios.put(p.getCodigo(), p);
     }

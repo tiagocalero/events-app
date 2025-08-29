@@ -72,6 +72,7 @@ public class AltaPatrocinio {
         JButton btnNewButton_1 = new JButton("Crear");
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
         	}
         });
         btnNewButton_1.setBounds(556, 265, 188, 37);
