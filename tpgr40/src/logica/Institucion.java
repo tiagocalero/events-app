@@ -2,6 +2,7 @@ package logica;
 
 import logica.Patrocinio;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Institucion {
 	private String nombre;
@@ -13,6 +14,7 @@ public class Institucion {
 		this.nombre = nombre;
 		this.desc = desc;
 		this.url = url;
+		patrocinios = new ArrayList<>();
 	}	
 	
 	public boolean existePatrocinio(Edicion e) {

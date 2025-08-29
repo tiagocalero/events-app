@@ -77,9 +77,29 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuAltaEventos);
+
+        JMenuItem menuAltaEdicion = new JMenuItem("Alta de Edición de Evento");
+        menuAltaEdicion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaEdicionEvento();
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
+        menuEventos.add(menuAltaEdicion);
         
         
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
+        menuAltaPatrocinio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir nueva ventana AltaPatrocinio
+                JInternalFrame a = new AltaPatrocinio();
+                a.setSize(400, 300);
+                a.setVisible(true); 
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
         menuEventos.add(menuAltaPatrocinio);
         
         JMenu menUsuario = new JMenu("Usuarios");

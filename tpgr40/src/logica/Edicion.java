@@ -38,6 +38,7 @@ public class Edicion {
         this.pais = pais;
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
+        this.registros = new ArrayList<>();
     }
 
 	public DTEdicion getDatos() {
@@ -86,7 +87,7 @@ public class Edicion {
     }
     
 	public List<TRegistro> getTRegistros() {
-	    return new ArrayList<>(tRegistros);
+	    return new ArrayList<>(tRegistros.values());
 	}
 	
     public void agregarPatrocinio(Patrocinio p) {
@@ -97,6 +98,11 @@ public class Edicion {
     	return new ArrayList<>(patrocinios.keySet());
     }
     
+    public void agregarTRegistro(TRegistro tr) {
+    	tRegistros.put(tr.getNombre(), tr);
+    }
+    		
+    		
     public Patrocinio getPatrocinio(String codigo) {
     	return patrocinios.get(codigo);
     }
