@@ -10,7 +10,7 @@ public class Registro{
     private Asistente asistente;
     private Edicion edicion;
 
-    public Registro(Asistente asistente, Edicion edicion, LocalDate fecha, float costo) {
+    public Registro(float costo, LocalDate fecha, Asistente asistente, Edicion edicion) {
         this.costo = costo;
         this.fecha = fecha;
         this.asistente = asistente;
