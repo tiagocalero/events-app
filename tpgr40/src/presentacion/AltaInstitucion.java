@@ -3,21 +3,28 @@ package presentacion;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import logica.ControladorEvento;
+import logica.ControladorInstitucion;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class AltaInstitucion extends JInternalFrame{
 	private JInternalFrame frmAltaInstitucion;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextArea textArea;
 	
 	
 	public AltaInstitucion() {
@@ -62,22 +69,34 @@ public class AltaInstitucion extends JInternalFrame{
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
 		textArea.setBounds(107, 114, 151, 88);
 		getContentPane().add(textArea);
 		
+		
 		JButton btnNewButton_1 = new JButton("Crear");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cmdCrearInstActionPerformed(e);
 			}
 		});
 		btnNewButton_1.setBounds(55, 214, 188, 37);
 		getContentPane().add(btnNewButton_1);
-		
+				
 		JButton btnNewButton_2 = new JButton("Cancelar");
 		btnNewButton_2.setBounds(55, 263, 188, 37);
 		getContentPane().add(btnNewButton_2);
+	}
+	
+	protected void cmdCrearInstActionPerformed(ActionEvent e) {
+        String nombre = textField.getText();
+        String url = textField_1.getText();
+        String desc= textArea.getText();
+        	        
+        ControladorInstitucion c = ControladorInstitucion.getInstance();
+        c.altaInstitucion(nombre, desc, url);
+        JOptionPane.showMessageDialog(AltaInstitucion.this, "Se creó la institución: " + nombre);
 	}
 }
