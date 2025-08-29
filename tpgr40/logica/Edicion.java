@@ -39,12 +39,11 @@ public class Edicion {
 
 	public DTEdicion getDatos() {
 		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
-
         List<String> nombreTRegistros = tRegistros.stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
+        List<String> nickAsistentes = registros.stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
 
-        List<String> apellidosAsistentes = registros.stream().map(r -> r.getApellidoAsistente()).collect(Collectors.toList());
-		
-		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, apellidosAsistentes, organizador.getNombre());
+
+		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, nickAsistentes, organizador.getNickname());
 	}
 	
 	public List<String> getInstituciones() {
