@@ -10,7 +10,12 @@ public class Registro{
     private Asistente asistente;
     private Edicion edicion;
 
-    public Registro(){};
+    public Registro(Asistente asistente, Edicion edicion, LocalDate fecha, float costo) {
+        this.costo = costo;
+        this.fecha = fecha;
+        this.asistente = asistente;
+        this.edicion = edicion;
+    };
 
     public String getNicknameAsistente(){
         return asistente.getNickname();
