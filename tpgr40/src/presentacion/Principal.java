@@ -18,6 +18,7 @@ public class Principal extends JFrame {
 	private AltaPatrocinio altPatInternalFrame;
     private ModificarDatosAsistente modDatosAsInternalFrame;
     private ModificarDatosOrganizador modDatosOrgInternalFrame;
+    private AltaInstitucion altaInstInternalFrame;
     private JDesktopPane desktopPane;
 	
 	public static void main(String[] args) {
@@ -47,6 +48,12 @@ public class Principal extends JFrame {
 		JMenu menuSistema = new JMenu("Sistema");
         menuBar.add(menuSistema);
         JMenuItem menuSalir = new JMenuItem("Salir");
+        menuSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                frmPrincipal.setVisible(false);
+                frmPrincipal.dispose();
+            }
+        });
         menuSistema.add(menuSalir);
         
         JMenu menuEventos = new JMenu("Eventos");
@@ -79,6 +86,19 @@ public class Principal extends JFrame {
         menuBar.add(menUsuario);
         JMenuItem menuModDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
         menUsuario.add(menuModDatosUsuario);
+        
+        JMenu menuInstitucion = new JMenu("Instituciones");
+        menuBar.add(menuInstitucion);
+        JMenuItem menuAltaInst = new JMenuItem("Alta de Institución");
+        menuAltaInst.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new AltaInstitucion();
+                frmPrincipal.getContentPane().add(c);
+            }
+        });
+        menuInstitucion.add(menuAltaInst);        
+        
 	}
 
 
