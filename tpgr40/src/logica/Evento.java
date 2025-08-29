@@ -1,8 +1,10 @@
 package logica;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 import logica.Categoria;
 import logica.DTEvento;
@@ -21,6 +23,8 @@ public class Evento {
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
+		this.categorias = new ArrayList<>();
+		ediciones = new HashMap<>();
 		
 		ManejadorCategoria mc = ManejadorCategoria.getInstance();
 		for (String cat: categorias)
@@ -48,8 +52,10 @@ public class Evento {
 			categorias.stream()
 				 	  .map(c -> c.getNombre()) // Convierte cada categoría en su nombre
 					  .collect(Collectors.toList()); // Junta los resultados en una lista
+
+		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones);
 	}
 	
 	public Edicion getEdicion(String nombre) {

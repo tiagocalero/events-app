@@ -9,13 +9,15 @@ public class DTEvento {
 	private String descripcion;
 	private LocalDate fechaAlta;
 	private List<String> categorias;
+	private List<String> ediciones;
 	
-	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias) {
+	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, List<String> ediciones) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
 		this.categorias = categorias;
+		this.ediciones = ediciones;
 	}
 	
 	public String getNombre() {
@@ -36,5 +38,9 @@ public class DTEvento {
 	
 	public List<String> getCategorias() {
 		return categorias;
+	}
+	
+	public List<String> getEdiciones() {
+		return ediciones;
 	}
 }

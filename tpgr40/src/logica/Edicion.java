@@ -38,6 +38,7 @@ public class Edicion {
         this.pais = pais;
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
+        this.registros = new ArrayList<>();
     }
 
 	public DTEdicion getDatos() {

@@ -2,12 +2,15 @@ package logica;
 
 import logica.Institucion;
 import java.util.Map;
+import java.util.HashMap;
 
 public class ManejadorInstitucion {
 	private Map<String, Institucion> instituciones;
     private static volatile ManejadorInstitucion instance;
 
-    private ManejadorInstitucion() {}
+    private ManejadorInstitucion() {
+    	instituciones = new HashMap<>();
+    }
 
     public static ManejadorInstitucion getInstance() {
         if (instance == null) {
