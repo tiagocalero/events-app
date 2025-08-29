@@ -2,6 +2,7 @@ package logica;
 
 import logica.Evento;
 import java.util.Map;
+import java.util.HashMap;
 
 public class Categoria {
 	private String nombre;
@@ -9,6 +10,7 @@ public class Categoria {
 	
 	public Categoria(String nombreCategoria) {
 		this.nombre = nombreCategoria;
+		eventos = new HashMap<>();
 	}
 	
 	public String getNombre() {
