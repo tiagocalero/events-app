@@ -53,6 +53,7 @@ public class Principal extends JFrame {
         menuBar.add(menuEventos);
         JMenuItem menuConEventos = new JMenuItem("Consulta de Eventos");
         menuEventos.add(menuConEventos);
+        
         JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
         menuAltaEventos.addActionListener(new ActionListener() {
             @Override
@@ -68,6 +69,16 @@ public class Principal extends JFrame {
         
         
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
+        menuAltaPatrocinio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir nueva ventana AltaPatrocinio
+                JInternalFrame a = new AltaPatrocinio();
+                a.setSize(400, 300);
+                a.setVisible(true); 
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
         menuEventos.add(menuAltaPatrocinio);
         
         JMenu menUsuario = new JMenu("Usuarios");
