@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -23,7 +24,7 @@ public class Edicion {
 	private String sigla;
     private String nombre;
     private Map<String, Patrocinio> patrocinios;
-    private List<TRegistro> tRegistros;
+    private Map<String, TRegistro> tRegistros;
     private Organizador organizador;
     private Evento evento;
     private List<Registro> registros;
@@ -35,6 +36,8 @@ public class Edicion {
         this.sigla = sigla;
         this.ciudad = ciudad;
         this.pais = pais;
+        this.patrocinios = new HashMap<String, Patrocinio>();
+        this.tRegistros = new HashMap<String, TRegistro>();
     }
 
 	public DTEdicion getDatos() {
@@ -79,7 +82,7 @@ public class Edicion {
     }
     
     public List<Registro> getRegistros() {
-        return List.copyOf(registros);
+        return new ArrayList<>(registros.keySet());
     }
     
     public void agregarPatrocinio(Patrocinio p) {
@@ -92,6 +95,10 @@ public class Edicion {
     
     public Patrocinio getPatrocinio(String codigo) {
     	return patrocinios.get(codigo);
+    }
+
+    public TRegistro getTipoRegistro(String nombre) {
+        return tRegistros.get(nombre);
     }
     
     //necesito que tRegistros sea map
