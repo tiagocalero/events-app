@@ -1,6 +1,8 @@
 package presentacion;
 
 import java.awt.EventQueue;
+import java.awt.event.*;
+import javax.swing.*;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -9,13 +11,14 @@ import javax.swing.JMenuItem;
 
 
 
-public class Principal{
+public class Principal extends JFrame {
 	
 	private JFrame frmPrincipal;
 	private AltaEvento altEventoInternalFrame;
 	private AltaPatrocinio altPatInternalFrame;
-    private ModificarDatosAsistente conEventoInternalFrame;
-    private ModDatosUsr modDatosUsrInternalFrame;
+    private ModificarDatosAsistente modDatosAsInternalFrame;
+    private ModificarDatosOrganizador modDatosOrgInternalFrame;
+    private JDesktopPane desktopPane;
 	
 	public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -46,13 +49,24 @@ public class Principal{
         JMenuItem menuSalir = new JMenuItem("Salir");
         menuSistema.add(menuSalir);
         
-        
         JMenu menuEventos = new JMenu("Eventos");
         menuBar.add(menuEventos);
         JMenuItem menuConEventos = new JMenuItem("Consulta de Eventos");
         menuEventos.add(menuConEventos);
         JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
+        menuAltaEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir nueva ventana AltaEvento
+                JInternalFrame a = new AltaEvento();
+                a.setSize(400, 300);
+                a.setVisible(true); 
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
         menuEventos.add(menuAltaEventos);
+        
+        
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
         menuEventos.add(menuAltaPatrocinio);
         

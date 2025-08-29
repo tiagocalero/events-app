@@ -55,7 +55,7 @@ public class ControladorEvento{
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtener(nombreEvento);
 		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
-		List<String> res;
+		List<String> res = new ArrayList();
 		
 		for (String entry : ediciones.keySet())
 			res.add(entry);
@@ -153,7 +153,7 @@ public class ControladorEvento{
 		
 		List<DTEdicion> resultado;
 		
-		for (Edicion ed : e.obtenerEdiciones.values()) {
+		for (Edicion ed : e.getEdiciones().values()) {
 			DTEdicion dte = new DTEdicion(
 					
 				 ed.getPais(),
@@ -174,7 +174,7 @@ public class ControladorEvento{
 			
 			List<DTTRegistro> resultado;
 			
-			for (TRegistro tr : ed.obtenerEdiciones().values()) {
+			for (TRegistro tr : ed.getTRegistros().values()) {
 				DTTRegistro dtr = new DTTRegistro(
 						tr.getCupo(),
 						tr.getCosto(),
@@ -197,7 +197,7 @@ public class ControladorEvento{
 			tr.getCupo(),
 			tr.getCosto(), 
 			tr.getNombre(), 
-			tr.getDesc()
+			tr.getDescripcion()
 		);
 		
 		return dtr;
