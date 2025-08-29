@@ -25,7 +25,7 @@ public class AltaEvento extends JInternalFrame {
 	
 	public AltaEvento() {
 		setVisible(true); 
-        setSize(300, 200);
+        setSize(451, 367);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);

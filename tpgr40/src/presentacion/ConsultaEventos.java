@@ -1,21 +1,14 @@
 package presentacion;
 
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.List;
 
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import logica.ControladorEvento;
+import logica.DTEvento;
 
 public class ConsultaEventos extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;
@@ -78,7 +71,6 @@ public class ConsultaEventos extends JInternalFrame {
                 cmdConsultar(e);
             }
         });
-		panel_1.add(btnNewButton);
         getContentPane().add(btnNewButton);
         
         JLabel lblSigla = new JLabel("Sigla:");
@@ -141,15 +133,14 @@ public class ConsultaEventos extends JInternalFrame {
         getContentPane().add(txtrEstaEsLa);
 	}
 
-	protected void cmdCrearEventoActionPerformed(ActionEvent e) {
-		ConsultaEvento c = ConsultaEvento.getInstance();
-        txtEjemplo.getText();
-        String desc = textField_1.getText();
-        String sigla = textField_2.getText();
-        List<String> categorias = listaCategorias.getSelectedValuesList();
-        
-        ControladorEvento m = ControladorEvento.getInstance();
-        m.ingresarDatosEvento(nombre, desc, sigla, categorias);
-        JOptionPane.showMessageDialog(AltaEvento.this, "Se creó el evento: " + nombre);
+	protected void cmdConsultar(ActionEvent e) {
+		ControladorEvento c = ControladorEvento.getInstance();
+		DTEvento evento = c.informacionEvento((String) comboBoxEventos.getSelectedItem());
+        txtEjemplo.setText(evento.getNombre());
+        txtCc.setText(evento.getSigla());
+        txtrEstaEsLa.setText(evento.getDescripcion());
+        comboBoxEventos_2.removeAllItems();
+        for (String cat: evento.getCategorias())
+        	comboBoxEventos_2.addItem(cat);
     }
 }
