@@ -10,6 +10,7 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.List;
+import java.utils.List;
 
 public class AltaEvento {
 	private JInternalFrame frmAltaEvento;
@@ -97,7 +98,7 @@ public class AltaEvento {
         String sigla = lblSigla.getText();
         List<String> categorias;
         
-        m = ControladorEvento.getInstancia();
+        ControladorEvento m = ControladorEvento.getInstance();
         
     }
 }
