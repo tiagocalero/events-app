@@ -191,7 +191,7 @@ public class ControladorEvento{
 	//PRE:: hay un registro en edicion con string nombre
 	public DTTRegistro seleccionarTipoRegistro(String nombre){
 		
-		TRegistro tr = edicion.obtenerTRegistro(nombre);
+		TRegistro tr = edicion.obtenerTipoRegistro(nombre);
 		
 		DTTRegistro dtr = new DTTRegistro(
 			tr.getCupo(),
