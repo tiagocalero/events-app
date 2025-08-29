@@ -46,14 +46,14 @@ public class ControladorEvento{
 	
 	public DTEvento informacionEvento (String nombre) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento eventoBuscado = m.obtener(nombre);
+		Evento eventoBuscado = m.obtenerEvento(nombre);
 		DTEvento res = eventoBuscado.getDatos();
 		return res;
 	}
 	
 	public List<String> listarEdiciones(String nombreEvento) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento eventoBuscado = m.obtener(nombreEvento);
+		Evento eventoBuscado = m.obtenerEvento(nombreEvento);
 		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
 		List<String> res = new ArrayList();
 		
@@ -68,7 +68,7 @@ public class ControladorEvento{
 	public List<String> elegirEvento(String nombreEvento) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
-		evento = m.obtener(nombreEvento);
+		evento = m.obtenerEvento(nombreEvento);
 		return new ArrayList<>(evento.getEdiciones().keySet());
 	}
 	
@@ -91,7 +91,7 @@ public class ControladorEvento{
 	}
 	
 	public boolean crearPatrocinio(DTPatrocinio dtp) {
-		TRegistro tp = edicion.obtenerTipoRegistro(dtp.getTipoRegistro());
+		TRegistro tp = edicion.getTipoRegistro(dtp.getTipoRegistro());
 		float costo = tp.getCosto();
 		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
 			return false;
@@ -139,7 +139,7 @@ public class ControladorEvento{
 	public void altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 
-		Evento evento = m.obtener(nombreEvento);
+		Evento evento = m.obtenerEvento(nombreEvento);
 
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 
@@ -174,7 +174,7 @@ public class ControladorEvento{
 			
 			List<DTTRegistro> resultado;
 			
-			for (TRegistro tr : ed.getTRegistros().values()) {
+			for (TRegistro tr : ed.getTRegistros()) {
 				DTTRegistro dtr = new DTTRegistro(
 						tr.getCupo(),
 						tr.getCosto(),
