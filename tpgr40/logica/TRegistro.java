@@ -28,16 +28,16 @@ public class TRegistro {
 		cantReg.add(cr);
 		
 	} */
-	public float getNombre() {
+	public String getNombre() {
 		return this.nombre;
 	}
-	public float getDesc() {
+	public String getDesc() {
 		return this.descripcion;
 	}
 	public float getCosto() {
 		return this.costo;
 	}
-	public float getCupo() {
+	public int getCupo() {
 		return this.cupo;
 	}
 

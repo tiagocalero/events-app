@@ -34,7 +34,7 @@ public class ManejadorEvento {
 		if (existe(nombre))
 			return false;
 		
-		Evento e = Evento(nombre, sigla, descripcion, fechaAlta, categorias);
+		Evento e = new Evento(nombre, sigla, descripcion, fechaAlta, categorias);
 		eventos.put(nombre, e);
 		
 		return true;

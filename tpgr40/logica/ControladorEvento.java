@@ -36,9 +36,9 @@ public class ControladorEvento{
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
 		List<String> res = new ArrayList();
-		Map<Evento> eventos = m.eventos();
+		Map<String, Evento> eventos = m.eventos();
 		for (String entry : eventos.keySet()) {
-			res.put(entry.nombre);
+			res.put(entry);
 		}
 		return res;
 	}
@@ -53,11 +53,11 @@ public class ControladorEvento{
 	public List<String> listarEdiciones(String nombreEvento) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtener(nombre);
-		Map<Edicion> ediciones = eventoBuscado.getEdiciones();
+		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
 		List<String> res;
 		
 		for (String entry : eventos.keySet())
-			res.put(entry.nombre);
+			res.put(entry);
 		
 		return res;
 		
@@ -90,7 +90,7 @@ public class ControladorEvento{
 	}
 	
 	public boolean crearPatrocinio(DTPatrocinio dtp) {
-		TipoRegistro tp = edicion.obtenerTipoRegistro(dtp.getTipoRegistro());
+		TRegistro tp = edicion.obtenerTipoRegistro(dtp.getTipoRegistro());
 		float costo = tp.getCosto();
 		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
 			return false;
@@ -173,13 +173,12 @@ public class ControladorEvento{
 			
 			List<DTEdicion> resultado;
 			
-			for (TipoRegistro tr : ed.obtenerEdiciones.values()) {
-				DTEdicion dtr = new DTTRegistro(
-						
-					dtr.getCupo(),
-					dtr.getCosto(),
-					dtr.getNombre(),
-					dtr.getDescripcion()
+			for (TRegistro tr : ed.obtenerEdiciones.values()) {
+				DTTRegistro dtr = new DTTRegistro(
+						tr.getCupo(),
+						tr.getCosto(),
+						tr.getNombre(),
+						tr.getDescripcion()
 			        );
 			    resultado.add(dtr);
 				
@@ -194,7 +193,7 @@ public class ControladorEvento{
 		TRegistro tr = edicion.obtenerTRegistro(nombre);
 		
 		DTTRegistro dtr = new DTTRegistro(
-			tr.getCupo(), 
+			tr.getCupo(),
 			tr.getCosto(), 
 			tr.getNombre(), 
 			tr.getDesc()
@@ -208,7 +207,7 @@ public class ControladorEvento{
 		if (edicion.contains(nombre))
 			return false;
 		
-		TRegistro tr = new TipoRegistro(nombre, descripcion, costo, cupo);
+		TRegistro tr = new TRegistro(nombre, descripcion, costo, cupo);
 		
 		edicion.add(tr);
 		return true;
@@ -224,7 +223,7 @@ public class ControladorEvento{
 			return false;
 
 		//falta hacer
-		int costo = t.getCosto();
+		float costo = t.getCosto();
 		Registro nuevoRegistro = new Registro(asistente, edicion, t, costo);
 	}
 

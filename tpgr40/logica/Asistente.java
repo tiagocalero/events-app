@@ -19,8 +19,8 @@ public class Asistente extends Usuario {
 		super(nick, nom, c);
 		this.apellido = ap;
 		this.nacimiento = fecha;
-		this.institucion = NULL;
-		this.registros = new HashMap<Registro>();
+		this.institucion = null;
+		this.registros = new Set<Registro>();
 	}
 	
 	@Override
@@ -28,15 +28,14 @@ public class Asistente extends Usuario {
 		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
 		return res;
 	}
-	public String getNick() { return nick; }
 	
 	@Override
 	public void modificar(DTUsuarioModificado datos) {
 		assert datos instanceof DTAsistenteModificado;
 		DTAsistenteModificado datosA = (DTAsistenteModificado) datos;
-		this.setNombre(datosA.nombre);
-		this.apellido = datosA.apellido;
-		this.nacimiento = datosA.nacimiento;
+		this.setNombre(datosA.getNombre());
+		this.apellido = datosA.getApellido();
+		this.nacimiento = datosA.getNacimiento();
 	}
 
 	public String getApellido() {
@@ -45,6 +44,6 @@ public class Asistente extends Usuario {
 
 	@Override
 	public List<DTRegistro> consulta() {
-		return registros.stream().map(registros->registros.getDatos()).collect(Collectors.tolist()); //?? chequear
+		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList()); //?? chequear
 	}
 }

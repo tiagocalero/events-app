@@ -30,9 +30,9 @@ public class Organizador extends Usuario {
 	public void modificar(DTUsuarioModificado datos) {
 		assert datos instanceof DTOrganizadorModificado;
 		DTOrganizadorModificado datosO = (DTOrganizadorModificado) datos;
-		this.setNombre(datosO.nombre);
-		this.descripcion = datosO.descripcion;
-		this.link = datosO.link;
+		this.setNombre(datosO.getNombre());
+		this.descripcion = datosO.getDescripcion();
+		this.link = datosO.getLink();
 	}
 
 	@Override

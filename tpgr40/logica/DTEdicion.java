@@ -31,9 +31,9 @@ public class DTEdicion {
     // solo getters, no setters si es solo de lectura
     public String getPais() { return pais; }
     public String getCiudad() { return ciudad; }
-    public String getFechaInicio() { return fechaInicio; }
-    public String getFechaFin() { return fechaFin; }
-    public String getFechaAlta() { return fechaAlta; }
-    public DTFecha getSigla() { return sigla; }
-    public DTFecha getNombre() { return nombre; }
+    public DTFecha getFechaInicio() { return fechaInicio; }
+    public DTFecha getFechaFin() { return fechaFin; }
+    public DTFecha getFechaAlta() { return fechaAlta; }
+    public String getSigla() { return sigla; }
+    public String getNombre() { return nombre; }
 }

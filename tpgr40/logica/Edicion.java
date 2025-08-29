@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
 import logica.Categoria;
 import logica.TRegistro;
 import logica.Organizador;
@@ -26,9 +27,9 @@ public class Edicion {
     private Evento evento;
     private List<Registro> registros;
 
-    public Edicion(Evento evento, Organizador organizaddor, String nombre, String sigla, String ciudad, String pais) {
+    public Edicion(Evento evento, Organizador organizador, String nombre, String sigla, String ciudad, String pais) {
         this.evento = evento;
-        this.orgnaizador = organizador;
+        this.organizador = organizador;
         this.nombre = nombre;
         this.sigla = sigla;
         this.ciudad = ciudad;
@@ -52,8 +53,22 @@ public class Edicion {
     public String getNombre() {
         return this.nombre;
     }
+
+    public String getSigla() {
+        return this.sigla;
+    }
+
+    public LocalDate getFechaAlta() {
+        return this.fecha_alta;
+    }
+    
+    
     public List<Registro> getRegistros() {
         return List.copyOf(registros);
+    }
+    
+    public void agregarPatrocinio(Patrocinio p) {
+    	patrocinios.add(p);
     }
     
     //necesito que tRegistros sea map

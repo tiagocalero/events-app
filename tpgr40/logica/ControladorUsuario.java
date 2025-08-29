@@ -5,6 +5,8 @@ import logica.DTEdicion;
 import logica.ManejadorUsuario;
 import logica.Asistente;
 import logica.Usuario;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -53,7 +55,7 @@ public class ControladorUsuario{
 
 	public List<String> listarUsuarios() {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-        return m.usuarios();
+        return new ArrayList<>(m.usuarios().keySet());
 	}
 
 	public DTUsuario elegirUsuario(String nickname) {

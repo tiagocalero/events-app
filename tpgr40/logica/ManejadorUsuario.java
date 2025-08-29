@@ -33,11 +33,11 @@ public class ManejadorUsuario {
     }
 
     public List<String> organizadores() {
-        return this.usuarios.values().stream().filter(usuario -> usuario instanceof Organizador).map(usuario->usuario.getNickname()).collect(Collectors.tolist());
+        return this.usuarios.values().stream().filter(usuario -> usuario instanceof Organizador).map(usuario->usuario.getNickname()).collect(Collectors.toList());
     }
 
     public List<String> asistentes() {
-        return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.tolist());
+        return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.toList());
     }
 
     public boolean crearAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
