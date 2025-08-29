@@ -3,23 +3,12 @@ package presentacion;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+import logica.ControladorEvento;
+
 import java.awt.GridLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.List;
 
 public class AltaEvento {
@@ -27,6 +16,9 @@ public class AltaEvento {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JLabel lblNewLabel;
+	private JLabel lblDescripcin;
+	private JLabel lblSigla;
 	
 	public AltaEvento() {
 		
@@ -59,15 +51,15 @@ public class AltaEvento {
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Nombre:");
+		lblNewLabel = new JLabel("Nombre:");
 		lblNewLabel.setBounds(43, 24, 140, 16);
 		panel.add(lblNewLabel);
 		
-		JLabel lblDescripcin = new JLabel("Descripción:");
+		lblDescripcin = new JLabel("Descripción:");
 		lblDescripcin.setBounds(43, 74, 140, 16);
 		panel.add(lblDescripcin);
 		
-		JLabel lblSigla = new JLabel("Sigla:");
+		lblSigla = new JLabel("Sigla:");
 		lblSigla.setBounds(43, 124, 140, 16);
 		panel.add(lblSigla);
 		
@@ -91,6 +83,21 @@ public class AltaEvento {
 		frmAltaEvento.getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
 		JButton btnNewButton = new JButton("Crear");
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdCrearEventoActionPerformed(e);
+            }
+        });
 		panel_1.add(btnNewButton);
 	}
+	
+	protected void cmdCrearEventoActionPerformed(ActionEvent e) {
+        String nombre = lblNewLabel.getText();
+        String desc = lblDescripcin.getText();
+        String sigla = lblSigla.getText();
+        List<String> categorias;
+        
+        m = ControladorEvento.getInstancia();
+        
+    }
 }
