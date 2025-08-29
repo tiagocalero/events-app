@@ -64,7 +64,7 @@ public class ManejadorEvento {
         return Map.copyOf(eventos);
     }
 	
-	public TRegistro encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento) {
+	public TRegistro encontrarTRegistroDeEdicion(String nombreTRegistro, String nombreEdicion, String nickEvento) {
 		Evento ev = obtenerEvento(nickEvento);
 		Edicion ed = obtenerEdicion(nombreEdicion, ev);
 		return ed.getTipoRegistro(nombreTRegistro);
