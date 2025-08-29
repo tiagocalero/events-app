@@ -31,7 +31,7 @@ public class ControladorUsuario{
 	public Set<DTAsistente> listarAsistentes() {
 		Set<DTAsistente> res;
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		for (Usuario u : m.usuarios()) {
+		for (Usuario u : m.usuarios().values()) {
 			if (u instanceof Asistente) {
 				Asistente e = (Asistente) u;
 				// DTAsistente dts = new DTAsistente(
@@ -84,12 +84,14 @@ public class ControladorUsuario{
 
 	public List<DTEdicion> consultaOrganizador() {
 		assert usuario instanceof Organizador;
-		return usuario.consulta();
+		Organizador o = (Organizador) usuario;
+		return o.consulta();
 	}
 
 	public List<DTRegistro> consultaAsistente() {
 		assert usuario instanceof Asistente;
-		return usuario.consulta();
+		Asistente a = (Asistente) usuario;
+		return a.consulta();
 	}
 
 	public void liberarMemoria() {

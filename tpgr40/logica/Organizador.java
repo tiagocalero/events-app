@@ -35,8 +35,7 @@ public class Organizador extends Usuario {
 		this.link = datosO.getLink();
 	}
 
-	@Override
 	public List<DTEdicion> consulta(){
-		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.tolist()); //?? chequear
+		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.toList()); //?? chequear
 	}
 }

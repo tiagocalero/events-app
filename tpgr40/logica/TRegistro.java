@@ -15,6 +15,7 @@ public class TRegistro {
 	private int cupo;
 	private List<Registro> registro;
 	private List<Edicion> edicion;
+	private List<Patrocinio> patrocinios;
 	
 	public TRegistro(String nom, String desc, float costo, int cupo) {
 		this.nombre = nom;
@@ -31,7 +32,7 @@ public class TRegistro {
 	public String getNombre() {
 		return this.nombre;
 	}
-	public String getDesc() {
+	public String getDescripcion() {
 		return this.descripcion;
 	}
 	public float getCosto() {
@@ -41,6 +42,9 @@ public class TRegistro {
 		return this.cupo;
 	}
 
+    public void agregarPatrocinio(Patrocinio p) {
+    	patrocinios.add(p);
+    }
 }
 
 	

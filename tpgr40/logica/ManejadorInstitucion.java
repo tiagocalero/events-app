@@ -28,4 +28,8 @@ public class ManejadorInstitucion {
     public boolean existe(String nombre) {
     	return instituciones.containsKey(nombre);
     }
+    
+    public Institucion obtener(String nombre) {
+    	return instituciones.get(nombre);
+    }
 }

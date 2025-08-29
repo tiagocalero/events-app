@@ -10,4 +10,12 @@ public class DTAsistenteModificado extends DTUsuarioModificado {
 		this.apellido = ap;
 		this.nacimiento = fecha;
 	}
+	
+	public String getApellido() {
+		return apellido;
+	}
+	
+	public DTFecha getNacimiento() {
+		return nacimiento;
+	}
 }

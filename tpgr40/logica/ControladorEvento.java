@@ -9,6 +9,7 @@ import logica.DTPatrocinio;
 import logica.DTEdicion;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
@@ -37,9 +38,9 @@ public class ControladorEvento{
 		
 		List<String> res = new ArrayList();
 		Map<String, Evento> eventos = m.eventos();
-		for (String entry : eventos.keySet()) {
-			res.put(entry);
-		}
+		for (String entry : eventos.keySet())
+			res.add(entry);
+
 		return res;
 	}
 	
@@ -52,12 +53,12 @@ public class ControladorEvento{
 	
 	public List<String> listarEdiciones(String nombreEvento) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento eventoBuscado = m.obtener(nombre);
+		Evento eventoBuscado = m.obtener(nombreEvento);
 		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
 		List<String> res;
 		
-		for (String entry : eventos.keySet())
-			res.put(entry);
+		for (String entry : ediciones.keySet())
+			res.add(entry);
 		
 		return res;
 		
@@ -102,7 +103,7 @@ public class ControladorEvento{
 	}
 	
 	public List<String> listarPatrocinios() {
-		return edicion.getNombresPatrocinios();
+		return edicion.getCodigosPatrocinios();
 	}
 	
 	public DTPatrocinio consultaPatrocinio(String nomPatrocinio) {
@@ -158,7 +159,7 @@ public class ControladorEvento{
 				 ed.getPais(),
 		         ed.getCiudad(),
 		         ed.getFechaInicio(),
-		         ed.getFechaFin(),
+		         ed.getFechaFinal(),
 		         ed.getFechaAlta(),
 		         ed.getSigla(),
 		         ed.getNombre()
@@ -171,9 +172,9 @@ public class ControladorEvento{
 		//esto seria con la edicion del controlador? 
 	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
 			
-			List<DTEdicion> resultado;
+			List<DTTRegistro> resultado;
 			
-			for (TRegistro tr : ed.obtenerEdiciones.values()) {
+			for (TRegistro tr : ed.obtenerEdiciones().values()) {
 				DTTRegistro dtr = new DTTRegistro(
 						tr.getCupo(),
 						tr.getCosto(),

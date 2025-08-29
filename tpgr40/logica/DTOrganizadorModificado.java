@@ -11,4 +11,12 @@ public class DTOrganizadorModificado extends DTUsuarioModificado {
 		this.descripcion = desc;
 		this.link = link;
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	public String getLink() {
+		return link;
+	}
 }

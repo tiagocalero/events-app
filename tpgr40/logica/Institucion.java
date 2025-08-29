@@ -24,6 +24,10 @@ public class Institucion {
 		return false;	
 	}
 	
+    public void agregarPatrocinio(Patrocinio p) {
+    	patrocinios.add(p);
+    }
+	
 	public String getNombre() {
 		return nombre;
 	}

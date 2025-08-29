@@ -20,7 +20,6 @@ public class Asistente extends Usuario {
 		this.apellido = ap;
 		this.nacimiento = fecha;
 		this.institucion = null;
-		this.registros = new Set<Registro>();
 	}
 	
 	@Override
@@ -42,7 +41,6 @@ public class Asistente extends Usuario {
 		return apellido;
 	}
 
-	@Override
 	public List<DTRegistro> consulta() {
 		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList()); //?? chequear
 	}

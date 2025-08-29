@@ -6,4 +6,8 @@ public abstract class DTUsuarioModificado {
 	public DTUsuarioModificado(String nom) {
 		this.nombre = nom;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
 }

@@ -3,6 +3,7 @@ package logica;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 import logica.Categoria;
@@ -21,7 +22,7 @@ public class Edicion {
 	private LocalDate fecha_inicio;
 	private String sigla;
     private String nombre;
-    private List<Patrocinio> patrocinios;
+    private Map<String, Patrocinio> patrocinios;
     private List<TRegistro> tRegistros;
     private Organizador organizador;
     private Evento evento;
@@ -37,7 +38,7 @@ public class Edicion {
     }
 
 	public DTEdicion getDatos() {
-		List<String> codigoPatrocinios = patrocinios.stream().map(p -> p.getCodigo()).collect(Collectors.toList());
+		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
 
         List<String> nombreTRegistros = tRegistros.stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
 
@@ -47,7 +48,7 @@ public class Edicion {
 	}
 	
 	public List<String> getInstituciones() {
-		return patrocinios.stream().map(p -> p.getInstitucion().getNombre()).collect(Collectors.toList());
+		return patrocinios.values().stream().map(p -> p.getInstitucion().getNombre()).collect(Collectors.toList());
 	}
 
     public String getNombre() {
@@ -62,13 +63,36 @@ public class Edicion {
         return this.fecha_alta;
     }
     
+    public LocalDate getFechaFinal() {
+        return this.fecha_final;
+    }
+
+    public LocalDate getFechaInicio() {
+        return this.fecha_inicio;
+    }
+    
+    public String getPais() {
+        return this.pais;
+    }
+
+    public String getCiudad() {
+        return this.pais;
+    }
     
     public List<Registro> getRegistros() {
         return List.copyOf(registros);
     }
     
     public void agregarPatrocinio(Patrocinio p) {
-    	patrocinios.add(p);
+    	patrocinios.put(p.getCodigo(), p);
+    }
+    
+    public List<String> getCodigosPatrocinios() {
+    	return new ArrayList<>(patrocinios.keySet());
+    }
+    
+    public Patrocinio getPatrocinio(String codigo) {
+    	return patrocinios.get(codigo);
     }
     
     //necesito que tRegistros sea map
