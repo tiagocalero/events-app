@@ -1,12 +1,18 @@
 package presentacion;
 
-import javax.swing.*;
-import java.awt.GridLayout;
-import java.awt.event.*;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import javax.swing.DropMode;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 import logica.ControladorEvento;
 import logica.DTEvento;
 
@@ -97,7 +103,6 @@ public class ConsultaEventos extends JInternalFrame {
         
         textField_2 = new JTextField();
         textField_2.setEditable(false);
-        textField_2.setText("26/08/2025");
         textField_2.setColumns(10);
         textField_2.setBounds(374, 293, 255, 37);
         getContentPane().add(textField_2);
@@ -114,14 +119,10 @@ public class ConsultaEventos extends JInternalFrame {
         
         comboBoxEventos_2 = new JComboBox();
         comboBoxEventos_2.setBounds(27, 410, 287, 146);
-        comboBoxEventos_2.addItem("Medicina");
-        comboBoxEventos_2.addItem("Biología");
         getContentPane().add(comboBoxEventos_2);
         
         comboBoxEventos_3 = new JComboBox();
         comboBoxEventos_3.setBounds(342, 410, 287, 146);
-        comboBoxEventos_3.addItem("Edición 2024");
-        comboBoxEventos_3.addItem("Edición 2025");
         getContentPane().add(comboBoxEventos_3);
         
         txtrEstaEsLa = new JTextArea();
@@ -134,13 +135,19 @@ public class ConsultaEventos extends JInternalFrame {
 	}
 
 	protected void cmdConsultar(ActionEvent e) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		ControladorEvento c = ControladorEvento.getInstance();
+		
 		DTEvento evento = c.informacionEvento((String) comboBoxEventos.getSelectedItem());
         txtEjemplo.setText(evento.getNombre());
         txtCc.setText(evento.getSigla());
         txtrEstaEsLa.setText(evento.getDescripcion());
+        textField_2.setText(evento.getFechaAlta().format(formatter));
         comboBoxEventos_2.removeAllItems();
         for (String cat: evento.getCategorias())
         	comboBoxEventos_2.addItem(cat);
+        comboBoxEventos_3.removeAllItems();
+        for (String ed: evento.getEdiciones())
+        	comboBoxEventos_3.addItem(ed);
     }
 }
