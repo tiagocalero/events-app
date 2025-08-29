@@ -26,7 +26,7 @@ public class ManejadorEvento {
 		return eventos.containsKey(nombre);
 	}
 	
-	public Evento obtener(String nombre) {
+	public Evento obtenerEvento(String nombre) {
 		return eventos.get(nombre);
 	}
 	
@@ -39,7 +39,15 @@ public class ManejadorEvento {
 		
 		return true;
 	}
-
+	
+	public Edicion obtenerEdicion(String nombre, Evento ev) {
+		return ev.getEdiciones().get(nombre);
+	}
+	
+	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {
+		Evento ev = obtenerEvento(nickEvento);
+		
+	}
 	// Devuelve una copia del map de eventos sobre el que se puede iterar
 	public Map<String, Evento> eventos() {
         return Map.copyOf(eventos);
