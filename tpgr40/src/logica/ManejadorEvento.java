@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import logica.Categoria;
@@ -12,7 +13,9 @@ public class ManejadorEvento {
 	private Map<String, Evento> eventos;
     private static ManejadorEvento instance;
 
-    private ManejadorEvento() {}
+    private ManejadorEvento() {
+    	eventos = new HashMap<>();
+    }
 
     public static ManejadorEvento getInstance() {
         if (instance == null) {
