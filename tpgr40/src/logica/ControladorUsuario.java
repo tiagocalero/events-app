@@ -9,6 +9,7 @@ import logica.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 public class ControladorUsuario{
 	private Usuario usuario;
@@ -29,7 +30,7 @@ public class ControladorUsuario{
 	
 	}
 	public Set<DTAsistente> listarAsistentes() {
-		Set<DTAsistente> res;
+		Set<DTAsistente> res = new HashSet<>();
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		for (Usuario u : m.usuarios().values()) {
 			if (u instanceof Asistente) {

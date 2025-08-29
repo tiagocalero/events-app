@@ -36,7 +36,7 @@ public class ControladorEvento{
 	public List<String> listarEventos(){
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
-		List<String> res = new ArrayList();
+		List<String> res = new ArrayList<>();
 		Map<String, Evento> eventos = m.eventos();
 		for (String entry : eventos.keySet())
 			res.add(entry);
@@ -55,7 +55,7 @@ public class ControladorEvento{
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtenerEvento(nombreEvento);
 		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
-		List<String> res = new ArrayList();
+		List<String> res = new ArrayList<>();
 		
 		for (String entry : ediciones.keySet())
 			res.add(entry);
@@ -151,7 +151,7 @@ public class ControladorEvento{
 	//seria el evento del controlador?
 	public List<DTEdicion> seleccionarEvento(Evento e){
 		
-		List<DTEdicion> resultado;
+		List<DTEdicion> resultado = new ArrayList<>();
 		
 		for (Edicion ed : e.getEdiciones().values()) {
 			DTEdicion dte = new DTEdicion(
@@ -172,7 +172,7 @@ public class ControladorEvento{
 		//esto seria con la edicion del controlador? 
 	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
 			
-			List<DTTRegistro> resultado;
+			List<DTTRegistro> resultado = new ArrayList<>();
 			
 			for (TRegistro tr : ed.getTRegistros()) {
 				DTTRegistro dtr = new DTTRegistro(
@@ -191,7 +191,7 @@ public class ControladorEvento{
 	//PRE:: hay un registro en edicion con string nombre
 	public DTTRegistro seleccionarTipoRegistro(String nombre){
 		
-		TRegistro tr = edicion.obtenerTipoRegistro(nombre);
+		TRegistro tr = edicion.getTipoRegistro(nombre);
 		
 		DTTRegistro dtr = new DTTRegistro(
 			tr.getCupo(),
@@ -205,12 +205,12 @@ public class ControladorEvento{
 	}
 
 	public boolean crearTipoRegistro(String nombre, String descripcion, float costo, int cupo) {
-		if (edicion.contains(nombre))
+		if (edicion.getTipoRegistro(nombre) != null)
 			return false;
 		
 		TRegistro tr = new TRegistro(nombre, descripcion, costo, cupo);
 		
-		edicion.add(tr);
+		edicion.agregarTRegistro(tr);
 		return true;
 	}
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
@@ -218,10 +218,13 @@ public class ControladorEvento{
 		
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
-		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion);
+		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
 
 		if (t.getCupo() == 0 || estaAsistente)
 			return true;
+		ManejadorUsuario mu = ManejadorUsuario.getInstance();
+		//tener cuidado si no me pasan un asistente, no funciona
+		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
 		
 		float costo = t.getCosto();
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
