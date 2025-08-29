@@ -25,14 +25,14 @@ public class AltaEvento extends JInternalFrame {
 	
 	public AltaEvento() {
 		setVisible(true); 
-        setSize(300, 200);
+        setSize(451, 367);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Evento");
-		setBounds(30, 30, 402, 376);
+		//setBounds(30, 30, 402, 376);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -97,7 +97,6 @@ public class AltaEvento extends JInternalFrame {
         
         ControladorEvento m = ControladorEvento.getInstance();
         m.ingresarDatosEvento(nombre, desc, sigla, categorias);
-        JOptionPane.showMessageDialog(AltaEvento.this,
-                "Se creó el evento: " + nombre);
+        JOptionPane.showMessageDialog(AltaEvento.this, "Se creó el evento: " + nombre);
     }
 }

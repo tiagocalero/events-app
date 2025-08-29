@@ -52,20 +52,34 @@ public class Principal extends JFrame {
         JMenu menuEventos = new JMenu("Eventos");
         menuBar.add(menuEventos);
         JMenuItem menuConEventos = new JMenuItem("Consulta de Eventos");
+        menuConEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new ConsultaEventos();
+                frmPrincipal.getContentPane().add(c);
+            }
+        });
         menuEventos.add(menuConEventos);
         
         JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
         menuAltaEventos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir nueva ventana AltaEvento
                 JInternalFrame a = new AltaEvento();
-                a.setSize(400, 300);
-                a.setVisible(true); 
                 frmPrincipal.getContentPane().add(a);
             }
         });
         menuEventos.add(menuAltaEventos);
+
+        JMenuItem menuAltaEdicion = new JMenuItem("Alta de Edición de Evento");
+        menuAltaEdicion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaEdicionEvento();
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
+        menuEventos.add(menuAltaEdicion);
         
         
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
