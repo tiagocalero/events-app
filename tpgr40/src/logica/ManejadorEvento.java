@@ -45,7 +45,15 @@ public class ManejadorEvento {
 	}
 	
 	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {
+		
 		Evento ev = obtenerEvento(nickEvento);
+		Edicion ed = obtenerEdicion(nombreEdicion, ev);
+		for (Registro r :ed.getRegistros()) {
+			if (r.getNicknameAsistente() == nickAsistente) {
+				return true;
+			}
+		}
+		return false;
 		
 	}
 	// Devuelve una copia del map de eventos sobre el que se puede iterar
@@ -53,21 +61,10 @@ public class ManejadorEvento {
         return Map.copyOf(eventos);
     }
 	
-	/*
-	public String buscarEvento(
-	public boolean estaAsistenteEnEdicion(String nickAsistente, String nickEdicion, String nickEvento) {
-		
-		Evento evento = eventos.get(nickEvento);
-		Edicion edicion = evento.obtenerEdicion(nickEdicion);
-		return edicion.getRegistros().stream()
-	            .anyMatch(r -> r.getAsistente().getNick().equals(nickAsistente));
+	public TRegistro encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento) {
+		Evento ev = obtenerEvento(nickEvento);
+		Edicion ed = obtenerEdicion(nombreEdicion, ev);
+		return ed.getTipoRegistro(nombreTRegistro);
 	}
-
-	*/
-
-	/*falta esto
-	public TRegistro encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion) {
-		
-	}
-	*/
+	
 }

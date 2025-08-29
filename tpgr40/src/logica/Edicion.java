@@ -101,7 +101,6 @@ public class Edicion {
         return tRegistros.get(nombre);
     }
     
-    //necesito que tRegistros sea map
     /*public TRegistro obtenerTRegistro(String nombre) {
     	return 
     }*/
