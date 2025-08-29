@@ -4,12 +4,18 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
+import logica.ControladorEvento;
 
 public class ConsultaEventos extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;
@@ -43,12 +49,15 @@ public class ConsultaEventos extends JInternalFrame {
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
-                comboBoxEventos = new JComboBox();
-                comboBoxEventos.setBounds(27, 53, 188, 43);
-                
+        comboBoxEventos = new JComboBox();
+        comboBoxEventos.setBounds(27, 53, 188, 43);
+        
+        ControladorEvento c = ControladorEvento.getInstance();
         comboBoxEventos.addItem("Selecciona un Evento");
-        comboBoxEventos.addItem("Evento 1");
-        comboBoxEventos.addItem("Evento 2");
+        
+        for (String e: c.listarEventos()) {
+        	comboBoxEventos.addItem(e);
+        }
         getContentPane().add(comboBoxEventos);
         
         lblNombre = new JLabel("Nombre:");
@@ -64,6 +73,12 @@ public class ConsultaEventos extends JInternalFrame {
         
         btnNewButton = new JButton("Consultar");
         btnNewButton.setBounds(27, 114, 188, 37);
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdConsultar(e);
+            }
+        });
+		panel_1.add(btnNewButton);
         getContentPane().add(btnNewButton);
         
         JLabel lblSigla = new JLabel("Sigla:");
@@ -124,8 +139,17 @@ public class ConsultaEventos extends JInternalFrame {
         txtrEstaEsLa.setLineWrap(true);
         txtrEstaEsLa.setBounds(374, 152, 255, 129);
         getContentPane().add(txtrEstaEsLa);
-
-		
-		
 	}
+
+	protected void cmdCrearEventoActionPerformed(ActionEvent e) {
+		ConsultaEvento c = ConsultaEvento.getInstance();
+        txtEjemplo.getText();
+        String desc = textField_1.getText();
+        String sigla = textField_2.getText();
+        List<String> categorias = listaCategorias.getSelectedValuesList();
+        
+        ControladorEvento m = ControladorEvento.getInstance();
+        m.ingresarDatosEvento(nombre, desc, sigla, categorias);
+        JOptionPane.showMessageDialog(AltaEvento.this, "Se creó el evento: " + nombre);
+    }
 }
