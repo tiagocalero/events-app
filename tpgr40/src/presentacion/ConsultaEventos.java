@@ -52,7 +52,6 @@ public class ConsultaEventos extends JInternalFrame {
         comboBoxEventos.setBounds(27, 53, 188, 43);
         
         ControladorEvento c = ControladorEvento.getInstance();
-        comboBoxEventos.addItem("Selecciona un Evento");
         
         for (String e: c.listarEventos()) {
         	comboBoxEventos.addItem(e);

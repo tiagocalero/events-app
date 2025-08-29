@@ -70,6 +70,16 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuAltaEventos);
+
+        JMenuItem menuAltaEdicion = new JMenuItem("Alta de Edición de Evento");
+        menuAltaEdicion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaEdicionEvento();
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
+        menuEventos.add(menuAltaEdicion);
         
         
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");

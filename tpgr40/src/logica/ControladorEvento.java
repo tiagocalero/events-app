@@ -115,6 +115,11 @@ public class ControladorEvento{
 		return dtp;
 	}
 	
+	public List<String> listarOrganizadores() {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.organizadores();
+	}
+	
 	public List<String> listarCategorias() {
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
 		
