@@ -4,6 +4,7 @@ import logica.Usuario;
 import logica.DTAsistente;
 import logica.Institucion;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class Asistente extends Usuario {
 		this.apellido = ap;
 		this.nacimiento = fecha;
 		this.institucion = null;
+		this.registros = new HashSet<>();
 	}
 	
 	@Override

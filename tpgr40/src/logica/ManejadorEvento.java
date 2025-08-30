@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import logica.Categoria;
@@ -12,7 +13,9 @@ public class ManejadorEvento {
 	private Map<String, Evento> eventos;
     private static ManejadorEvento instance;
 
-    private ManejadorEvento() {}
+    private ManejadorEvento() {
+    	eventos = new HashMap<>();
+    }
 
     public static ManejadorEvento getInstance() {
         if (instance == null) {
@@ -26,7 +29,7 @@ public class ManejadorEvento {
 		return eventos.containsKey(nombre);
 	}
 	
-	public Evento obtener(String nombre) {
+	public Evento obtenerEvento(String nombre) {
 		return eventos.get(nombre);
 	}
 	
@@ -39,27 +42,32 @@ public class ManejadorEvento {
 		
 		return true;
 	}
-
+	
+	public Edicion obtenerEdicion(String nombre, Evento ev) {
+		return ev.getEdiciones().get(nombre);
+	}
+	
+	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {
+		
+		Evento ev = obtenerEvento(nickEvento);
+		Edicion ed = obtenerEdicion(nombreEdicion, ev);
+		for (Registro r :ed.getRegistros()) {
+			if (r.getNicknameAsistente() == nickAsistente) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
 	// Devuelve una copia del map de eventos sobre el que se puede iterar
 	public Map<String, Evento> eventos() {
         return Map.copyOf(eventos);
     }
 	
-	/*
-	public String buscarEvento(
-	public boolean estaAsistenteEnEdicion(String nickAsistente, String nickEdicion, String nickEvento) {
-		
-		Evento evento = eventos.get(nickEvento);
-		Edicion edicion = evento.obtenerEdicion(nickEdicion);
-		return edicion.getRegistros().stream()
-	            .anyMatch(r -> r.getAsistente().getNick().equals(nickAsistente));
+	public TRegistro encontrarTRegistroDeEdicion(String nombreTRegistro, String nombreEdicion, String nickEvento) {
+		Evento ev = obtenerEvento(nickEvento);
+		Edicion ed = obtenerEdicion(nombreEdicion, ev);
+		return ed.getTipoRegistro(nombreTRegistro);
 	}
-
-	*/
-
-	/*falta esto
-	public TRegistro encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion) {
-		
-	}
-	*/
+	
 }

@@ -6,6 +6,7 @@ import logica.Evento;
 import logica.DTEdicion;
 import logica.DTTRegistro;
 import java.util.List;
+import java.util.ArrayList;
 
 public class TRegistro {
 	
@@ -22,7 +23,9 @@ public class TRegistro {
 		this.descripcion = desc;
 		this.costo = costo;
 		this.cupo = cupo;
-		
+		patrocinios = new ArrayList<>();
+		edicion = new ArrayList<>();
+		patrocinios = new ArrayList<>();
 	}
 	
 	/* public void agregarCantRegistro(CantRegistro cr) {

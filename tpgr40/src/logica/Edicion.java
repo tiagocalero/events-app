@@ -38,13 +38,14 @@ public class Edicion {
         this.pais = pais;
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
+        this.registros = new ArrayList<>();
     }
 
 	public DTEdicion getDatos() {
 		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
-        List<String> nombreTRegistros = tRegistros.Stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
-        List<String> nickAsistentes = registros.Stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
-
+        //List<String> nombreTRegistros = tRegistros.keySet().stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
+		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
+        List<String> nickAsistentes = registros.stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
 
 		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, nickAsistentes, organizador.getNickname());
 	}
@@ -82,9 +83,13 @@ public class Edicion {
     }
     
     public List<Registro> getRegistros() {
-        return new ArrayList<>(registros.keySet());
+        return new ArrayList<>(registros);
     }
     
+	public List<TRegistro> getTRegistros() {
+	    return new ArrayList<>(tRegistros.values());
+	}
+	
     public void agregarPatrocinio(Patrocinio p) {
     	patrocinios.put(p.getCodigo(), p);
     }
@@ -93,6 +98,11 @@ public class Edicion {
     	return new ArrayList<>(patrocinios.keySet());
     }
     
+    public void agregarTRegistro(TRegistro tr) {
+    	tRegistros.put(tr.getNombre(), tr);
+    }
+    		
+    		
     public Patrocinio getPatrocinio(String codigo) {
     	return patrocinios.get(codigo);
     }
@@ -101,7 +111,6 @@ public class Edicion {
         return tRegistros.get(nombre);
     }
     
-    //necesito que tRegistros sea map
     /*public TRegistro obtenerTRegistro(String nombre) {
     	return 
     }*/

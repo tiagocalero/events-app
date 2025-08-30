@@ -2,12 +2,15 @@ package logica;
 
 import logica.Categoria;
 import java.util.Map;
+import java.util.HashMap;
 
 public class ManejadorCategoria {
 	private Map<String, Categoria> categorias;
     private static volatile ManejadorCategoria instance;
 
-    private ManejadorCategoria() {}
+    private ManejadorCategoria() {
+    	categorias = new HashMap<>();
+    }
 
     public static ManejadorCategoria getInstance() {
         if (instance == null) {
