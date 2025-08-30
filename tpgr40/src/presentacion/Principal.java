@@ -63,6 +63,7 @@ public class Principal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
             }
+        	setLocationRelativeTo(null);
         });
         menuSistema.add(menuCargarDatos);
         
