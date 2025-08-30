@@ -141,7 +141,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
             edicionesModel.addElement("Seleccione una Edicion");
             
             ControladorEvento m = ControladorEvento.getInstance();
-            m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
+            m.elegirEvento(eventoSeleccionado).forEach(edicionesModel::addElement);
             comboBoxEdiciones.setModel(edicionesModel);
         }
 	}
@@ -158,7 +158,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
             ControladorEvento m = ControladorEvento.getInstance();
             m.elegirEdicion(edicionSeleccionada);
             m.listarPatrocinios().forEach(patrociniosModel::addElement);
-            comboBoxEdiciones.setModel(patrociniosModel);
+            comboBoxPatrocinios.setModel(patrociniosModel);
         }
 	}
 	
@@ -168,9 +168,11 @@ public class ConsultaPatrocinio extends JInternalFrame {
         
         // Verificar que la selección sea válida
         if (patrocinioSeleccionado != null && !patrocinioSeleccionado.equals("Seleccione un Patrocinio")) {
+        	// Mostrar datos de patrocinio
             ControladorEvento m = ControladorEvento.getInstance();
             DTPatrocinio dtp = m.consultaPatrocinio(patrocinioSeleccionado);
             
+            // Convertir TipoNivelPatrocinio a String
             switch (dtp.getTipo()) {
             case Plata:
             	textNivelPatrocinio.setText("Plata");

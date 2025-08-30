@@ -18,19 +18,18 @@ import logica.DTEvento;
 
 public class ConsultaEventos extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;
-	private JLabel lblEventos;
-	private JComboBox comboBoxEventos;
+	private JComboBox comboEventos;
 	private JLabel lblNombre;
-	private JButton btnNewButton;
-	private final JTextField txtEjemplo = new JTextField();
-	private JTextField txtCc;
+	private JButton btnConsultar;
+	private final JTextField textNombre = new JTextField();
+	private JTextField textSigla;
 	private JLabel lblFecha;
-	private JTextField textField_2;
+	private JTextField textFecha;
 	private JLabel lblCategoras;
 	private JLabel lblEdiciones;
-	private JComboBox comboBoxEventos_2;
-	private JComboBox comboBoxEventos_3;
-	private JTextArea txtrEstaEsLa;
+	private JComboBox comboCategorias;
+	private JComboBox comboEdiciones;
+	private JTextArea textDesc;
 	
 	public ConsultaEventos() {
 		setVisible(true);
@@ -42,69 +41,59 @@ public class ConsultaEventos extends JInternalFrame {
 		setTitle("Consultar un Evento");
 		setBounds(30, 30, 700, 600);
 		getContentPane().setLayout(null);
-		
-		lblEventos = new JLabel("Eventos");
-		lblEventos.setBounds(0, 0, 492, 60);
-        lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        getContentPane().add(lblEventos);
 
-        comboBoxEventos = new JComboBox();
-        comboBoxEventos.setBounds(27, 53, 188, 43);
+        comboEventos = new JComboBox();
+        comboEventos.setBounds(27, 53, 218, 43);
         
         ControladorEvento c = ControladorEvento.getInstance();
         
         for (String e: c.listarEventos()) {
-        	comboBoxEventos.addItem(e);
+        	comboEventos.addItem(e);
         }
-        getContentPane().add(comboBoxEventos);
+        getContentPane().add(comboEventos);
         
         lblNombre = new JLabel("Nombre:");
         lblNombre.setBounds(235, 54, 121, 37);
-        lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-        //lblNombre.setBounds(100, 100, 170, 14);
+        lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
         getContentPane().add(lblNombre);
-        txtEjemplo.setEditable(false);
-        txtEjemplo.setText("Congreso Internacional de Cardiología");
-        txtEjemplo.setBounds(374, 54, 255, 37);
-        getContentPane().add(txtEjemplo);
-        txtEjemplo.setColumns(10);
+        textNombre.setEditable(false);
+        textNombre.setBounds(374, 54, 255, 37);
+        getContentPane().add(textNombre);
+        textNombre.setColumns(10);
         
-        btnNewButton = new JButton("Consultar");
-        btnNewButton.setBounds(27, 114, 188, 37);
-		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cmdConsultar(e);
-            }
+        btnConsultar = new JButton("Consultar");
+        btnConsultar.setBounds(27, 114, 218, 37);
+		btnConsultar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { consultar(e); }
         });
-        getContentPane().add(btnNewButton);
+        getContentPane().add(btnConsultar);
         
         JLabel lblSigla = new JLabel("Sigla:");
-        lblSigla.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
         lblSigla.setBounds(235, 103, 121, 37);
         getContentPane().add(lblSigla);
         
-        txtCc = new JTextField();
-        txtCc.setEditable(false);
-        txtCc.setText("CIC");
-        txtCc.setColumns(10);
-        txtCc.setBounds(374, 103, 255, 37);
-        getContentPane().add(txtCc);
+        textSigla = new JTextField();
+        textSigla.setEditable(false);
+        textSigla.setColumns(10);
+        textSigla.setBounds(374, 103, 255, 37);
+        getContentPane().add(textSigla);
         
         JLabel lblDescripcin = new JLabel("Descripción:");
-        lblDescripcin.setHorizontalAlignment(SwingConstants.CENTER);
+        lblDescripcin.setHorizontalAlignment(SwingConstants.RIGHT);
         lblDescripcin.setBounds(235, 152, 121, 37);
         getContentPane().add(lblDescripcin);
         
         lblFecha = new JLabel("Fecha:");
-        lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
         lblFecha.setBounds(235, 293, 121, 37);
         getContentPane().add(lblFecha);
         
-        textField_2 = new JTextField();
-        textField_2.setEditable(false);
-        textField_2.setColumns(10);
-        textField_2.setBounds(374, 293, 255, 37);
-        getContentPane().add(textField_2);
+        textFecha = new JTextField();
+        textFecha.setEditable(false);
+        textFecha.setColumns(10);
+        textFecha.setBounds(374, 293, 255, 37);
+        getContentPane().add(textFecha);
         
         lblCategoras = new JLabel("Categorías: ");
         lblCategoras.setHorizontalAlignment(SwingConstants.LEFT);
@@ -116,37 +105,36 @@ public class ConsultaEventos extends JInternalFrame {
         lblEdiciones.setBounds(342, 361, 121, 37);
         getContentPane().add(lblEdiciones);
         
-        comboBoxEventos_2 = new JComboBox();
-        comboBoxEventos_2.setBounds(27, 410, 287, 146);
-        getContentPane().add(comboBoxEventos_2);
+        comboCategorias = new JComboBox();
+        comboCategorias.setBounds(27, 410, 287, 27);
+        getContentPane().add(comboCategorias);
         
-        comboBoxEventos_3 = new JComboBox();
-        comboBoxEventos_3.setBounds(342, 410, 287, 146);
-        getContentPane().add(comboBoxEventos_3);
+        comboEdiciones = new JComboBox();
+        comboEdiciones.setBounds(342, 410, 287, 27);
+        getContentPane().add(comboEdiciones);
         
-        txtrEstaEsLa = new JTextArea();
-        txtrEstaEsLa.setEditable(false);
-        txtrEstaEsLa.setWrapStyleWord(true);
-        txtrEstaEsLa.setText("Esta es la descripción del Congreso Internaciol de Cardiología");
-        txtrEstaEsLa.setLineWrap(true);
-        txtrEstaEsLa.setBounds(374, 152, 255, 129);
-        getContentPane().add(txtrEstaEsLa);
+        textDesc = new JTextArea();
+        textDesc.setEditable(false);
+        textDesc.setWrapStyleWord(true);
+        textDesc.setLineWrap(true);
+        textDesc.setBounds(374, 152, 255, 129);
+        getContentPane().add(textDesc);
 	}
 
-	protected void cmdConsultar(ActionEvent e) {
+	protected void consultar(ActionEvent e) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		ControladorEvento c = ControladorEvento.getInstance();
 		
-		DTEvento evento = c.informacionEvento((String) comboBoxEventos.getSelectedItem());
-        txtEjemplo.setText(evento.getNombre());
-        txtCc.setText(evento.getSigla());
-        txtrEstaEsLa.setText(evento.getDescripcion());
-        textField_2.setText(evento.getFechaAlta().format(formatter));
-        comboBoxEventos_2.removeAllItems();
+		DTEvento evento = c.informacionEvento((String) comboEventos.getSelectedItem());
+        textNombre.setText(evento.getNombre());
+        textSigla.setText(evento.getSigla());
+        textDesc.setText(evento.getDescripcion());
+        textFecha.setText(evento.getFechaAlta().format(formatter));
+        comboCategorias.removeAllItems();
         for (String cat: evento.getCategorias())
-        	comboBoxEventos_2.addItem(cat);
-        comboBoxEventos_3.removeAllItems();
+        	comboCategorias.addItem(cat);
+        comboEdiciones.removeAllItems();
         for (String ed: evento.getEdiciones())
-        	comboBoxEventos_3.addItem(ed);
+        	comboEdiciones.addItem(ed);
     }
 }
