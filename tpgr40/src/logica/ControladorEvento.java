@@ -8,6 +8,7 @@ import logica.ManejadorCategoria;
 import logica.DTPatrocinio;
 import logica.DTEdicion;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class ControladorEvento{
 		
 		Institucion i = m.obtener(nombreInstitucion);
 		
-		if (!i.existePatrocinio(edicion))
+		if (i.existePatrocinio(edicion))
 			return false;
 	
 		institucion = i;
@@ -135,23 +136,35 @@ public class ControladorEvento{
 		
 		return m.crearEvento(nombre, descripcion, sigla, fechaActual, categorias);	
 	}
+	
+	public boolean altaEventoCargaDatos(String nombre, String descripcion, String sigla, String fecha, List<String> categorias) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaAlta = LocalDate.parse(fecha, fmt);
+		
+		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
+	}
+	
 
 	public DTEdicion elegirEdicion(Edicion edicion) {
 		return edicion.getDatos();
 	}
 
-	//Asumo que se hizo el chequeo de que el nombre no exista
-	public void altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
+	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
-
-		Evento evento = m.obtenerEvento(nombreEvento);
-
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 
+		Evento evento = m.obtenerEvento(nombreEvento);
 		Usuario organizador = mu.obtener(nickanameOrganizador);
+		
+		if (evento.existeEdicion(nombre))
+			return false;
 
-		new Edicion(evento, (Organizador) organizador, nombre, sigla, ciudad, pais);
-
+		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, ciudad, pais);
+		evento.agregarEdicion(e);
+		
+		return true;
 	}
 	//seria el evento del controlador?
 	public List<DTEdicion> seleccionarEvento(Evento e){

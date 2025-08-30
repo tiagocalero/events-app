@@ -68,9 +68,11 @@ public class AltaEvento extends JInternalFrame {
 		
 		ControladorEvento m = ControladorEvento.getInstance();
 		
-		listaCategorias = new JList<>(m.listarCategorias().toArray(new String[0]));
-		listaCategorias.setBounds(193, 176, 140, 81);
-		panel.add(listaCategorias);
+		listaCategorias = new JList<String>(m.listarCategorias().toArray(new String[0]));
+		
+        JScrollPane scrollPane = new JScrollPane(listaCategorias);
+		scrollPane.setBounds(193, 176, 140, 81);
+		panel.add(scrollPane);
 		listaCategorias.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
 		JLabel lblCategoras = new JLabel("Categorías:");

@@ -21,7 +21,6 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class AltaInstitucion extends JInternalFrame{
-	private JInternalFrame frmAltaInstitucion;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextArea textArea;
@@ -35,7 +34,7 @@ public class AltaInstitucion extends JInternalFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta Institución");
-		setBounds(30, 30, 315, 365);
+		setBounds(30, 30, 315, 395);
 		getContentPane().setLayout(null);
 		
 			
@@ -86,8 +85,25 @@ public class AltaInstitucion extends JInternalFrame{
 		getContentPane().add(btnNewButton_1);
 				
 		JButton btnNewButton_2 = new JButton("Cancelar");
-		btnNewButton_2.setBounds(55, 263, 188, 37);
+		btnNewButton_2.setBounds(54, 312, 188, 37);
+		btnNewButton_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
 		getContentPane().add(btnNewButton_2);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setBounds(54, 263, 188, 37);
+		btnLimpiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	textField.setText("");
+            	textField_1.setText("");
+            	textArea.setText(""); 
+            }
+        });
+		getContentPane().add(btnLimpiar);
 	}
 	
 	protected void cmdCrearInstActionPerformed(ActionEvent e) {
@@ -96,7 +112,15 @@ public class AltaInstitucion extends JInternalFrame{
         String desc= textArea.getText();
         	        
         ControladorInstitucion c = ControladorInstitucion.getInstance();
-        c.altaInstitucion(nombre, desc, url);
-        JOptionPane.showMessageDialog(AltaInstitucion.this, "Se creó la institución: " + nombre);
+        boolean exito = c.altaInstitucion(nombre, desc, url);
+        if (!exito) {
+        	JOptionPane.showMessageDialog(AltaInstitucion.this, "La institución: " + nombre + " ya existe");
+        }
+        else {
+        	JOptionPane.showMessageDialog(AltaInstitucion.this, "Se creó la institución: " + nombre);
+        	textField.setText("");
+        	textField_1.setText("");
+        	textArea.setText(""); 
+        }
 	}
 }
