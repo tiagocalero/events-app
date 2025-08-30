@@ -115,6 +115,7 @@ public class AltaEvento extends JInternalFrame {
             // Ver qué eligió el usuario
             switch (resultado) {
                 case 0:
+                	// Borrar campos
 	            	textNombre.setText("");
 	            	textDesc.setText("");
 	            	textSigla.setText("");
