@@ -97,7 +97,7 @@ public class ControladorEvento{
 	}
 	
 	//PRE:: hay un registro en edicion con string nombre
-	public DTTRegistro seleccionarTipoRegistro(String nombre, String nomEdicion, String nomEvento) {
+	public DTTRegistro seleccionarTipoRegistro(String nombre, String nomEvento, String nomEdicion) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
 		Evento evento = m.obtenerEvento(nomEvento);

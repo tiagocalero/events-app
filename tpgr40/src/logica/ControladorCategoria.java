@@ -20,9 +20,9 @@ public class ControladorCategoria{
 	public boolean altaCategoria(String nombreCategoria) {
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
 		boolean existe = m.existe(nombreCategoria);
-		if (!existe) {
+		if (!existe)
 			m.altaCategoria(nombreCategoria);
-		}
-		return existe;
+		
+		return !existe;
 	}
 }
