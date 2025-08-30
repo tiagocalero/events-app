@@ -22,7 +22,7 @@ public class ConsultaEventos extends JInternalFrame {
 	private JLabel lblEventos;
 	private JComboBox comboBoxEventos;
 	private JLabel lblNombre;
-	private JButton btnNewButton;
+	private JButton btnConsulta;
 	private final JTextField textNombre = new JTextField();
 	private JTextField textSigla;
 	private JLabel lblFecha;
@@ -84,14 +84,14 @@ public class ConsultaEventos extends JInternalFrame {
         getContentPane().add(textNombre);
         textNombre.setColumns(10);
         
-        btnNewButton = new JButton("Consultar");
-        btnNewButton.setBounds(12, 102, 188, 37);
-		btnNewButton.addActionListener(new ActionListener() {
+        btnConsulta = new JButton("Consultar");
+        btnConsulta.setBounds(12, 102, 188, 37);
+		btnConsulta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cmdConsultar(e);
+                consulta(e);
             }
         });
-        getContentPane().add(btnNewButton);
+        getContentPane().add(btnConsulta);
         
         JLabel lblSigla = new JLabel("Sigla:");
         lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -239,7 +239,7 @@ public class ConsultaEventos extends JInternalFrame {
         panel.add(textPaisEd);
 	}
 
-	protected void cmdConsultar(ActionEvent e) {
+	protected void consulta(ActionEvent e) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		ControladorEvento c = ControladorEvento.getInstance();
 		
