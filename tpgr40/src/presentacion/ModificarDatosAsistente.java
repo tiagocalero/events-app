@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class ModificarDatosAsistente {
+public class ModificarDatosAsistente extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;
 	private JLabel lblEventos;
 	private JComboBox comboBoxEventos;
@@ -31,21 +31,20 @@ public class ModificarDatosAsistente {
 	
 	public ModificarDatosAsistente() {
 		
-		frmConsultaEventos = new JInternalFrame();
-		frmConsultaEventos.setResizable(true);
-		frmConsultaEventos.setIconifiable(true);
-		frmConsultaEventos.setMaximizable(true);
-		frmConsultaEventos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frmConsultaEventos.setClosable(true);
-		frmConsultaEventos.setTitle("Modificar Datos de Usuario");
-		frmConsultaEventos.setBounds(30, 30, 706, 442);
-		frmConsultaEventos.getContentPane().setLayout(null);
+		setResizable(true);
+		setIconifiable(true);
+		setMaximizable(true);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
+		setTitle("Modificar Datos de Usuario");
+		setBounds(30, 30, 706, 442);
+		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Usuario");
 		lblEventos.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblEventos.setBounds(374, 0, 255, 60);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        frmConsultaEventos.getContentPane().add(lblEventos);
+        getContentPane().add(lblEventos);
         
                 
                 comboBoxEventos = new JComboBox();
@@ -55,62 +54,62 @@ public class ModificarDatosAsistente {
         comboBoxEventos.addItem("Selecciona un Evento");
         comboBoxEventos.addItem("Evento 1");
         comboBoxEventos.addItem("Evento 2");
-        frmConsultaEventos.getContentPane().add(comboBoxEventos);
+        getContentPane().add(comboBoxEventos);
         
         lblNombre = new JLabel("Nickname:");
         lblNombre.setBounds(235, 54, 121, 37);
         lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
         //lblNombre.setBounds(100, 100, 170, 14);
-        frmConsultaEventos.getContentPane().add(lblNombre);
+        getContentPane().add(lblNombre);
         txtEjemplo.setEditable(false);
         txtEjemplo.setBounds(374, 54, 255, 37);
-        frmConsultaEventos.getContentPane().add(txtEjemplo);
+        getContentPane().add(txtEjemplo);
         txtEjemplo.setColumns(10);
         
         btnNewButton = new JButton("Seleccionar");
         btnNewButton.setBounds(27, 114, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton);
+        getContentPane().add(btnNewButton);
         
         JLabel lblSigla = new JLabel("Nombre:");
         lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
         lblSigla.setBounds(235, 103, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblSigla);
+        getContentPane().add(lblSigla);
         
         txtCc = new JTextField();
         txtCc.setColumns(10);
         txtCc.setBounds(374, 103, 255, 37);
-        frmConsultaEventos.getContentPane().add(txtCc);
+        getContentPane().add(txtCc);
         
         JLabel lblDescripcin = new JLabel("Correo:");
         lblDescripcin.setHorizontalAlignment(SwingConstants.RIGHT);
         lblDescripcin.setBounds(235, 152, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblDescripcin);
+        getContentPane().add(lblDescripcin);
         
         lblFecha = new JLabel("Fecha de Nacimiento:");
         lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
         lblFecha.setBounds(168, 250, 188, 37);
-        frmConsultaEventos.getContentPane().add(lblFecha);
+        getContentPane().add(lblFecha);
         
         textField_2 = new JTextField();
         textField_2.setColumns(10);
         textField_2.setBounds(374, 250, 255, 37);
-        frmConsultaEventos.getContentPane().add(textField_2);
+        getContentPane().add(textField_2);
         
         textField = new JTextField();
         textField.setEditable(false);
         textField.setColumns(10);
         textField.setBounds(374, 152, 255, 37);
-        frmConsultaEventos.getContentPane().add(textField);
+        getContentPane().add(textField);
         
         JLabel lblApellido = new JLabel("Apellido:");
         lblApellido.setHorizontalAlignment(SwingConstants.RIGHT);
         lblApellido.setBounds(235, 201, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblApellido);
+        getContentPane().add(lblApellido);
         
         textField_1 = new JTextField();
         textField_1.setColumns(10);
         textField_1.setBounds(374, 201, 255, 37);
-        frmConsultaEventos.getContentPane().add(textField_1);
+        getContentPane().add(textField_1);
         
         JButton btnNewButton_1 = new JButton("Modificar");
         btnNewButton_1.addActionListener(new ActionListener() {
@@ -118,11 +117,11 @@ public class ModificarDatosAsistente {
         	}
         });
         btnNewButton_1.setBounds(407, 310, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton_1);
+        getContentPane().add(btnNewButton_1);
         
         btnNewButton_2 = new JButton("Cancelar");
         btnNewButton_2.setBounds(407, 359, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton_2);
+        getContentPane().add(btnNewButton_2);
 
 		
 		
