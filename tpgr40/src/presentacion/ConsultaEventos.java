@@ -44,7 +44,7 @@ public class ConsultaEventos extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos");
-		lblEventos.setBounds(0, 0, 492, 60);
+		lblEventos.setBounds(27, 12, 188, 36);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 

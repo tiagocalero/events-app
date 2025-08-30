@@ -45,6 +45,6 @@ public class Asistente extends Usuario {
 	}
 
 	public List<DTRegistro> consulta() {
-		return registros.Stream().map(registro -> registro.getDatos()).collect(Collectors.toList()); //?? chequear
+		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList()); //?? chequear
 	}
 }

@@ -163,7 +163,7 @@ public class ControladorEvento{
 		return edicion.getDatos();
 	}
 
-	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, String ciudad, String pais) {
+	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 
@@ -173,7 +173,7 @@ public class ControladorEvento{
 		if (evento.existeEdicion(nombre))
 			return false;
 
-		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, ciudad, pais);
+		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
 		evento.agregarEdicion(e);
 		
 		return true;
