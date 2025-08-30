@@ -228,7 +228,7 @@ public class ControladorEvento{
 	}
 	
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
-	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
+	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String nomEdicion) {
 		
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
@@ -239,6 +239,10 @@ public class ControladorEvento{
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 		//tener cuidado si no me pasan un asistente, no funciona
 		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
+
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nickEvento);
+		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
 		
 		float costo = t.getCosto();
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
