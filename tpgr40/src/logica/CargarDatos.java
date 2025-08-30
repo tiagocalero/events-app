@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Arrays;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CargarDatos {
@@ -54,9 +56,28 @@ public class CargarDatos {
 		List<String> cats7 = new ArrayList<>(Arrays.asList("Cultura", "Moda"));
 		ev = e.altaEventoCargaDatos("Montevideo Fashion Week", "Pasarela de moda uruguaya e internacional", "MFASHION", "20/07/2025", cats7);
 		
-		//Cargar Ediciones
 		
-	
+		//Cargar Organizaciones
+		ControladorUsuario u = ControladorUsuario.getInstance();
+		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "Empresa de organización de eventos.", "https://miseventos.com");
+		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "Empresa líder en tecnologías de la información.", "");
+		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
+		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "Universidad pública de Uruguay.", "https://udelar.edu.uy");
+		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "Institución pública promotora de cultura.", "https://mec.gub.uy");
+		
+		//Cargar Ediciones
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+        LocalDate fechaInicio = LocalDate.parse("20/11/2025", fmt);
+        LocalDate fechaFin = LocalDate.parse("22/11/2025", fmt);
+        LocalDate fechaAlta = LocalDate.parse("12/03/2025", fmt);
+		boolean  ed = e.altaEdicion("Montevideo Rock", "", "Montevideo Rock 2025", "MONROCK25", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay");
+		
+		fechaInicio = LocalDate.parse("", fmt);
+        fechaFin = LocalDate.parse("", fmt);
+        fechaAlta = LocalDate.parse("", fmt);
+		ed = e.altaEdicion("", "", "", "", fechaInicio, fechaFin, fechaAlta, "", "");
+		
 	
 	
 	
