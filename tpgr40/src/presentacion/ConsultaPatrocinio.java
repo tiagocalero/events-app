@@ -6,6 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import logica.ControladorEvento;
+import logica.DTPatrocinio;
+import logica.TipoNivelPatrocinio;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
@@ -16,108 +21,174 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class ConsultaPatrocinio {
-	private JInternalFrame frmConsultaEventos;
+public class ConsultaPatrocinio extends JInternalFrame {
 	private JLabel lblEventos;
 	private JComboBox comboBoxEventos;
+	private JComboBox comboBoxEdiciones;
 	private JLabel lblNombre;
-	private JButton btnNewButton;
-	private final JTextField txtEjemplo = new JTextField();
-	private JComboBox comboBoxEventos_2;
-	private JButton btnNewButton_3;
-	private JComboBox comboBoxEventos_3;
-	private JComboBox comboBoxEventos_4;
-	private JTextField textField_3;
+	private final JTextField textAporteEconomico = new JTextField();
+	private JComboBox comboBoxPatrocinios;
+	private JTextField textCantRegistros;
+	private JTextField textNivelPatrocinio;
+	private JTextField textTRegistros;
 	
 	public ConsultaPatrocinio() {
-		
-		frmConsultaEventos = new JInternalFrame();
-		frmConsultaEventos.setResizable(true);
-		frmConsultaEventos.setIconifiable(true);
-		frmConsultaEventos.setMaximizable(true);
-		frmConsultaEventos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frmConsultaEventos.setClosable(true);
-		frmConsultaEventos.setTitle("Consulta Patrocinio");
-		frmConsultaEventos.setBounds(30, 30, 833, 430);
-		frmConsultaEventos.getContentPane().setLayout(null);
+		setVisible(true);
+		setResizable(true);
+		setIconifiable(true);
+		setMaximizable(true);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
+		setTitle("Consulta Patrocinio");
+		setBounds(30, 30, 833, 349);
+		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Patrocinio");
 		lblEventos.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblEventos.setBounds(12, 0, 255, 60);
+		lblEventos.setBounds(309, 6, 453, 60);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        frmConsultaEventos.getContentPane().add(lblEventos);
+        getContentPane().add(lblEventos);
                 
         comboBoxEventos = new JComboBox();
-        comboBoxEventos.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Evento", "Evento 1", "Evento 2"}));
         comboBoxEventos.setBounds(27, 53, 226, 43);
-                
-        comboBoxEventos.addItem("Selecciona un Evento");
-        comboBoxEventos.addItem("Evento 1");
-        comboBoxEventos.addItem("Evento 2");
-        frmConsultaEventos.getContentPane().add(comboBoxEventos);
+        inicializarCombos();
+        getContentPane().add(comboBoxEventos);
         
         lblNombre = new JLabel("Aporte Económico:");
-        lblNombre.setBounds(386, 114, 139, 37);
+        lblNombre.setBounds(385, 113, 139, 37);
         lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
         //lblNombre.setBounds(100, 100, 170, 14);
-        frmConsultaEventos.getContentPane().add(lblNombre);
-        txtEjemplo.setBounds(536, 114, 226, 37);
-        frmConsultaEventos.getContentPane().add(txtEjemplo);
-        txtEjemplo.setColumns(10);
+        getContentPane().add(lblNombre);
+        textAporteEconomico.setEditable(false);
+        textAporteEconomico.setBounds(535, 113, 226, 37);
+        getContentPane().add(textAporteEconomico);
+        textAporteEconomico.setColumns(10);
         
-        btnNewButton = new JButton("Seleccionar");
-        btnNewButton.setBounds(47, 114, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton);
+        comboBoxEdiciones = new JComboBox();
+        comboBoxEdiciones.setBounds(27, 108, 226, 43);
+        getContentPane().add(comboBoxEdiciones);
         
-        JComboBox comboBoxEventos_1 = new JComboBox();
-        comboBoxEventos_1.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una Edición"}));
-        comboBoxEventos_1.setBounds(27, 163, 226, 43);
-        frmConsultaEventos.getContentPane().add(comboBoxEventos_1);
-        
-        JButton btnNewButton_2 = new JButton("Seleccionar");
-        btnNewButton_2.setBounds(47, 224, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton_2);
-        
-        comboBoxEventos_2 = new JComboBox();
-        comboBoxEventos_2.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Patrocinio"}));
-        comboBoxEventos_2.setBounds(27, 273, 226, 43);
-        frmConsultaEventos.getContentPane().add(comboBoxEventos_2);
-        
-        btnNewButton_3 = new JButton("Seleccionar");
-        btnNewButton_3.setBounds(47, 334, 188, 37);
-        frmConsultaEventos.getContentPane().add(btnNewButton_3);
-        
-        comboBoxEventos_3 = new JComboBox();
-        comboBoxEventos_3.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Tipo de Registro"}));
-        comboBoxEventos_3.setBounds(536, 163, 226, 43);
-        frmConsultaEventos.getContentPane().add(comboBoxEventos_3);
-        
-        comboBoxEventos_4 = new JComboBox();
-        comboBoxEventos_4.setModel(new DefaultComboBoxModel(new String[] {"Platino", "Oro", "Plata", "Bronce"}));
-        comboBoxEventos_4.setBounds(536, 53, 226, 43);
-        frmConsultaEventos.getContentPane().add(comboBoxEventos_4);
+        comboBoxPatrocinios = new JComboBox();
+        comboBoxPatrocinios.setBounds(27, 163, 226, 43);
+        getContentPane().add(comboBoxPatrocinios);
         
         JLabel lblNivelPatrocinio = new JLabel("Nivel Patrocinio:");
         lblNivelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNivelPatrocinio.setBounds(404, 53, 121, 37);
-        frmConsultaEventos.getContentPane().add(lblNivelPatrocinio);
+        lblNivelPatrocinio.setBounds(403, 63, 121, 37);
+        getContentPane().add(lblNivelPatrocinio);
         
-        JLabel lblTipoDeRegistros = new JLabel("Tipo de Registros Gratutitos:");
+        JLabel lblTipoDeRegistros = new JLabel("Tipo de Registro Gratutito:");
         lblTipoDeRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblTipoDeRegistros.setBounds(309, 166, 216, 37);
-        frmConsultaEventos.getContentPane().add(lblTipoDeRegistros);
+        lblTipoDeRegistros.setBounds(308, 163, 216, 37);
+        getContentPane().add(lblTipoDeRegistros);
         
         JLabel lblNombre_1 = new JLabel("Cantidad de Registros Gratuitos:");
         lblNombre_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNombre_1.setBounds(291, 215, 234, 37);
-        frmConsultaEventos.getContentPane().add(lblNombre_1);
+        lblNombre_1.setBounds(290, 213, 234, 37);
+        getContentPane().add(lblNombre_1);
         
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        textField_3.setBounds(536, 215, 226, 37);
-        frmConsultaEventos.getContentPane().add(textField_3);
+        textCantRegistros = new JTextField();
+        textCantRegistros.setEditable(false);
+        textCantRegistros.setColumns(10);
+        textCantRegistros.setBounds(535, 213, 226, 37);
+        getContentPane().add(textCantRegistros);
+        
+        textNivelPatrocinio = new JTextField();
+        textNivelPatrocinio.setEditable(false);
+        textNivelPatrocinio.setColumns(10);
+        textNivelPatrocinio.setBounds(535, 63, 226, 37);
+        getContentPane().add(textNivelPatrocinio);
+        
+        textTRegistros = new JTextField();
+        textTRegistros.setEditable(false);
+        textTRegistros.setColumns(10);
+        textTRegistros.setBounds(535, 163, 226, 37);
+        getContentPane().add(textTRegistros);
 
-		
-		
+        comboBoxEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { eventoSeleccionado(); }
+        });
+
+        comboBoxEdiciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { edicionSeleccionada(); }
+        });
+
+        comboBoxPatrocinios.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { patrocinioSeleccionado(); }
+        });
+	}
+	
+	private void inicializarCombos() {
+        DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<>();
+        eventosModel.addElement("Seleccione un Evento");
+        
+        ControladorEvento m = ControladorEvento.getInstance();
+        m.listarEventos().forEach(eventosModel::addElement);
+        comboBoxEventos.setModel(eventosModel);
+    }
+	
+	private void eventoSeleccionado() {
+        // Obtener el evento seleccionado
+        String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+        
+        // Verificar que la selección sea válida
+        if (eventoSeleccionado != null && !eventoSeleccionado.equals("Seleccione un Evento")) {
+            // Llamar al método que carga las ediciones
+        	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
+            edicionesModel.addElement("Seleccione una Edicion");
+            
+            ControladorEvento m = ControladorEvento.getInstance();
+            m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
+            comboBoxEdiciones.setModel(edicionesModel);
+        }
+	}
+	private void edicionSeleccionada() {
+        // Obtener la edicion seleccionada
+        String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+        
+        // Verificar que la selección sea válida
+        if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
+        	DefaultComboBoxModel<String> patrociniosModel = new DefaultComboBoxModel<>();
+        	patrociniosModel.addElement("Seleccione un Patrocinio");
+
+        	// Agregar patrocinios
+            ControladorEvento m = ControladorEvento.getInstance();
+            m.elegirEdicion(edicionSeleccionada);
+            m.listarPatrocinios().forEach(patrociniosModel::addElement);
+            comboBoxEdiciones.setModel(patrociniosModel);
+        }
+	}
+	
+	private void patrocinioSeleccionado() {
+        // Obtener el evento seleccionado
+        String patrocinioSeleccionado = (String) comboBoxPatrocinios.getSelectedItem();
+        
+        // Verificar que la selección sea válida
+        if (patrocinioSeleccionado != null && !patrocinioSeleccionado.equals("Seleccione un Patrocinio")) {
+            ControladorEvento m = ControladorEvento.getInstance();
+            DTPatrocinio dtp = m.consultaPatrocinio(patrocinioSeleccionado);
+            
+            switch (dtp.getTipo()) {
+            case Plata:
+            	textNivelPatrocinio.setText("Plata");
+            	break;
+            case Platino:
+            	textNivelPatrocinio.setText("Platino");
+            	break;
+            case Oro:
+            	textNivelPatrocinio.setText("Oro");
+            	break;
+            case Bronce:
+            	textNivelPatrocinio.setText("Bronce");
+            	break;
+            }
+            
+            textAporteEconomico.setText(String.valueOf(dtp.getMonto()));
+            textTRegistros.setText(dtp.getTipoRegistro());
+            textCantRegistros.setText(String.valueOf(dtp.getCantRegistros()));
+        }
 	}
 }
