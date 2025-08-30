@@ -16,10 +16,6 @@ import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
 public class ControladorEvento{
-	private Evento evento;
-	private Edicion edicion;
-	private Institucion institucion;
-	
 	private static volatile ControladorEvento instance;
 	private ControladorEvento(){};
 	
@@ -45,7 +41,7 @@ public class ControladorEvento{
 		return res;
 	}
 	
-	public DTEvento informacionEvento (String nombre) {
+	public DTEvento informacionEvento(String nombre) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtenerEvento(nombre);
 		DTEvento res = eventoBuscado.getDatos();
@@ -61,34 +57,7 @@ public class ControladorEvento{
 		for (String entry : ediciones.keySet())
 			res.add(entry);
 		
-		return res;
-		
-	}
-	
-	// Devuelve una lista con todas las ediciones del evento
-	public List<String> elegirEvento(String nombreEvento) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		evento = m.obtenerEvento(nombreEvento);
-		return new ArrayList<>(evento.getEdiciones().keySet());
-	}
-	
-	// Devuelve una lista con todas las instituciones de la edición
-	public List<String> elegirEdicion(String nombreEdicion) {
-		edicion = evento.getEdicion(nombreEdicion);
-		return edicion.getInstituciones();
-	}
-	
-	public boolean elegirInstitucion(String nombreInstitucion) {
-		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
-		
-		Institucion i = m.obtener(nombreInstitucion);
-		
-		if (i.existePatrocinio(edicion))
-			return false;
-	
-		institucion = i;
-		return true;
+		return res;	
 	}
 	
 	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
@@ -106,7 +75,7 @@ public class ControladorEvento{
         LocalDate fechaActual = LocalDate.now();
 		
         //Obtengo el Costo y lo calculo para ver si falla
-		float costo = dtp.getMonto();
+		float costo = tp.getCosto();
 		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
 			return false;
 		
@@ -115,15 +84,20 @@ public class ControladorEvento{
 		return true;
 	}
 	
-	public List<String> listarPatrocinios() {
+	public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
 		return edicion.getCodigosPatrocinios();
 	}
 	
-	public DTPatrocinio consultaPatrocinio(String nomPatrocinio) {
-		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
+	public DTPatrocinio consultaPatrocinio(String nomEvento, String nomEdicion, String nomPatrocinio) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
 		
-		evento = null;
-		edicion = null;
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
 		
 		return dtp;
 	}
@@ -248,6 +222,7 @@ public class ControladorEvento{
 		ed.agregarTRegistro(tr);
 		return true;
 	}
+	
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
 	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
 		
@@ -265,6 +240,4 @@ public class ControladorEvento{
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
 		return false;
 	}
-
-
 }

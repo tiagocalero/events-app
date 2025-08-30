@@ -10,7 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
@@ -93,9 +93,11 @@ class ControladorEventoTest {
 	
 	@Test @Order(5)
 	void testCrearEdicionEvento() {
-		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 1", "ed1", "Montevideo", "Uruguay"));
+		LocalDate f = LocalDate.now();
+		
+		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
 		assertEquals(List.of("Edición 1"), c.listarEdiciones("Evento 1"));
-		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 2", "ed2", "Salto", "Uruguay"));
+		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 2", "ed2", f, f, f, "Salto", "Uruguay"));
 		assertEquals(Set.of("Edición 1", "Edición 2"), new HashSet<>(c.listarEdiciones("Evento 1")));
 	}
 
