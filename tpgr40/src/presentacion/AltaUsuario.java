@@ -144,7 +144,7 @@ public class AltaUsuario extends JInternalFrame {
 		});
 		panel.add(rdbtnOrganizador);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setBounds(193, 236, 311, 139);
@@ -175,8 +175,16 @@ public class AltaUsuario extends JInternalFrame {
         LocalDate nacimiento = LocalDate.parse(textField_4.getText(), fmt);
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        c.altaAsistente(nickname, nombre, correo, apellido, nacimiento);
-        JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
+        if(c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {        
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
+        	textField.setText("");
+        	textField_1.setText("");
+        	textField_2.setText("");
+        	textField_3.setText("");
+        	textField_4.setText("");
+        } else {
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico");
+        }
     }
 	protected void cmdCrearOrganizadorActionPerformed(ActionEvent e) {
         String nickname = textField.getText();
@@ -186,7 +194,16 @@ public class AltaUsuario extends JInternalFrame {
         String link = textField_6.getText();
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        c.altaOrganizador(nickname, nombre, correo, desc, link);
-        JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
-    }
+        if(c.altaOrganizador(nickname, nombre, correo, desc, link)) {        
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
+        	textField.setText("");
+        	textField_1.setText("");
+        	textField_2.setText("");
+        	textField_3.setText("");
+        	textField_6.setText("");
+        	textArea.setText("");
+        } else {
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico");
+        }
+	}
 }

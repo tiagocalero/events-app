@@ -63,6 +63,7 @@ public class Principal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
             }
+        	setLocationRelativeTo(null);
         });
         menuSistema.add(menuCargarDatos);
         
@@ -77,6 +78,16 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConEventos);
+
+        JMenuItem menuConPatrocinios = new JMenuItem("Consulta de Patrocinio");
+        menuConPatrocinios.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new ConsultaPatrocinio();
+                frmPrincipal.getContentPane().add(c);
+            }
+        });
+        menuEventos.add(menuConPatrocinios);
         
         JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
         menuAltaEventos.addActionListener(new ActionListener() {
