@@ -35,4 +35,8 @@ public class ManejadorInstitucion {
     public Institucion obtener(String nombre) {
     	return instituciones.get(nombre);
     }
+    
+    public Map<String, Institucion> instituciones() {
+    	return Map.copyOf(instituciones);
+    }
 }

@@ -29,13 +29,15 @@ public class Edicion {
     private Evento evento;
     private List<Registro> registros;
 
-    public Edicion(Evento evento, Organizador organizador, String nombre, String sigla, String ciudad, String pais) {
+    public Edicion(Evento evento, Organizador organizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin,String ciudad, String pais) {
         this.evento = evento;
         this.organizador = organizador;
         this.nombre = nombre;
         this.sigla = sigla;
         this.ciudad = ciudad;
         this.pais = pais;
+        this.fecha_inicio = fechaInicio;
+        this.fecha_final = fechaFin;
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
