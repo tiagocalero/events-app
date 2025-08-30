@@ -84,14 +84,11 @@ public class ConsultaEventos extends JInternalFrame {
         getContentPane().add(textNombre);
         textNombre.setColumns(10);
         
-        btnConsulta = new JButton("Consultar");
-        btnConsulta.setBounds(12, 102, 188, 37);
-		btnConsulta.addActionListener(new ActionListener() {
+        comboBoxEventos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 consulta(e);
             }
         });
-        getContentPane().add(btnConsulta);
         
         JLabel lblSigla = new JLabel("Sigla:");
         lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
