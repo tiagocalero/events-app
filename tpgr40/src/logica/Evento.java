@@ -58,8 +58,16 @@ public class Evento {
 		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones);
 	}
 	
+	public boolean existeEdicion(String nombre) {
+		return ediciones.containsKey(nombre);
+	}
+	
 	public Edicion getEdicion(String nombre) {
 		return ediciones.get(nombre);
+	}
+
+	public void agregarEdicion(Edicion e) {
+		ediciones.put(e.getNombre(), e);
 	}
 	
 	public Map<String, Edicion> getEdiciones() {
