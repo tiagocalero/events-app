@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import logica.Usuario;
+import java.time.LocalDate;
 
 public class ManejadorUsuario {
 	private Map<String, Usuario> usuarios;
@@ -40,7 +41,7 @@ public class ManejadorUsuario {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.toList());
     }
 
-    public boolean crearAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
+    public boolean crearAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
         if(!(usuarios.containsKey(nick) || emails.containsKey(c))){
             Asistente a = new Asistente(nick, nom, c, ap, nac);
             usuarios.put(nick, a);

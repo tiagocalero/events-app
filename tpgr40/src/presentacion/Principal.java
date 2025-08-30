@@ -97,8 +97,7 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuAltaEdicion);
-        
-        
+              
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
         menuAltaPatrocinio.addActionListener(new ActionListener() {
             @Override
@@ -116,6 +115,16 @@ public class Principal extends JFrame {
         menuBar.add(menUsuario);
         JMenuItem menuModDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
         menUsuario.add(menuModDatosUsuario);
+        
+        JMenuItem menuAltaUsuario = new JMenuItem("Alta de Usuario");
+        menuAltaUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaUsuario();
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
+        menUsuario.add(menuAltaUsuario);
         
         JMenu menuInstitucion = new JMenu("Instituciones");
         menuBar.add(menuInstitucion);

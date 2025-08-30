@@ -1,6 +1,6 @@
 package logica;
 import logica.DTAsistente;
-import logica.DTFecha;
+import java.time.LocalDate;
 import logica.DTEdicion;
 import logica.ManejadorUsuario;
 import logica.Asistente;
@@ -35,13 +35,6 @@ public class ControladorUsuario{
 		for (Usuario u : m.usuarios().values()) {
 			if (u instanceof Asistente) {
 				Asistente e = (Asistente) u;
-				// DTAsistente dts = new DTAsistente(
-				// 		e.getNick(),
-				// 		e.getNom(),
-				// 		e.getC(),
-				// 		e.getAp(),
-				// 		e.getFecha()
-				// 		);
 				DTAsistente dts = ((Asistente) e).getDatos();
 				res.add(dts);
 			}
@@ -73,7 +66,7 @@ public class ControladorUsuario{
 
 	// Retorna false si ya existe un usuario con ese nickname o correo,
 	// Retorna true si no existe y se creo el usuario correctamente.
-	public boolean altaAsistente(String nick, String nom, String c, String ap, DTFecha nac) {
+	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.crearAsistente(nick, nom, c, ap, nac);
 	}
