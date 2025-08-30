@@ -25,8 +25,6 @@ public class AltaTipoRegistro extends JInternalFrame {
 	private JLabel lblSigla;
 	private JLabel lblEvento;
 	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	
@@ -47,17 +45,17 @@ public class AltaTipoRegistro extends JInternalFrame {
 		panel.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(490, 44, 140, 26);
+		textField.setBounds(490, 39, 140, 26);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(490, 94, 140, 26);
+		textField_1.setBounds(490, 89, 140, 26);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(490, 144, 140, 26);
+		textField_2.setBounds(490, 139, 140, 26);
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -65,24 +63,23 @@ public class AltaTipoRegistro extends JInternalFrame {
 		lblNewLabel.setBounds(340, 44, 140, 16);
 		panel.add(lblNewLabel);
 		
-		lblDescripcin = new JLabel("Sigla:");
+		lblDescripcin = new JLabel("Descripcion:");
 		lblDescripcin.setBounds(340, 94, 140, 16);
 		panel.add(lblDescripcin);
 		
-		lblSigla = new JLabel("Ciudad:");
+		lblSigla = new JLabel("Costo:");
 		lblSigla.setBounds(340, 144, 140, 16);
 		panel.add(lblSigla);
 		
-		JLabel lblCategoras = new JLabel("País:");
+		JLabel lblCategoras = new JLabel("Cupo:");
 		lblCategoras.setBounds(340, 196, 140, 16);
 		panel.add(lblCategoras);
 		
-		lblEvento = new JLabel("Evento:");
-		lblEvento.setBounds(46, 49, 140, 16);
-		panel.add(lblEvento);
-		
 		ControladorEvento c = ControladorEvento.getInstance();
 		
+		JLabel lblEvento = new JLabel("Evento:");
+		lblEvento.setBounds(46, 62, 140, 16);
+		panel.add(lblEvento);
 		
 		comboBox = new JComboBox();
 		comboBox.setBounds(46, 89, 238, 27);
@@ -123,32 +120,43 @@ public class AltaTipoRegistro extends JInternalFrame {
 		textField_3.setBounds(490, 191, 140, 26);
 		panel.add(textField_3);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(490, 238, 140, 26);
-		panel.add(textField_4);
-		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(490, 288, 140, 26);
-		panel.add(textField_5);
-		
-		JLabel lblDescripcin_1 = new JLabel("Fecha Inicio:");
-		lblDescripcin_1.setBounds(340, 243, 140, 16);
-		panel.add(lblDescripcin_1);
-		
-		JLabel lblSigla_1 = new JLabel("Fecha Fin:");
-		lblSigla_1.setBounds(340, 288, 140, 16);
-		panel.add(lblSigla_1);
 		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
 		JButton btnNewButton = new JButton("Crear");
-		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+		btnNewButton.addActionListener(e -> {
+			
+		    // Obtenemos los datos de los campos de texto
+			String nombreEvento = (String) comboBox.getSelectedItem();
+			String nombreEdicion = (String) comboBox_1.getSelectedItem();
+		    String nombre = textField.getText().trim();
+		    String descripcion = textField_1.getText().trim();
+		    float costo = 0;
+		    int cupo = 0;
+
+		    // Validación simple de costo y cupo
+		    try {
+		        costo = Float.parseFloat(textField_2.getText().trim());
+		        cupo = Integer.parseInt(textField_3.getText().trim());
+		    } catch (NumberFormatException ex) {
+		        JOptionPane.showMessageDialog(panel, "Costo o cupo inválido", "Error", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+		    boolean exito = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
+		    
+		    if (exito) {
+	            JOptionPane.showMessageDialog(null, "Tipo de registro creado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+	            textField.setText("");
+	            textField_1.setText("");
+	            textField_2.setText("");
+	            textField_3.setText("");
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Ya existe un tipo de registro con ese nombre en esta edición", "Error", JOptionPane.WARNING_MESSAGE);
+	            textField.requestFocus();
+	        }
+
             
-            }
         });
 		panel_1.add(btnNewButton);
 	}
