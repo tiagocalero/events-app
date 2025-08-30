@@ -63,6 +63,7 @@ public class Principal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
             }
+        	setLocationRelativeTo(null);
         });
         menuSistema.add(menuCargarDatos);
         
@@ -147,8 +148,18 @@ public class Principal extends JFrame {
 
             }
         });
+        
         menuInstitucion.add(menuAltaInst);        
         
+        JMenuItem menuAltaTipoRegistro = new JMenuItem("Alta de Tipo Registro");
+        menuAltaTipoRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaTipoRegistro();
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
+        menuEventos.add(menuAltaTipoRegistro);
 	}
 	
 }
