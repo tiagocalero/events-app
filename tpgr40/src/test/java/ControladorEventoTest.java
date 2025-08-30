@@ -103,28 +103,20 @@ class ControladorEventoTest {
 
 	@Test @Order(6)
 	void testCrearTipoRegistro() {
-		c.elegirEvento("Evento 1");
-		c.elegirEdicion("Edición 1");
-		c.crearTipoRegistro("tp1", "desc1", 100, 1);
+		c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc1", 100, 1);
 	}
 
 	@Test @Order(7)
 	void testCrearTipoRegistroExistente() {
-		c.elegirEvento("Evento 1");
-		c.elegirEdicion("Edición 1");
-		assertEquals(false, c.crearTipoRegistro("tp1", "desc2", 101, 12));
-		c.elegirEvento("Evento 1");
-		c.elegirEdicion("Edición 2");
-		assertEquals(true, c.crearTipoRegistro("tp1", "desc2", 101, 12));
+		// CAMBIAR??
+		assertEquals(false, c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc2", 101, 12));
+		assertEquals(true, c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc2", 101, 12));
 	}
 	
 	@Test @Order(8)
 	void testCrearPatrocinio() {
-		c.elegirEdicion("Edición 1");
-		c.elegirInstitucion("Institución 1");
-		
 		// FALTA: Testear caso borde de que se exceda el 20% del monto
 		DTPatrocinio dtp = new DTPatrocinio("pat1", TipoNivelPatrocinio.Plata, 100, "tp1", 0);
-		assertEquals(true, c.crearPatrocinio(dtp));
+		assertEquals(true, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
 	}
 }
