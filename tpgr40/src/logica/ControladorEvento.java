@@ -8,6 +8,7 @@ import logica.ManejadorCategoria;
 import logica.DTPatrocinio;
 import logica.DTEdicion;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -135,6 +136,16 @@ public class ControladorEvento{
 		
 		return m.crearEvento(nombre, descripcion, sigla, fechaActual, categorias);	
 	}
+	
+	public boolean altaEventoCargaDatos(String nombre, String descripcion, String sigla, String fecha, List<String> categorias) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaAlta = LocalDate.parse(fecha, fmt);
+		
+		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
+	}
+	
 
 	public DTEdicion elegirEdicion(Edicion edicion) {
 		return edicion.getDatos();
