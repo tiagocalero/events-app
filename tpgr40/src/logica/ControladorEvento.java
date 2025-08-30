@@ -29,25 +29,7 @@ public class ControladorEvento{
 		}
 		return instance;
 	}
-	
-	public List<String> listarEventos(){
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		List<String> res = new ArrayList<>();
-		Map<String, Evento> eventos = m.eventos();
-		for (String entry : eventos.keySet())
-			res.add(entry);
 
-		return res;
-	}
-	
-	public DTEvento informacionEvento(String nombre) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento eventoBuscado = m.obtenerEvento(nombre);
-		DTEvento res = eventoBuscado.getDatos();
-		return res;
-	}
-	
 	public List<String> listarEdiciones(String nombreEvento) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtenerEvento(nombreEvento);
@@ -60,6 +42,79 @@ public class ControladorEvento{
 		return res;	
 	}
 	
+	public List<String> listarEventos(){
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		List<String> res = new ArrayList<>();
+		Map<String, Evento> eventos = m.eventos();
+		for (String entry : eventos.keySet())
+			res.add(entry);
+
+		return res;
+	}
+
+	public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		return edicion.getCodigosPatrocinios();
+	}
+	
+	public List<String> listarOrganizadores() {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.organizadores();
+	}
+	
+	public List<String> listarCategorias() {
+		ManejadorCategoria m = ManejadorCategoria.getInstance();
+		
+		List<Categoria> categorias = new ArrayList<>(m.categorias().values());
+		
+		return categorias.stream().map(c -> c.getNombre()).collect(Collectors.toList());
+	}
+	
+	public DTEvento informacionEvento(String nombre) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento eventoBuscado = m.obtenerEvento(nombre);
+		DTEvento res = eventoBuscado.getDatos();
+		
+		return res;
+	}
+
+	public DTPatrocinio consultaPatrocinio(String nomEvento, String nomEdicion, String nomPatrocinio) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
+		
+		return dtp;
+	}
+
+	public DTEdicion elegirEdicion(Edicion edicion) {
+		return edicion.getDatos();
+	}
+	
+	//PRE:: hay un registro en edicion con string nombre
+	public DTTRegistro seleccionarTipoRegistro(String nombre, String nomEdicion, String nomEvento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		
+		TRegistro tr = edicion.getTipoRegistro(nombre);
+		
+		DTTRegistro dtr = new DTTRegistro(
+			tr.getCupo(),
+			tr.getCosto(), 
+			tr.getNombre(), 
+			tr.getDescripcion()
+		);
+		
+		return dtr;
+	}
+
 	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
 		//Obtengo la Institucion
 		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
@@ -84,36 +139,6 @@ public class ControladorEvento{
 		return true;
 	}
 	
-	public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		Evento evento = m.obtenerEvento(nomEvento);
-		Edicion edicion = evento.getEdicion(nomEdicion);
-		return edicion.getCodigosPatrocinios();
-	}
-	
-	public DTPatrocinio consultaPatrocinio(String nomEvento, String nomEdicion, String nomPatrocinio) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		Evento evento = m.obtenerEvento(nomEvento);
-		Edicion edicion = evento.getEdicion(nomEdicion);
-		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
-		
-		return dtp;
-	}
-	
-	public List<String> listarOrganizadores() {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.organizadores();
-	}
-	
-	public List<String> listarCategorias() {
-		ManejadorCategoria m = ManejadorCategoria.getInstance();
-		
-		List<Categoria> categorias = new ArrayList<>(m.categorias().values());
-		
-		return categorias.stream().map(c -> c.getNombre()).collect(Collectors.toList());
-	}
 	
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -130,11 +155,6 @@ public class ControladorEvento{
         LocalDate fechaAlta = LocalDate.parse(fecha, fmt);
 		
 		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
-	}
-	
-
-	public DTEdicion elegirEdicion(Edicion edicion) {
-		return edicion.getDatos();
 	}
 
 	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
@@ -154,7 +174,6 @@ public class ControladorEvento{
 	}
 	//seria el evento del controlador?
 	public List<DTEdicion> seleccionarEvento(Evento e){
-		
 		List<DTEdicion> resultado = new ArrayList<>();
 		
 		for (Edicion ed : e.getEdiciones().values()) {
@@ -190,26 +209,6 @@ public class ControladorEvento{
 	        }
 			return resultado;
 		
-	}
-
-	//PRE:: hay un registro en edicion con string nombre
-	public DTTRegistro seleccionarTipoRegistro(String nombre, String nomEdicion, String nomEvento) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		Evento evento = m.obtenerEvento(nomEvento);
-		Edicion edicion = evento.getEdicion(nomEdicion);
-		
-		TRegistro tr = edicion.getTipoRegistro(nombre);
-		
-		DTTRegistro dtr = new DTTRegistro(
-			tr.getCupo(),
-			tr.getCosto(), 
-			tr.getNombre(), 
-			tr.getDescripcion()
-		);
-		
-		return dtr;
-	
 	}
 
 	public boolean crearTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTRegistro, String descripcion, float costo, int cupo) {
