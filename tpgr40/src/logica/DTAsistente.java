@@ -13,4 +13,4 @@ public class DTAsistente extends DTUsuario {
 	
 	public String getApellido( ) { return apellido; }
 	public LocalDate getNacimiento( ) { return nacimiento; }
-}/
+}
