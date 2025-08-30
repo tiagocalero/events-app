@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 import logica.Categoria;
 import logica.DTEvento;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Evento {
 	private String nombre;
