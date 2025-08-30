@@ -9,12 +9,10 @@ import java.time.LocalDate;
 
 public class ManejadorUsuario {
 	private Map<String, Usuario> usuarios;
-    private Map<String, Usuario> emails;
     private static volatile ManejadorUsuario instance;
 
     private ManejadorUsuario(){
         usuarios = new HashMap<String, Usuario>();
-        emails = new HashMap<String, Usuario>();
     }
 
     public static ManejadorUsuario getInstance() {
@@ -40,25 +38,23 @@ public class ManejadorUsuario {
     public List<String> asistentes() {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.toList());
     }
-
+    
     public boolean crearAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
-        if(!(usuarios.containsKey(nick) || emails.containsKey(c))){
-            Asistente a = new Asistente(nick, nom, c, ap, nac);
-            usuarios.put(nick, a);
-            emails.put(c, a);
-            return true;
-        }
-        return false;
+    	for(Usuario u: usuarios.values()) {
+    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
+    	}		
+        Asistente a = new Asistente(nick, nom, c, ap, nac);
+        usuarios.put(nick, a);
+        return true;
     }
 
 	public boolean crearOrganizador(String nick, String nom, String c, String desc, String link) {
-        if(!(usuarios.containsKey(nick) || emails.containsKey(c))){
-            Organizador o = new Organizador(nick, nom, c, desc, link);
-            usuarios.put(nick, o);
-            emails.put(c, o);
-            return true;
-        }
-        return false;
+    	for(Usuario u: usuarios.values()) {
+    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
+    	}		
+        Organizador o = new Organizador(nick, nom, c, desc, link);
+        usuarios.put(nick, o);
+        return true;
     }
 
 	// Devuelve una copia del map de usuarios sobre el que se puede iterar
@@ -68,6 +64,5 @@ public class ManejadorUsuario {
 
     public void liberarMemoria() {
         usuarios.clear();
-        emails.clear();
     }
 }
