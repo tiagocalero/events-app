@@ -23,6 +23,10 @@ public class ManejadorCategoria {
         return instance;
     }
     
+    public static void borrarInstance() {
+    	instance = null;
+    }
+    
     public void altaCategoria(String nombreCategoria) {
     	Categoria nuevaCat = new Categoria(nombreCategoria);
     	categorias.put(nombreCategoria, nuevaCat);

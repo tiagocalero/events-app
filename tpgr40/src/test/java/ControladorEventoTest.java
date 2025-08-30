@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
@@ -17,6 +18,8 @@ import java.util.List;
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
+import logica.ManejadorCategoria;
+import logica.ManejadorEvento;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorEventoTest {
@@ -28,6 +31,11 @@ class ControladorEventoTest {
 		cg.altaCategoria("c3");
 	}
 	
+	@AfterAll
+	static void borrado() {
+		ManejadorCategoria.borrarInstance();
+	}
+	
 	@Test @Order(1)
 	void deberiaCrearEventos() {
 		ControladorEvento c = ControladorEvento.getInstance();
@@ -36,6 +44,7 @@ class ControladorEventoTest {
 		c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", List.of("c1"));
 		c.ingresarDatosEvento("Evento 3", "descripcion3", "e3", new ArrayList<>());
 		c.ingresarDatosEvento("Evento 4", "descripcion4", "e4", new ArrayList<>());
+		assertEquals(false, c.ingresarDatosEvento("Evento 4", "", "", new ArrayList<>()));
 	}
 	
 	@Test @Order(2)
