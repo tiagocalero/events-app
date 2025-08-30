@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 
 import java.awt.GridLayout;
@@ -26,6 +27,7 @@ public class AltaUsuario extends JInternalFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_6;
+	private JTextArea textArea;
 	
 	public AltaUsuario() {
 		setVisible(true); 
@@ -75,18 +77,6 @@ public class AltaUsuario extends JInternalFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JRadioButton rdbtnOrganizador = new JRadioButton("Organizador");
-		
-		JRadioButton rdbtnAsistente = new JRadioButton("Asistente");
-		rdbtnAsistente.setSelected(true);
-		rdbtnAsistente.addActionListener(new ActionListener( ) {
-			public void actionPerformed(ActionEvent e) {
-				rdbtnAsistente.setSelected(true);
-				rdbtnOrganizador.setSelected(false);
-				panel_2.setVisible(true);
-			}
-		});
-		
 		JLabel lblLink = new JLabel("Link:");
 		lblLink.setBounds(43, 198, 140, 17);
 		panel.add(lblLink);
@@ -117,6 +107,30 @@ public class AltaUsuario extends JInternalFrame {
 		textField_4.setColumns(10);
 		textField_4.setBounds(161, 50, 140, 26);
 		panel_2.add(textField_4);
+		
+		JLabel lblInstitiucion = new JLabel("Institiucion:");
+		lblInstitiucion.setBounds(12, 88, 140, 17);
+		panel_2.add(lblInstitiucion);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(161, 88, 140, 26);
+		ControladorInstitucion c = ControladorInstitucion.getInstance();
+		for(String i: c.listarInstituciones()) {
+			comboBox.addItem(i);
+		}
+		panel_2.add(comboBox);
+	
+		
+		JRadioButton rdbtnOrganizador = new JRadioButton("Organizador");
+		JRadioButton rdbtnAsistente = new JRadioButton("Asistente");
+		rdbtnAsistente.setSelected(true);
+		rdbtnAsistente.addActionListener(new ActionListener( ) {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnAsistente.setSelected(true);
+				rdbtnOrganizador.setSelected(false);
+				panel_2.setVisible(true);
+			}
+		});
 		rdbtnAsistente.setBounds(43, 153, 130, 25);
 		panel.add(rdbtnAsistente);
 		
@@ -130,7 +144,7 @@ public class AltaUsuario extends JInternalFrame {
 		});
 		panel.add(rdbtnOrganizador);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setBounds(193, 236, 311, 139);
@@ -161,8 +175,16 @@ public class AltaUsuario extends JInternalFrame {
         LocalDate nacimiento = LocalDate.parse(textField_4.getText(), fmt);
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        c.altaAsistente(nickname, nombre, correo, apellido, nacimiento);
-        JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
+        if(c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {        
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
+        	textField.setText("");
+        	textField_1.setText("");
+        	textField_2.setText("");
+        	textField_3.setText("");
+        	textField_4.setText("");
+        } else {
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico");
+        }
     }
 	protected void cmdCrearOrganizadorActionPerformed(ActionEvent e) {
         String nickname = textField.getText();
@@ -172,7 +194,16 @@ public class AltaUsuario extends JInternalFrame {
         String link = textField_6.getText();
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        c.altaOrganizador(nickname, nombre, correo, desc, link);
-        JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
-    }
+        if(c.altaOrganizador(nickname, nombre, correo, desc, link)) {        
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
+        	textField.setText("");
+        	textField_1.setText("");
+        	textField_2.setText("");
+        	textField_3.setText("");
+        	textField_6.setText("");
+        	textArea.setText("");
+        } else {
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico");
+        }
+	}
 }

@@ -144,11 +144,12 @@ public class AltaEdicionEvento extends JInternalFrame {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaInicio = LocalDate.parse(textField_4.getText(), fmt);
         LocalDate fechaFin = LocalDate.parse(textField_5.getText(), fmt);
+        LocalDate fechaAlta = LocalDate.now();
         String evento = (String) comboBox.getSelectedItem();
         String organizador = (String) comboBox.getSelectedItem();
         
         ControladorEvento m = ControladorEvento.getInstance();
-        m.altaEdicion(evento, organizador, nombre, sigla, ciudad, pais);
+        m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
         JOptionPane.showMessageDialog(AltaEdicionEvento.this, "Se creó la edición: " + nombre + ", para el evento: " + evento);
     }
 }
