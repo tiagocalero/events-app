@@ -9,6 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import logica.ControladorCategoria;
+import logica.CargarDatos;
 
 
 public class Principal extends JFrame {
@@ -55,6 +57,14 @@ public class Principal extends JFrame {
             }
         });
         menuSistema.add(menuSalir);
+        JMenuItem menuCargarDatos = new JMenuItem("Cargar Datos");
+        menuCargarDatos.addActionListener(new ActionListener() {
+        	@Override
+            public void actionPerformed(ActionEvent e) {
+                CargarDatos.cargaDatos();
+            }
+        });
+        menuSistema.add(menuCargarDatos);
         
         JMenu menuEventos = new JMenu("Eventos");
         menuBar.add(menuEventos);
@@ -114,14 +124,12 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new AltaInstitucion();
-                frmPrincipal.getContentPane().add(c);
+            	frmPrincipal.getContentPane().add(c);
+
             }
         });
         menuInstitucion.add(menuAltaInst);        
         
 	}
-
-
-
-
+	
 }
