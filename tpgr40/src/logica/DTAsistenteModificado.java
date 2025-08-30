@@ -1,11 +1,12 @@
 package logica;
 import logica.DTUsuarioModificado;
+import java.time.LocalDate;
 
 public class DTAsistenteModificado extends DTUsuarioModificado {
 	private String apellido;
-	private DTFecha nacimiento;
+	private LocalDate nacimiento;
 	
-	public DTAsistenteModificado(String nom, String ap, DTFecha fecha) {
+	public DTAsistenteModificado(String nom, String ap, LocalDate fecha) {
 		super(nom);
 		this.apellido = ap;
 		this.nacimiento = fecha;
@@ -15,7 +16,7 @@ public class DTAsistenteModificado extends DTUsuarioModificado {
 		return apellido;
 	}
 	
-	public DTFecha getNacimiento() {
+	public LocalDate getNacimiento() {
 		return nacimiento;
 	}
 }
