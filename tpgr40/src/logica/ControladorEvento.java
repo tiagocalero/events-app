@@ -212,13 +212,18 @@ public class ControladorEvento{
 	
 	}
 
-	public boolean crearTipoRegistro(String nombre, String descripcion, float costo, int cupo) {
-		if (edicion.getTipoRegistro(nombre) != null)
+	public boolean crearTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTRegistro, String descripcion, float costo, int cupo) {
+		
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nombreEvento);
+		Edicion ed = m.obtenerEdicion(nombreEdicion, e);
+		
+		if (ed.getTipoRegistro(nombreTRegistro) != null)
 			return false;
 		
-		TRegistro tr = new TRegistro(nombre, descripcion, costo, cupo);
+		TRegistro tr = new TRegistro(nombreTRegistro, descripcion, costo, cupo);
 		
-		edicion.agregarTRegistro(tr);
+		ed.agregarTRegistro(tr);
 		return true;
 	}
 	
