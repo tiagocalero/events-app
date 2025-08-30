@@ -1,6 +1,8 @@
 package logica;
 
 import logica.Institucion;
+import java.util.stream.*;
+import java.util.List;
 
 public class ControladorInstitucion{
 	//private Institucion institucion;
@@ -28,5 +30,8 @@ public class ControladorInstitucion{
 		return !res;
 	}
 	
-	
+	public List<String> listarInstituciones() {
+		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
+		return m.instituciones().values().stream().map(inst->inst.getNombre()).collect(Collectors.toList());
+	}
 }
