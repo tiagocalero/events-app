@@ -47,7 +47,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 		setClosable(true);
 
 		setTitle("Consultar un Tipo de Registro");
-		setBounds(30, 30, 727, 400);
+		setBounds(30, 30, 727, 428);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -114,50 +114,50 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         });
         
         lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(441, 58, 100, 21);
+		lblNombre.setBounds(350, 84, 100, 21);
         lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblNombre);
 
         
         textFieldNombre = new JTextField();
         textFieldNombre.setBounds(441, 82, 249, 25);
-        textFieldNombre.setEnabled(false);
+        textFieldNombre.setEditable(false);
         getContentPane().add(textFieldNombre);
 
         textFieldNombre.setText("Nombre del registro");
         
         lblDesc = new JLabel("Descripcion:");
-		lblDesc.setBounds(433, 118, 123, 21);
+		lblDesc.setBounds(339, 142, 123, 21);
         lblDesc.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblDesc);
         
         textFieldDesc = new JTextField();
         textFieldDesc.setBounds(441, 140, 249, 65);
-        textFieldDesc.setEnabled(false);
+        textFieldDesc.setEditable(false);
         getContentPane().add(textFieldDesc);
 
         textFieldDesc.setText("Descripcion del registro");
         
         lblCupo = new JLabel("Cupo:");
-		lblCupo.setBounds(433, 216, 109, 22);
+		lblCupo.setBounds(350, 250, 109, 22);
         lblCupo.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblCupo);
         
         textFieldCupo = new JTextField();
         textFieldCupo.setBounds(441, 249, 249, 25);
-        textFieldCupo.setEnabled(false);
+        textFieldCupo.setEditable(false);
         getContentPane().add(textFieldCupo);
 
         textFieldCupo.setText("Cupo del registro");
         
         lblCosto = new JLabel("Costo:");
-		lblCosto.setBounds(433, 293, 115, 21);
+		lblCosto.setBounds(350, 327, 115, 21);
         lblCosto.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblCosto);
         
         textFieldCosto = new JTextField();
         textFieldCosto.setBounds(441, 325, 249, 25);
-        textFieldCosto.setEnabled(false);
+        textFieldCosto.setEditable(false);
         getContentPane().add(textFieldCosto);
 
         textFieldCosto.setText("Costo del registro");
@@ -180,7 +180,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         });
                 
         JButton btnConsulta = new JButton("Consultar");
-        btnConsulta.setBounds(76, 369, 150, 35);
+        btnConsulta.setBounds(80, 409, 150, 35);
 		btnConsulta.addActionListener(e -> {
 			String nombreEvento = (String) comboBoxEventos.getSelectedItem();
 			String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
