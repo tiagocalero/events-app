@@ -165,6 +165,15 @@ public class AltaUsuario extends JInternalFrame {
             	}
             }
         });
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+		panel_1.add(btnCancelar);
 		panel_1.add(btnNewButton);
 	}
 	
