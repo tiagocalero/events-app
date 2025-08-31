@@ -10,7 +10,6 @@ public class DTAsistente extends DTUsuario {
 		this.apellido = ap;
 		this.nacimiento = fecha;
 	}
-	
 	public String getApellido( ) { return apellido; }
 	public LocalDate getNacimiento( ) { return nacimiento; }
 }

@@ -234,7 +234,7 @@ public class ControladorEvento{
 	}
 	
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
-	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String nomEdicion) {
+	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
 		
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
