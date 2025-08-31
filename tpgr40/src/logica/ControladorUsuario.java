@@ -129,7 +129,8 @@ public class ControladorUsuario{
 		
 		return registro.getDatos();
 	}
-
+	
+	//Liberar memoria
 	public void liberarMemoria() {
 		usuario = null;
 	}
