@@ -192,7 +192,7 @@ public class AltaUsuario extends JInternalFrame {
         }
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if(c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {    
+        if (c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
