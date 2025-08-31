@@ -39,17 +39,23 @@ public class Asistente extends Usuario {
 	
 	@Override
 	public DTAsistente getDatos() {
-		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
+		DTAsistente res;
+		if (institucion != null) res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento, institucion.getNombre());
+		else res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
 		return res;
 	}
 	
 	@Override
 	public void modificar(DTUsuarioModificado datos) {
+		ControladorInstitucion c = ControladorInstitucion.getInstance();
+		
 		assert datos instanceof DTAsistenteModificado;
 		DTAsistenteModificado datosA = (DTAsistenteModificado) datos;
 		this.setNombre(datosA.getNombre());
 		this.apellido = datosA.getApellido();
 		this.nacimiento = datosA.getNacimiento();
+		String ins = datosA.getInstitucion();
+		if (ins != null) this.institucion = c.obtenerInstitucion(ins);
 	}
 
 	public String getApellido() {
@@ -68,6 +74,6 @@ public class Asistente extends Usuario {
 	}
 
 	public List<DTRegistro> consulta() {
-		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList()); //?? chequear
+		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList());
 	}
 }

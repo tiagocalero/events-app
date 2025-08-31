@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 import logica.DTUsuario;
 import logica.DTAsistente;
@@ -43,8 +44,9 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JTextArea Descripcion;
 	private DTUsuario u;
 	private JPanel panel;
-	private JButton btnNewButton_1;
 	private JButton btnCancelar;
+	private JLabel lblInstitucion;
+	private JComboBox comboBoxInst;
 	
 	public ModificarDatosUsuario() {
 		setVisible(true);
@@ -63,7 +65,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
         getContentPane().add(lblUsuarios);
 
         JPanel panelOrg = new JPanel();
-        panelOrg.setBounds(233, 201, 421, 190);
+        panelOrg.setBounds(124, 201, 553, 190);
         getContentPane().add(panelOrg);
         panelOrg.setLayout(null);
         panelOrg.setVisible(false);
@@ -79,16 +81,20 @@ public class ModificarDatosUsuario extends JInternalFrame {
         getContentPane().add(comboBoxUsuario);
         comboBoxUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	u = c.elegirUsuario((String) comboBoxUsuario.getSelectedItem());
-            	if(u instanceof DTAsistente) {
-            		panelOrg.setVisible(false);
-            		DTAsistente a = (DTAsistente) u;
-            		consultaAsistente(e, a);
-            	} else {
-            		assert u instanceof DTOrganizador;
-            		panelOrg.setVisible(true);
-        			DTOrganizador o = (DTOrganizador) u;
-            		consultaOrganizador(e, o);
+            	String nom = (String) comboBoxUsuario.getSelectedItem();
+            	
+            	if (nom != null) {
+            		u = c.elegirUsuario(nom);
+            		if(u instanceof DTAsistente) {
+            			panelOrg.setVisible(false);
+            			DTAsistente a = (DTAsistente) u;
+            			consultaAsistente(e, a);
+            		} else {
+            			assert u instanceof DTOrganizador;
+            			panelOrg.setVisible(true);
+            			DTOrganizador o = (DTOrganizador) u;
+            			consultaOrganizador(e, o);
+            		}
             	}
             }
         });
@@ -134,22 +140,22 @@ public class ModificarDatosUsuario extends JInternalFrame {
         Descripcion.setWrapStyleWord(true);
         Descripcion.setText("");
         Descripcion.setLineWrap(true);
-        Descripcion.setBounds(141, 49, 255, 129);
+        Descripcion.setBounds(250, 49, 255, 129);
         panelOrg.add(Descripcion);
         
         txtLink = new JTextField();
         txtLink.setColumns(10);
-        txtLink.setBounds(141, 0, 255, 37);
+        txtLink.setBounds(250, 0, 255, 37);
         panelOrg.add(txtLink);
         
         lblLink = new JLabel("Link:");
         lblLink.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLink.setBounds(2, 0, 121, 37);
+        lblLink.setBounds(111, 0, 121, 37);
         panelOrg.add(lblLink);
         
         lblFecha_1 = new JLabel("Descripcion:");
         lblFecha_1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblFecha_1.setBounds(2, 49, 121, 37);
+        lblFecha_1.setBounds(111, 49, 121, 37);
         panelOrg.add(lblFecha_1);
         
         txtCorreo = new JTextField();
@@ -160,7 +166,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
         
         lblFechaNacimiento = new JLabel("Fecha Nacimiento:");
         lblFechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
-        lblFechaNacimiento.setBounds(235, 250, 121, 37);
+        lblFechaNacimiento.setBounds(211, 250, 145, 37);
         getContentPane().add(lblFechaNacimiento);
         
         txtNac = new JTextField();
@@ -188,6 +194,18 @@ public class ModificarDatosUsuario extends JInternalFrame {
         });
 		panel.add(btnCancelar);
 		panel.add(btnNewButton);
+		
+		ControladorInstitucion ci = ControladorInstitucion.getInstance();
+		comboBoxInst = new JComboBox();
+		comboBoxInst.setBounds(374, 299, 255, 36);
+		for (String i: ci.listarInstituciones())
+			comboBoxInst.addItem(i);
+		getContentPane().add(comboBoxInst);
+		
+		lblInstitucion = new JLabel("Institucion:");
+		lblInstitucion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInstitucion.setBounds(235, 299, 121, 37);
+		getContentPane().add(lblInstitucion);
         
         
 	}
@@ -199,6 +217,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
         txtCorreo.setText(a.getCorreo());
         txtAp.setText(a.getApellido());
 	    txtNac.setText(a.getNacimiento().format(formatter));
+	    String inst = a.getInstitucion();
+	    if (inst != null) comboBoxInst.setSelectedItem(inst);
 	}
 	
 	protected void consultaOrganizador(ActionEvent e, DTOrganizador o) {
@@ -214,7 +234,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		ControladorUsuario c = ControladorUsuario.getInstance();
 		DTUsuarioModificado um = null;
 		if (u instanceof DTAsistente) {
-			DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), LocalDate.parse(txtNac.getText(), formatter));
+			DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), LocalDate.parse(txtNac.getText(), formatter), (String) comboBoxInst.getSelectedItem());
 			um = am;
 		} else {
 			assert u instanceof DTOrganizador;

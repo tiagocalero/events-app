@@ -64,6 +64,8 @@ public class ConsultaUsuario extends JInternalFrame {
 	private float RegCosto;
 
 	private JButton btnCerrar;
+	private JTextField textInst;
+	private JLabel lblInst;
 	
 	public ConsultaUsuario() {
 		setVisible(true);
@@ -82,7 +84,7 @@ public class ConsultaUsuario extends JInternalFrame {
         getContentPane().add(lblUsuarios);
 
         JPanel panelOrg = new JPanel();
-        panelOrg.setBounds(233, 201, 421, 190);
+        panelOrg.setBounds(209, 201, 447, 190);
         getContentPane().add(panelOrg);
         panelOrg.setLayout(null);
         
@@ -102,7 +104,7 @@ public class ConsultaUsuario extends JInternalFrame {
         comboBoxUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	String nom = (String) comboBoxUsuario.getSelectedItem();
-            	
+            	borrarCampos();
             	if (nom != null && !nom.equals("Seleccione un usuario")) {
             		u = c.elegirUsuario(nom);
             		if(u instanceof DTAsistente) {
@@ -166,23 +168,23 @@ public class ConsultaUsuario extends JInternalFrame {
         Descripcion.setText("");
         Descripcion.setLineWrap(true);
         Descripcion.setEditable(false);
-        Descripcion.setBounds(141, 49, 255, 129);
+        Descripcion.setBounds(165, 49, 255, 129);
         panelOrg.add(Descripcion);
         
         txtLink = new JTextField();
         txtLink.setEditable(false);
         txtLink.setColumns(10);
-        txtLink.setBounds(141, 0, 255, 37);
+        txtLink.setBounds(165, 0, 255, 37);
         panelOrg.add(txtLink);
         
         lblLink = new JLabel("Link:");
         lblLink.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblLink.setBounds(2, 0, 121, 37);
+        lblLink.setBounds(26, 0, 121, 37);
         panelOrg.add(lblLink);
         
         lblFecha_1 = new JLabel("Descripcion:");
         lblFecha_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFecha_1.setBounds(2, 49, 121, 37);
+        lblFecha_1.setBounds(26, 49, 121, 37);
         panelOrg.add(lblFecha_1);
         
         txtCorreo = new JTextField();
@@ -193,7 +195,7 @@ public class ConsultaUsuario extends JInternalFrame {
         
         lblFechaNacimiento = new JLabel("Fecha Nacimiento:");
         lblFechaNacimiento.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFechaNacimiento.setBounds(235, 250, 121, 37);
+        lblFechaNacimiento.setBounds(199, 250, 157, 37);
         getContentPane().add(lblFechaNacimiento);
         
         txtNac = new JTextField();
@@ -378,6 +380,17 @@ public class ConsultaUsuario extends JInternalFrame {
         });
         getContentPane().add(btnCerrar);
         
+        textInst = new JTextField();
+        textInst.setEditable(false);
+        textInst.setColumns(10);
+        textInst.setBounds(374, 299, 255, 37);
+        getContentPane().add(textInst);
+        
+        lblInst = new JLabel("Institucion:");
+        lblInst.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblInst.setBounds(235, 299, 121, 37);
+        getContentPane().add(lblInst);
+        
         
 	}
 
@@ -390,6 +403,9 @@ public class ConsultaUsuario extends JInternalFrame {
         txtCorreo.setText(a.getCorreo());
         txtAp.setText(a.getApellido());
 	    txtNac.setText(a.getNacimiento().format(formatter));
+	    String inst = a.getInstitucion();
+	    if (inst == null) inst = "Ninguna";
+	    textInst.setText(inst);
 	    
 	    comboBoxRegistro.removeAllItems();
 	    for (DTRegistro reg: c.consultaAsistente()) {	    	
@@ -445,5 +461,29 @@ public class ConsultaUsuario extends JInternalFrame {
                 }
 			}
 		}
+	}
+	
+	private void borrarCampos() {
+		txtNick.setText("");
+		txtNom.setText("");
+    	txtCorreo.setText("");
+    	txtAp.setText("");
+    	txtNac.setText("");
+    	txtLink.setText("");
+    	Descripcion.setText("");
+    	
+    	txtEdNom.setText("");
+    	txtEdSigla.setText("");
+		txtEdOrg.setText("");
+		txtEdFI.setText("");
+		txtEdFF.setText("");
+		txtEdFA.setText("");
+		txtEdPais.setText("");
+		txtEdCiudad.setText("");
+		
+		txtRgEd.setText("");
+    	txtRgCosto.setText("");
+    	txtRgFecha.setText("");
+		txtRgTipo.setText("");
 	}
 }
