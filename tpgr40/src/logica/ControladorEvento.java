@@ -1,5 +1,8 @@
 package logica;
 
+import excepciones.YaExistePatrocinioException;
+import excepciones.PatrocinioSuperaMontoException;
+import logica.DTEdicion;
 import logica.Evento;
 import logica.Edicion;
 import logica.ManejadorEvento;
@@ -121,7 +124,7 @@ public class ControladorEvento{
 		return m.obtenerEdicion(nombre, evento);
 	}
 
-	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
+	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException {
 		//Obtengo la Institucion
 		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
 		Institucion instInstitucion = mi.obtener(nombreInstitucion);
