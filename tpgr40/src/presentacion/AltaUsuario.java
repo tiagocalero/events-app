@@ -159,7 +159,7 @@ public class AltaUsuario extends JInternalFrame {
         		if(rdbtnAsistente.isSelected()) {
                     cmdCrearAsistenteActionPerformed(e);
         		} else if(rdbtnOrganizador.isSelected()) {
-        				cmdCrearOrganizadorActionPerformed(e);
+        			cmdCrearOrganizadorActionPerformed(e);
             	}
             }
         });
@@ -167,43 +167,123 @@ public class AltaUsuario extends JInternalFrame {
 	}
 	
 	protected void cmdCrearAsistenteActionPerformed(ActionEvent e) {
-        String nickname = textField.getText();
-        String nombre = textField_1.getText();
-        String correo = textField_2.getText();
-        String apellido = textField_3.getText();
+        String nickname = sacarEspacios(textField.getText());
+        String nombre = sacarEspacios(textField_1.getText());
+        String correo = sacarEspacios(textField_2.getText());
+        String apellido = sacarEspacios(textField_3.getText());
+        LocalDate nacimiento;
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate nacimiento = LocalDate.parse(textField_4.getText(), fmt);
+        // Validar fecha
+        try {
+        	nacimiento = LocalDate.parse(textField_4.getText(), fmt);
+        } catch (Exception ex) {
+        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        if (nickname.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "El nickname no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        if (correo.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "El correo no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if(c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {        
-        	JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
-        	textField.setText("");
-        	textField_1.setText("");
-        	textField_2.setText("");
-        	textField_3.setText("");
-        	textField_4.setText("");
+        if (c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {    
+        	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
+            Object[] opciones = {"Agregar más usuarios", "Cerrar"};
+            int resultado = JOptionPane.showOptionDialog(
+                this,
+                "Se creó el asistente: " + nickname,
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,        
+                opciones,    
+                opciones[0] // opción por defecto
+            );
+
+            // Ver qué eligió el usuario
+            switch (resultado) {
+                case 0:
+	            	borrarCampos();
+	            	break;
+                case 1:
+                	dispose(); // Cierra la ventana
+	            	break;
+                default: // El usuario cierra el diálogo
+                	dispose();
+                	break;
+            };
         } else {
-        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico");
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 	protected void cmdCrearOrganizadorActionPerformed(ActionEvent e) {
-        String nickname = textField.getText();
-        String nombre = textField_1.getText();
-        String correo = textField_2.getText();
-        String desc = textArea.getText();
-        String link = textField_6.getText();
+        String nickname = sacarEspacios(textField.getText());
+        String nombre = sacarEspacios(textField_1.getText());
+        String correo = sacarEspacios(textField_2.getText());
+        String desc = sacarEspacios(textArea.getText());
+        String link = sacarEspacios(textField_6.getText());
+
+        if (nickname.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "El nickname no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        if (correo.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "El correo no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if(c.altaOrganizador(nickname, nombre, correo, desc, link)) {        
-        	JOptionPane.showMessageDialog(AltaUsuario.this, "Se creó el usuario: " + nickname);
-        	textField.setText("");
-        	textField_1.setText("");
-        	textField_2.setText("");
-        	textField_3.setText("");
-        	textField_6.setText("");
-        	textArea.setText("");
+        if(c.altaOrganizador(nickname, nombre, correo, desc, link)) {    
+        	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
+            Object[] opciones = {"Agregar más usuarios", "Cerrar"};
+            int resultado = JOptionPane.showOptionDialog(
+                this,
+                "Se creó el organizador: " + nickname,
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,        
+                opciones,    
+                opciones[0] // opción por defecto
+            );
+
+            // Ver qué eligió el usuario
+            switch (resultado) {
+                case 0:
+	            	borrarCampos();
+	            	break;
+                case 1:
+                	dispose(); // Cierra la ventana
+	            	break;
+                default: // El usuario cierra el diálogo
+                	dispose();
+                	break;
+            };
         } else {
-        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico");
+        	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico", "Error", JOptionPane.ERROR_MESSAGE);
         }
+	}
+	
+	// Limpia todos los campos
+	private void borrarCampos() {
+    	textField.setText("");
+    	textField_1.setText("");
+    	textField_2.setText("");
+    	textField_3.setText("");
+    	textField_4.setText("");
+    	textField_6.setText("");
+    	textArea.setText("");
+	}
+
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
+	private static String sacarEspacios(String s) {
+	    return s == null ? "" : s.trim();
 	}
 }

@@ -195,7 +195,6 @@ public class ControladorEvento{
 	}
 
 	public List<DTTRegistro> listarTipoRegistro(String nombreEvento, String nombreEdicion){
-			
 			List<DTTRegistro> resultado = new ArrayList<>();
 			
 			ManejadorEvento m = ManejadorEvento.getInstance();

@@ -136,7 +136,7 @@ public class AltaEvento extends JInternalFrame {
 		}
     }
 	
-	// Función que le saca espacios en blanco a un String (para usar en campos)
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
 	private static String sacarEspacios(String s) {
 	    return s == null ? "" : s.trim();
 	}

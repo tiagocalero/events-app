@@ -69,5 +69,4 @@ public class ManejadorEvento {
 		Edicion ed = obtenerEdicion(nombreEdicion, ev);
 		return ed.getTipoRegistro(nombreTRegistro);
 	}
-	
 }

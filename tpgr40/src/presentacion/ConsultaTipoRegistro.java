@@ -164,7 +164,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
             String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
             String tipoRegistroSeleccionado = (String) comboBoxTipoRegistro.getSelectedItem();
 
-            DTTRegistro seleccionado = c.seleccionarTipoRegistro(tipoRegistroSeleccionado , edicionSeleccionada, tipoRegistroSeleccionado);
+            DTTRegistro seleccionado = c.seleccionarTipoRegistro(tipoRegistroSeleccionado, eventoSeleccionado, edicionSeleccionada);
             
            // Mostramos los datos en los campos de texto
            textFieldNombre.setText(seleccionado.getNombre());
