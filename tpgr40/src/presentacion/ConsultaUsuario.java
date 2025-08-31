@@ -83,6 +83,7 @@ public class ConsultaUsuario extends JInternalFrame {
         comboBoxEventos = new JComboBox();
         comboBoxEventos.setBounds(27, 53, 201, 43);
         ControladorUsuario c = ControladorUsuario.getInstance();
+        comboBoxEventos.addItem("Selecciona un Usuario");
         for (String e: c.listarUsuarios()) {
         	comboBoxEventos.addItem(e);
         }
@@ -328,7 +329,7 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	    comboBoxRegistro.removeAllItems();
 	    for (DTRegistro reg: c.consultaAsistente()) {
-	       	comboBoxRegistro.addItem(reg.getFecha().toString());
+	       	comboBoxRegistro.addItem(reg.getEdicion());
 		}   
 	}
 	

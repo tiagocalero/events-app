@@ -33,6 +33,10 @@ public class Asistente extends Usuario {
 		this.registros = new HashSet<>();
 	}
 	
+	public void agregarRegistro(Registro reg) {
+		registros.add(reg);
+	}
+	
 	@Override
 	public DTAsistente getDatos() {
 		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
