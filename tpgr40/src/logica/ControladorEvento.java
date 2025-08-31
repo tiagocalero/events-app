@@ -114,6 +114,12 @@ public class ControladorEvento{
 		
 		return dtr;
 	}
+	
+	public Edicion obtenerEdicion(String nombre, String ev) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento evento = m.obtenerEvento(ev);
+		return m.obtenerEdicion(nombre, evento);
+	}
 
 	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
 		//Obtengo la Institucion
