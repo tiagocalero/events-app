@@ -155,7 +155,7 @@ public class AltaEdicionEvento extends JInternalFrame {
         String organizador = (String) comboBoxEventos.getSelectedItem();
         
         // Chequear que existan organizadores y eventos
-        if (evento == null || organizador == null) {
+        if (evento == "" || evento == null || organizador == "" || organizador == null) {
         	JOptionPane.showMessageDialog(this, "Deben existir Evento y Organizador", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
