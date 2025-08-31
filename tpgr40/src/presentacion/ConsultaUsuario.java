@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 
 public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblUsuarios;
-	private JComboBox comboBoxUsuario;
+	private JComboBox comboBoxEventos;
 	private JLabel lblNombre;
 	private final JTextField txtNick = new JTextField();
 	private JTextField txtNom;
@@ -59,7 +59,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Usuario");
-		setBounds(30, 30, 831, 752);
+		setBounds(30, 30, 859, 752);
 		getContentPane().setLayout(null);
 		
 		lblUsuarios = new JLabel("Usuarios");
@@ -74,22 +74,22 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg.setVisible(false);
         
         JPanel panelOrg_2 = new JPanel();
-        panelOrg_2.setBounds(12, 400, 799, 310);
+        panelOrg_2.setBounds(12, 400, 799, 262);
         getContentPane().add(panelOrg_2);
         panelOrg_2.setLayout(null);
         panelOrg_2.setVisible(false);
 
         
-        comboBoxUsuario = new JComboBox();
-        comboBoxUsuario.setBounds(27, 53, 188, 43);
+        comboBoxEventos = new JComboBox();
+        comboBoxEventos.setBounds(27, 53, 201, 43);
         ControladorUsuario c = ControladorUsuario.getInstance();
         for (String e: c.listarUsuarios()) {
-        	comboBoxUsuario.addItem(e);
+        	comboBoxEventos.addItem(e);
         }
-        getContentPane().add(comboBoxUsuario);
-        comboBoxUsuario.addActionListener(new ActionListener() {
+        getContentPane().add(comboBoxEventos);
+        comboBoxEventos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	u = c.elegirUsuario((String) comboBoxUsuario.getSelectedItem());
+            	u = c.elegirUsuario((String) comboBoxEventos.getSelectedItem());
             	if(u instanceof DTAsistente) {
             		panelOrg.setVisible(false);
             		panelOrg_2.setVisible(false);
@@ -326,7 +326,7 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	    comboBoxEdicion.removeAllItems();
 	    for (DTEdicion ed: c.consultaOrganizador()) {
-	       	comboBoxEdicion.addItem(ed);
+	       	comboBoxEdicion.addItem(ed.getNombre());
 	    }
     }
 	

@@ -38,4 +38,8 @@ public class Organizador extends Usuario {
 	public List<DTEdicion> consulta(){
 		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.toList()); //?? chequear
 	}
+
+	public void agregarEdicion(Edicion edicion) {
+		ediciones.put(edicion.getNombre(), edicion);
+	}
 }
