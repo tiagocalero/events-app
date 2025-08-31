@@ -178,11 +178,6 @@ public class CargarDatos {
 		reg = e.darDeAltaRegistroCD("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", "03/08/2025", 500);
 		reg = e.darDeAltaRegistroCD("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", "16/07/2024", 600);
 		
-		
-	
-	
-	
-	
 	
 	}
 }

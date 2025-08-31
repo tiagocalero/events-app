@@ -137,7 +137,8 @@ public class ConsultaEventos extends JInternalFrame {
         comboBoxEdiciones = new JComboBox();
         comboBoxEdiciones.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaEdicion(e);
+        		String si = (String) comboBoxEdiciones.getSelectedItem();
+        		if ( si != null ) consultaEdicion(e);
         	};
         });
         comboBoxEdiciones.setBounds(342, 310, 287, 43);
