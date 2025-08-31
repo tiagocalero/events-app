@@ -27,6 +27,7 @@ public class AltaTipoRegistro extends JInternalFrame {
 	private JTextField textField_3;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
+	private JButton btnCancelar;
 	
 	public AltaTipoRegistro() {
 		setVisible(true); 
@@ -119,6 +120,12 @@ public class AltaTipoRegistro extends JInternalFrame {
 		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { dispose(); }
+        });
+		panel_1.add(btnCancelar);
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(e -> {
