@@ -50,6 +50,7 @@ public class ConsultaEventos extends JInternalFrame {
 	private JTextField txtEdCiudad;
 	private JLabel lblEdPais;
 	private JTextField txtEdPais;
+	private JButton btnCerrar;
 	
 	public ConsultaEventos() {
 		setVisible(true);
@@ -59,7 +60,7 @@ public class ConsultaEventos extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Evento");
-		setBounds(30, 30, 1007, 594);
+		setBounds(30, 30, 1006, 620);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos");
@@ -137,7 +138,8 @@ public class ConsultaEventos extends JInternalFrame {
         comboBoxEdiciones = new JComboBox();
         comboBoxEdiciones.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaEdicion(e);
+        		String si = (String) comboBoxEdiciones.getSelectedItem();
+        		if ( si != null ) consultaEdicion(e);
         	};
         });
         comboBoxEdiciones.setBounds(342, 310, 287, 43);
@@ -243,6 +245,16 @@ public class ConsultaEventos extends JInternalFrame {
         txtEdPais.setColumns(10);
         txtEdPais.setBounds(657, 49, 147, 37);
         panel.add(txtEdPais);
+        
+        btnCerrar = new JButton("Cerrar");
+        btnCerrar.setBounds(734, 550, 105, 27);
+        btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+        getContentPane().add(btnCerrar);
 	}
 
 	protected void consulta(ActionEvent e) {
@@ -255,16 +267,17 @@ public class ConsultaEventos extends JInternalFrame {
         textDesc.setText(evento.getDescripcion());
         textFecha.setText(evento.getFechaAlta().format(formatter));
         comboBoxCategorias.removeAllItems();
-        for (String cat: evento.getCategorias())
+        for (String cat: evento.getCategorias()) {
         	comboBoxCategorias.addItem(cat);
+        }
         comboBoxEdiciones.removeAllItems();
-        for (String ed: evento.getEdiciones())
+        for (String ed: evento.getEdiciones()) {
         	comboBoxEdiciones.addItem(ed);
+        }
     }
 	
-	protected void consultaEdicion(ActionEvent e) {
-		ControladorEvento c = ControladorEvento.getInstance();
-		DTEdicion ed = c.elegirEdicion(c.obtenerEdicion((String) comboBoxEdiciones.getSelectedItem(), (String) comboBoxEventos.getSelectedItem()));
+	protected void consultaEdicion(ActionEvent e) {ControladorEvento c = ControladorEvento.getInstance();
+	    DTEdicion ed = c.elegirEdicion(c.obtenerEdicion((String) comboBoxEdiciones.getSelectedItem(), (String) comboBoxEventos.getSelectedItem()));
 		txtEdNom.setText(ed.getNombre());
 		txtEdSigla.setText(ed.getSigla());
 		txtEdOrg.setText(ed.getOrganizador());

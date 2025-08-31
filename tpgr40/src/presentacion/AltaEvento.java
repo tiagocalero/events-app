@@ -86,7 +86,7 @@ public class AltaEvento extends JInternalFrame {
 		btnCrear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { crearEvento(e); }
         });
-		
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { dispose(); }

@@ -44,7 +44,9 @@ public class ManejadorEvento {
 	}
 	
 	public Edicion obtenerEdicion(String nombre, Evento ev) {
-		return ev.getEdiciones().get(nombre);
+		Map<String, Edicion> ed = ev.getEdiciones();
+		if(ed.isEmpty()) return null;
+		return ed.get(nombre);
 	}
 	
 	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {

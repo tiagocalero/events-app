@@ -29,6 +29,7 @@ public class AltaEdicionEvento extends JInternalFrame {
 	private JTextField textFechaFin;
 	private JComboBox comboBoxEventos;
 	private JComboBox comboBoxOrganizadores;
+	private JButton btnCancelar;
 	
 	public AltaEdicionEvento() {
 		setVisible(true); 
@@ -85,6 +86,7 @@ public class AltaEdicionEvento extends JInternalFrame {
 		
 		comboBoxEventos = new JComboBox();
 		comboBoxEventos.setBounds(46, 90, 238, 27);
+		comboBoxEventos.addItem("Selecciona un Evento");
         for (String e: c.listarEventos()) {
         	comboBoxEventos.addItem(e);
         }
@@ -96,6 +98,7 @@ public class AltaEdicionEvento extends JInternalFrame {
 		
 		comboBoxOrganizadores = new JComboBox();
 		comboBoxOrganizadores.setBounds(46, 185, 238, 27);
+		comboBoxOrganizadores.addItem("Selecciona un Organizador");
         for (String o: c.listarOrganizadores()) {
         	comboBoxOrganizadores.addItem(o);
         }
@@ -131,6 +134,15 @@ public class AltaEdicionEvento extends JInternalFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { crearEdicion(e); }
         });
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+		panel_1.add(btnCancelar);
 		panel_1.add(btnNewButton);
 	}
 	
