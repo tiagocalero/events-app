@@ -152,10 +152,10 @@ public class AltaEdicionEvento extends JInternalFrame {
         }
         LocalDate fechaAlta = LocalDate.now();
         String evento = (String) comboBoxEventos.getSelectedItem();
-        String organizador = (String) comboBoxEventos.getSelectedItem();
+        String organizador = (String) comboBoxOrganizadores.getSelectedItem();
         
         // Chequear que existan organizadores y eventos
-        if (evento == null || organizador == null) {
+        if (evento == "" || evento == null || organizador == "" || organizador == null) {
         	JOptionPane.showMessageDialog(this, "Deben existir Evento y Organizador", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }

@@ -64,7 +64,9 @@ public class Principal extends JFrame {
         	@Override
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
-            }
+                JOptionPane.showMessageDialog(Principal.this, "Datos cargados correctamente.");
+                menuSistema.remove(menuCargarDatos);
+        	}
         });
         menuSistema.add(menuCargarDatos);
 
@@ -186,7 +188,7 @@ public class Principal extends JFrame {
         menuModDatosUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JInternalFrame a = new ModificarUsuario();
+                JInternalFrame a = new ModificarDatosUsuario();
                 desktopPane.add(a);
                 centerInternalFrame(a);
                 a.setVisible(true);

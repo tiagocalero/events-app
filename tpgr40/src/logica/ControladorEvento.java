@@ -114,6 +114,12 @@ public class ControladorEvento{
 		
 		return dtr;
 	}
+	
+	public Edicion obtenerEdicion(String nombre, String ev) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento evento = m.obtenerEvento(ev);
+		return m.obtenerEdicion(nombre, evento);
+	}
 
 	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
 		//Obtengo la Institucion
@@ -181,18 +187,17 @@ public class ControladorEvento{
 	}
 
 	
-	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
+	public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 
 		Evento evento = m.obtenerEvento(nombreEvento);
-		Usuario organizador = mu.obtener(nickanameOrganizador);
+		Usuario organizador = mu.obtener(nicknameOrganizador);
 		
 		if (evento.existeEdicion(nombre))
 			return false;
 
 		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-		evento.agregarEdicion(e);
 		
 		return true;
 	}
@@ -284,4 +289,25 @@ public class ControladorEvento{
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
 		return false;
 	}
+	public boolean darDeAltaRegistroCD(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String fechaAlta, int costo) {
+		
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
+		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
+
+		if (t.getCupo() == 0 || estaAsistente)
+			return true;
+		ManejadorUsuario mu = ManejadorUsuario.getInstance();
+		//tener cuidado si no me pasan un asistente, no funciona
+		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
+
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nickEvento);
+		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
+		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion);
+		return false;
+	}
+	
 }

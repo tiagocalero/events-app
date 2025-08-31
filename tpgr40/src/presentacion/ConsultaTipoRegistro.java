@@ -45,8 +45,9 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consultar un Evento");
-		setBounds(30, 30, 753, 472);
+
+		setTitle("Consultar un Tipo de Registro");
+		setBounds(30, 30, 691, 400);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");

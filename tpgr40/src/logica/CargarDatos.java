@@ -148,15 +148,41 @@ public class CargarDatos {
 		//Cargar Patrocinios
 		DTPatrocinio dtp1 = new DTPatrocinio("TECHFING", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt));
 		boolean  pat = e.crearPatrocinioCargaDatos(dtp1, "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");
-		
 		DTPatrocinio dtp2 = new DTPatrocinio("TECHANII", TipoNivelPatrocinio.Plata, 10000, "General", 1, LocalDate.parse("20/08/2025", fmt));
 		pat = e.crearPatrocinioCargaDatos(dtp2, "Tecnología Punta del Este 2026", "Agencia Nacional de Investigación e Innovación (ANII)", "Conferencia de Tecnología");
-		
-		
 		DTPatrocinio dtp3 = new DTPatrocinio("CORREANTEL", TipoNivelPatrocinio.Platino, 25000, "Corredor 10K", 10, LocalDate.parse("04/03/2025", fmt));
 		pat = e.crearPatrocinioCargaDatos(dtp3, "Maratón de Montevideo 2025", "Antel", "Maratón de Montevideo");
-		
 		DTPatrocinio dtp4 = new DTPatrocinio("EXPOCAT", TipoNivelPatrocinio.Bronce, 15000, "General", 10, LocalDate.parse("05/05/2025", fmt));
-		pat = e.crearPatrocinioCargaDatos(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");	
+		pat = e.crearPatrocinioCargaDatos(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
+		
+		//Cargar Asistentes
+		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
+		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "Costa", LocalDate.parse("01/12/1992", fmt));
+		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "García", LocalDate.parse("09/11/1993", fmt));
+		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
+		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "Gómez", LocalDate.parse("15/03/1998", fmt));
+		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "López", LocalDate.parse("22/07/1995", fmt));
+		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
+		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "Martínez", LocalDate.parse("05/02/1997", fmt));
+	
+		//Cargar Registros
+		boolean reg = e.darDeAltaRegistroCD("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", "14/05/2025", 4000);
+		reg = e.darDeAltaRegistroCD("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", "30/07/2024", 500);
+		reg = e.darDeAltaRegistroCD("andrearod", "Web Summit 2026", "Estudiante", "Conferencia de Tecnología", "21/08/2025", 300);
+		reg = e.darDeAltaRegistroCD("sofirod", "Maratón de Montevideo 2025", "Corredor 42K", "Maratón de Montevideo", "03/03/2025", 1200);
+		reg = e.darDeAltaRegistroCD("vale23", "Mobile World Congress 2025", "Full", "Conferencia de Tecnología", "22/08/2025", 750);
+		reg = e.darDeAltaRegistroCD("AnaG", "Maratón de Montevideo 2025", "Corredor 10K", "Maratón de Montevideo", "09/04/2025", 500);
+		reg = e.darDeAltaRegistroCD("JaviL", "Maratón de Montevideo 2025", "Corredor 21K", "Maratón de Montevideo", "10/04/2025", 800);
+		reg = e.darDeAltaRegistroCD("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", "03/08/2025", 500);
+		reg = e.darDeAltaRegistroCD("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", "16/07/2024", 600);
+		
+		
+	
+	
+	
+	
+	
 	}
 }

@@ -22,6 +22,7 @@ public class AltaEvento extends JInternalFrame {
 	private JLabel lblDescripcin;
 	private JLabel lblSigla;
 	private JList<String> listaCategorias;
+	private JButton btnCancelar;
 	
 	public AltaEvento() {
 		setVisible(true); 
@@ -81,11 +82,18 @@ public class AltaEvento extends JInternalFrame {
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
-		JButton btnNewButton = new JButton("Crear");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnCrear = new JButton("Crear");
+		btnCrear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) { crearEvento(e); }
         });
-		panel_1.add(btnNewButton);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) { dispose(); }
+        });
+		
+		panel_1.add(btnCancelar);
+		panel_1.add(btnCrear);
 	}
 	
 	private void crearEvento(ActionEvent e) {
@@ -98,6 +106,11 @@ public class AltaEvento extends JInternalFrame {
         // Chequear que exista el nombre
         if (nombre.isEmpty()) {
         	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        // Chequear que exista al menos una categoria
+        if (categorias.isEmpty()) {
+        	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener al menos una categoria.", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
         

@@ -23,6 +23,7 @@ public class DTEdicion {
     	this.ciudad = ciudad;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.fechaAlta = fechaAlta;
         this.nombre = nombre;
         this.sigla = sigla;
         this.nombre = nombre;
@@ -34,6 +35,7 @@ public class DTEdicion {
     	this.ciudad = ciudad;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.fechaAlta = fechaAlta;
         this.nombre = nombre;
         this.sigla = sigla;
         this.patrocinios = patrocinios;

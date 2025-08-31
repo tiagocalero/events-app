@@ -12,21 +12,21 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import logica.ControladorEvento;
 import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTEdicion;
 import logica.DTOrganizador;
 import logica.DTRegistro;
 import logica.DTUsuario;
+import logica.Organizador;
 
 import javax.swing.JPanel;
 
 public class ConsultaUsuario extends JInternalFrame {
-	private JInternalFrame frmConsultaUsuario;
 	private JLabel lblUsuarios;
-	private JComboBox comboBoxUsuario;
+	private JComboBox comboBoxEventos;
 	private JLabel lblNombre;
-	private JButton btnNewButton;
 	private final JTextField txtNick = new JTextField();
 	private JTextField txtNom;
 	private JLabel lblFecha;
@@ -60,7 +60,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Usuario");
-		setBounds(30, 30, 831, 752);
+		setBounds(30, 30, 859, 752);
 		getContentPane().setLayout(null);
 		
 		lblUsuarios = new JLabel("Usuarios");
@@ -72,26 +72,23 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg.setBounds(233, 201, 421, 190);
         getContentPane().add(panelOrg);
         panelOrg.setLayout(null);
-        panelOrg.setVisible(false);
         
         JPanel panelOrg_2 = new JPanel();
         panelOrg_2.setBounds(12, 400, 799, 310);
         getContentPane().add(panelOrg_2);
         panelOrg_2.setLayout(null);
         panelOrg_2.setVisible(false);
-
         
-        comboBoxUsuario = new JComboBox();
-        comboBoxUsuario.setBounds(27, 53, 188, 43);
+        comboBoxEventos = new JComboBox();
+        comboBoxEventos.setBounds(27, 53, 201, 43);
         ControladorUsuario c = ControladorUsuario.getInstance();
-        
         for (String e: c.listarUsuarios()) {
-        	comboBoxUsuario.addItem(e);
+        	comboBoxEventos.addItem(e);
         }
-        getContentPane().add(comboBoxUsuario);
-        comboBoxUsuario.addActionListener(new ActionListener() {
+        getContentPane().add(comboBoxEventos);
+        comboBoxEventos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	u = c.elegirUsuario((String) comboBoxUsuario.getSelectedItem());
+            	u = c.elegirUsuario((String) comboBoxEventos.getSelectedItem());
             	if(u instanceof DTAsistente) {
             		panelOrg.setVisible(false);
             		panelOrg_2.setVisible(false);
@@ -107,10 +104,11 @@ public class ConsultaUsuario extends JInternalFrame {
             }
         });
         
+		
         
         lblNombre = new JLabel("Nickname:");
         lblNombre.setBounds(235, 54, 121, 37);
-        lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
         //lblNombre.setBounds(100, 100, 170, 14);
         getContentPane().add(lblNombre);
         txtNick.setEditable(false);
@@ -120,7 +118,7 @@ public class ConsultaUsuario extends JInternalFrame {
         
         
         JLabel lblSigla = new JLabel("Nombre:");
-        lblSigla.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
         lblSigla.setBounds(235, 103, 121, 37);
         getContentPane().add(lblSigla);
         
@@ -131,7 +129,7 @@ public class ConsultaUsuario extends JInternalFrame {
         getContentPane().add(txtNom);
         
         JLabel lblDescripcin = new JLabel("Correo:");
-        lblDescripcin.setHorizontalAlignment(SwingConstants.CENTER);
+        lblDescripcin.setHorizontalAlignment(SwingConstants.RIGHT);
         lblDescripcin.setBounds(235, 152, 121, 37);
         getContentPane().add(lblDescripcin);
         
@@ -142,7 +140,7 @@ public class ConsultaUsuario extends JInternalFrame {
         getContentPane().add(txtAp);
         
         lblFecha = new JLabel("Apellido:");
-        lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
         lblFecha.setBounds(235, 201, 121, 37);
         getContentPane().add(lblFecha);
         
@@ -161,12 +159,12 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg.add(txtLink);
         
         lblLink = new JLabel("Link:");
-        lblLink.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLink.setHorizontalAlignment(SwingConstants.RIGHT);
         lblLink.setBounds(2, 0, 121, 37);
         panelOrg.add(lblLink);
         
         lblFecha_1 = new JLabel("Descripcion:");
-        lblFecha_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFecha_1.setHorizontalAlignment(SwingConstants.RIGHT);
         lblFecha_1.setBounds(2, 49, 121, 37);
         panelOrg.add(lblFecha_1);
         
@@ -177,7 +175,7 @@ public class ConsultaUsuario extends JInternalFrame {
         getContentPane().add(txtCorreo);
         
         lblFechaNacimiento = new JLabel("Fecha Nacimiento:");
-        lblFechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFechaNacimiento.setHorizontalAlignment(SwingConstants.RIGHT);
         lblFechaNacimiento.setBounds(235, 250, 121, 37);
         getContentPane().add(lblFechaNacimiento);
         
@@ -187,6 +185,15 @@ public class ConsultaUsuario extends JInternalFrame {
         txtNac.setBounds(374, 250, 255, 37);
         getContentPane().add(txtNac);
         
+        lblRegistros = new JLabel("Registros: ");
+        lblRegistros.setBounds(27, 423, 77, 15);
+        getContentPane().add(lblRegistros);
+        lblRegistros.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        comboBoxRegistro = new JComboBox();
+        comboBoxRegistro.setBounds(27, 449, 287, 43);
+        getContentPane().add(comboBoxRegistro);
+        
         lblEdiciones = new JLabel("Ediciones: ");
         lblEdiciones.setBounds(15, 12, 121, 37);
         panelOrg_2.add(lblEdiciones);
@@ -194,6 +201,11 @@ public class ConsultaUsuario extends JInternalFrame {
         
         comboBoxEdicion = new JComboBox();
         comboBoxEdicion.setBounds(15, 49, 287, 43);
+        comboBoxEdicion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	consultaEdicion(e);
+            }
+        });
         panelOrg_2.add(comboBoxEdicion);
         
         JPanel panel = new JPanel();
@@ -289,15 +301,6 @@ public class ConsultaUsuario extends JInternalFrame {
         txtEdPais.setBounds(657, 49, 147, 37);
         panel.add(txtEdPais);
         
-        lblRegistros = new JLabel("Registros: ");
-        lblRegistros.setBounds(27, 423, 77, 15);
-        getContentPane().add(lblRegistros);
-        lblRegistros.setHorizontalAlignment(SwingConstants.LEFT);
-        
-        comboBoxRegistro = new JComboBox();
-        comboBoxRegistro.setBounds(27, 449, 287, 43);
-        getContentPane().add(comboBoxRegistro);
-        
         
 	}
 
@@ -313,10 +316,8 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	    comboBoxRegistro.removeAllItems();
 	    for (DTRegistro reg: c.consultaAsistente()) {
-	       	comboBoxRegistro.addItem(reg);
-		}
-	        
-	        
+	       	comboBoxRegistro.addItem(reg.getFecha().toString());
+		}   
 	}
 	
 	protected void consultaOrganizador(ActionEvent e, DTOrganizador o) {
@@ -330,8 +331,22 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	    comboBoxEdicion.removeAllItems();
 	    for (DTEdicion ed: c.consultaOrganizador()) {
-	       	comboBoxEdicion.addItem(ed);
+	       	comboBoxEdicion.addItem(ed.getNombre());
 	    }
-        
     }
+	
+	protected void consultaEdicion(ActionEvent e) {
+		ControladorEvento ce = ControladorEvento.getInstance();
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		Organizador org = (Organizador) cu.obtenerUsuario(u.getNickname());
+		DTEdicion ed = ce.elegirEdicion(org.obtenerEdicion((String) comboBoxEdicion.getSelectedItem()));
+		txtEdNom.setText(ed.getNombre());
+		txtEdSigla.setText(ed.getSigla());
+		txtEdOrg.setText(ed.getOrganizador());
+		txtEdFI.setText(ed.getFechaInicio().toString());
+		txtEdFF.setText(ed.getFechaFin().toString());
+		txtEdFA.setText(ed.getFechaAlta().toString());
+		txtEdPais.setText(ed.getPais());
+		txtEdCiudad.setText(ed.getCiudad());
+	}
 }

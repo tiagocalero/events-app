@@ -8,6 +8,7 @@ import logica.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -65,6 +66,11 @@ public class ControladorUsuario{
 		usuario = u;
 		return u.getDatos();
 	}
+	
+	public Usuario obtenerUsuario(String nick) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.obtener(nick);
+	}
 
 	public void modificarDatosUsuario(DTUsuarioModificado datos) {
 		usuario.modificar(datos);
@@ -77,30 +83,40 @@ public class ControladorUsuario{
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.crearAsistente(nick, nom, c, ap, nac, ins);
 	}
+	
+	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, ap, nac);
+	}
 
 	public boolean altaOrganizador(String nick, String nom, String c, String desc, String link) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.crearOrganizador(nick, nom, c, desc, link);
 	}
-
+	
+	//RECUERDA USUARIO CON MEMORIA
 	public List<DTEdicion> consultaOrganizador() {
 		assert usuario instanceof Organizador;
 		Organizador o = (Organizador) usuario;
 		return o.consulta();
 	}
 	
-	//RECUERDA USUARIO CON MEMORIA
 	public List<DTRegistro> consultaAsistente() {
 		assert usuario instanceof Asistente;
 		Asistente a = (Asistente) usuario;
 		return a.consulta();
 	}
 	
+	
 	//RECIBE PARAMETROS
-	public List<DTRegistro> registrosDeAsistente(String nombreAsistente) {
+	public List<DTRegistro> registrosDeAsistente(String nicknameAsistente) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		
-		return m.obtenerAsistente(nombreAsistente).consulta();
+		return ((Asistente) m.obtener(nicknameAsistente)).consulta();
+	}
+	
+	public List<DTEdicion> edicionesDeOrganizador(String nicknameOrganizador) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return ((Organizador) m.obtener(nicknameOrganizador)).consulta();
 	}
 
 	public void liberarMemoria() {

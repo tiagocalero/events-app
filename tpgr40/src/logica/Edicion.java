@@ -42,11 +42,13 @@ public class Edicion {
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
+        
+        organizador.agregarEdicion(this);
+        evento.agregarEdicion(this);
     }
 
 	public DTEdicion getDatos() {
 		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
-        //List<String> nombreTRegistros = tRegistros.keySet().stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
 		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
         List<String> nickAsistentes = registros.stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
 
