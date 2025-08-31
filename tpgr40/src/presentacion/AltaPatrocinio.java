@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.DTPatrocinio;
+import logica.DTTRegistro;
 import logica.Patrocinio;
 import logica.TipoNivelPatrocinio;
 
@@ -27,9 +28,9 @@ import java.awt.Font;
 public class AltaPatrocinio extends JInternalFrame{
 	
 	private final JTextField txtAporte = new JTextField();
-	private JComboBox comboBoxEdiciones;
+	private JComboBox<String> comboBoxEdiciones;
 	private JComboBox comboBoxInstituciones;
-	private JComboBox comboBoxEventos;
+	private JComboBox<String> comboBoxEventos;
 	private JButton botonCancelar;
 	private JButton botonCrear;
 	private JTextField textCantRegistros;
@@ -37,7 +38,7 @@ public class AltaPatrocinio extends JInternalFrame{
 	private JLabel labelTipoRegistros;
 	private JLabel labelPatrocinio;
 	private JComboBox comboBoxNivelPatrocinio;
-	private JComboBox comboBoxTipoRegistro;
+	private JComboBox<String> comboBoxTipoRegistro;
 	private JLabel labelAporte;
 	private JLabel labelDatosDelUsuario;
 	private JTextField textField;
@@ -65,8 +66,8 @@ public class AltaPatrocinio extends JInternalFrame{
 		labelDatosDelUsuario.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(labelDatosDelUsuario);
         
-		comboBoxEventos = new JComboBox();
-        comboBoxEventos.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Evento", "Evento 1", "Evento 2"}));
+		comboBoxEventos = new JComboBox<String>();
+        comboBoxEventos.setModel(new DefaultComboBoxModel<String>(new String[] {"Selecciona un Evento", "Evento 1", "Evento 2"}));
         comboBoxEventos.setBounds(27, 92, 226, 43);
         getContentPane().add(comboBoxEventos);        
         inicializarCombos();
@@ -108,7 +109,7 @@ public class AltaPatrocinio extends JInternalFrame{
         labelPatrocinio.setBounds(397, 25, 121, 37);
         getContentPane().add(labelPatrocinio);
         
-        labelTipoRegistros = new JLabel("Tipo de Registros Gratutitos:");
+        labelTipoRegistros = new JLabel("Tipo de Registro Gratutito:");
         labelTipoRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
         labelTipoRegistros.setBounds(309, 175, 216, 37);
         getContentPane().add(labelTipoRegistros);
@@ -169,16 +170,28 @@ public class AltaPatrocinio extends JInternalFrame{
             public void actionPerformed(ActionEvent e) {
                 // Obtener la edicion seleccionada
                 String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+                String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
                 
                 // Verificar que la selección sea válida
                 if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione un Evento")) {
                     // Llamar al método que carga las instituciones
                 	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
                     institucionesModel.addElement("Seleccione una Institucion");
-                    
+
                     ControladorInstitucion m = ControladorInstitucion.getInstance();
                     m.listarInstituciones().forEach(institucionesModel::addElement);
                     comboBoxInstituciones.setModel(institucionesModel);
+                    
+                    // Cargar TipoRegistros para la edición y evento
+                    DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<String>();
+                    tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
+                    
+                    ControladorEvento c = ControladorEvento.getInstance();
+                    List<DTTRegistro> dts = c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada);
+                    for (DTTRegistro dt: dts)
+                        tipoRegistrosModel.addElement(dt.getNombre());
+                    
+                    comboBoxTipoRegistro.setModel(tipoRegistrosModel);
                 }
              
             }
@@ -202,7 +215,6 @@ public class AltaPatrocinio extends JInternalFrame{
                 float montoAporte = Float.parseFloat(aporteEconomicoSeleccionado);
                 int cantidadRegistros = Integer.parseInt(cantRegistrosSeleccionados);
                 
-                
                 // Crear el DTPatrocinio
                 DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros);
                 
@@ -218,9 +230,8 @@ public class AltaPatrocinio extends JInternalFrame{
  
 	}
 	
-	
 	private void inicializarCombos() {
-        DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<String>();
         eventosModel.addElement("Seleccione un Evento");
         
         ControladorEvento m = ControladorEvento.getInstance();
