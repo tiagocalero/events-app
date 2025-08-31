@@ -46,7 +46,6 @@ public class Edicion {
 
 	public DTEdicion getDatos() {
 		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
-        //List<String> nombreTRegistros = tRegistros.keySet().stream().map(tr -> tr.getNombre()).collect(Collectors.toList());
 		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
         List<String> nickAsistentes = registros.stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
 
