@@ -47,7 +47,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 		setClosable(true);
 
 		setTitle("Consultar un Tipo de Registro");
-		setBounds(30, 30, 691, 400);
+		setBounds(30, 30, 734, 445);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -180,7 +180,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         });*/
                 
         JButton btnConsulta = new JButton("Consultar");
-        btnConsulta.setBounds(76, 369, 150, 35);
+        btnConsulta.setBounds(76, 359, 150, 35);
 		btnConsulta.addActionListener(e -> {
 			String nombreEvento = (String) comboBoxEventos.getSelectedItem();
 			String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();

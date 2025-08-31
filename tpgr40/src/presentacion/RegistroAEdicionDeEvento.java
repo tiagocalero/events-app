@@ -29,7 +29,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 	private JLabel lblAsistentes;
 	private JComboBox comboBoxEventos;
 	private JComboBox comboBoxEdiciones;
-	private JComboBox<DTTRegistro> comboBoxTipoRegistro;
+	private JComboBox comboBoxTipoRegistro;
 	private JComboBox<DTAsistente> comboBoxAsistentes;
 	
 	
@@ -104,8 +104,8 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		    String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
 
 		    // Listamos las ediciones de ese evento y agregamos al combo
-		    for (logica.DTTRegistro dtr : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
-		        comboBoxTipoRegistro.addItem(dtr);
+		    for (String nombreTR : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
+		        comboBoxTipoRegistro.addItem(nombreTR);
 		    }
         });
         
@@ -129,11 +129,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = ((DTAsistente) comboBoxAsistentes.getSelectedItem()).getNickname();
-            String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
+            String nombreTRegistro = (String) comboBoxTipoRegistro.getSelectedItem();
             String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
             String nickEvento = (String) comboBoxEventos.getSelectedItem();
 
-            boolean error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nickEvento, nombreTRegistro);
+            boolean error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
 
             if (error) {
                 JOptionPane.showMessageDialog(this, 
