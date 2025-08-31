@@ -25,4 +25,8 @@ public class Registro{
     public DTRegistro getDatos(){
         return new DTRegistro(costo, fecha, edicion.getNombre());
     }
+    
+    public Edicion getEdicion( ) {
+    	return edicion;
+    }
 }
