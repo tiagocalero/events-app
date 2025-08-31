@@ -22,6 +22,7 @@ import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 import logica.DTEvento;
 import logica.DTPatrocinio;
+import logica.DTTRegistro;
 import logica.TipoNivelPatrocinio;
 import logica.ManejadorCategoria;
 import logica.ManejadorEvento;
@@ -102,29 +103,62 @@ class ControladorEventoTest {
 	}
 
 	@Test @Order(6)
-	void testCrearTipoRegistro() {
-		c.elegirEvento("Evento 1");
-		c.elegirEdicion("Edición 1");
-		c.crearTipoRegistro("tp1", "desc1", 100, 1);
+	void testCrearEdicionExistenteEvento() {
+		LocalDate f = LocalDate.now();
+		
+		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay"));
 	}
 
 	@Test @Order(7)
+	void testCrearTipoRegistro() {
+		c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc1", 100, 1);
+	}
+
+	@Test @Order(8)
 	void testCrearTipoRegistroExistente() {
-		c.elegirEvento("Evento 1");
-		c.elegirEdicion("Edición 1");
-		assertEquals(false, c.crearTipoRegistro("tp1", "desc2", 101, 12));
-		c.elegirEvento("Evento 1");
-		c.elegirEdicion("Edición 2");
-		assertEquals(true, c.crearTipoRegistro("tp1", "desc2", 101, 12));
+		assertEquals(false, c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc2", 101, 12));
+		assertEquals(true, c.crearTipoRegistro("Evento 1", "Edición 2", "tp1", "desc2", 101, 12));
 	}
 	
-	@Test @Order(8)
+	@Test @Order(9)
 	void testCrearPatrocinio() {
-		c.elegirEdicion("Edición 1");
-		c.elegirInstitucion("Institución 1");
+		DTTRegistro tp = c.seleccionarTipoRegistro("tp1", "Evento 1", "Edición 1");
+		float cantRegistrosOtorgados = 10;
+		float costo = tp.getCosto();
 		
-		// FALTA: Testear caso borde de que se exceda el 20% del monto
-		DTPatrocinio dtp = new DTPatrocinio("pat1", TipoNivelPatrocinio.Plata, 100, "tp1", 0);
-		assertEquals(true, c.crearPatrocinio(dtp));
+		// Caso borde: El costo de los registros supera el 20% del monto
+		DTPatrocinio dtp = new DTPatrocinio(
+			"pat2",
+			TipoNivelPatrocinio.Plata,
+			cantRegistrosOtorgados * tp.getCosto() * 4.9f,
+			"tp1",
+			(int) cantRegistrosOtorgados
+		);
+		assertEquals(false, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
+		
+		// Caso borde: El costo de los registros no supera el 20% del monto (por poco)
+		dtp = new DTPatrocinio(
+			"pat1",
+			TipoNivelPatrocinio.Plata,
+			cantRegistrosOtorgados * tp.getCosto() * 5.1f,
+			"tp1",
+			(int) cantRegistrosOtorgados
+		);
+		assertEquals(true, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
+	}
+
+	@Test @Order(10)
+	void testListarPatrocinios() {
+		assertEquals(List.of("pat1"), c.listarPatrocinios("Evento 1", "Edición 1"));
+	}
+
+	@Test @Order(11)
+	void testListarOrganizadores() {
+		assertEquals(List.of("org"), c.listarOrganizadores());
+	}
+
+	@Test @Order(12)
+	void testListarCategorias() {
+		assertEquals(Set.of("c1", "c2", "c3", "c4"), new HashSet<>(c.listarCategorias()));
 	}
 }

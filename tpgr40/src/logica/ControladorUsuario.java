@@ -41,6 +41,12 @@ public class ControladorUsuario{
 		}
 		return res;
 	}
+	
+	public List<String> listarNicknameAsistentes() {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+        return m.asistentes();
+ 
+	}
 
     public List<String> listarOrganizadores() {
         ManejadorUsuario m = ManejadorUsuario.getInstance();
@@ -51,6 +57,7 @@ public class ControladorUsuario{
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
         return new ArrayList<>(m.usuarios().keySet());
 	}
+	
 
 	public DTUsuario elegirUsuario(String nickname) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
@@ -81,11 +88,19 @@ public class ControladorUsuario{
 		Organizador o = (Organizador) usuario;
 		return o.consulta();
 	}
-
+	
+	//RECUERDA USUARIO CON MEMORIA
 	public List<DTRegistro> consultaAsistente() {
 		assert usuario instanceof Asistente;
 		Asistente a = (Asistente) usuario;
 		return a.consulta();
+	}
+	
+	//RECIBE PARAMETROS
+	public List<DTRegistro> registrosDeAsistente(String nombreAsistente) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		
+		return m.obtenerAsistente(nombreAsistente).consulta();
 	}
 
 	public void liberarMemoria() {
