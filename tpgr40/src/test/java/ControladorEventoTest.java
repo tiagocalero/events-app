@@ -30,6 +30,8 @@ import logica.ManejadorEvento;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorEventoTest {
 	private static ControladorEvento c;
+	
+	// Se ejecuta antes que todos los tests
 	@BeforeAll
 	static void setup() {
 		c = ControladorEvento.getInstance();
@@ -48,23 +50,27 @@ class ControladorEventoTest {
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
 		ci.altaInstitucion("Institución 1", "inst", "http://");
 	}
-	
+
+	// Se ejecuta después que todos los tests
 	@AfterAll
 	static void borrado() {
 		ManejadorCategoria.borrarInstance();
 	}
 	
+	// Probar crear eventos con categorías que ya existen
 	@Test @Order(1)
 	void testCrearEventoConCategoriaExistente() {
 		assertEquals(true, c.ingresarDatosEvento("Evento 1", "descripcion1", "e1", List.of("c1", "c2", "c3")));
 		
 		DTEvento dte = c.informacionEvento("Evento 1");
+		// Tomar el dt y asegurarse que cada campo sea correcto
 		assertEquals("Evento 1", dte.getNombre());
 		assertEquals("descripcion1", dte.getDescripcion());
 		assertEquals("e1", dte.getSigla());
 		assertEquals(Set.of("c1", "c2", "c3"), new HashSet<>(dte.getCategorias()));
 	}
-	
+
+	// Probar crear eventos con categorías que no existen
 	@Test @Order(2)
 	void testCrearEventoConCategoriaNoExistente() {
 		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", List.of("c4")));
@@ -73,25 +79,30 @@ class ControladorEventoTest {
 		assertEquals("Evento 2", dte.getNombre());
 		assertEquals("descripcion2", dte.getDescripcion());
 		assertEquals("e2", dte.getSigla());
+		// Chequear que se cree la categoría
 		assertEquals(List.of("c4"), dte.getCategorias());
 	}
 
+	// Probar crear un evento con un nombre que ya existe
 	@Test @Order(3)
 	void testCrearEventoExistente() {
 		assertEquals(false, c.ingresarDatosEvento("Evento 1", "descripcion2", "e2", List.of("c4")));
-		
+
+		// Chequear que no se modifique el evento existente
 		DTEvento dte = c.informacionEvento("Evento 1");
 		assertEquals("Evento 1", dte.getNombre());
 		assertEquals("descripcion1", dte.getDescripcion());
 		assertEquals("e1", dte.getSigla());
 		assertEquals(Set.of("c1", "c2", "c3"), new HashSet<>(dte.getCategorias()));
 	}
-	
+
+	// Probar listar eventos del sistema
 	@Test @Order(4)
 	void testListarEventos() {
 		assertEquals(Set.of("Evento 1", "Evento 2"), c.listarEventos().stream().collect(Collectors.toSet()));
 	}
-	
+
+	// Probar crear ediciones para un evento, y chequear que se listen en el evento
 	@Test @Order(5)
 	void testCrearEdicionEvento() {
 		LocalDate f = LocalDate.now();
@@ -102,6 +113,7 @@ class ControladorEventoTest {
 		assertEquals(Set.of("Edición 1", "Edición 2"), new HashSet<>(c.listarEdiciones("Evento 1")));
 	}
 
+	// Probar crear ediciones con un mismo nombre para un evento
 	@Test @Order(6)
 	void testCrearEdicionExistenteEvento() {
 		LocalDate f = LocalDate.now();
@@ -114,12 +126,17 @@ class ControladorEventoTest {
 		c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc1", 100, 1);
 	}
 
+	// Probar crear TipoRegistro con nombre ya existente para una misma edicion y evento.
+	// Probar crear TipoRegistro con nombre ya existente, pero para distinta edicion/evento.
 	@Test @Order(8)
 	void testCrearTipoRegistroExistente() {
 		assertEquals(false, c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc2", 101, 12));
+		
+		// El nombre ya existe, pero para otra edición
 		assertEquals(true, c.crearTipoRegistro("Evento 1", "Edición 2", "tp1", "desc2", 101, 12));
 	}
-	
+
+	// Probar crear patrocinios con casos borde de costos
 	@Test @Order(9)
 	void testCrearPatrocinio() {
 		DTTRegistro tp = c.seleccionarTipoRegistro("tp1", "Evento 1", "Edición 1");
