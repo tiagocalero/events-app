@@ -29,6 +29,7 @@ public class ConsultaRegistro extends JInternalFrame {
 	private JTextField textCosto;
 	private JComboBox comboBoxUsuarios;
 	private JComboBox comboBoxRegistros;
+	private JButton btnCerrar;
 	
 	public ConsultaRegistro() {
 		setVisible(true);
@@ -37,7 +38,7 @@ public class ConsultaRegistro extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consulta Patrocinio");
+		setTitle("Consultar un Registro");
 		setBounds(30, 30, 833, 349);
 		getContentPane().setLayout(null);
 		
@@ -90,6 +91,16 @@ public class ConsultaRegistro extends JInternalFrame {
         textCosto.setColumns(10);
         textCosto.setBounds(535, 163, 226, 37);
         getContentPane().add(textCosto);
+        
+        btnCerrar = new JButton("Cerrar");
+        btnCerrar.setBounds(657, 212, 105, 27);
+        btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+        getContentPane().add(btnCerrar);
         
         
         comboBoxUsuarios.addActionListener(new ActionListener() {
