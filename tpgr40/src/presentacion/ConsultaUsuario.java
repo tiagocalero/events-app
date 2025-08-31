@@ -326,12 +326,12 @@ public class ConsultaUsuario extends JInternalFrame {
 
         JLabel lblRgEd = new JLabel("Edicion:");
         lblRgEd.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblRgEd.setBounds(27, 504, 106, 37);
+        lblRgEd.setBounds(12, 504, 106, 37);
         getContentPane().add(lblRgEd);
         
         JLabel lblRgFecha = new JLabel("Fecha:");
         lblRgFecha.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblRgFecha.setBounds(27, 553, 106, 37);
+        lblRgFecha.setBounds(12, 553, 106, 37);
         getContentPane().add(lblRgFecha);
         
         JLabel lblRgCosto = new JLabel("Costo:");
@@ -342,13 +342,13 @@ public class ConsultaUsuario extends JInternalFrame {
         txtRgEd = new JTextField();
         txtRgEd.setEditable(false);
         txtRgEd.setColumns(10);
-        txtRgEd.setBounds(140, 504, 147, 37);
+        txtRgEd.setBounds(125, 504, 147, 37);
         getContentPane().add(txtRgEd);
         
         txtRgFecha = new JTextField();
         txtRgFecha.setEditable(false);
         txtRgFecha.setColumns(10);
-        txtRgFecha.setBounds(140, 553, 147, 37);
+        txtRgFecha.setBounds(125, 553, 147, 37);
         getContentPane().add(txtRgFecha);
         
         txtRgCosto = new JTextField();
@@ -416,15 +416,18 @@ public class ConsultaUsuario extends JInternalFrame {
 		ControladorEvento ce = ControladorEvento.getInstance();
 		ControladorUsuario cu = ControladorUsuario.getInstance();
 		Organizador org = (Organizador) cu.obtenerUsuario(u.getNickname());
-		DTEdicion ed = ce.elegirEdicion(org.obtenerEdicion((String) comboBoxEdicion.getSelectedItem()));
-		txtEdNom.setText(ed.getNombre());
-		txtEdSigla.setText(ed.getSigla());
-		txtEdOrg.setText(ed.getOrganizador());
-		txtEdFI.setText(ed.getFechaInicio().toString());
-		txtEdFF.setText(ed.getFechaFin().toString());
-		txtEdFA.setText(ed.getFechaAlta().toString());
-		txtEdPais.setText(ed.getPais());
-		txtEdCiudad.setText(ed.getCiudad());
+		String nomEdicion = (String) comboBoxEdicion.getSelectedItem();
+		if (nomEdicion != null) {
+			DTEdicion ed = ce.elegirEdicion(org.obtenerEdicion(nomEdicion));
+			txtEdNom.setText(ed.getNombre());
+			txtEdSigla.setText(ed.getSigla());
+			txtEdOrg.setText(ed.getOrganizador());
+			txtEdFI.setText(ed.getFechaInicio().toString());
+			txtEdFF.setText(ed.getFechaFin().toString());
+			txtEdFA.setText(ed.getFechaAlta().toString());
+			txtEdPais.setText(ed.getPais());
+			txtEdCiudad.setText(ed.getCiudad());
+		}
 	}
 	
 	protected void consultaRegistro(ActionEvent e) {
