@@ -44,6 +44,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private DTUsuario u;
 	private JPanel panel;
 	private JButton btnNewButton_1;
+	private JButton btnCancelar;
 	
 	public ModificarDatosUsuario() {
 		setVisible(true);
@@ -52,8 +53,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consultar un Usuario");
-		setBounds(30, 30, 698, 483);
+		setTitle("Modificar Datos de Usuario");
+		setBounds(30, 30, 697, 496);
 		getContentPane().setLayout(null);
 		
 		lblUsuarios = new JLabel("Usuarios");
@@ -168,7 +169,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
         getContentPane().add(txtNac);
         
         panel = new JPanel();
-        panel.setBounds(0, 418, 690, 35);
+        panel.setBounds(0, 418, 690, 46);
         getContentPane().add(panel);
         
         JButton btnNewButton = new JButton("Modificar");
@@ -177,6 +178,15 @@ public class ModificarDatosUsuario extends JInternalFrame {
                 modificarUsuario(e);
             }
         });
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+		panel.add(btnCancelar);
 		panel.add(btnNewButton);
         
         

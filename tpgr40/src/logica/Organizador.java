@@ -43,10 +43,6 @@ public class Organizador extends Usuario {
 		return Map.copyOf(ediciones);
 	}
 
-	public void agregarEdicion(Edicion edicion) {
-		ediciones.put(edicion.getNombre(), edicion);
-	}
-	
 	public Edicion obtenerEdicion(String nom) {
 		return ediciones.get(nom);
 	}
