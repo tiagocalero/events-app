@@ -173,7 +173,7 @@ public class AltaPatrocinio extends JInternalFrame{
                 String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
                 
                 // Verificar que la selección sea válida
-                if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione un Evento")) {
+                if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
                     // Cargar TipoRegistros para la edición y evento
                     DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<String>();
                     tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
