@@ -34,4 +34,9 @@ public class ControladorInstitucion{
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
 		return m.instituciones().values().stream().map(inst->inst.getNombre()).collect(Collectors.toList());
 	}
+	
+	public Institucion obtenerInstitucion(String nombre) {
+		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
+		return m.obtener(nombre);
+	}
 }

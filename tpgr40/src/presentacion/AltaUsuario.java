@@ -28,6 +28,7 @@ public class AltaUsuario extends JInternalFrame {
 	private JTextField textField_4;
 	private JTextField textField_6;
 	private JTextArea textArea;
+	private JComboBox comboBox;
 	
 	public AltaUsuario() {
 		setVisible(true); 
@@ -112,7 +113,7 @@ public class AltaUsuario extends JInternalFrame {
 		lblInstitiucion.setBounds(12, 88, 140, 17);
 		panel_2.add(lblInstitiucion);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBounds(161, 88, 140, 26);
 		ControladorInstitucion c = ControladorInstitucion.getInstance();
 		for(String i: c.listarInstituciones()) {
@@ -192,7 +193,7 @@ public class AltaUsuario extends JInternalFrame {
         }
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if (c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {    
+        if (c.altaAsistente(nickname, nombre, correo, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(

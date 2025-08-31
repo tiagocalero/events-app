@@ -25,6 +25,14 @@ public class Asistente extends Usuario {
 		this.registros = new HashSet<>();
 	}
 	
+	public Asistente(String nick, String nom, String c, String ap, LocalDate fecha, Institucion ins) {
+		super(nick, nom, c);
+		this.apellido = ap;
+		this.nacimiento = fecha;
+		this.institucion = ins;
+		this.registros = new HashSet<>();
+	}
+	
 	@Override
 	public DTAsistente getDatos() {
 		DTAsistente res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
