@@ -64,7 +64,9 @@ public class Principal extends JFrame {
         	@Override
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
-            }
+                JOptionPane.showMessageDialog(Principal.this, "Datos cargados correctamente.");
+                menuSistema.remove(menuCargarDatos);
+        	}
         });
         menuSistema.add(menuCargarDatos);
 

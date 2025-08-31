@@ -198,7 +198,6 @@ public class ControladorEvento{
 			return false;
 
 		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-		evento.agregarEdicion(e);
 		
 		return true;
 	}

@@ -42,6 +42,9 @@ public class Edicion {
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
+        
+        organizador.agregarEdicion(this);
+        evento.agregarEdicion(this);
     }
 
 	public DTEdicion getDatos() {
