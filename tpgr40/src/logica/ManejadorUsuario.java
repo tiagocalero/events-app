@@ -30,6 +30,10 @@ public class ManejadorUsuario {
     public Usuario obtener(String nickname) {
         return usuarios.get(nickname);
     }
+    
+   public Asistente obtenerAsistente(String nickname) {
+	   return (Asistente) usuarios.get(nickname);
+   }
 
     public List<String> organizadores() {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Organizador).map(usuario->usuario.getNickname()).collect(Collectors.toList());

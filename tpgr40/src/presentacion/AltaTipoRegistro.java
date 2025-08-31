@@ -110,11 +110,7 @@ public class AltaTipoRegistro extends JInternalFrame {
 		    }
 		});
 		
-		
-        
-        
-        
-        
+	
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
 		textField_3.setBounds(490, 191, 140, 26);

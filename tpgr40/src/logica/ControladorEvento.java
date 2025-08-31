@@ -157,6 +157,7 @@ public class ControladorEvento{
 		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
 	}
 
+	
 	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
@@ -192,12 +193,17 @@ public class ControladorEvento{
         }
 		return resultado;
 	}
-		//esto seria con la edicion del controlador? 
-	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
+
+	public List<DTTRegistro> listarTipoRegistro(String nombreEvento, String nombreEdicion){
 			
 			List<DTTRegistro> resultado = new ArrayList<>();
 			
+			ManejadorEvento m = ManejadorEvento.getInstance();
+			Evento ev = m.obtenerEvento(nombreEvento);
+			Edicion ed = m.obtenerEdicion(nombreEdicion, ev);
+			
 			for (TRegistro tr : ed.getTRegistros()) {
+				
 				DTTRegistro dtr = new DTTRegistro(
 						tr.getCupo(),
 						tr.getCosto(),
@@ -210,6 +216,7 @@ public class ControladorEvento{
 			return resultado;
 		
 	}
+
 
 	public boolean crearTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTRegistro, String descripcion, float costo, int cupo) {
 		
