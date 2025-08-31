@@ -42,8 +42,8 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consultar un Evento");
-		setBounds(30, 30, 691, 630);
+		setTitle("Registro a Edicion de Evento");
+		setBounds(30, 30, 351, 630);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -111,11 +111,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         lblAsistentes = new JLabel("Asistentes: ");
         lblAsistentes.setHorizontalAlignment(SwingConstants.CENTER);
-        lblAsistentes.setBounds(22, 390, 262, 36);
+        lblAsistentes.setBounds(22, 375, 262, 36);
         getContentPane().add(lblAsistentes);
         
         comboBoxAsistentes = new JComboBox<>();
-        comboBoxAsistentes.setBounds(22, 437, 262, 46);
+        comboBoxAsistentes.setBounds(22, 422, 262, 46);
         getContentPane().add(comboBoxAsistentes);
         
         ControladorUsuario cu = ControladorUsuario.getInstance();
@@ -124,11 +124,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         	comboBoxAsistentes.addItem(asistente);
         }
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(437, 409, 150, 35);
+        btnRegistrar.setBounds(81, 502, 150, 35);
         getContentPane().add(btnRegistrar);
 
         btnRegistrar.addActionListener(e -> {
-            String nickAsistente = ((DTAsistente) comboBoxAsistentes.getSelectedItem()).getNick();
+            String nickAsistente = ((DTAsistente) comboBoxAsistentes.getSelectedItem()).getNickname();
             String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
             String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
             String nickEvento = (String) comboBoxEventos.getSelectedItem();

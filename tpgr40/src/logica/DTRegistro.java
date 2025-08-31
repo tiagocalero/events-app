@@ -13,8 +13,9 @@ public class DTRegistro {
         this.fecha = fecha;
         this.nombreEdicion = nombreEdicion;
     }
+
+    public float getCosto() { return costo; }
+    public LocalDate getFecha() { return fecha; }
+    public String getEdicion() { return nombreEdicion; }
     
-    public String getEdicion() {
-    	return this.nombreEdicion;
-    }
 }

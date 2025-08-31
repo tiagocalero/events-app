@@ -72,14 +72,12 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg.setBounds(233, 201, 421, 190);
         getContentPane().add(panelOrg);
         panelOrg.setLayout(null);
-        panelOrg.setVisible(false);
         
         JPanel panelOrg_2 = new JPanel();
-        panelOrg_2.setBounds(12, 400, 799, 262);
+        panelOrg_2.setBounds(12, 400, 799, 310);
         getContentPane().add(panelOrg_2);
         panelOrg_2.setLayout(null);
         panelOrg_2.setVisible(false);
-
         
         comboBoxEventos = new JComboBox();
         comboBoxEventos.setBounds(27, 53, 201, 43);
@@ -106,6 +104,7 @@ public class ConsultaUsuario extends JInternalFrame {
             }
         });
         
+		
         
         lblNombre = new JLabel("Nickname:");
         lblNombre.setBounds(235, 54, 121, 37);
@@ -186,6 +185,15 @@ public class ConsultaUsuario extends JInternalFrame {
         txtNac.setBounds(374, 250, 255, 37);
         getContentPane().add(txtNac);
         
+        lblRegistros = new JLabel("Registros: ");
+        lblRegistros.setBounds(27, 423, 77, 15);
+        getContentPane().add(lblRegistros);
+        lblRegistros.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        comboBoxRegistro = new JComboBox();
+        comboBoxRegistro.setBounds(27, 449, 287, 43);
+        getContentPane().add(comboBoxRegistro);
+        
         lblEdiciones = new JLabel("Ediciones: ");
         lblEdiciones.setBounds(15, 12, 121, 37);
         panelOrg_2.add(lblEdiciones);
@@ -193,6 +201,11 @@ public class ConsultaUsuario extends JInternalFrame {
         
         comboBoxEdicion = new JComboBox();
         comboBoxEdicion.setBounds(15, 49, 287, 43);
+        comboBoxEdicion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	consultaEdicion(e);
+            }
+        });
         panelOrg_2.add(comboBoxEdicion);
         
         JPanel panel = new JPanel();
@@ -288,15 +301,6 @@ public class ConsultaUsuario extends JInternalFrame {
         txtEdPais.setBounds(657, 49, 147, 37);
         panel.add(txtEdPais);
         
-        lblRegistros = new JLabel("Registros: ");
-        lblRegistros.setBounds(27, 423, 77, 15);
-        getContentPane().add(lblRegistros);
-        lblRegistros.setHorizontalAlignment(SwingConstants.LEFT);
-        
-        comboBoxRegistro = new JComboBox();
-        comboBoxRegistro.setBounds(27, 449, 287, 43);
-        getContentPane().add(comboBoxRegistro);
-        
         
 	}
 
@@ -312,7 +316,7 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	    comboBoxRegistro.removeAllItems();
 	    for (DTRegistro reg: c.consultaAsistente()) {
-	       	comboBoxRegistro.addItem(reg);
+	       	comboBoxRegistro.addItem(reg.getFecha().toString());
 		}   
 	}
 	

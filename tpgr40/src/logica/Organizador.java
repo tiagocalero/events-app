@@ -35,8 +35,12 @@ public class Organizador extends Usuario {
 		this.link = datosO.getLink();
 	}
 
-	public List<DTEdicion> consulta(){
-		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.toList()); //?? chequear
+	public List<DTEdicion> consulta() {
+		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.toList());
+	}
+	
+	public Map<String, Edicion> obtenerEdiciones() {
+		return Map.copyOf(ediciones);
 	}
 
 	public void agregarEdicion(Edicion edicion) {
@@ -45,5 +49,9 @@ public class Organizador extends Usuario {
 	
 	public Edicion obtenerEdicion(String nom) {
 		return ediciones.get(nom);
+	}
+	
+	public void agregarEdicion(Edicion e) {
+		ediciones.put(e.getNombre(), e);
 	}
 }
