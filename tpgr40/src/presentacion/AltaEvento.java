@@ -100,6 +100,11 @@ public class AltaEvento extends JInternalFrame {
         	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
+        // Chequear que exista al menos una categoria
+        if (categorias.isEmpty()) {
+        	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener al menos una categoria.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
         
         boolean ok = m.ingresarDatosEvento(nombre, desc, sigla, categorias);
         if (ok) {

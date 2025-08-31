@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -221,7 +222,7 @@ public class AltaPatrocinio extends JInternalFrame{
     		    }
                 
                 // Crear el DTPatrocinio
-                DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros);
+                DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, LocalDate.now());
                 
                 // Crear el Patrocinio
                 ControladorEvento me = ControladorEvento.getInstance();
