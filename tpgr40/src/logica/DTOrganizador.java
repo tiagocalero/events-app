@@ -9,5 +9,6 @@ public class DTOrganizador extends DTUsuario {
 		this.descripcion = desc;
 		this.link = link;
 	}
-	
+	public String getDescripcion() { return descripcion; }
+	public String getLink() { return link; }
 }

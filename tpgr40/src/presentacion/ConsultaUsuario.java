@@ -1,5 +1,4 @@
 package presentacion;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
@@ -13,31 +12,45 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import logica.ControladorEvento;
-import logica.DTEvento;
+import logica.ControladorUsuario;
+import logica.DTAsistente;
+import logica.DTEdicion;
+import logica.DTOrganizador;
+import logica.DTRegistro;
+import logica.DTUsuario;
+
 import javax.swing.JPanel;
 
 public class ConsultaUsuario extends JInternalFrame {
 	private JInternalFrame frmConsultaUsuario;
-	private JLabel lblEventos;
-	private JComboBox comboBoxEventos;
+	private JLabel lblUsuarios;
+	private JComboBox comboBoxUsuario;
 	private JLabel lblNombre;
 	private JButton btnNewButton;
-	private final JTextField txtEjemplo = new JTextField();
-	private JTextField txtCc;
+	private final JTextField txtNick = new JTextField();
+	private JTextField txtNom;
 	private JLabel lblFecha;
-	private JTextField textField_2;
-	private JLabel lblCategoras;
+	private JTextField txtAp;
+	private JLabel lblRegistros;
 	private JLabel lblEdiciones;
-	private JComboBox comboBoxEventos_2;
-	private JComboBox comboBoxEventos_3;
-	private JTextField textField;
+	private JComboBox comboBoxRegistro;
+	private JComboBox comboBoxEdicion;
+	private JTextField txtCorreo;
 	private JLabel lblFechaNacimiento;
-	private JTextField textField_1;
-	private JTextField textField_3;
+	private JTextField txtNac;
+	private JTextField txtLink;
 	private JLabel lblLink;
 	private JLabel lblFecha_1;
 	private JTextArea Descripcion;
+	private DTUsuario u;
+	private JTextField txtEdNom;
+	private JTextField txtEdSigla;
+	private JTextField txtEdOrg;
+	private JTextField txtEdFI;
+	private JTextField txtEdFF;
+	private JTextField txtEdFA;
+	private JTextField txtEdCiudad;
+	private JTextField txtEdPais;
 	
 	public ConsultaUsuario() {
 		setVisible(true);
@@ -50,106 +63,88 @@ public class ConsultaUsuario extends JInternalFrame {
 		setBounds(30, 30, 831, 752);
 		getContentPane().setLayout(null);
 		
-		lblEventos = new JLabel("Usuarios");
-		lblEventos.setBounds(27, 12, 188, 36);
-        lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        getContentPane().add(lblEventos);
+		lblUsuarios = new JLabel("Usuarios");
+		lblUsuarios.setBounds(27, 12, 188, 36);
+		lblUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblUsuarios);
 
-        comboBoxEventos = new JComboBox();
-        comboBoxEventos.setBounds(27, 53, 188, 43);
+        JPanel panelOrg = new JPanel();
+        panelOrg.setBounds(233, 201, 421, 190);
+        getContentPane().add(panelOrg);
+        panelOrg.setLayout(null);
+        panelOrg.setVisible(false);
         
-        ControladorEvento c = ControladorEvento.getInstance();
+        JPanel panelOrg_2 = new JPanel();
+        panelOrg_2.setBounds(12, 400, 799, 310);
+        getContentPane().add(panelOrg_2);
+        panelOrg_2.setLayout(null);
+        panelOrg_2.setVisible(false);
+
         
-        for (String e: c.listarEventos()) {
-        	comboBoxEventos.addItem(e);
+        comboBoxUsuario = new JComboBox();
+        comboBoxUsuario.setBounds(27, 53, 188, 43);
+        ControladorUsuario c = ControladorUsuario.getInstance();
+        
+        for (String e: c.listarUsuarios()) {
+        	comboBoxUsuario.addItem(e);
         }
-        getContentPane().add(comboBoxEventos);
+        getContentPane().add(comboBoxUsuario);
+        comboBoxUsuario.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	u = c.elegirUsuario((String) comboBoxUsuario.getSelectedItem());
+            	if(u instanceof DTAsistente) {
+            		panelOrg.setVisible(false);
+            		panelOrg_2.setVisible(false);
+            		DTAsistente a = (DTAsistente) u;
+            		consultaAsistente(e, a);
+            	} else {
+            		assert u instanceof DTOrganizador;
+            		panelOrg.setVisible(true);
+            		panelOrg_2.setVisible(true);
+        			DTOrganizador o = (DTOrganizador) u;
+            		consultaOrganizador(e, o);
+            	}
+            }
+        });
+        
         
         lblNombre = new JLabel("Nickname:");
         lblNombre.setBounds(235, 54, 121, 37);
         lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
         //lblNombre.setBounds(100, 100, 170, 14);
         getContentPane().add(lblNombre);
-        txtEjemplo.setEditable(false);
-        txtEjemplo.setBounds(374, 54, 255, 37);
-        getContentPane().add(txtEjemplo);
-        txtEjemplo.setColumns(10);
+        txtNick.setEditable(false);
+        txtNick.setBounds(374, 54, 255, 37);
+        getContentPane().add(txtNick);
+        txtNick.setColumns(10);
         
-        btnNewButton = new JButton("Consultar");
-        btnNewButton.setBounds(27, 114, 188, 37);
-		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cmdConsultar(e);
-            }
-        });
-        getContentPane().add(btnNewButton);
         
         JLabel lblSigla = new JLabel("Nombre:");
         lblSigla.setHorizontalAlignment(SwingConstants.CENTER);
         lblSigla.setBounds(235, 103, 121, 37);
         getContentPane().add(lblSigla);
         
-        txtCc = new JTextField();
-        txtCc.setEditable(false);
-        txtCc.setColumns(10);
-        txtCc.setBounds(374, 103, 255, 37);
-        getContentPane().add(txtCc);
+        txtNom = new JTextField();
+        txtNom.setEditable(false);
+        txtNom.setColumns(10);
+        txtNom.setBounds(374, 103, 255, 37);
+        getContentPane().add(txtNom);
         
         JLabel lblDescripcin = new JLabel("Correo:");
         lblDescripcin.setHorizontalAlignment(SwingConstants.CENTER);
         lblDescripcin.setBounds(235, 152, 121, 37);
         getContentPane().add(lblDescripcin);
         
+        txtAp = new JTextField();
+        txtAp.setEditable(false);
+        txtAp.setColumns(10);
+        txtAp.setBounds(374, 201, 255, 37);
+        getContentPane().add(txtAp);
+        
         lblFecha = new JLabel("Apellido:");
         lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
         lblFecha.setBounds(235, 201, 121, 37);
         getContentPane().add(lblFecha);
-        
-        textField_2 = new JTextField();
-        textField_2.setEditable(false);
-        textField_2.setColumns(10);
-        textField_2.setBounds(374, 201, 255, 37);
-        getContentPane().add(textField_2);
-        
-        lblCategoras = new JLabel("Categorías: ");
-        lblCategoras.setHorizontalAlignment(SwingConstants.LEFT);
-        lblCategoras.setBounds(27, 513, 121, 37);
-        getContentPane().add(lblCategoras);
-        
-        lblEdiciones = new JLabel("Ediciones: ");
-        lblEdiciones.setHorizontalAlignment(SwingConstants.LEFT);
-        lblEdiciones.setBounds(342, 513, 121, 37);
-        getContentPane().add(lblEdiciones);
-        
-        comboBoxEventos_2 = new JComboBox();
-        comboBoxEventos_2.setBounds(27, 562, 287, 146);
-        getContentPane().add(comboBoxEventos_2);
-        
-        comboBoxEventos_3 = new JComboBox();
-        comboBoxEventos_3.setBounds(342, 562, 287, 146);
-        getContentPane().add(comboBoxEventos_3);
-        
-        textField = new JTextField();
-        textField.setEditable(false);
-        textField.setColumns(10);
-        textField.setBounds(374, 152, 255, 37);
-        getContentPane().add(textField);
-        
-        lblFechaNacimiento = new JLabel("Fecha Nacimiento:");
-        lblFechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
-        lblFechaNacimiento.setBounds(235, 250, 121, 37);
-        getContentPane().add(lblFechaNacimiento);
-        
-        textField_1 = new JTextField();
-        textField_1.setEditable(false);
-        textField_1.setColumns(10);
-        textField_1.setBounds(374, 250, 255, 37);
-        getContentPane().add(textField_1);
-        
-        JPanel panel = new JPanel();
-        panel.setBounds(233, 201, 421, 190);
-        getContentPane().add(panel);
-        panel.setLayout(null);
         
         Descripcion = new JTextArea();
         Descripcion.setWrapStyleWord(true);
@@ -157,39 +152,186 @@ public class ConsultaUsuario extends JInternalFrame {
         Descripcion.setLineWrap(true);
         Descripcion.setEditable(false);
         Descripcion.setBounds(141, 49, 255, 129);
-        panel.add(Descripcion);
+        panelOrg.add(Descripcion);
         
-        textField_3 = new JTextField();
-        textField_3.setEditable(false);
-        textField_3.setColumns(10);
-        textField_3.setBounds(141, 0, 255, 37);
-        panel.add(textField_3);
+        txtLink = new JTextField();
+        txtLink.setEditable(false);
+        txtLink.setColumns(10);
+        txtLink.setBounds(141, 0, 255, 37);
+        panelOrg.add(txtLink);
         
         lblLink = new JLabel("Link:");
         lblLink.setHorizontalAlignment(SwingConstants.CENTER);
         lblLink.setBounds(2, 0, 121, 37);
-        panel.add(lblLink);
+        panelOrg.add(lblLink);
         
         lblFecha_1 = new JLabel("Descripcion:");
         lblFecha_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblFecha_1.setBounds(2, 49, 121, 37);
-        panel.add(lblFecha_1);
+        panelOrg.add(lblFecha_1);
+        
+        txtCorreo = new JTextField();
+        txtCorreo.setEditable(false);
+        txtCorreo.setColumns(10);
+        txtCorreo.setBounds(374, 152, 255, 37);
+        getContentPane().add(txtCorreo);
+        
+        lblFechaNacimiento = new JLabel("Fecha Nacimiento:");
+        lblFechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFechaNacimiento.setBounds(235, 250, 121, 37);
+        getContentPane().add(lblFechaNacimiento);
+        
+        txtNac = new JTextField();
+        txtNac.setEditable(false);
+        txtNac.setColumns(10);
+        txtNac.setBounds(374, 250, 255, 37);
+        getContentPane().add(txtNac);
+        
+        lblEdiciones = new JLabel("Ediciones: ");
+        lblEdiciones.setBounds(15, 12, 121, 37);
+        panelOrg_2.add(lblEdiciones);
+        lblEdiciones.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        comboBoxEdicion = new JComboBox();
+        comboBoxEdicion.setBounds(15, 49, 287, 43);
+        panelOrg_2.add(comboBoxEdicion);
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBounds(0, 104, 812, 157);
+        panelOrg_2.add(panel);
+        
+        JLabel lblEdNom = new JLabel("Nombre:");
+        lblEdNom.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdNom.setBounds(0, 0, 106, 37);
+        panel.add(lblEdNom);
+        
+        txtEdNom = new JTextField();
+        txtEdNom.setEditable(false);
+        txtEdNom.setColumns(10);
+        txtEdNom.setBounds(113, 0, 147, 37);
+        panel.add(txtEdNom);
+        
+        JLabel lblEdSigla = new JLabel("Sigla:");
+        lblEdSigla.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdSigla.setBounds(0, 49, 106, 37);
+        panel.add(lblEdSigla);
+        
+        txtEdSigla = new JTextField();
+        txtEdSigla.setEditable(false);
+        txtEdSigla.setColumns(10);
+        txtEdSigla.setBounds(113, 49, 147, 37);
+        panel.add(txtEdSigla);
+        
+        JLabel lblEdOrg = new JLabel("Organizador:");
+        lblEdOrg.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdOrg.setBounds(0, 96, 106, 37);
+        panel.add(lblEdOrg);
+        
+        txtEdOrg = new JTextField();
+        txtEdOrg.setEditable(false);
+        txtEdOrg.setColumns(10);
+        txtEdOrg.setBounds(113, 96, 147, 37);
+        panel.add(txtEdOrg);
+        
+        JLabel lblEdFI = new JLabel("Fecha de Inicio:");
+        lblEdFI.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdFI.setBounds(272, 0, 111, 37);
+        panel.add(lblEdFI);
+        
+        JLabel lblEdFF = new JLabel("Fecha de Fin:");
+        lblEdFF.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdFF.setBounds(272, 49, 111, 37);
+        panel.add(lblEdFF);
+        
+        txtEdFI = new JTextField();
+        txtEdFI.setEditable(false);
+        txtEdFI.setColumns(10);
+        txtEdFI.setBounds(385, 0, 147, 37);
+        panel.add(txtEdFI);
+        
+        txtEdFF = new JTextField();
+        txtEdFF.setEditable(false);
+        txtEdFF.setColumns(10);
+        txtEdFF.setBounds(385, 49, 147, 37);
+        panel.add(txtEdFF);
+        
+        JLabel lblEdFA = new JLabel("Fecha de Alta:");
+        lblEdFA.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdFA.setBounds(272, 96, 111, 37);
+        panel.add(lblEdFA);
+        
+        txtEdFA = new JTextField();
+        txtEdFA.setEditable(false);
+        txtEdFA.setColumns(10);
+        txtEdFA.setBounds(385, 96, 147, 37);
+        panel.add(txtEdFA);
+        
+        JLabel lblEdCiudad = new JLabel("Ciudad:");
+        lblEdCiudad.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdCiudad.setBounds(544, 0, 106, 37);
+        panel.add(lblEdCiudad);
+        
+        txtEdCiudad = new JTextField();
+        txtEdCiudad.setEditable(false);
+        txtEdCiudad.setColumns(10);
+        txtEdCiudad.setBounds(657, 0, 147, 37);
+        panel.add(txtEdCiudad);
+        
+        JLabel lblEdPais = new JLabel("Pais:");
+        lblEdPais.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblEdPais.setBounds(544, 49, 106, 37);
+        panel.add(lblEdPais);
+        
+        txtEdPais = new JTextField();
+        txtEdPais.setEditable(false);
+        txtEdPais.setColumns(10);
+        txtEdPais.setBounds(657, 49, 147, 37);
+        panel.add(txtEdPais);
+        
+        lblRegistros = new JLabel("Registros: ");
+        lblRegistros.setBounds(27, 423, 77, 15);
+        getContentPane().add(lblRegistros);
+        lblRegistros.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        comboBoxRegistro = new JComboBox();
+        comboBoxRegistro.setBounds(27, 449, 287, 43);
+        getContentPane().add(comboBoxRegistro);
+        
+        
 	}
 
-	protected void cmdConsultar(ActionEvent e) {
+	protected void consultaAsistente(ActionEvent e, DTAsistente a) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		ControladorEvento c = ControladorEvento.getInstance();
-		
-		DTEvento evento = c.informacionEvento((String) comboBoxEventos.getSelectedItem());
-        txtEjemplo.setText(evento.getNombre());
-        txtCc.setText(evento.getSigla());
-        Descripcion.setText(evento.getDescripcion());
-        textField_2.setText(evento.getFechaAlta().format(formatter));
-        comboBoxEventos_2.removeAllItems();
-        for (String cat: evento.getCategorias())
-        	comboBoxEventos_2.addItem(cat);
-        comboBoxEventos_3.removeAllItems();
-        for (String ed: evento.getEdiciones())
-        	comboBoxEventos_3.addItem(ed);
+		ControladorUsuario c = ControladorUsuario.getInstance();
+
+		txtNick.setText(a.getNickname());
+        txtNom.setText(a.getNombre());
+        txtCorreo.setText(a.getCorreo());
+        txtAp.setText(a.getApellido());
+	    txtNac.setText(a.getNacimiento().format(formatter));
+
+	    comboBoxRegistro.removeAllItems();
+	    for (DTRegistro reg: c.consultaAsistente()) {
+	       	comboBoxRegistro.addItem(reg);
+		}
+	        
+	        
+	}
+	
+	protected void consultaOrganizador(ActionEvent e, DTOrganizador o) {
+		ControladorUsuario c = ControladorUsuario.getInstance();
+
+		txtNick.setText(o.getNickname());
+        txtNom.setText(o.getNombre());
+        txtCorreo.setText(o.getCorreo());
+		txtLink.setText(o.getLink());
+	    Descripcion.setText(o.getDescripcion());
+
+	    comboBoxEdicion.removeAllItems();
+	    for (DTEdicion ed: c.consultaOrganizador()) {
+	       	comboBoxEdicion.addItem(ed);
+	    }
+        
     }
 }

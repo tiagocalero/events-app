@@ -156,8 +156,6 @@ public class Principal extends JFrame {
 
         JMenu menUsuario = new JMenu("Usuarios");
         menuBar.add(menUsuario);
-        JMenuItem menuModDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
-        menUsuario.add(menuModDatosUsuario);
 
         JMenuItem menuAltaUsuario = new JMenuItem("Alta de Usuario");
         menuAltaUsuario.addActionListener(new ActionListener() {
@@ -170,6 +168,31 @@ public class Principal extends JFrame {
             }
         });
         menUsuario.add(menuAltaUsuario);
+        
+        JMenuItem menuConsultaUsuario = new JMenuItem("Consulta de Usuario");
+        menuConsultaUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new ConsultaUsuario();
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
+            }
+        });
+        menUsuario.add(menuConsultaUsuario);
+        
+
+        JMenuItem menuModDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
+        menuModDatosUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new ModificarUsuario();
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
+            }
+        });
+        menUsuario.add(menuModDatosUsuario);
 
         JMenu menuInstitucion = new JMenu("Instituciones");
         menuBar.add(menuInstitucion);
