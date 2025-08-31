@@ -174,14 +174,6 @@ public class AltaPatrocinio extends JInternalFrame{
                 
                 // Verificar que la selección sea válida
                 if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione un Evento")) {
-                    // Llamar al método que carga las instituciones
-                	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
-                    institucionesModel.addElement("Seleccione una Institucion");
-
-                    ControladorInstitucion m = ControladorInstitucion.getInstance();
-                    m.listarInstituciones().forEach(institucionesModel::addElement);
-                    comboBoxInstituciones.setModel(institucionesModel);
-                    
                     // Cargar TipoRegistros para la edición y evento
                     DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<String>();
                     tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
@@ -211,19 +203,63 @@ public class AltaPatrocinio extends JInternalFrame{
                 String codigoSeleccionado = (String) textCodigo.getText();
                 
                 // Transformar los datos seleccionados
+    		    // Validación de monto y cantidad registroslnk
                 TipoNivelPatrocinio tipoNivel = TipoNivelPatrocinio.valueOf(nivelPatrocinioSeleccionado);
-                float montoAporte = Float.parseFloat(aporteEconomicoSeleccionado);
-                int cantidadRegistros = Integer.parseInt(cantRegistrosSeleccionados);
+                float montoAporte;
+                int cantidadRegistros;
+                try {
+                	montoAporte = Float.parseFloat(aporteEconomicoSeleccionado);
+    		    } catch (NumberFormatException ex) {
+    		        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Aporte económico inválido", "Error", JOptionPane.ERROR_MESSAGE);
+    		        return;
+    		    }
+                try {
+                	cantidadRegistros = Integer.parseInt(cantRegistrosSeleccionados);
+    		    } catch (NumberFormatException ex) {
+    		        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Cantidad de registros inválido", "Error", JOptionPane.ERROR_MESSAGE);
+    		        return;
+    		    }
                 
                 // Crear el DTPatrocinio
                 DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros);
                 
                 // Crear el Patrocinio
                 ControladorEvento me = ControladorEvento.getInstance();
-                me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
+                boolean b = me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
                 
-                //Mostrar mensaje 
-                JOptionPane.showMessageDialog(AltaPatrocinio.this, "Se creó el patrocinio: " + codigoSeleccionado);
+                //Mostrar mensaje
+                if (b) {
+                	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
+                    Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
+                    int resultado = JOptionPane.showOptionDialog(
+                        AltaPatrocinio.this,
+                        "Se creó el patrocinio: " + codigoSeleccionado,
+                        "",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,        
+                        opciones,    
+                        opciones[0] // opción por defecto
+                    );
+
+                    // Ver qué eligió el usuario
+                    switch (resultado) {
+                        case 0:
+                        	// Borrar campos
+                        	txtAporte.setText("");
+                        	textCantRegistros.setText("");
+        	            	textCodigo.setText("");
+        	            	break;
+                        case 1:
+                        	dispose(); // Cierra la ventana
+        	            	break;
+                        default: // El usuario cierra el diálogo
+                        	dispose();
+                        	break;
+                    };
+                } else {
+                	JOptionPane.showMessageDialog(AltaPatrocinio.this, "Ya existe patrocinio para esa institución y edición, o el costo de los registros supera el 20% del aporte económico.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
            }
           
         });
@@ -237,5 +273,13 @@ public class AltaPatrocinio extends JInternalFrame{
         ControladorEvento m = ControladorEvento.getInstance();
         m.listarEventos().forEach(eventosModel::addElement);
         comboBoxEventos.setModel(eventosModel);
+        
+        // Llamar al método que carga las instituciones
+    	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
+        institucionesModel.addElement("Seleccione una Institucion");
+
+        ControladorInstitucion mi = ControladorInstitucion.getInstance();
+        mi.listarInstituciones().forEach(institucionesModel::addElement);
+        comboBoxInstituciones.setModel(institucionesModel);
     }
 }

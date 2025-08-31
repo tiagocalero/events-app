@@ -26,6 +26,7 @@ public class Patrocinio {
 		this.tipo = tipo;
 		this.fecha = fecha;
 		this.cantRegistros = cantRegistros;
+		this.tp = tp;
 
 		tp.agregarPatrocinio(this);
 		i.agregarPatrocinio(this);
