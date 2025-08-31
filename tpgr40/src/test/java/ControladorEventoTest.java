@@ -27,6 +27,8 @@ import logica.TipoNivelPatrocinio;
 import logica.ManejadorCategoria;
 import logica.ManejadorEvento;
 
+import excepciones.PatrocinioSuperaMontoException;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorEventoTest {
 	private static ControladorEvento c;
@@ -143,27 +145,31 @@ class ControladorEventoTest {
 		float cantRegistrosOtorgados = 10;
 		float costo = tp.getCosto();
 		
-		// Caso borde: El costo de los registros supera el 20% del monto
-		DTPatrocinio dtp = new DTPatrocinio(
-			"pat2",
-			TipoNivelPatrocinio.Plata,
-			cantRegistrosOtorgados * tp.getCosto() * 4.9f,
-			"tp1",
-			(int) cantRegistrosOtorgados,
-			LocalDate.now()
-		);
-		assertEquals(false, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
+		assertThrows(PatrocinioSuperaMontoException.class, () -> {
+			// Caso borde: El costo de los registros supera el 20% del monto
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat2",
+				TipoNivelPatrocinio.Plata,
+				cantRegistrosOtorgados * tp.getCosto() * 4.9f,
+				"tp1",
+				(int) cantRegistrosOtorgados,
+				LocalDate.now()
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+		});
 		
-		// Caso borde: El costo de los registros no supera el 20% del monto (por poco)
-		dtp = new DTPatrocinio(
-			"pat1",
-			TipoNivelPatrocinio.Plata,
-			cantRegistrosOtorgados * tp.getCosto() * 5.1f,
-			"tp1",
-			(int) cantRegistrosOtorgados,
-			LocalDate.now()
-		);
-		assertEquals(true, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
+		assertDoesNotThrow(() -> {
+			// Caso borde: El costo de los registros no supera el 20% del monto (por poco)
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat1",
+				TipoNivelPatrocinio.Plata,
+				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
+				"tp1",
+				(int) cantRegistrosOtorgados,
+				LocalDate.now()
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+	    });
 	}
 
 	@Test @Order(10)
