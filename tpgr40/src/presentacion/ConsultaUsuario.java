@@ -19,6 +19,7 @@ import logica.DTEdicion;
 import logica.DTOrganizador;
 import logica.DTRegistro;
 import logica.DTUsuario;
+import logica.Organizador;
 
 import javax.swing.JPanel;
 
@@ -331,8 +332,10 @@ public class ConsultaUsuario extends JInternalFrame {
     }
 	
 	protected void consultaEdicion(ActionEvent e) {
-		ControladorEvento c = ControladorEvento.getInstance();
-		DTEdicion ed = c.elegirEdicion(c.obtenerEdicion((String) comboBoxEdicion.getSelectedItem(), (String) comboBoxEventos.getSelectedItem()));
+		ControladorEvento ce = ControladorEvento.getInstance();
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		Organizador org = (Organizador) cu.obtenerUsuario(u.getNickname());
+		DTEdicion ed = ce.elegirEdicion(org.obtenerEdicion((String) comboBoxEdicion.getSelectedItem()));
 		txtEdNom.setText(ed.getNombre());
 		txtEdSigla.setText(ed.getSigla());
 		txtEdOrg.setText(ed.getOrganizador());

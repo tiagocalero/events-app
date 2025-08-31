@@ -42,4 +42,8 @@ public class Organizador extends Usuario {
 	public void agregarEdicion(Edicion edicion) {
 		ediciones.put(edicion.getNombre(), edicion);
 	}
+	
+	public Edicion obtenerEdicion(String nom) {
+		return ediciones.get(nom);
+	}
 }

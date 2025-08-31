@@ -65,6 +65,11 @@ public class ControladorUsuario{
 		usuario = u;
 		return u.getDatos();
 	}
+	
+	public Usuario obtenerUsuario(String nick) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.obtener(nick);
+	}
 
 	public void modificarDatosUsuario(DTUsuarioModificado datos) {
 		usuario.modificar(datos);

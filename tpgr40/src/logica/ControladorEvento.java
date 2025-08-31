@@ -281,4 +281,25 @@ public class ControladorEvento{
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
 		return false;
 	}
+	public boolean darDeAltaRegistroCD(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String fechaAlta, int costo) {
+		
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
+		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
+
+		if (t.getCupo() == 0 || estaAsistente)
+			return true;
+		ManejadorUsuario mu = ManejadorUsuario.getInstance();
+		//tener cuidado si no me pasan un asistente, no funciona
+		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
+
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nickEvento);
+		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
+		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion);
+		return false;
+	}
+	
 }
