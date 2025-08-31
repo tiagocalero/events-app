@@ -89,16 +89,20 @@ public class AltaEvento extends JInternalFrame {
 	}
 	
 	private void crearEvento(ActionEvent e) {
-        String nombre = textNombre.getText();
-        String desc = textDesc.getText();
-        String sigla = textSigla.getText();
+        String nombre = sacarEspacios(textNombre.getText());
+        String desc = sacarEspacios(textDesc.getText());
+        String sigla = sacarEspacios(textSigla.getText());
         List<String> categorias = listaCategorias.getSelectedValuesList();
         
         ControladorEvento m = ControladorEvento.getInstance();
         // Chequear que exista el nombre
-        if (nombre == "") {
-        	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener un nombre.");
-        } else if (m.ingresarDatosEvento(nombre, desc, sigla, categorias)) {
+        if (nombre.isEmpty()) {
+        	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        boolean ok = m.ingresarDatosEvento(nombre, desc, sigla, categorias);
+        if (ok) {
         	// Si se creó, dar la opción de agregar más eventos o cerrar la ventana
             Object[] opciones = {"Agregar más eventos", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -127,8 +131,13 @@ public class AltaEvento extends JInternalFrame {
                 	dispose();
                 	break;
             };
-		} else
-        	JOptionPane.showMessageDialog(AltaEvento.this, "Error: Ya existe un evento con ese nombre.");
-        	
+		} else {
+        	JOptionPane.showMessageDialog(AltaEvento.this, "Ya existe un evento con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
     }
+	
+	// Función que le saca espacios en blanco a un String (para usar en campos)
+	private static String sacarEspacios(String s) {
+	    return s == null ? "" : s.trim();
+	}
 }

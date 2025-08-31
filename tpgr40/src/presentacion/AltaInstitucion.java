@@ -21,9 +21,9 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class AltaInstitucion extends JInternalFrame{
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextArea textArea;
+	private JTextField textNombre;
+	private JTextField textWeb;
+	private JTextArea textDesc;
 	
 	
 	public AltaInstitucion() {
@@ -34,10 +34,9 @@ public class AltaInstitucion extends JInternalFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta Institución");
-		setBounds(30, 30, 315, 395);
+		setBounds(30, 30, 315, 422);
 		getContentPane().setLayout(null);
 		
-			
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombre.setBounds(40, 54, 60, 17);
@@ -54,32 +53,31 @@ public class AltaInstitucion extends JInternalFrame{
 		getContentPane().add(lblDescripcin);
 		
 		JLabel lblDatosDeLa = new JLabel("Datos de la Institución:");
+		lblDatosDeLa.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeLa.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblDatosDeLa.setBounds(55, 2, 187, 40);
+		lblDatosDeLa.setBounds(11, 2, 247, 40);
 		getContentPane().add(lblDatosDeLa);
 		
-		textField = new JTextField();
-		textField.setBounds(107, 52, 151, 21);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		textNombre = new JTextField();
+		textNombre.setBounds(107, 52, 151, 21);
+		getContentPane().add(textNombre);
+		textNombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(107, 82, 151, 21);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		textWeb = new JTextField();
+		textWeb.setBounds(107, 82, 151, 21);
+		getContentPane().add(textWeb);
+		textWeb.setColumns(10);
 		
-		textArea = new JTextArea();
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		textArea.setBounds(107, 114, 151, 88);
-		getContentPane().add(textArea);
+		textDesc = new JTextArea();
+		textDesc.setWrapStyleWord(true);
+		textDesc.setLineWrap(true);
+		textDesc.setBounds(107, 114, 151, 88);
+		getContentPane().add(textDesc);
 		
 		
 		JButton btnNewButton_1 = new JButton("Crear");
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cmdCrearInstActionPerformed(e);
-			}
+			public void actionPerformed(ActionEvent e) { crearInstitucion(e); }
 		});
 		btnNewButton_1.setBounds(55, 214, 188, 37);
 		getContentPane().add(btnNewButton_1);
@@ -98,29 +96,38 @@ public class AltaInstitucion extends JInternalFrame{
 		btnLimpiar.setBounds(54, 263, 188, 37);
 		btnLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	textField.setText("");
-            	textField_1.setText("");
-            	textArea.setText(""); 
+            	textNombre.setText("");
+            	textWeb.setText("");
+            	textDesc.setText(""); 
             }
         });
 		getContentPane().add(btnLimpiar);
 	}
 	
-	protected void cmdCrearInstActionPerformed(ActionEvent e) {
-        String nombre = textField.getText();
-        String url = textField_1.getText();
-        String desc= textArea.getText();
-        	        
+	protected void crearInstitucion(ActionEvent e) {
+        String nombre = sacarEspacios(textNombre.getText());
+        String url = sacarEspacios(textWeb.getText());
+        String desc= sacarEspacios(textDesc.getText());
+        
+        if (nombre.isEmpty()) {
+        	JOptionPane.showMessageDialog(AltaInstitucion.this, "La institución debe tener un nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+                
         ControladorInstitucion c = ControladorInstitucion.getInstance();
         boolean exito = c.altaInstitucion(nombre, desc, url);
         if (!exito) {
-        	JOptionPane.showMessageDialog(AltaInstitucion.this, "La institución: " + nombre + " ya existe");
-        }
-        else {
+        	JOptionPane.showMessageDialog(AltaInstitucion.this, "La institución: " + nombre + " ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
         	JOptionPane.showMessageDialog(AltaInstitucion.this, "Se creó la institución: " + nombre);
-        	textField.setText("");
-        	textField_1.setText("");
-        	textArea.setText(""); 
+        	textNombre.setText("");
+        	textWeb.setText("");
+        	textDesc.setText(""); 
         }
+	}
+
+	// Función que le saca espacios en blanco a un String (para usar en campos)
+	private static String sacarEspacios(String s) {
+	    return s == null ? "" : s.trim();
 	}
 }

@@ -32,7 +32,7 @@ public class AltaEdicionEvento extends JInternalFrame {
 	
 	public AltaEdicionEvento() {
 		setVisible(true); 
-        setSize(699, 405);
+        setSize(699, 420);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -135,10 +135,10 @@ public class AltaEdicionEvento extends JInternalFrame {
 	}
 	
 	protected void crearEdicion(ActionEvent e) {
-        String nombre = textNombre.getText();
-        String sigla = textSigla.getText();
-        String ciudad = textCiudad.getText();
-        String pais = textPais.getText();
+        String nombre = sacarEspacios(textNombre.getText());
+        String sigla = sacarEspacios(textSigla.getText());
+        String ciudad = sacarEspacios(textCiudad.getText());
+        String pais = sacarEspacios(textPais.getText());
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaInicio;
         LocalDate fechaFin;
@@ -154,6 +154,7 @@ public class AltaEdicionEvento extends JInternalFrame {
         String evento = (String) comboBoxEventos.getSelectedItem();
         String organizador = (String) comboBoxEventos.getSelectedItem();
         
+        // Chequear que existan organizadores y eventos
         if (evento == null || organizador == null) {
         	JOptionPane.showMessageDialog(this, "Deben existir Evento y Organizador", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
@@ -161,46 +162,52 @@ public class AltaEdicionEvento extends JInternalFrame {
         
         ControladorEvento m = ControladorEvento.getInstance();
         // Chequear que exista el nombre
-        if (nombre == "") {
+        if (nombre.isEmpty()) {
         	JOptionPane.showMessageDialog(this, "La edición debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-        	boolean ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-            if (ok) {
-	        	// Si se creó, dar la opción de agregar más ediciones o cerrar la ventana
-	            Object[] opciones = {"Agregar más ediciones", "Cerrar"};
-	            int resultado = JOptionPane.showOptionDialog(
-	                this,
-	                "Se creó la edición: " + nombre,
-	                "",
-	                JOptionPane.YES_NO_CANCEL_OPTION,
-	                JOptionPane.QUESTION_MESSAGE,
-	                null,        
-	                opciones,    
-	                opciones[0] // opción por defecto
-	            );
-	
-	            // Ver qué eligió el usuario
-	            switch (resultado) {
-	                case 0:
-	                	// Borrar campos
-	                	textNombre.setText("");
-	                	textSigla.setText("");
-	                	textPais.setText("");
-	                	textCiudad.setText("");
-	                	textFechaIni.setText("");
-	                	textFechaFin.setText("");
-		            	break;
-	                case 1:
-	                	dispose(); // Cierra la ventana
-		            	break;
-	                default: // El usuario cierra el diálogo
-	                	dispose();
-	                	break;
-	            };
-            
-			} else {
-	        	JOptionPane.showMessageDialog(this, "Ya existe una edición con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-        }
+        	return;
+        } 
+        
+    	boolean ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
+        if (ok) {
+        	// Si se creó, dar la opción de agregar más ediciones o cerrar la ventana
+            Object[] opciones = {"Agregar más ediciones", "Cerrar"};
+            int resultado = JOptionPane.showOptionDialog(
+                this,
+                "Se creó la edición: " + nombre,
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,        
+                opciones,    
+                opciones[0] // opción por defecto
+            );
+
+            // Ver qué eligió el usuario
+            switch (resultado) {
+                case 0:
+                	// Borrar campos
+                	textNombre.setText("");
+                	textSigla.setText("");
+                	textPais.setText("");
+                	textCiudad.setText("");
+                	textFechaIni.setText("");
+                	textFechaFin.setText("");
+	            	break;
+                case 1:
+                	dispose(); // Cierra la ventana
+	            	break;
+                default: // El usuario cierra el diálogo
+                	dispose();
+                	break;
+            };
+        
+		} else {
+        	JOptionPane.showMessageDialog(this, "Ya existe una edición con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
     }
+
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
+	private static String sacarEspacios(String s) {
+	    return s == null ? "" : s.trim();
+	}
 }
