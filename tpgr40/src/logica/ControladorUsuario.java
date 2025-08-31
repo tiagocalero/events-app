@@ -77,6 +77,11 @@ public class ControladorUsuario{
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.crearAsistente(nick, nom, c, ap, nac, ins);
 	}
+	
+	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, ap, nac);
+	}
 
 	public boolean altaOrganizador(String nick, String nom, String c, String desc, String link) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();

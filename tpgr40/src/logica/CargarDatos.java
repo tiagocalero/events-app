@@ -157,6 +157,24 @@ public class CargarDatos {
 		pat = e.crearPatrocinioCargaDatos(dtp3, "Maratón de Montevideo 2025", "Antel", "Maratón de Montevideo");
 		
 		DTPatrocinio dtp4 = new DTPatrocinio("EXPOCAT", TipoNivelPatrocinio.Bronce, 15000, "General", 10, LocalDate.parse("05/05/2025", fmt));
-		pat = e.crearPatrocinioCargaDatos(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");	
+		pat = e.crearPatrocinioCargaDatos(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
+		
+		//Cargar Asistentes
+		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
+		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "Costa", LocalDate.parse("01/12/1992", fmt));
+		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "García", LocalDate.parse("09/11/1993", fmt));
+		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
+		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "Gómez", LocalDate.parse("15/03/1998", fmt));
+		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "López", LocalDate.parse("22/07/1995", fmt));
+		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
+		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "Martínez", LocalDate.parse("05/02/1997", fmt));
+	
+	
+	
+	
+	
+	
 	}
 }
