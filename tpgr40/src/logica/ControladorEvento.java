@@ -16,10 +16,6 @@ import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
 public class ControladorEvento{
-	private Evento evento;
-	private Edicion edicion;
-	private Institucion institucion;
-	
 	private static volatile ControladorEvento instance;
 	private ControladorEvento(){};
 	
@@ -33,6 +29,18 @@ public class ControladorEvento{
 		}
 		return instance;
 	}
+
+	public List<String> listarEdiciones(String nombreEvento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento eventoBuscado = m.obtenerEvento(nombreEvento);
+		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
+		List<String> res = new ArrayList<>();
+		
+		for (String entry : ediciones.keySet())
+			res.add(entry);
+		
+		return res;	
+	}
 	
 	public List<String> listarEventos(){
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -44,53 +52,69 @@ public class ControladorEvento{
 
 		return res;
 	}
+
+	public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		return edicion.getCodigosPatrocinios();
+	}
 	
-	public DTEvento informacionEvento (String nombre) {
+	public List<String> listarOrganizadores() {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.organizadores();
+	}
+	
+	public List<String> listarCategorias() {
+		ManejadorCategoria m = ManejadorCategoria.getInstance();
+		
+		List<Categoria> categorias = new ArrayList<>(m.categorias().values());
+		
+		return categorias.stream().map(c -> c.getNombre()).collect(Collectors.toList());
+	}
+	
+	public DTEvento informacionEvento(String nombre) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento eventoBuscado = m.obtenerEvento(nombre);
 		DTEvento res = eventoBuscado.getDatos();
-		return res;
-	}
-	
-	public List<String> listarEdiciones(String nombreEvento) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento eventoBuscado = m.obtenerEvento(nombreEvento);
-		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
-		List<String> res = new ArrayList<>();
-		
-		for (String entry : ediciones.keySet())
-			res.add(entry);
 		
 		return res;
-		
 	}
-	
-	// Devuelve una lista con todas las ediciones del evento
-	public List<String> elegirEvento(String nombreEvento) {
+
+	public DTPatrocinio consultaPatrocinio(String nomEvento, String nomEdicion, String nomPatrocinio) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
-		evento = m.obtenerEvento(nombreEvento);
-		return new ArrayList<>(evento.getEdiciones().keySet());
-	}
-	
-	// Devuelve una lista con todas las instituciones de la edición
-	public List<String> elegirEdicion(String nombreEdicion) {
-		edicion = evento.getEdicion(nombreEdicion);
-		return edicion.getInstituciones();
-	}
-	
-	public boolean elegirInstitucion(String nombreInstitucion) {
-		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
 		
-		Institucion i = m.obtener(nombreInstitucion);
-		
-		if (i.existePatrocinio(edicion))
-			return false;
-	
-		institucion = i;
-		return true;
+		return dtp;
+	}
+
+	public DTEdicion elegirEdicion(Edicion edicion) {
+		return edicion.getDatos();
 	}
 	
+	//PRE:: hay un registro en edicion con string nombre
+	public DTTRegistro seleccionarTipoRegistro(String nombre, String nomEvento, String nomEdicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		
+		TRegistro tr = edicion.getTipoRegistro(nombre);
+		
+		DTTRegistro dtr = new DTTRegistro(
+			tr.getCupo(),
+			tr.getCosto(), 
+			tr.getNombre(), 
+			tr.getDescripcion()
+		);
+		
+		return dtr;
+	}
+
 	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
 		//Obtengo la Institucion
 		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
@@ -106,7 +130,7 @@ public class ControladorEvento{
         LocalDate fechaActual = LocalDate.now();
 		
         //Obtengo el Costo y lo calculo para ver si falla
-		float costo = dtp.getMonto();
+		float costo = tp.getCosto();
 		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
 			return false;
 		
@@ -115,31 +139,6 @@ public class ControladorEvento{
 		return true;
 	}
 	
-	public List<String> listarPatrocinios() {
-		return edicion.getCodigosPatrocinios();
-	}
-	
-	public DTPatrocinio consultaPatrocinio(String nomPatrocinio) {
-		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
-		
-		evento = null;
-		edicion = null;
-		
-		return dtp;
-	}
-	
-	public List<String> listarOrganizadores() {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.organizadores();
-	}
-	
-	public List<String> listarCategorias() {
-		ManejadorCategoria m = ManejadorCategoria.getInstance();
-		
-		List<Categoria> categorias = new ArrayList<>(m.categorias().values());
-		
-		return categorias.stream().map(c -> c.getNombre()).collect(Collectors.toList());
-	}
 	
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -156,21 +155,6 @@ public class ControladorEvento{
         LocalDate fechaAlta = LocalDate.parse(fecha, fmt);
 		
 		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
-	}
-	
-
-	public DTEdicion elegirEdicion(Edicion edicion) {
-		return edicion.getDatos();
-	}
-	
-	
-	//Obtener una instancia de Edicion
-	public Edicion obtenerEdicion(String nombreEdicion, String even) {
-		ManejadorEvento m = ManejadorEvento.getInstance();	
-		Evento instEvento = m.obtenerEvento(even);
-		Edicion instEdicion = m.obtenerEdicion(nombreEdicion, instEvento);
-			
-		return instEdicion;
 	}
 
 	
@@ -191,7 +175,6 @@ public class ControladorEvento{
 	}
 	//seria el evento del controlador?
 	public List<DTEdicion> seleccionarEvento(Evento e){
-		
 		List<DTEdicion> resultado = new ArrayList<>();
 		
 		for (Edicion ed : e.getEdiciones().values()) {
@@ -229,33 +212,23 @@ public class ControladorEvento{
 		
 	}
 
-	//PRE:: hay un registro en edicion con string nombre
-	public DTTRegistro seleccionarTipoRegistro(String nombre){
+	public boolean crearTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTRegistro, String descripcion, float costo, int cupo) {
 		
-		TRegistro tr = edicion.getTipoRegistro(nombre);
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nombreEvento);
+		Edicion ed = m.obtenerEdicion(nombreEdicion, e);
 		
-		DTTRegistro dtr = new DTTRegistro(
-			tr.getCupo(),
-			tr.getCosto(), 
-			tr.getNombre(), 
-			tr.getDescripcion()
-		);
-		
-		return dtr;
-	
-	}
-
-	public boolean crearTipoRegistro(String nombre, String descripcion, float costo, int cupo) {
-		if (edicion.getTipoRegistro(nombre) != null)
+		if (ed.getTipoRegistro(nombreTRegistro) != null)
 			return false;
 		
-		TRegistro tr = new TRegistro(nombre, descripcion, costo, cupo);
+		TRegistro tr = new TRegistro(nombreTRegistro, descripcion, costo, cupo);
 		
-		edicion.agregarTRegistro(tr);
+		ed.agregarTRegistro(tr);
 		return true;
 	}
+	
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
-	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
+	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String nomEdicion) {
 		
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
@@ -266,11 +239,13 @@ public class ControladorEvento{
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 		//tener cuidado si no me pasan un asistente, no funciona
 		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
+
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nickEvento);
+		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
 		
 		float costo = t.getCosto();
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
 		return false;
 	}
-
-
 }

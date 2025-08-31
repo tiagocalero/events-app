@@ -17,18 +17,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class AltaEdicionEvento extends JInternalFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textNombre;
+	private JTextField textSigla;
+	private JTextField textCiudad;
 	private JLabel lblNewLabel;
 	private JLabel lblDescripcin;
 	private JLabel lblSigla;
 	private JLabel lblEvento;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JComboBox comboBox;
-	private JComboBox comboBox_1;
+	private JTextField textPais;
+	private JTextField textFechaIni;
+	private JTextField textFechaFin;
+	private JComboBox comboBoxEventos;
+	private JComboBox comboBoxOrganizadores;
 	
 	public AltaEdicionEvento() {
 		setVisible(true); 
@@ -46,20 +46,20 @@ public class AltaEdicionEvento extends JInternalFrame {
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(490, 44, 140, 26);
-		panel.add(textField);
-		textField.setColumns(10);
+		textNombre = new JTextField();
+		textNombre.setBounds(490, 44, 140, 26);
+		panel.add(textNombre);
+		textNombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(490, 94, 140, 26);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		textSigla = new JTextField();
+		textSigla.setBounds(490, 94, 140, 26);
+		panel.add(textSigla);
+		textSigla.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(490, 144, 140, 26);
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+		textCiudad = new JTextField();
+		textCiudad.setBounds(490, 144, 140, 26);
+		panel.add(textCiudad);
+		textCiudad.setColumns(10);
 		
 		lblNewLabel = new JLabel("Nombre:");
 		lblNewLabel.setBounds(340, 44, 140, 16);
@@ -83,38 +83,38 @@ public class AltaEdicionEvento extends JInternalFrame {
 		
 		ControladorEvento c = ControladorEvento.getInstance();
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(46, 90, 238, 27);
+		comboBoxEventos = new JComboBox();
+		comboBoxEventos.setBounds(46, 90, 238, 27);
         for (String e: c.listarEventos()) {
-        	comboBox.addItem(e);
+        	comboBoxEventos.addItem(e);
         }
-		panel.add(comboBox);
+		panel.add(comboBoxEventos);
 		
 		JLabel lblOrganizador = new JLabel("Organizador:");
 		lblOrganizador.setBounds(46, 144, 140, 16);
 		panel.add(lblOrganizador);
 		
-		comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(46, 185, 238, 27);
+		comboBoxOrganizadores = new JComboBox();
+		comboBoxOrganizadores.setBounds(46, 185, 238, 27);
         for (String o: c.listarOrganizadores()) {
-        	comboBox_1.addItem(o);
+        	comboBoxOrganizadores.addItem(o);
         }
-		panel.add(comboBox_1);
+		panel.add(comboBoxOrganizadores);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(490, 191, 140, 26);
-		panel.add(textField_3);
+		textPais = new JTextField();
+		textPais.setColumns(10);
+		textPais.setBounds(490, 191, 140, 26);
+		panel.add(textPais);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(490, 238, 140, 26);
-		panel.add(textField_4);
+		textFechaIni = new JTextField();
+		textFechaIni.setColumns(10);
+		textFechaIni.setBounds(490, 238, 140, 26);
+		panel.add(textFechaIni);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(490, 288, 140, 26);
-		panel.add(textField_5);
+		textFechaFin = new JTextField();
+		textFechaFin.setColumns(10);
+		textFechaFin.setBounds(490, 288, 140, 26);
+		panel.add(textFechaFin);
 		
 		JLabel lblDescripcin_1 = new JLabel("Fecha Inicio:");
 		lblDescripcin_1.setBounds(340, 243, 140, 16);
@@ -129,27 +129,65 @@ public class AltaEdicionEvento extends JInternalFrame {
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cmdCrearEventoActionPerformed(e);
-            }
+            public void actionPerformed(ActionEvent e) { crearEdicion(e); }
         });
 		panel_1.add(btnNewButton);
 	}
 	
-	protected void cmdCrearEventoActionPerformed(ActionEvent e) {
-        String nombre = textField.getText();
-        String sigla = textField_1.getText();
-        String ciudad = textField_2.getText();
-        String pais = textField_3.getText();
+	protected void crearEdicion(ActionEvent e) {
+        String nombre = textNombre.getText();
+        String sigla = textSigla.getText();
+        String ciudad = textCiudad.getText();
+        String pais = textPais.getText();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaInicio = LocalDate.parse(textField_4.getText(), fmt);
-        LocalDate fechaFin = LocalDate.parse(textField_5.getText(), fmt);
+        LocalDate fechaInicio = LocalDate.parse(textFechaIni.getText(), fmt);
+        LocalDate fechaFin = LocalDate.parse(textFechaFin.getText(), fmt);
         LocalDate fechaAlta = LocalDate.now();
-        String evento = (String) comboBox.getSelectedItem();
-        String organizador = (String) comboBox.getSelectedItem();
+        String evento = (String) comboBoxEventos.getSelectedItem();
+        String organizador = (String) comboBoxEventos.getSelectedItem();
         
         ControladorEvento m = ControladorEvento.getInstance();
-        m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-        JOptionPane.showMessageDialog(AltaEdicionEvento.this, "Se creó la edición: " + nombre + ", para el evento: " + evento);
+        // Chequear que exista el nombre
+        if (nombre == "") {
+        	JOptionPane.showMessageDialog(this, "La edición debe tener un nombre.");
+        } else {
+        	boolean ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
+            if (ok) {
+	        	// Si se creó, dar la opción de agregar más ediciones o cerrar la ventana
+	            Object[] opciones = {"Agregar más ediciones", "Cerrar"};
+	            int resultado = JOptionPane.showOptionDialog(
+	                this,
+	                "Se creó la edición: " + nombre,
+	                "",
+	                JOptionPane.YES_NO_CANCEL_OPTION,
+	                JOptionPane.QUESTION_MESSAGE,
+	                null,        
+	                opciones,    
+	                opciones[0] // opción por defecto
+	            );
+	
+	            // Ver qué eligió el usuario
+	            switch (resultado) {
+	                case 0:
+	                	// Borrar campos
+	                	textNombre.setText("");
+	                	textSigla.setText("");
+	                	textPais.setText("");
+	                	textCiudad.setText("");
+	                	textFechaIni.setText("");
+	                	textFechaFin.setText("");
+		            	break;
+	                case 1:
+	                	dispose(); // Cierra la ventana
+		            	break;
+	                default: // El usuario cierra el diálogo
+	                	dispose();
+	                	break;
+	            };
+            
+			} else {
+	        	JOptionPane.showMessageDialog(this, "Error: Ya existe una edición con ese nombre.");
+			}
+        }
     }
 }

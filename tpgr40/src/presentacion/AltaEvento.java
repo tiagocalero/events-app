@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AltaEvento extends JInternalFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textNombre;
+	private JTextField textDesc;
+	private JTextField textSigla;
 	private JLabel lblNewLabel;
 	private JLabel lblDescripcin;
 	private JLabel lblSigla;
@@ -32,27 +32,26 @@ public class AltaEvento extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Evento");
-		//setBounds(30, 30, 402, 376);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(193, 24, 140, 26);
-		panel.add(textField);
-		textField.setColumns(10);
+		textNombre = new JTextField();
+		textNombre.setBounds(193, 24, 140, 26);
+		panel.add(textNombre);
+		textNombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(193, 74, 140, 26);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		textDesc = new JTextField();
+		textDesc.setBounds(193, 74, 140, 26);
+		panel.add(textDesc);
+		textDesc.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(193, 124, 140, 26);
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+		textSigla = new JTextField();
+		textSigla.setBounds(193, 124, 140, 26);
+		panel.add(textSigla);
+		textSigla.setColumns(10);
 		
 		lblNewLabel = new JLabel("Nombre:");
 		lblNewLabel.setBounds(43, 24, 140, 16);
@@ -84,21 +83,52 @@ public class AltaEvento extends JInternalFrame {
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cmdCrearEventoActionPerformed(e);
-            }
+            public void actionPerformed(ActionEvent e) { crearEvento(e); }
         });
 		panel_1.add(btnNewButton);
 	}
 	
-	protected void cmdCrearEventoActionPerformed(ActionEvent e) {
-        String nombre = textField.getText();
-        String desc = textField_1.getText();
-        String sigla = textField_2.getText();
+	private void crearEvento(ActionEvent e) {
+        String nombre = textNombre.getText();
+        String desc = textDesc.getText();
+        String sigla = textSigla.getText();
         List<String> categorias = listaCategorias.getSelectedValuesList();
         
         ControladorEvento m = ControladorEvento.getInstance();
-        m.ingresarDatosEvento(nombre, desc, sigla, categorias);
-        JOptionPane.showMessageDialog(AltaEvento.this, "Se creó el evento: " + nombre);
+        // Chequear que exista el nombre
+        if (nombre == "") {
+        	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener un nombre.");
+        } else if (m.ingresarDatosEvento(nombre, desc, sigla, categorias)) {
+        	// Si se creó, dar la opción de agregar más eventos o cerrar la ventana
+            Object[] opciones = {"Agregar más eventos", "Cerrar"};
+            int resultado = JOptionPane.showOptionDialog(
+                this,
+                "Se creó el evento: " + nombre,
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,        
+                opciones,    
+                opciones[0] // opción por defecto
+            );
+
+            // Ver qué eligió el usuario
+            switch (resultado) {
+                case 0:
+                	// Borrar campos
+	            	textNombre.setText("");
+	            	textDesc.setText("");
+	            	textSigla.setText("");
+	            	break;
+                case 1:
+                	dispose(); // Cierra la ventana
+	            	break;
+                default: // El usuario cierra el diálogo
+                	dispose();
+                	break;
+            };
+		} else
+        	JOptionPane.showMessageDialog(AltaEvento.this, "Error: Ya existe un evento con ese nombre.");
+        	
     }
 }

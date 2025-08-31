@@ -91,6 +91,18 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConPatrocinios);
+        
+        JMenuItem menuConRegistro = new JMenuItem("Consulta Registro");
+        menuConRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new ConsultaRegistro();
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
+            }
+        });
+        menuEventos.add(menuConRegistro);
 
         JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
         menuAltaEventos.addActionListener(new ActionListener() {
@@ -169,7 +181,18 @@ public class Principal extends JFrame {
                 c.setVisible(true);
             }
         });
-        menuInstitucion.add(menuAltaInst);
+        
+        menuInstitucion.add(menuAltaInst);        
+        
+        JMenuItem menuAltaTipoRegistro = new JMenuItem("Alta de Tipo Registro");
+        menuAltaTipoRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaTipoRegistro();
+                frmPrincipal.getContentPane().add(a);
+            }
+        });
+        menuEventos.add(menuAltaTipoRegistro);
 	}
 
     // Método para centrar una JInternalFrame dentro del JDesktopPane

@@ -147,6 +147,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 	}
 	private void edicionSeleccionada() {
         // Obtener la edicion seleccionada
+        String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
         String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
         
         // Verificar que la selección sea válida
@@ -156,21 +157,24 @@ public class ConsultaPatrocinio extends JInternalFrame {
 
         	// Agregar patrocinios
             ControladorEvento m = ControladorEvento.getInstance();
-            m.elegirEdicion(edicionSeleccionada);
-            m.listarPatrocinios().forEach(patrociniosModel::addElement);
-            comboBoxEdiciones.setModel(patrociniosModel);
+            m.listarPatrocinios(eventoSeleccionado, edicionSeleccionada).forEach(patrociniosModel::addElement);
+            comboBoxPatrocinios.setModel(patrociniosModel);
         }
 	}
 	
 	private void patrocinioSeleccionado() {
         // Obtener el evento seleccionado
+        String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+        String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
         String patrocinioSeleccionado = (String) comboBoxPatrocinios.getSelectedItem();
         
         // Verificar que la selección sea válida
         if (patrocinioSeleccionado != null && !patrocinioSeleccionado.equals("Seleccione un Patrocinio")) {
+        	// Mostrar datos de patrocinio
             ControladorEvento m = ControladorEvento.getInstance();
-            DTPatrocinio dtp = m.consultaPatrocinio(patrocinioSeleccionado);
+            DTPatrocinio dtp = m.consultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleccionado);
             
+            // Convertir TipoNivelPatrocinio a String
             switch (dtp.getTipo()) {
             case Plata:
             	textNivelPatrocinio.setText("Plata");

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import logica.ControladorUsuario;
-import logica.DTPatrocinio;
+import logica.DTRegistro;
 import logica.TipoNivelPatrocinio;
 
 import javax.swing.JButton;
@@ -101,13 +101,14 @@ public class ConsultaRegistro extends JInternalFrame {
                 // Verificar que la selección sea válida
                 if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
                     
-                	// Llamar al método que carga las ediciones
+                	// Llamar al método que carga los registros
                 	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
                     edicionesModel.addElement("Seleccione una Edicion");
                     
                     ControladorUsuario m = ControladorUsuario.getInstance();
-                    m.consulta(usuarioSeleccionado).forEach(edicionesModel::addElement);
-                    comboBoxRegistros.setModel(edicionesModel);
+                    for (DTRegistro registro : m.registrosDeAsistente(usuarioSeleccionado)) {
+                        edicionesModel.addElement(registro.getEdicion()); // 
+                    }
                 }
              
             }
@@ -117,9 +118,9 @@ public class ConsultaRegistro extends JInternalFrame {
 	
 	private void inicializarCombos() {
         DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<>();
-        eventosModel.addElement("Seleccione un Evento");
+        eventosModel.addElement("Seleccione un usuario");
         
         ControladorUsuario m = ControladorUsuario.getInstance();
-        m.listarEventos().forEach(eventosModel::addElement);
+        m.listarNicknameAsistentes().forEach(eventosModel::addElement);
     }
 }

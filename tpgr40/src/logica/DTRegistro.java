@@ -13,4 +13,8 @@ public class DTRegistro {
         this.fecha = fecha;
         this.nombreEdicion = nombreEdicion;
     }
+    
+    public String getEdicion() {
+    	return this.nombreEdicion;
+    }
 }
