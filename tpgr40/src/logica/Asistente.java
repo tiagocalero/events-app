@@ -58,12 +58,13 @@ public class Asistente extends Usuario {
 	
 	//Retorna el registro con el nombre de la edicion
 	public Registro getRegistro(String nombreEdicion) {
+		Registro res = null;
 		for (Registro registro : registros) {
 	        if (registro.getEdicion().getNombre().equals(nombreEdicion)) {
-	            return registro; 
+	            res = registro;
 	        }
 		}
-		return null;
+		return res;
 	}
 
 	public List<DTRegistro> consulta() {

@@ -37,14 +37,9 @@ public class Principal extends JFrame {
 	private void inicializar() {
 		frmPrincipal = new JFrame();
 		frmPrincipal.setTitle("Eventos.uy");
-
-		// Maximiza la ventana principal para que ocupe toda la pantalla
 		frmPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
 		JMenuBar menuBar = new JMenuBar();
 		frmPrincipal.setJMenuBar(menuBar);
-
-		// Crea e inicializa el JDesktopPane y lo establece como el panel de contenido
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
 		frmPrincipal.setContentPane(desktopPane);
@@ -64,8 +59,7 @@ public class Principal extends JFrame {
         	@Override
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
-                JOptionPane.showMessageDialog(Principal.this, "Datos cargados correctamente.");
-                //menuSistema.remove(menuCargarDatos);
+                JOptionPane.showMessageDialog(frmPrincipal, "Datos cargados correctamente.");
                 menuCargarDatos.setEnabled(false);
         	}
         });
@@ -73,6 +67,17 @@ public class Principal extends JFrame {
 
         JMenu menuEventos = new JMenu("Eventos");
         menuBar.add(menuEventos);
+        JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
+        menuAltaEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaEvento();
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
+            }
+        });
+        menuEventos.add(menuAltaEventos);
         JMenuItem menuConEventos = new JMenuItem("Consulta de Eventos");
         menuConEventos.addActionListener(new ActionListener() {
             @Override
@@ -85,42 +90,8 @@ public class Principal extends JFrame {
         });
         menuEventos.add(menuConEventos);
 
-        JMenuItem menuConPatrocinios = new JMenuItem("Consulta de Patrocinio");
-        menuConPatrocinios.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	JInternalFrame c = new ConsultaPatrocinio();
-                desktopPane.add(c);
-                centerInternalFrame(c);
-                c.setVisible(true);
-            }
-        });
-        menuEventos.add(menuConPatrocinios);
-        
-        JMenuItem menuConRegistro = new JMenuItem("Consulta Registro");
-        menuConRegistro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	JInternalFrame c = new ConsultaRegistro();
-                desktopPane.add(c);
-                centerInternalFrame(c);
-                c.setVisible(true);
-            }
-        });
-        menuEventos.add(menuConRegistro);
-
-        JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
-        menuAltaEventos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JInternalFrame a = new AltaEvento();
-                desktopPane.add(a);
-                centerInternalFrame(a);
-                a.setVisible(true);
-            }
-        });
-        menuEventos.add(menuAltaEventos);
-
+        JMenu menuEdiciones = new JMenu("Ediciones");
+        menuBar.add(menuEdiciones);
         JMenuItem menuAltaEdicion = new JMenuItem("Alta de Edición de Evento");
         menuAltaEdicion.addActionListener(new ActionListener() {
             @Override
@@ -131,8 +102,7 @@ public class Principal extends JFrame {
                 a.setVisible(true);
             }
         });
-        menuEventos.add(menuAltaEdicion);
-
+        menuEdiciones.add(menuAltaEdicion);
         JMenuItem menuConsultaEdicion = new JMenuItem("Consulta de Edición de Evento");
         menuConsultaEdicion.addActionListener(new ActionListener() {
             @Override
@@ -143,8 +113,10 @@ public class Principal extends JFrame {
                 a.setVisible(true);
             }
         });
-        menuEventos.add(menuConsultaEdicion);
+        menuEdiciones.add(menuConsultaEdicion);
 
+        JMenu menuPatrocinios = new JMenu("Patrocinios");
+        menuBar.add(menuPatrocinios);
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
         menuAltaPatrocinio.addActionListener(new ActionListener() {
             @Override
@@ -155,11 +127,71 @@ public class Principal extends JFrame {
                 a.setVisible(true);
             }
         });
-        menuEventos.add(menuAltaPatrocinio);
+        menuPatrocinios.add(menuAltaPatrocinio);
+        JMenuItem menuConPatrocinios = new JMenuItem("Consulta de Patrocinio");
+        menuConPatrocinios.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new ConsultaPatrocinio();
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
+            }
+        });
+        menuPatrocinios.add(menuConPatrocinios);
+
+        JMenu menuTipoRegistro = new JMenu("Tipo de Registros");
+        menuBar.add(menuTipoRegistro);
+        JMenuItem menuAltaTipoRegistro = new JMenuItem("Alta de Tipo de Registro");
+        menuAltaTipoRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AltaTipoRegistro();
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
+            }
+        });
+        menuTipoRegistro.add(menuAltaTipoRegistro);
+        JMenuItem menuConsultaTipoRegistro = new JMenuItem("Consulta de Tipo de Registro");
+        menuConsultaTipoRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame c = new ConsultaTipoRegistro();
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
+            }
+        });
+        menuTipoRegistro.add(menuConsultaTipoRegistro);
+
+        JMenu menuRegistros = new JMenu("Registros");
+        menuBar.add(menuRegistros);
+        JMenuItem menuRegistroAEdicionDeEvento = new JMenuItem("Registro a Edicion de Evento");
+        menuRegistroAEdicionDeEvento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame c = new RegistroAEdicionDeEvento();
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
+            }
+        });
+        menuRegistros.add(menuRegistroAEdicionDeEvento);
+        JMenuItem menuConRegistro = new JMenuItem("Consulta Registro");
+        menuConRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new ConsultaRegistro();
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
+            }
+        });
+        menuRegistros.add(menuConRegistro);
 
         JMenu menUsuario = new JMenu("Usuarios");
         menuBar.add(menUsuario);
-
         JMenuItem menuAltaUsuario = new JMenuItem("Alta de Usuario");
         menuAltaUsuario.addActionListener(new ActionListener() {
             @Override
@@ -209,42 +241,10 @@ public class Principal extends JFrame {
                 c.setVisible(true);
             }
         });
-        
-        menuInstitucion.add(menuAltaInst);        
-        
-        JMenuItem menuAltaTipoRegistro = new JMenuItem("Alta de Tipo de Registro");
-        menuAltaTipoRegistro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JInternalFrame a = new AltaTipoRegistro();
-                frmPrincipal.getContentPane().add(a);
-            }
-        });
-        menuEventos.add(menuAltaTipoRegistro);
-        
-        JMenuItem menuConsultaTipoRegistro = new JMenuItem("Consulta de Tipo de Registro");
-        menuConsultaTipoRegistro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JInternalFrame c = new ConsultaTipoRegistro();
-                frmPrincipal.getContentPane().add(c);
-            }
-        });
-        menuEventos.add(menuConsultaTipoRegistro);
-        
-        JMenuItem menuRegistroAEdicionDeEvento = new JMenuItem("Registro a Edicion de Evento");
-        menuRegistroAEdicionDeEvento.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JInternalFrame c = new RegistroAEdicionDeEvento();
-                frmPrincipal.getContentPane().add(c);
-            }
-        });
-        menuEventos.add(menuRegistroAEdicionDeEvento);
+        menuInstitucion.add(menuAltaInst);
 	}
 
 
-    // Método para centrar una JInternalFrame dentro del JDesktopPane
     private void centerInternalFrame(JInternalFrame frame) {
         Dimension desktopSize = desktopPane.getSize();
         Dimension frameSize = frame.getSize();
@@ -255,4 +255,3 @@ public class Principal extends JFrame {
         }
     }
 }
-
