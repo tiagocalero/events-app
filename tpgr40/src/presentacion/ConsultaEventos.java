@@ -276,18 +276,8 @@ public class ConsultaEventos extends JInternalFrame {
         }
     }
 	
-	protected void consultaEdicion(ActionEvent e) {
-		String selectedEvento = (String) comboBoxEventos.getSelectedItem();
-	    String selectedEdicion = (String) comboBoxEdiciones.getSelectedItem();
-
-	    if (selectedEvento == null || selectedEdicion == null) {
-	        return; 
-	    }
-
-	    ControladorEvento c = ControladorEvento.getInstance();
-	    DTEdicion ed = c.elegirEdicion(
-	        c.obtenerEdicion(selectedEdicion, selectedEvento)
-	    );
+	protected void consultaEdicion(ActionEvent e) {ControladorEvento c = ControladorEvento.getInstance();
+	    DTEdicion ed = c.elegirEdicion(c.obtenerEdicion((String) comboBoxEdiciones.getSelectedItem(), (String) comboBoxEventos.getSelectedItem()));
 		txtEdNom.setText(ed.getNombre());
 		txtEdSigla.setText(ed.getSigla());
 		txtEdOrg.setText(ed.getOrganizador());
