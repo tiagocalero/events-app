@@ -137,10 +137,12 @@ public class ControladorEvento{
 		
         //Obtengo el Costo y lo calculo para ver si falla
 		float costo = tp.getCosto();
-		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
-			return false;
+		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto()) return false;
 		
-		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
+		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
+		instInstitucion.agregarPatrocinio(p);
+		instEdicion.agregarPatrocinio(p);
+		tp.agregarPatrocinio(p);
 		
 		return true;
 	}
@@ -163,7 +165,10 @@ public class ControladorEvento{
 		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
 			return false;
 		
-		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
+		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
+		instInstitucion.agregarPatrocinio(p);
+		instEdicion.agregarPatrocinio(p);
+		tp.agregarPatrocinio(p);
 		
 		return true;
 	}
