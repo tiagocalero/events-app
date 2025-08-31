@@ -109,13 +109,14 @@ public class AltaUsuario extends JInternalFrame {
 		textField_4.setBounds(161, 50, 140, 26);
 		panel_2.add(textField_4);
 		
-		JLabel lblInstitiucion = new JLabel("Institiucion:");
+		JLabel lblInstitiucion = new JLabel("Institiución:");
 		lblInstitiucion.setBounds(12, 88, 140, 17);
 		panel_2.add(lblInstitiucion);
 		
 		comboBox = new JComboBox();
 		comboBox.setBounds(161, 88, 140, 26);
 		ControladorInstitucion c = ControladorInstitucion.getInstance();
+		comboBox.addItem("Sin Institución");
 		for(String i: c.listarInstituciones()) {
 			comboBox.addItem(i);
 		}
@@ -193,7 +194,7 @@ public class AltaUsuario extends JInternalFrame {
         }
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if (c.altaAsistente(nickname, nombre, correo, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
+        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -219,7 +220,35 @@ public class AltaUsuario extends JInternalFrame {
                 	dispose();
                 	break;
             };
-        } else {
+        }
+        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {    
+        	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
+            Object[] opciones = {"Agregar más usuarios", "Cerrar"};
+            int resultado = JOptionPane.showOptionDialog(
+                this,
+                "Se creó el asistente: " + nickname,
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,        
+                opciones,    
+                opciones[0] // opción por defecto
+            );
+
+            // Ver qué eligió el usuario
+            switch (resultado) {
+                case 0:
+	            	borrarCampos();
+	            	break;
+                case 1:
+                	dispose(); // Cierra la ventana
+	            	break;
+                default: // El usuario cierra el diálogo
+                	dispose();
+                	break;
+            };
+        }
+        else {
         	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
