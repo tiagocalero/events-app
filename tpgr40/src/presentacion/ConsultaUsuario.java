@@ -63,6 +63,119 @@ public class ConsultaUsuario extends JInternalFrame {
 		setBounds(30, 30, 831, 752);
 		getContentPane().setLayout(null);
 		
+		JPanel panelOrg_2 = new JPanel();
+		panelOrg_2.setBounds(12, 400, 799, 310);
+		getContentPane().add(panelOrg_2);
+		panelOrg_2.setLayout(null);
+		panelOrg_2.setVisible(false);
+		
+		lblEdiciones = new JLabel("Ediciones: ");
+		lblEdiciones.setBounds(15, 12, 121, 37);
+		panelOrg_2.add(lblEdiciones);
+		lblEdiciones.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		comboBoxEdicion = new JComboBox();
+		comboBoxEdicion.setBounds(15, 49, 287, 43);
+		comboBoxUsuario.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	consultaEdicion(e);
+            }
+        });
+		panelOrg_2.add(comboBoxEdicion);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(0, 104, 812, 157);
+		panelOrg_2.add(panel);
+		
+		JLabel lblEdNom = new JLabel("Nombre:");
+		lblEdNom.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdNom.setBounds(0, 0, 106, 37);
+		panel.add(lblEdNom);
+		
+		txtEdNom = new JTextField();
+		txtEdNom.setEditable(false);
+		txtEdNom.setColumns(10);
+		txtEdNom.setBounds(113, 0, 147, 37);
+		panel.add(txtEdNom);
+		
+		JLabel lblEdSigla = new JLabel("Sigla:");
+		lblEdSigla.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdSigla.setBounds(0, 49, 106, 37);
+		panel.add(lblEdSigla);
+		
+		txtEdSigla = new JTextField();
+		txtEdSigla.setEditable(false);
+		txtEdSigla.setColumns(10);
+		txtEdSigla.setBounds(113, 49, 147, 37);
+		panel.add(txtEdSigla);
+		
+		JLabel lblEdOrg = new JLabel("Organizador:");
+		lblEdOrg.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdOrg.setBounds(0, 96, 106, 37);
+		panel.add(lblEdOrg);
+		
+		txtEdOrg = new JTextField();
+		txtEdOrg.setEditable(false);
+		txtEdOrg.setColumns(10);
+		txtEdOrg.setBounds(113, 96, 147, 37);
+		panel.add(txtEdOrg);
+		
+		JLabel lblEdFI = new JLabel("Fecha de Inicio:");
+		lblEdFI.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdFI.setBounds(272, 0, 111, 37);
+		panel.add(lblEdFI);
+		
+		JLabel lblEdFF = new JLabel("Fecha de Fin:");
+		lblEdFF.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdFF.setBounds(272, 49, 111, 37);
+		panel.add(lblEdFF);
+		
+		txtEdFI = new JTextField();
+		txtEdFI.setEditable(false);
+		txtEdFI.setColumns(10);
+		txtEdFI.setBounds(385, 0, 147, 37);
+		panel.add(txtEdFI);
+		
+		txtEdFF = new JTextField();
+		txtEdFF.setEditable(false);
+		txtEdFF.setColumns(10);
+		txtEdFF.setBounds(385, 49, 147, 37);
+		panel.add(txtEdFF);
+		
+		JLabel lblEdFA = new JLabel("Fecha de Alta:");
+		lblEdFA.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdFA.setBounds(272, 96, 111, 37);
+		panel.add(lblEdFA);
+		
+		txtEdFA = new JTextField();
+		txtEdFA.setEditable(false);
+		txtEdFA.setColumns(10);
+		txtEdFA.setBounds(385, 96, 147, 37);
+		panel.add(txtEdFA);
+		
+		JLabel lblEdCiudad = new JLabel("Ciudad:");
+		lblEdCiudad.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdCiudad.setBounds(544, 0, 106, 37);
+		panel.add(lblEdCiudad);
+		
+		txtEdCiudad = new JTextField();
+		txtEdCiudad.setEditable(false);
+		txtEdCiudad.setColumns(10);
+		txtEdCiudad.setBounds(657, 0, 147, 37);
+		panel.add(txtEdCiudad);
+		
+		JLabel lblEdPais = new JLabel("Pais:");
+		lblEdPais.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEdPais.setBounds(544, 49, 106, 37);
+		panel.add(lblEdPais);
+		
+		txtEdPais = new JTextField();
+		txtEdPais.setEditable(false);
+		txtEdPais.setColumns(10);
+		txtEdPais.setBounds(657, 49, 147, 37);
+		panel.add(txtEdPais);
+		
 		lblUsuarios = new JLabel("Usuarios");
 		lblUsuarios.setBounds(27, 12, 188, 36);
 		lblUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
@@ -73,12 +186,6 @@ public class ConsultaUsuario extends JInternalFrame {
         getContentPane().add(panelOrg);
         panelOrg.setLayout(null);
         panelOrg.setVisible(false);
-        
-        JPanel panelOrg_2 = new JPanel();
-        panelOrg_2.setBounds(12, 400, 799, 310);
-        getContentPane().add(panelOrg_2);
-        panelOrg_2.setLayout(null);
-        panelOrg_2.setVisible(false);
 
         
         comboBoxUsuario = new JComboBox();
@@ -186,108 +293,6 @@ public class ConsultaUsuario extends JInternalFrame {
         txtNac.setBounds(374, 250, 255, 37);
         getContentPane().add(txtNac);
         
-        lblEdiciones = new JLabel("Ediciones: ");
-        lblEdiciones.setBounds(15, 12, 121, 37);
-        panelOrg_2.add(lblEdiciones);
-        lblEdiciones.setHorizontalAlignment(SwingConstants.LEFT);
-        
-        comboBoxEdicion = new JComboBox();
-        comboBoxEdicion.setBounds(15, 49, 287, 43);
-        panelOrg_2.add(comboBoxEdicion);
-        
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBounds(0, 104, 812, 157);
-        panelOrg_2.add(panel);
-        
-        JLabel lblEdNom = new JLabel("Nombre:");
-        lblEdNom.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdNom.setBounds(0, 0, 106, 37);
-        panel.add(lblEdNom);
-        
-        txtEdNom = new JTextField();
-        txtEdNom.setEditable(false);
-        txtEdNom.setColumns(10);
-        txtEdNom.setBounds(113, 0, 147, 37);
-        panel.add(txtEdNom);
-        
-        JLabel lblEdSigla = new JLabel("Sigla:");
-        lblEdSigla.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdSigla.setBounds(0, 49, 106, 37);
-        panel.add(lblEdSigla);
-        
-        txtEdSigla = new JTextField();
-        txtEdSigla.setEditable(false);
-        txtEdSigla.setColumns(10);
-        txtEdSigla.setBounds(113, 49, 147, 37);
-        panel.add(txtEdSigla);
-        
-        JLabel lblEdOrg = new JLabel("Organizador:");
-        lblEdOrg.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdOrg.setBounds(0, 96, 106, 37);
-        panel.add(lblEdOrg);
-        
-        txtEdOrg = new JTextField();
-        txtEdOrg.setEditable(false);
-        txtEdOrg.setColumns(10);
-        txtEdOrg.setBounds(113, 96, 147, 37);
-        panel.add(txtEdOrg);
-        
-        JLabel lblEdFI = new JLabel("Fecha de Inicio:");
-        lblEdFI.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdFI.setBounds(272, 0, 111, 37);
-        panel.add(lblEdFI);
-        
-        JLabel lblEdFF = new JLabel("Fecha de Fin:");
-        lblEdFF.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdFF.setBounds(272, 49, 111, 37);
-        panel.add(lblEdFF);
-        
-        txtEdFI = new JTextField();
-        txtEdFI.setEditable(false);
-        txtEdFI.setColumns(10);
-        txtEdFI.setBounds(385, 0, 147, 37);
-        panel.add(txtEdFI);
-        
-        txtEdFF = new JTextField();
-        txtEdFF.setEditable(false);
-        txtEdFF.setColumns(10);
-        txtEdFF.setBounds(385, 49, 147, 37);
-        panel.add(txtEdFF);
-        
-        JLabel lblEdFA = new JLabel("Fecha de Alta:");
-        lblEdFA.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdFA.setBounds(272, 96, 111, 37);
-        panel.add(lblEdFA);
-        
-        txtEdFA = new JTextField();
-        txtEdFA.setEditable(false);
-        txtEdFA.setColumns(10);
-        txtEdFA.setBounds(385, 96, 147, 37);
-        panel.add(txtEdFA);
-        
-        JLabel lblEdCiudad = new JLabel("Ciudad:");
-        lblEdCiudad.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdCiudad.setBounds(544, 0, 106, 37);
-        panel.add(lblEdCiudad);
-        
-        txtEdCiudad = new JTextField();
-        txtEdCiudad.setEditable(false);
-        txtEdCiudad.setColumns(10);
-        txtEdCiudad.setBounds(657, 0, 147, 37);
-        panel.add(txtEdCiudad);
-        
-        JLabel lblEdPais = new JLabel("Pais:");
-        lblEdPais.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdPais.setBounds(544, 49, 106, 37);
-        panel.add(lblEdPais);
-        
-        txtEdPais = new JTextField();
-        txtEdPais.setEditable(false);
-        txtEdPais.setColumns(10);
-        txtEdPais.setBounds(657, 49, 147, 37);
-        panel.add(txtEdPais);
-        
         lblRegistros = new JLabel("Registros: ");
         lblRegistros.setBounds(27, 423, 77, 15);
         getContentPane().add(lblRegistros);
@@ -312,7 +317,7 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	    comboBoxRegistro.removeAllItems();
 	    for (DTRegistro reg: c.consultaAsistente()) {
-	       	comboBoxRegistro.addItem(reg);
+	       	comboBoxRegistro.addItem(reg.getFecha().toString());
 		}   
 	}
 	
@@ -326,8 +331,8 @@ public class ConsultaUsuario extends JInternalFrame {
 	    Descripcion.setText(o.getDescripcion());
 
 	    comboBoxEdicion.removeAllItems();
-	    for (DTEdicion ed: c.consultaOrganizador()) {
-	       	comboBoxEdicion.addItem(ed);
+	    for (DTEdicion ed: c.edicionesDeOrganizador(o.getNickname())) {
+	       	comboBoxEdicion.addItem(ed.getNombre());
 	    }
     }
 	
