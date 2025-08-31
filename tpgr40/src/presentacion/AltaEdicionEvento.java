@@ -140,16 +140,29 @@ public class AltaEdicionEvento extends JInternalFrame {
         String ciudad = textCiudad.getText();
         String pais = textPais.getText();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaInicio = LocalDate.parse(textFechaIni.getText(), fmt);
-        LocalDate fechaFin = LocalDate.parse(textFechaFin.getText(), fmt);
+        LocalDate fechaInicio;
+        LocalDate fechaFin;
+        // Si las fechas son inválidas, mostrar un error
+        try {
+	        fechaInicio = LocalDate.parse(textFechaIni.getText(), fmt);
+	        fechaFin = LocalDate.parse(textFechaFin.getText(), fmt);
+        } catch (Exception ex) {
+        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
         LocalDate fechaAlta = LocalDate.now();
         String evento = (String) comboBoxEventos.getSelectedItem();
         String organizador = (String) comboBoxEventos.getSelectedItem();
         
+        if (evento == null || organizador == null) {
+        	JOptionPane.showMessageDialog(this, "Deben existir Evento y Organizador", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
         ControladorEvento m = ControladorEvento.getInstance();
         // Chequear que exista el nombre
         if (nombre == "") {
-        	JOptionPane.showMessageDialog(this, "La edición debe tener un nombre.");
+        	JOptionPane.showMessageDialog(this, "La edición debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
         	boolean ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
             if (ok) {
@@ -186,7 +199,7 @@ public class AltaEdicionEvento extends JInternalFrame {
 	            };
             
 			} else {
-	        	JOptionPane.showMessageDialog(this, "Error: Ya existe una edición con ese nombre.");
+	        	JOptionPane.showMessageDialog(this, "Ya existe una edición con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
         }
     }
