@@ -119,14 +119,38 @@ public class AltaInstitucion extends JInternalFrame{
         if (!exito) {
         	JOptionPane.showMessageDialog(AltaInstitucion.this, "La institución: " + nombre + " ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-        	JOptionPane.showMessageDialog(AltaInstitucion.this, "Se creó la institución: " + nombre);
-        	textNombre.setText("");
-        	textWeb.setText("");
-        	textDesc.setText(""); 
+        	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
+            Object[] opciones = {"Agregar más instituciones", "Cerrar"};
+            int resultado = JOptionPane.showOptionDialog(
+                this,
+                "Se creó la institución: " + nombre,
+                "",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,        
+                opciones,    
+                opciones[0] // opción por defecto
+            );
+
+            // Ver qué eligió el usuario
+            switch (resultado) {
+                case 0:
+                	// Borrar campos
+	            	textNombre.setText("");
+	            	textDesc.setText("");
+	            	textWeb.setText("");
+	            	break;
+                case 1:
+                	dispose(); // Cierra la ventana
+	            	break;
+                default: // El usuario cierra el diálogo
+                	dispose();
+                	break;
+            };
         }
 	}
 
-	// Función que le saca espacios en blanco a un String (para usar en campos)
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
 	private static String sacarEspacios(String s) {
 	    return s == null ? "" : s.trim();
 	}

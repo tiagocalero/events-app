@@ -25,10 +25,10 @@ public class AltaEvento extends JInternalFrame {
 	
 	public AltaEvento() {
 		setVisible(true); 
-        setSize(451, 367);
-		setResizable(true);
+        setSize(410, 367);
+		setResizable(false);
 		setIconifiable(true);
-		setMaximizable(true);
+		setMaximizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Evento");
@@ -136,7 +136,7 @@ public class AltaEvento extends JInternalFrame {
 		}
     }
 	
-	// Función que le saca espacios en blanco a un String (para usar en campos)
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
 	private static String sacarEspacios(String s) {
 	    return s == null ? "" : s.trim();
 	}

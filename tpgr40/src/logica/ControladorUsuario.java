@@ -73,9 +73,9 @@ public class ControladorUsuario{
 
 	// Retorna false si ya existe un usuario con ese nickname o correo,
 	// Retorna true si no existe y se creo el usuario correctamente.
-	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
+	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac, String ins) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearAsistente(nick, nom, c, ap, nac);
+		return m.crearAsistente(nick, nom, c, ap, nac, ins);
 	}
 
 	public boolean altaOrganizador(String nick, String nom, String c, String desc, String link) {

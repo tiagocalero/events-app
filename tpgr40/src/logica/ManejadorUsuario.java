@@ -51,6 +51,17 @@ public class ManejadorUsuario {
         usuarios.put(nick, a);
         return true;
     }
+    
+    public boolean crearAsistente(String nick, String nom, String c, String ap, LocalDate nac, String ins) {
+    	for(Usuario u: usuarios.values()) {
+    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
+    	}
+    	ControladorInstitucion ci = ControladorInstitucion.getInstance();
+    	Institucion institucion = ci.obtenerInstitucion(ins);
+        Asistente a = new Asistente(nick, nom, c, ap, nac, institucion);
+        usuarios.put(nick, a);
+        return true;
+    }
 
 	public boolean crearOrganizador(String nick, String nom, String c, String desc, String link) {
     	for(Usuario u: usuarios.values()) {

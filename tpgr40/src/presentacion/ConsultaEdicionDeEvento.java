@@ -369,10 +369,6 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
                     textCantRegistros.setText(String.valueOf(dtp.getCantRegistros()));
                 }    
            }
-          
         });
-        
-        
-        
 	}
 }
