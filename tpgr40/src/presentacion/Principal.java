@@ -2,6 +2,7 @@ package presentacion;
 
 import java.awt.EventQueue;
 import java.awt.event.*;
+import java.awt.Color;
 import javax.swing.*;
 
 import javax.swing.JFrame;
@@ -13,7 +14,7 @@ import logica.ControladorCategoria;
 import logica.CargarDatos;
 
 
-public class Principal extends JFrame {
+public class Principal {
 	
 	private JFrame frmPrincipal;
 	private AltaEvento altEventoInternalFrame;
@@ -25,13 +26,12 @@ public class Principal extends JFrame {
 	
 	public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            
-                try {
-                    Principal window = new Principal();
-                    window.frmPrincipal.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+	        try {
+	            Principal window = new Principal();
+	            window.frmPrincipal.setVisible(true);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
         });
     }
 	
@@ -46,6 +46,11 @@ public class Principal extends JFrame {
 	    frmPrincipal.setSize(800, 600);
 		JMenuBar menuBar = new JMenuBar();
 		frmPrincipal.setJMenuBar(menuBar);
+		
+		desktopPane = new JDesktopPane();
+	    desktopPane.setLayout(null);
+	    desktopPane.setBackground(Color.WHITE);
+	    frmPrincipal.setContentPane(desktopPane);
 		
 		JMenu menuSistema = new JMenu("Sistema");
         menuBar.add(menuSistema);
@@ -74,7 +79,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new ConsultaEventos();
-                frmPrincipal.getContentPane().add(c);
+            	desktopPane.add(c);
             }
         });
         menuEventos.add(menuConEventos);
@@ -84,7 +89,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new ConsultaPatrocinio();
-                frmPrincipal.getContentPane().add(c);
+            	desktopPane.add(c);
             }
         });
         menuEventos.add(menuConPatrocinios);
@@ -94,7 +99,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaEvento();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
             }
         });
         menuEventos.add(menuAltaEventos);
@@ -104,7 +109,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaEdicionEvento();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
             }
         });
         menuEventos.add(menuAltaEdicion);
@@ -117,7 +122,7 @@ public class Principal extends JFrame {
                 JInternalFrame a = new AltaPatrocinio();
                 a.setSize(400, 300);
                 a.setVisible(true); 
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
             }
         });
         menuEventos.add(menuAltaPatrocinio);
@@ -132,7 +137,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaUsuario();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
             }
         });
         menUsuario.add(menuAltaUsuario);
@@ -144,7 +149,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new AltaInstitucion();
-            	frmPrincipal.getContentPane().add(c);
+            	desktopPane.add(c);
 
             }
         });
@@ -156,7 +161,7 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaTipoRegistro();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
             }
         });
         menuEventos.add(menuAltaTipoRegistro);
