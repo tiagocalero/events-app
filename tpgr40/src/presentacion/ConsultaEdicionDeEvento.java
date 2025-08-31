@@ -442,7 +442,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         			// Mostramos los datos en los campos de texto
         			textNombreRegistro.setText(registro.getNombre());
         			textDescRegistro.setText(registro.getDescripcion());
-        			textCostoRegistro.setText(String.valueOf(registro.getCosto()));
+        			textCostoRegistro.setText("$" + String.valueOf(registro.getCosto()));
         			textCupoRegistro.setText(String.valueOf(registro.getCupo()));
            
         	}

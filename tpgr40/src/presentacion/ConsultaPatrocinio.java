@@ -205,7 +205,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
             	break;
             }
             
-            textAporteEconomico.setText(String.valueOf(dtp.getMonto()));
+            textAporteEconomico.setText("$" + String.valueOf(dtp.getMonto()));
             textTRegistros.setText(dtp.getTipoRegistro());
             textCantRegistros.setText(String.valueOf(dtp.getCantRegistros()));
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");

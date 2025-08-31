@@ -106,10 +106,13 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 		    
 		 // Obtenemos la edicion seleccionada
 		    String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+		    
+		    if (edicionSeleccionada != null && eventoSeleccionado != null) {
 
-		    // Listamos las ediciones de ese evento y agregamos al combo
-		    for (String nombreTRegistro : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
-		        comboBoxTipoRegistro.addItem(nombreTRegistro);
+		    	// Listamos las ediciones de ese evento y agregamos al combo
+		    	for (String nombreTRegistro : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
+		    		comboBoxTipoRegistro.addItem(nombreTRegistro);
+		    	}
 		    }
         });
         
@@ -168,34 +171,18 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         	String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
             String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
             String tipoRegistroSeleccionado = (String) comboBoxTipoRegistro.getSelectedItem();
+            
+            if (eventoSeleccionado != null && edicionSeleccionada != null && tipoRegistroSeleccionado != null) {
 
-            DTTRegistro seleccionado = c.seleccionarTipoRegistro(tipoRegistroSeleccionado, eventoSeleccionado, edicionSeleccionada);
+            	DTTRegistro seleccionado = c.seleccionarTipoRegistro(tipoRegistroSeleccionado, eventoSeleccionado, edicionSeleccionada);
             
-           // Mostramos los datos en los campos de texto
-           textFieldNombre.setText(seleccionado.getNombre());
-           textFieldDesc.setText(seleccionado.getDescripcion());
-           textFieldCosto.setText(String.valueOf(seleccionado.getCosto()));
-           textFieldCupo.setText(String.valueOf(seleccionado.getCupo()));
-            
+            	// Mostramos los datos en los campos de texto
+            	textFieldNombre.setText(seleccionado.getNombre());
+            	textFieldDesc.setText(seleccionado.getDescripcion());
+            	textFieldCosto.setText("$" + String.valueOf(seleccionado.getCosto()));
+            	textFieldCupo.setText(String.valueOf(seleccionado.getCupo()));
+            }
         });
-                
-        JButton btnConsulta = new JButton("Consultar");
-        btnConsulta.setBounds(76, 369, 150, 35);
-		btnConsulta.addActionListener(e -> {
-			String nombreEvento = (String) comboBoxEventos.getSelectedItem();
-			String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
-			String nombreTipoRegistro = (String) comboBoxTipoRegistro.getSelectedItem();
-			
-			DTTRegistro tr = c.mostrarTipoRegistro(nombreEvento, nombreEdicion, nombreTipoRegistro);
-			
-			textFieldNombre.setText(tr.getNombre());
-		    textFieldDesc.setText(tr.getDescripcion());
-		    textFieldCosto.setText(String.valueOf(tr.getCosto()));
-		    textFieldCupo.setText(String.valueOf(tr.getCupo())); 
-			
-		});
-		
-		getContentPane().add(btnConsulta);
 	}
 
 }
