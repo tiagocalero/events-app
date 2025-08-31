@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.Color;
 
 import logica.ControladorCategoria;
 import logica.CargarDatos;
@@ -45,6 +46,7 @@ public class Principal extends JFrame {
 
 		// Crea e inicializa el JDesktopPane y lo establece como el panel de contenido
 		desktopPane = new JDesktopPane();
+		desktopPane.setBackground(Color.WHITE);
 		frmPrincipal.setContentPane(desktopPane);
 
 		JMenu menuSistema = new JMenu("Sistema");
