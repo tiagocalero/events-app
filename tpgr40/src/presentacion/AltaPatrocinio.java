@@ -180,9 +180,9 @@ public class AltaPatrocinio extends JInternalFrame{
                     tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
                     
                     ControladorEvento c = ControladorEvento.getInstance();
-                    List<DTTRegistro> dts = c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada);
-                    for (DTTRegistro dt: dts)
-                        tipoRegistrosModel.addElement(dt.getNombre());
+                    List<String> dts = c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada);
+                    for (String dt: dts)
+                        tipoRegistrosModel.addElement(dt);
                     
                     comboBoxTipoRegistro.setModel(tipoRegistrosModel);
                 }
