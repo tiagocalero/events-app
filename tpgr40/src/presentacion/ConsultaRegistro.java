@@ -41,6 +41,8 @@ public class ConsultaRegistro extends JInternalFrame {
 	private String RegTipo;
 	private String RegFecha;
 	private float RegCosto;
+	private JTextField textTipo;
+	private JLabel lblTipo;
 	
 	public ConsultaRegistro() {
 		setVisible(true);
@@ -108,7 +110,7 @@ public class ConsultaRegistro extends JInternalFrame {
         getContentPane().add(textCosto);
         
         btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(657, 212, 105, 27);
+        btnCerrar.setBounds(657, 280, 105, 27);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);
@@ -116,6 +118,17 @@ public class ConsultaRegistro extends JInternalFrame {
             }
         });
         getContentPane().add(btnCerrar);
+        
+        textTipo = new JTextField();
+        textTipo.setEditable(false);
+        textTipo.setColumns(10);
+        textTipo.setBounds(536, 212, 226, 37);
+        getContentPane().add(textTipo);
+        
+        lblTipo = new JLabel("Tipo del Registro:");
+        lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblTipo.setBounds(308, 212, 216, 37);
+        getContentPane().add(lblTipo);
         
         
         comboBoxUsuarios.addActionListener(new ActionListener() {
@@ -134,12 +147,13 @@ public class ConsultaRegistro extends JInternalFrame {
                     
                     ControladorUsuario m = ControladorUsuario.getInstance();
                     for (DTRegistro reg : m.registrosDeAsistente(usuarioSeleccionado)) {
-            	    	RegEdicion = reg.getEdicion();
+            	    	/*RegEdicion = reg.getEdicion();
             	    	RegFecha = reg.getFecha().format(fmt);
             	    	RegCosto = reg.getCosto();
             	    	RegTipo = reg.getTipo();
             	    	
-                        registrosModel.addElement("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>"); // 
+                        registrosModel.addElement("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>"); */
+                    	registrosModel.addElement(reg.getEdicion());
                     }
                     comboBoxRegistros.setModel(registrosModel);
                 }
@@ -154,10 +168,14 @@ public class ConsultaRegistro extends JInternalFrame {
         		String registroSeleccionado = (String) comboBoxRegistros.getSelectedItem();
         		if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
         			if (registroSeleccionado != null && !registroSeleccionado.equals("Seleccione un registro")) {
-        		
-        				textNombre.setText(RegEdicion);
-        				textCosto.setText(Float.toString(RegCosto));
-        				textFecha.setText(String.valueOf(RegFecha));
+                        ControladorUsuario c = ControladorUsuario.getInstance();
+                        DTRegistro dtr = c.datosRegistroUsuario(registroSeleccionado, usuarioSeleccionado);
+                        if (dtr != null) {
+                        	textNombre.setText(dtr.getEdicion());
+                        	textCosto.setText("$" + Float.toString(dtr.getCosto()));
+                        	textFecha.setText(String.valueOf(dtr.getFecha()));
+                    		textTipo.setText(dtr.getTipo());
+                        }
         			}
         		}
         	}

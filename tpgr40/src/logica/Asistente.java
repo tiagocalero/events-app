@@ -61,7 +61,9 @@ public class Asistente extends Usuario {
 		for (Registro registro : registros) {
 	        if (registro.getEdicion().getNombre().equals(nombreEdicion)) {
 	            return registro; 
-	    }
+	        }
+		}
+		return null;
 	}
 
 	public List<DTRegistro> consulta() {

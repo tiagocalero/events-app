@@ -392,13 +392,8 @@ public class ConsultaUsuario extends JInternalFrame {
 	    txtNac.setText(a.getNacimiento().format(formatter));
 	    
 	    comboBoxRegistro.removeAllItems();
-	    for (DTRegistro reg: c.consultaAsistente()) {
-	    	RegEdicion = reg.getEdicion();
-	    	RegFecha = reg.getFecha().format(formatter);
-	    	RegCosto = reg.getCosto();
-	    	RegTipo = reg.getTipo();
-	    	
-	       	comboBoxRegistro.addItem("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>" );
+	    for (DTRegistro reg: c.consultaAsistente()) {	    	
+	       	comboBoxRegistro.addItem(reg.getEdicion());
 		}
 	}
 	
@@ -433,9 +428,19 @@ public class ConsultaUsuario extends JInternalFrame {
 	}
 	
 	protected void consultaRegistro(ActionEvent e) {
-		txtRgEd.setText(RegEdicion);
-		txtRgFecha.setText(RegFecha);
-		txtRgCosto.setText("$" + Float.toString(RegCosto));
-		txtRgTipo.setText(RegTipo);
+		String usuarioSeleccionado = (String) comboBoxUsuario.getSelectedItem();
+		String registroSeleccionado = (String) comboBoxRegistro.getSelectedItem();
+		if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
+			if (registroSeleccionado != null && !registroSeleccionado.equals("Seleccione un registro")) {
+                ControladorUsuario c = ControladorUsuario.getInstance();
+                DTRegistro dtr = c.datosRegistroUsuario(registroSeleccionado, usuarioSeleccionado);
+                if (dtr != null) {
+                	txtRgEd.setText(dtr.getEdicion());
+                	txtRgCosto.setText("$" + Float.toString(dtr.getCosto()));
+                	txtRgFecha.setText(String.valueOf(dtr.getFecha()));
+            		txtRgTipo.setText(dtr.getTipo());
+                }
+			}
+		}
 	}
 }
