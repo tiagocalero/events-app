@@ -22,11 +22,9 @@ import logica.DTUsuario;
 import javax.swing.JPanel;
 
 public class ConsultaUsuario extends JInternalFrame {
-	private JInternalFrame frmConsultaUsuario;
 	private JLabel lblUsuarios;
 	private JComboBox comboBoxUsuario;
 	private JLabel lblNombre;
-	private JButton btnNewButton;
 	private final JTextField txtNick = new JTextField();
 	private JTextField txtNom;
 	private JLabel lblFecha;
