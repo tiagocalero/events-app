@@ -126,7 +126,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         JButton btnRegistrar = new JButton("Registrar");
         btnRegistrar.setBounds(81, 502, 150, 35);
         btnRegistrar.addActionListener(e -> {
-            String nickAsistente = ((DTAsistente) comboBoxAsistentes.getSelectedItem()).getNickname();
+            String nickAsistente = (String) comboBoxAsistentes.getSelectedItem();
             String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
             String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
             String nickEvento = (String) comboBoxEventos.getSelectedItem();
