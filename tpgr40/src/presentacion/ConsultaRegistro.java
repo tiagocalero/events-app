@@ -8,7 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import logica.ControladorUsuario;
+import logica.DTAsistente;
+import logica.DTOrganizador;
 import logica.DTRegistro;
+import logica.DTUsuario;
 import logica.TipoNivelPatrocinio;
 
 import javax.swing.JButton;
@@ -46,6 +49,10 @@ public class ConsultaRegistro extends JInternalFrame {
 		comboBoxUsuarios = new JComboBox();
 		comboBoxUsuarios.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un usuario"}));
 		comboBoxUsuarios.setBounds(27, 60, 226, 43);
+        ControladorUsuario c = ControladorUsuario.getInstance();
+        for (String e: c.listarUsuarios()) {
+        	comboBoxUsuarios.addItem(e);
+        }
         getContentPane().add(comboBoxUsuarios);
         
         comboBoxRegistros = new JComboBox();
@@ -112,13 +119,15 @@ public class ConsultaRegistro extends JInternalFrame {
                 // Verificar que la selección sea válida
                 if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
                     
+                	
+                	
                 	// Llamar al método que carga los registros
-                	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
-                    edicionesModel.addElement("Seleccione una Edicion");
+                	DefaultComboBoxModel<String> registrosModel = new DefaultComboBoxModel<>();
+                    registrosModel.addElement("Seleccione un registro");
                     
                     ControladorUsuario m = ControladorUsuario.getInstance();
                     for (DTRegistro registro : m.registrosDeAsistente(usuarioSeleccionado)) {
-                        edicionesModel.addElement(registro.getEdicion()); // 
+                        registrosModel.addElement(registro.getEdicion()); // 
                     }
                 }
              
