@@ -29,7 +29,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 	private JLabel lblAsistentes;
 	private JComboBox comboBoxEventos;
 	private JComboBox comboBoxEdiciones;
-	private JComboBox<DTTRegistro> comboBoxTipoRegistro;
+	private JComboBox comboBoxTipoRegistro;
 	private JComboBox<DTAsistente> comboBoxAsistentes;
 	
 	
@@ -104,7 +104,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		    String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
 
 		    // Listamos las ediciones de ese evento y agregamos al combo
-		    for (logica.DTTRegistro dtr : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
+		    for (String dtr : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
 		        comboBoxTipoRegistro.addItem(dtr);
 		    }
         });
@@ -125,8 +125,6 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         }
         JButton btnRegistrar = new JButton("Registrar");
         btnRegistrar.setBounds(81, 502, 150, 35);
-        getContentPane().add(btnRegistrar);
-
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = ((DTAsistente) comboBoxAsistentes.getSelectedItem()).getNickname();
             String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
@@ -148,6 +146,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
                 // Opcional: actualizar el combo de tipo de registro para reflejar el nuevo cupo
             }
         });
+        getContentPane().add(btnRegistrar);
 	}
 
 }

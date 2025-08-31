@@ -268,7 +268,7 @@ public class ControladorEvento{
 	
 }
 	
-	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
+	//PRE:: asumo que seleccionara un nickTRegistro valido
 	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
 		
 		ManejadorEvento me = ManejadorEvento.getInstance();
@@ -278,15 +278,20 @@ public class ControladorEvento{
 		if (t.getCupo() == 0 || estaAsistente)
 			return true;
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
-		//tener cuidado si no me pasan un asistente, no funciona
-		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
+		Usuario usuario = mu.obtener(nickAsistente);
+		
+		assert usuario instanceof Asistente;
+		Asistente asistente = (Asistente) usuario;
 
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento e = m.obtenerEvento(nickEvento);
 		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
 		
 		float costo = t.getCosto();
-		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
+		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion, t);
+		edicion.agregarRegistro(nuevoRegistro);
+		asistente.agregarRegistro(nuevoRegistro);
+		
 		return false;
 	}
 	public boolean darDeAltaRegistroCD(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String fechaAlta, int costo) {
@@ -298,7 +303,9 @@ public class ControladorEvento{
 		if (t.getCupo() == 0 || estaAsistente)
 			return true;
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
-		//tener cuidado si no me pasan un asistente, no funciona
+		Usuario usuario = mu.obtener(nickAsistente);
+		
+		assert usuario instanceof Asistente;
 		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
 
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -306,7 +313,10 @@ public class ControladorEvento{
 		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
 		
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion);
+		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion, t);
+		edicion.agregarRegistro(nuevoRegistro);
+		asistente.agregarRegistro(nuevoRegistro);
+		
 		return false;
 	}
 	

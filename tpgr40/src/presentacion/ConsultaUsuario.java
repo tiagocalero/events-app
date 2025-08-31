@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import logica.Asistente;
 import logica.ControladorEvento;
 import logica.ControladorUsuario;
 import logica.DTAsistente;
@@ -51,6 +52,14 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JTextField txtEdFA;
 	private JTextField txtEdCiudad;
 	private JTextField txtEdPais;
+	private JTextField txtRgEd;
+	private JTextField txtRgFecha;
+	private JTextField txtRgCosto;
+	private JTextField txtRgTipo;
+	private String RegEdicion;
+	private String RegTipo;
+	private String RegFecha;
+	private float RegCosto;
 	
 	public ConsultaUsuario() {
 		setVisible(true);
@@ -77,7 +86,6 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg_2.setBounds(12, 400, 799, 310);
         getContentPane().add(panelOrg_2);
         panelOrg_2.setLayout(null);
-        panelOrg_2.setVisible(false);
         
         comboBoxEventos = new JComboBox();
         comboBoxEventos.setBounds(27, 53, 201, 43);
@@ -192,6 +200,11 @@ public class ConsultaUsuario extends JInternalFrame {
         
         comboBoxRegistro = new JComboBox();
         comboBoxRegistro.setBounds(27, 449, 287, 43);
+        comboBoxRegistro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	consultaRegistro(e);
+            }
+        });
         getContentPane().add(comboBoxRegistro);
         
         lblEdiciones = new JLabel("Ediciones: ");
@@ -301,6 +314,50 @@ public class ConsultaUsuario extends JInternalFrame {
         txtEdPais.setBounds(657, 49, 147, 37);
         panel.add(txtEdPais);
         
+        JLabel lblRgEd = new JLabel("Edicion:");
+        lblRgEd.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblRgEd.setBounds(27, 504, 106, 37);
+        getContentPane().add(lblRgEd);
+        
+        JLabel lblRgFecha = new JLabel("Fecha:");
+        lblRgFecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblRgFecha.setBounds(27, 553, 106, 37);
+        getContentPane().add(lblRgFecha);
+        
+        JLabel lblRgCosto = new JLabel("Costo:");
+        lblRgCosto.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblRgCosto.setBounds(286, 504, 106, 37);
+        getContentPane().add(lblRgCosto);
+        
+        txtRgEd = new JTextField();
+        txtRgEd.setEditable(false);
+        txtRgEd.setColumns(10);
+        txtRgEd.setBounds(140, 504, 147, 37);
+        getContentPane().add(txtRgEd);
+        
+        txtRgFecha = new JTextField();
+        txtRgFecha.setEditable(false);
+        txtRgFecha.setColumns(10);
+        txtRgFecha.setBounds(140, 553, 147, 37);
+        getContentPane().add(txtRgFecha);
+        
+        txtRgCosto = new JTextField();
+        txtRgCosto.setEditable(false);
+        txtRgCosto.setColumns(10);
+        txtRgCosto.setBounds(397, 504, 147, 37);
+        getContentPane().add(txtRgCosto);
+        
+        txtRgTipo = new JTextField();
+        txtRgTipo.setEditable(false);
+        txtRgTipo.setColumns(10);
+        txtRgTipo.setBounds(397, 553, 147, 37);
+        getContentPane().add(txtRgTipo);
+        
+        JLabel lblRgTipo = new JLabel("Tipo:");
+        lblRgTipo.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblRgTipo.setBounds(286, 553, 106, 37);
+        getContentPane().add(lblRgTipo);
+        
         
 	}
 
@@ -313,10 +370,14 @@ public class ConsultaUsuario extends JInternalFrame {
         txtCorreo.setText(a.getCorreo());
         txtAp.setText(a.getApellido());
 	    txtNac.setText(a.getNacimiento().format(formatter));
-
+	    
 	    comboBoxRegistro.removeAllItems();
 	    for (DTRegistro reg: c.consultaAsistente()) {
-	       	comboBoxRegistro.addItem(reg.getFecha().toString());
+	    	RegEdicion = reg.getEdicion();
+	    	RegFecha = reg.getFecha().format(formatter);
+	    	RegCosto = reg.getCosto();
+	    	RegTipo = reg.getTipo();
+	       	comboBoxRegistro.addItem("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>" );
 		}   
 	}
 	
@@ -348,5 +409,12 @@ public class ConsultaUsuario extends JInternalFrame {
 		txtEdFA.setText(ed.getFechaAlta().toString());
 		txtEdPais.setText(ed.getPais());
 		txtEdCiudad.setText(ed.getCiudad());
+	}
+	
+	protected void consultaRegistro(ActionEvent e) {
+		txtRgEd.setText(RegEdicion);
+		txtRgFecha.setText(RegFecha);
+		txtRgCosto.setText("$" + Float.toString(RegCosto));
+		txtRgTipo.setText(RegTipo);
 	}
 }
