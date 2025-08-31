@@ -69,18 +69,18 @@ public class AltaPatrocinio extends JInternalFrame{
 		comboBoxEventos = new JComboBox<String>();
         comboBoxEventos.setModel(new DefaultComboBoxModel<String>(new String[] {"Selecciona un Evento", "Evento 1", "Evento 2"}));
         comboBoxEventos.setBounds(27, 92, 226, 43);
-        getContentPane().add(comboBoxEventos);        
+        getContentPane().add(comboBoxEventos);       
+
+        comboBoxInstituciones = new JComboBox();
+        comboBoxInstituciones.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una Institución"}));
+        comboBoxInstituciones.setBounds(27, 221, 226, 43);
+        getContentPane().add(comboBoxInstituciones);
         inicializarCombos();
         
         comboBoxEdiciones = new JComboBox();
         comboBoxEdiciones.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una edición"}));
         comboBoxEdiciones.setBounds(27, 155, 226, 43);
         getContentPane().add(comboBoxEdiciones);
-        
-        comboBoxInstituciones = new JComboBox();
-        comboBoxInstituciones.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una Institución"}));
-        comboBoxInstituciones.setBounds(27, 221, 226, 43);
-        getContentPane().add(comboBoxInstituciones);
 		
         
         //DATOS DE LA DERECHA
