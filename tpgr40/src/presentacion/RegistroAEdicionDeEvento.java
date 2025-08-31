@@ -30,7 +30,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 	private JComboBox comboBoxEventos;
 	private JComboBox comboBoxEdiciones;
 	private JComboBox comboBoxTipoRegistro;
-	private JComboBox<DTAsistente> comboBoxAsistentes;
+	private JComboBox<String> comboBoxAsistentes;
 	
 	
 
@@ -121,7 +121,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         ControladorUsuario cu = ControladorUsuario.getInstance();
         
         for (DTAsistente asistente : cu.listarAsistentes()) {
-        	comboBoxAsistentes.addItem(asistente);
+        	comboBoxAsistentes.addItem(asistente.getNickname());
         }
         JButton btnRegistrar = new JButton("Registrar");
         btnRegistrar.setBounds(81, 502, 150, 35);
