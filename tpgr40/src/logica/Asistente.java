@@ -55,6 +55,14 @@ public class Asistente extends Usuario {
 	public String getApellido() {
 		return apellido;
 	}
+	
+	//Retorna el registro con el nombre de la edicion
+	public Registro getRegistro(String nombreEdicion) {
+		for (Registro registro : registros) {
+	        if (registro.getEdicion().getNombre().equals(nombreEdicion)) {
+	            return registro; 
+	    }
+	}
 
 	public List<DTRegistro> consulta() {
 		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList()); //?? chequear

@@ -76,6 +76,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         getContentPane().add(lblEventos);
 
         comboBoxEventos = new JComboBox();
+        comboBoxEventos.addItem("Seleccione un Evento");
         comboBoxEventos.setBounds(100, 53, 188, 43);
         
         ControladorEvento c = ControladorEvento.getInstance();
@@ -318,7 +319,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         		txtCiudad.setText(DTedicion.getCiudad());
         		txtNombre.setText(DTedicion.getNombre());
         		txtSigla.setText(DTedicion.getSigla());
-        		txtCiudad.setText(DTedicion.getOrganizador());
+        		txtOrganizador.setText(DTedicion.getOrganizador());
         		txtFechaInicio.setText(DTedicion.getFechaInicio().format(formatter));
         		txtFechaFin.setText(DTedicion.getFechaFin().format(formatter));
         		txtFechaAlta.setText(DTedicion.getFechaAlta().format(formatter));
@@ -332,8 +333,10 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
                 	comboBoxPatrocinios.addItem(pat);
                 
                 comboBoxTipoRegistros.removeAllItems();
-                for (String tr: DTedicion.getTipoRegistros())
-                	comboBoxTipoRegistros.addItem(tr);         
+                //for (String tr: DTedicion.getTipoRegistros())
+                //	comboBoxTipoRegistros.addItem(tr);
+                for (String tr: c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada))
+                	comboBoxTipoRegistros.addItem(tr);
            }
           
         });

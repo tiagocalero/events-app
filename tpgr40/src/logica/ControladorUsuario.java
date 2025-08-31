@@ -118,6 +118,17 @@ public class ControladorUsuario{
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return ((Organizador) m.obtener(nicknameOrganizador)).consulta();
 	}
+	
+	//Devuelve el Datatype del registro con nombreEdicion del usuario 
+	public DTRegistro datosRegistroUsuario (String nombreEdicion, String usuario) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();	
+		
+		Usuario user = m.obtener(usuario);
+		Asistente asistente = (Asistente) user;
+		Registro registro = asistente.getRegistro(nombreEdicion);
+		
+		return registro.getDatos();
+	}
 
 	public void liberarMemoria() {
 		usuario = null;

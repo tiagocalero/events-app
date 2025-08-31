@@ -7,9 +7,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import logica.ControladorEvento;
 import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTOrganizador;
+import logica.DTEdicion;
 import logica.DTRegistro;
 import logica.DTUsuario;
 import logica.TipoNivelPatrocinio;
@@ -118,8 +120,6 @@ public class ConsultaRegistro extends JInternalFrame {
                 
                 // Verificar que la selección sea válida
                 if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
-                    
-                	
                 	
                 	// Llamar al método que carga los registros
                 	DefaultComboBoxModel<String> registrosModel = new DefaultComboBoxModel<>();
@@ -134,6 +134,22 @@ public class ConsultaRegistro extends JInternalFrame {
             }
         });
         
+        comboBoxRegistros.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		String usuarioSeleccionado = (String) comboBoxUsuarios.getSelectedItem();
+        		String registroSeleccionado = (String) comboBoxRegistros.getSelectedItem();
+                
+        		ControladorUsuario m = ControladorUsuario.getInstance();
+        		DTRegistro dtr = m.datosRegistroUsuario(registroSeleccionado, usuarioSeleccionado);
+        		
+        		textNombre.setText(dtr.getEdicion());
+        		textCosto.setText(String.valueOf(dtr.getCosto()));
+        		textFecha.setText(dtr.getFecha().toString());
+        		
+        	}
+        });     
+        
 	}
 	
 	private void inicializarCombos() {
@@ -142,5 +158,7 @@ public class ConsultaRegistro extends JInternalFrame {
         
         ControladorUsuario m = ControladorUsuario.getInstance();
         m.listarNicknameAsistentes().forEach(eventosModel::addElement);
+        
+        comboBoxUsuarios.setModel(eventosModel); 
     }
 }
