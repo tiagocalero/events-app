@@ -33,7 +33,7 @@ public class AltaInstitucion extends JInternalFrame{
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Alta Institución");
+		setTitle("Alta de Institución");
 		setBounds(30, 30, 315, 422);
 		getContentPane().setLayout(null);
 		
