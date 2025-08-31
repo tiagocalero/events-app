@@ -114,6 +114,12 @@ public class ControladorEvento{
 		
 		return dtr;
 	}
+	
+	public Edicion obtenerEdicion(String nombre, String ev) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento evento = m.obtenerEvento(ev);
+		return m.obtenerEdicion(nombre, evento);
+	}
 
 	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
 		//Obtengo la Institucion
@@ -135,6 +141,29 @@ public class ControladorEvento{
 			return false;
 		
 		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
+		
+		return true;
+	}
+	
+	public boolean crearPatrocinioCargaDatos(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
+		//Obtengo la Institucion
+		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
+		Institucion instInstitucion = mi.obtener(nombreInstitucion);
+		
+		//Obtengo la Edicion
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		Evento instEvento = me.obtenerEvento(nombreEvento);
+		Edicion instEdicion = me.obtenerEdicion(nombreEdicion, instEvento);
+		
+		//Obtengo el TipoRegistro y la fecha
+		TRegistro tp = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
+				
+        //Obtengo el Costo y lo calculo para ver si falla
+		float costo = tp.getCosto();
+		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
+			return false;
+		
+		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
 		
 		return true;
 	}

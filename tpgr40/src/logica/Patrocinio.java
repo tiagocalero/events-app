@@ -26,6 +26,7 @@ public class Patrocinio {
 		this.tipo = tipo;
 		this.fecha = fecha;
 		this.cantRegistros = cantRegistros;
+		this.tp = tp;
 
 		tp.agregarPatrocinio(this);
 		i.agregarPatrocinio(this);
@@ -33,7 +34,7 @@ public class Patrocinio {
 	}
 	
 	public DTPatrocinio getDatos() {
-		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros);
+		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros, fecha);
 	}
 
 	public String getCodigo() {

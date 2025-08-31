@@ -342,12 +342,14 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	// Obtener el evento seleccionado
+            	String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+            	String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
                 String patrocinioSeleccionado = (String) comboBoxPatrocinios.getSelectedItem();
                 
                 // Verificar que la selección sea válida
                 if (patrocinioSeleccionado != null && !patrocinioSeleccionado.equals("Seleccione un Patrocinio")) {
                     ControladorEvento m = ControladorEvento.getInstance();
-                    DTPatrocinio dtp = m.consultaPatrocinio(patrocinioSeleccionado);
+                    DTPatrocinio dtp = m.consultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleccionado);
                     
                     switch (dtp.getTipo()) {
                     case Plata:
