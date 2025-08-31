@@ -101,12 +101,15 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		    // Obtenemos el evento seleccionado
 		    String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
 		    
-		 // Obtenemos la edicion seleccionada
+		    // Obtenemos la edicion seleccionada
 		    String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
 
-		    // Listamos las ediciones de ese evento y agregamos al combo
-		    for (String dtr : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
-		        comboBoxTipoRegistro.addItem(dtr);
+		    
+		    if (eventoSeleccionado != null && edicionSeleccionada != null) {
+		    	// Listamos las ediciones de ese evento y agregamos al combo
+		    	for (String dtr : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
+		    		comboBoxTipoRegistro.addItem(dtr);
+		    	}
 		    }
         });
         
