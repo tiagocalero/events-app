@@ -217,22 +217,15 @@ public class ControladorEvento{
 		return resultado;
 	}
 
-	public List<DTTRegistro> listarTipoRegistro(String nombreEvento, String nombreEdicion){
-			List<DTTRegistro> resultado = new ArrayList<>();
+	public List<String> listarTipoRegistro(String nombreEvento, String nombreEdicion){
+			List<String> resultado = new ArrayList<>();
 			
 			ManejadorEvento m = ManejadorEvento.getInstance();
 			Evento ev = m.obtenerEvento(nombreEvento);
 			Edicion ed = m.obtenerEdicion(nombreEdicion, ev);
 			
 			for (TRegistro tr : ed.getTRegistros()) {
-				
-				DTTRegistro dtr = new DTTRegistro(
-						tr.getCupo(),
-						tr.getCosto(),
-						tr.getNombre(),
-						tr.getDescripcion()
-			        );
-			    resultado.add(dtr);
+			    resultado.add(tr.getNombre());
 				
 	        }
 			return resultado;
@@ -254,6 +247,21 @@ public class ControladorEvento{
 		ed.agregarTRegistro(tr);
 		return true;
 	}
+	
+	public DTTRegistro mostrarTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTipoRegistro){
+		
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		TRegistro tr = m.encontrarTRegistroDeEdicion(nombreTipoRegistro, nombreEdicion, nombreEvento);
+			
+		DTTRegistro dtr = new DTTRegistro(
+				tr.getCupo(),
+				tr.getCosto(),
+				tr.getNombre(),
+				tr.getDescripcion()
+	        );			
+		return dtr;
+	
+}
 	
 	//PRE:: asumo que seleccionara un nickASistente y nickTRegistro valido
 	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {

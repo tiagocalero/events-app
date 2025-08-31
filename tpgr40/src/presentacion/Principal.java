@@ -228,6 +228,16 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConsultaTipoRegistro);
+        
+        JMenuItem menuRegistroAEdicionDeEvento = new JMenuItem("Registro a Edicion de Evento");
+        menuRegistroAEdicionDeEvento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame c = new RegistroAEdicionDeEvento();
+                frmPrincipal.getContentPane().add(c);
+            }
+        });
+        menuEventos.add(menuRegistroAEdicionDeEvento);
 	}
 
 
