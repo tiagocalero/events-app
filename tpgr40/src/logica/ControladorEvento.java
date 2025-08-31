@@ -162,7 +162,18 @@ public class ControladorEvento{
 	public DTEdicion elegirEdicion(Edicion edicion) {
 		return edicion.getDatos();
 	}
+	
+	
+	//Obtener una instancia de Edicion
+	public Edicion obtenerEdicion(String nombreEdicion, String even) {
+		ManejadorEvento m = ManejadorEvento.getInstance();	
+		Evento instEvento = m.obtenerEvento(even);
+		Edicion instEdicion = m.obtenerEdicion(nombreEdicion, instEvento);
+			
+		return instEdicion;
+	}
 
+	
 	public boolean altaEdicion(String nombreEvento, String nickanameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();

@@ -1,20 +1,15 @@
 package presentacion;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.*;
 import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
 import logica.ControladorCategoria;
 import logica.CargarDatos;
 
-
 public class Principal extends JFrame {
-	
+
 	private JFrame frmPrincipal;
 	private AltaEvento altEventoInternalFrame;
 	private AltaPatrocinio altPatInternalFrame;
@@ -22,31 +17,36 @@ public class Principal extends JFrame {
     private ModificarDatosOrganizador modDatosOrgInternalFrame;
     private AltaInstitucion altaInstInternalFrame;
     private JDesktopPane desktopPane;
-	
+
 	public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            
-                try {
-                    Principal window = new Principal();
-                    window.frmPrincipal.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            try {
+                Principal window = new Principal();
+                window.frmPrincipal.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
-	
-	
+
 	public Principal() {
 		inicializar();
 	}
-	
+
 	private void inicializar() {
 		frmPrincipal = new JFrame();
 		frmPrincipal.setTitle("Eventos.uy");
-	    frmPrincipal.setSize(800, 600);
+
+		// Maximiza la ventana principal para que ocupe toda la pantalla
+		frmPrincipal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		JMenuBar menuBar = new JMenuBar();
 		frmPrincipal.setJMenuBar(menuBar);
-		
+
+		// Crea e inicializa el JDesktopPane y lo establece como el panel de contenido
+		desktopPane = new JDesktopPane();
+		frmPrincipal.setContentPane(desktopPane);
+
 		JMenu menuSistema = new JMenu("Sistema");
         menuBar.add(menuSistema);
         JMenuItem menuSalir = new JMenuItem("Salir");
@@ -63,10 +63,9 @@ public class Principal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 CargarDatos.cargaDatos();
             }
-        	setLocationRelativeTo(null);
         });
         menuSistema.add(menuCargarDatos);
-        
+
         JMenu menuEventos = new JMenu("Eventos");
         menuBar.add(menuEventos);
         JMenuItem menuConEventos = new JMenuItem("Consulta de Eventos");
@@ -74,7 +73,9 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new ConsultaEventos();
-                frmPrincipal.getContentPane().add(c);
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
             }
         });
         menuEventos.add(menuConEventos);
@@ -84,17 +85,21 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new ConsultaPatrocinio();
-                frmPrincipal.getContentPane().add(c);
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
             }
         });
         menuEventos.add(menuConPatrocinios);
-        
+
         JMenuItem menuAltaEventos = new JMenuItem("Alta de Eventos");
         menuAltaEventos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaEvento();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
             }
         });
         menuEventos.add(menuAltaEventos);
@@ -104,39 +109,54 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaEdicionEvento();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
             }
         });
         menuEventos.add(menuAltaEdicion);
-              
+
+        JMenuItem menuConsultaEdicion = new JMenuItem("Consulta de Edición de Evento");
+        menuConsultaEdicion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new ConsultaEdicionDeEvento();
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
+            }
+        });
+        menuEventos.add(menuConsultaEdicion);
+
         JMenuItem menuAltaPatrocinio = new JMenuItem("Alta de Patrocinio");
         menuAltaPatrocinio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir nueva ventana AltaPatrocinio
                 JInternalFrame a = new AltaPatrocinio();
-                a.setSize(400, 300);
-                a.setVisible(true); 
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
             }
         });
         menuEventos.add(menuAltaPatrocinio);
-        
+
         JMenu menUsuario = new JMenu("Usuarios");
         menuBar.add(menUsuario);
         JMenuItem menuModDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
         menUsuario.add(menuModDatosUsuario);
-        
+
         JMenuItem menuAltaUsuario = new JMenuItem("Alta de Usuario");
         menuAltaUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JInternalFrame a = new AltaUsuario();
-                frmPrincipal.getContentPane().add(a);
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
             }
         });
         menUsuario.add(menuAltaUsuario);
-        
+
         JMenu menuInstitucion = new JMenu("Instituciones");
         menuBar.add(menuInstitucion);
         JMenuItem menuAltaInst = new JMenuItem("Alta de Institución");
@@ -144,12 +164,22 @@ public class Principal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	JInternalFrame c = new AltaInstitucion();
-            	frmPrincipal.getContentPane().add(c);
-
+            	desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
             }
         });
-        menuInstitucion.add(menuAltaInst);        
-        
+        menuInstitucion.add(menuAltaInst);
 	}
-	
+
+    // Método para centrar una JInternalFrame dentro del JDesktopPane
+    private void centerInternalFrame(JInternalFrame frame) {
+        Dimension desktopSize = desktopPane.getSize();
+        Dimension frameSize = frame.getSize();
+        if (frameSize.getWidth() > 0 && frameSize.getHeight() > 0) {
+            int x = (desktopSize.width - frameSize.width) / 2;
+            int y = (desktopSize.height - frameSize.height) / 2;
+            frame.setLocation(x, y);
+        }
+    }
 }

@@ -59,7 +59,7 @@ public class AltaPatrocinio extends JInternalFrame{
 		
 		//DATOS DE LA IZQ
 		
-		labelDatosDelUsuario = new JLabel("Datos del Usuario");
+		labelDatosDelUsuario = new JLabel("Datos del Patrocinio");
 		labelDatosDelUsuario.setFont(new Font("Dialog", Font.BOLD, 16));
 		labelDatosDelUsuario.setBounds(12, 0, 271, 80);
 		labelDatosDelUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -174,7 +174,7 @@ public class AltaPatrocinio extends JInternalFrame{
                 if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione un Evento")) {
                     // Llamar al método que carga las instituciones
                 	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
-                    institucionesModel.addElement("Seleccione una Edicion");
+                    institucionesModel.addElement("Seleccione una Institucion");
                     
                     ControladorInstitucion m = ControladorInstitucion.getInstance();
                     m.listarInstituciones().forEach(institucionesModel::addElement);

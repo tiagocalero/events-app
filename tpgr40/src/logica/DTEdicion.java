@@ -36,7 +36,6 @@ public class DTEdicion {
         this.fechaFin = fechaFin;
         this.nombre = nombre;
         this.sigla = sigla;
-        this.nombre = nombre;
         this.patrocinios = patrocinios;
         this.tRegistros = tRegistros;
         this.asistentes = asistentes;
@@ -51,4 +50,8 @@ public class DTEdicion {
     public LocalDate getFechaAlta() { return fechaAlta; }
     public String getSigla() { return sigla; }
     public String getNombre() { return nombre; }
+    public String getOrganizador() { return organizador; }
+    public List<String> getAsistentes() { return asistentes; }
+    public List<String> getPatrocinio() { return patrocinios; }
+    public List<String> getTipoRegistros() { return tRegistros; }
 }
