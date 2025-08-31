@@ -25,10 +25,10 @@ public class AltaEvento extends JInternalFrame {
 	
 	public AltaEvento() {
 		setVisible(true); 
-        setSize(451, 367);
-		setResizable(true);
+        setSize(410, 367);
+		setResizable(false);
 		setIconifiable(true);
-		setMaximizable(true);
+		setMaximizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Evento");
