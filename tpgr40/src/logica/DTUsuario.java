@@ -10,7 +10,7 @@ public class DTUsuario {
 		this.nombre = nom;
 		this.correo = c;
 	}
-	public String getNick( ) { return nickname; }
-
-	
+	public String getNickname() { return nickname; }
+	public String getNombre() { return nombre; }
+	public String getCorreo() { return correo; }	
 }
