@@ -29,7 +29,8 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 	private JLabel lblAsistentes;
 	private JComboBox comboBoxEventos;
 	private JComboBox comboBoxEdiciones;
-	private JComboBox comboBoxTipoRegistro;
+	//private JComboBox comboBoxTipoRegistro;
+	private JComboBox<String> comboBoxTipoRegistro;
 	private JComboBox<String> comboBoxAsistentes;
 	
 	
@@ -127,11 +128,12 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         btnRegistrar.setBounds(81, 502, 150, 35);
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = (String) comboBoxAsistentes.getSelectedItem();
-            String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
+            //String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
+            String nombreTRegistro = (String) comboBoxTipoRegistro.getSelectedItem();
             String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
             String nickEvento = (String) comboBoxEventos.getSelectedItem();
 
-            boolean error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nickEvento, nombreTRegistro);
+            boolean error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
 
             if (error) {
                 JOptionPane.showMessageDialog(this, 
