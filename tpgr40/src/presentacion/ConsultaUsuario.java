@@ -103,7 +103,7 @@ public class ConsultaUsuario extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
             	String nom = (String) comboBoxUsuario.getSelectedItem();
             	
-            	if (u != null && !u.equals("Seleccione un usuario")) {
+            	if (nom != null && !nom.equals("Seleccione un usuario")) {
             		u = c.elegirUsuario(nom);
             		if(u instanceof DTAsistente) {
             			panelOrg.setVisible(false);
@@ -399,7 +399,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	    	RegTipo = reg.getTipo();
 	    	
 	       	comboBoxRegistro.addItem("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>" );
-		}   
+		}
 	}
 	
 	protected void consultaOrganizador(ActionEvent e, DTOrganizador o) {
