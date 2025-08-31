@@ -190,6 +190,11 @@ public class AltaPatrocinio extends JInternalFrame{
             }
         });
         
+        botonCancelar.addActionListener(new ActionListener( ) {
+        	@Override
+            public void actionPerformed(ActionEvent e) { dispose(); }
+        });
+        
         botonCrear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

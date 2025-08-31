@@ -104,7 +104,7 @@ public class ConsultaUsuario extends JInternalFrame {
         comboBoxUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	String nom = (String) comboBoxUsuario.getSelectedItem();
-            	
+            	borrarCampos();
             	if (nom != null && !nom.equals("Seleccione un usuario")) {
             		u = c.elegirUsuario(nom);
             		if(u instanceof DTAsistente) {
@@ -461,5 +461,29 @@ public class ConsultaUsuario extends JInternalFrame {
                 }
 			}
 		}
+	}
+	
+	private void borrarCampos() {
+		txtNick.setText("");
+		txtNom.setText("");
+    	txtCorreo.setText("");
+    	txtAp.setText("");
+    	txtNac.setText("");
+    	txtLink.setText("");
+    	Descripcion.setText("");
+    	
+    	txtEdNom.setText("");
+    	txtEdSigla.setText("");
+		txtEdOrg.setText("");
+		txtEdFI.setText("");
+		txtEdFF.setText("");
+		txtEdFA.setText("");
+		txtEdPais.setText("");
+		txtEdCiudad.setText("");
+		
+		txtRgEd.setText("");
+    	txtRgCosto.setText("");
+    	txtRgFecha.setText("");
+		txtRgTipo.setText("");
 	}
 }
