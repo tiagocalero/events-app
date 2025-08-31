@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,7 +27,7 @@ import javax.swing.JPanel;
 
 public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblUsuarios;
-	private JComboBox comboBoxEventos;
+	private JComboBox comboBoxUsuario;
 	private JLabel lblNombre;
 	private final JTextField txtNick = new JTextField();
 	private JTextField txtNom;
@@ -90,28 +91,32 @@ public class ConsultaUsuario extends JInternalFrame {
         getContentPane().add(panelOrg_2);
         panelOrg_2.setLayout(null);
         
-        comboBoxEventos = new JComboBox();
-        comboBoxEventos.setBounds(27, 53, 201, 43);
+        comboBoxUsuario = new JComboBox();
+		comboBoxUsuario.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un usuario"}));
+        comboBoxUsuario.setBounds(27, 53, 201, 43);
         ControladorUsuario c = ControladorUsuario.getInstance();
-        comboBoxEventos.addItem("Selecciona un Usuario");
         for (String e: c.listarUsuarios()) {
-        	comboBoxEventos.addItem(e);
+        	comboBoxUsuario.addItem(e);
         }
-        getContentPane().add(comboBoxEventos);
-        comboBoxEventos.addActionListener(new ActionListener() {
+        getContentPane().add(comboBoxUsuario);
+        comboBoxUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	u = c.elegirUsuario((String) comboBoxEventos.getSelectedItem());
-            	if(u instanceof DTAsistente) {
-            		panelOrg.setVisible(false);
-            		panelOrg_2.setVisible(false);
-            		DTAsistente a = (DTAsistente) u;
-            		consultaAsistente(e, a);
-            	} else {
-            		assert u instanceof DTOrganizador;
-            		panelOrg.setVisible(true);
-            		panelOrg_2.setVisible(true);
-        			DTOrganizador o = (DTOrganizador) u;
-            		consultaOrganizador(e, o);
+            	String nom = (String) comboBoxUsuario.getSelectedItem();
+            	
+            	if (nom != null && !nom.equals("Seleccione un usuario")) {
+            		u = c.elegirUsuario(nom);
+            		if(u instanceof DTAsistente) {
+            			panelOrg.setVisible(false);
+            			panelOrg_2.setVisible(false);
+            			DTAsistente a = (DTAsistente) u;
+            			consultaAsistente(e, a);
+            		} else {
+            			assert u instanceof DTOrganizador;
+            			panelOrg.setVisible(true);
+            			panelOrg_2.setVisible(true);
+            			DTOrganizador o = (DTOrganizador) u;
+            			consultaOrganizador(e, o);
+            		}
             	}
             }
         });
@@ -394,7 +399,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	    	RegTipo = reg.getTipo();
 	    	
 	       	comboBoxRegistro.addItem("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>" );
-		}   
+		}
 	}
 	
 	protected void consultaOrganizador(ActionEvent e, DTOrganizador o) {

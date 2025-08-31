@@ -9,8 +9,11 @@ import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
 import logica.ControladorUsuario;
+import logica.DTAsistente;
+import logica.DTOrganizador;
 import logica.DTEdicion;
 import logica.DTRegistro;
+import logica.DTUsuario;
 import logica.TipoNivelPatrocinio;
 
 import javax.swing.JButton;
@@ -20,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -32,6 +36,11 @@ public class ConsultaRegistro extends JInternalFrame {
 	private JComboBox comboBoxUsuarios;
 	private JComboBox comboBoxRegistros;
 	private JButton btnCerrar;
+
+	private String RegEdicion;
+	private String RegTipo;
+	private String RegFecha;
+	private float RegCosto;
 	
 	public ConsultaRegistro() {
 		setVisible(true);
@@ -47,12 +56,16 @@ public class ConsultaRegistro extends JInternalFrame {
 		
 		comboBoxUsuarios = new JComboBox();
 		comboBoxUsuarios.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un usuario"}));
-		comboBoxUsuarios.setBounds(27, 60, 226, 43);
+		comboBoxUsuarios.setBounds(27, 60, 263, 43);
+        ControladorUsuario c = ControladorUsuario.getInstance();
+        for (String e: c.listarUsuarios()) {
+        	comboBoxUsuarios.addItem(e);
+        }
         getContentPane().add(comboBoxUsuarios);
         
         comboBoxRegistros = new JComboBox();
         comboBoxRegistros.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un registro"}));
-        comboBoxRegistros.setBounds(27, 137, 226, 43);
+        comboBoxRegistros.setBounds(27, 137, 263, 43);
         getContentPane().add(comboBoxRegistros);
         
 		lblRegistro = new JLabel("Datos del Registro");
@@ -108,21 +121,27 @@ public class ConsultaRegistro extends JInternalFrame {
         comboBoxUsuarios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 // Obtener el usuario seleccionado
                 String usuarioSeleccionado = (String) comboBoxUsuarios.getSelectedItem();
                 
                 // Verificar que la selección sea válida
                 if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
-                    
+                	
                 	// Llamar al método que carga los registros
-                	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
-                    edicionesModel.addElement("Seleccione una Edicion");
+                	DefaultComboBoxModel<String> registrosModel = new DefaultComboBoxModel<>();
+                    registrosModel.addElement("Seleccione un registro");
                     
                     ControladorUsuario m = ControladorUsuario.getInstance();
-                    for (DTRegistro registro : m.registrosDeAsistente(usuarioSeleccionado)) {
-                        edicionesModel.addElement(registro.getEdicion()); // 
+                    for (DTRegistro reg : m.registrosDeAsistente(usuarioSeleccionado)) {
+            	    	RegEdicion = reg.getEdicion();
+            	    	RegFecha = reg.getFecha().format(fmt);
+            	    	RegCosto = reg.getCosto();
+            	    	RegTipo = reg.getTipo();
+            	    	
+                        registrosModel.addElement("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>"); // 
                     }
-                    comboBoxRegistros.setModel(edicionesModel);
+                    comboBoxRegistros.setModel(registrosModel);
                 }
              
             }
@@ -133,16 +152,16 @@ public class ConsultaRegistro extends JInternalFrame {
         	public void actionPerformed(ActionEvent e) {
         		String usuarioSeleccionado = (String) comboBoxUsuarios.getSelectedItem();
         		String registroSeleccionado = (String) comboBoxRegistros.getSelectedItem();
-                
-        		ControladorUsuario m = ControladorUsuario.getInstance();
-        		DTRegistro dtr = m.datosRegistroUsuario(registroSeleccionado, usuarioSeleccionado);
+        		if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
+        			if (registroSeleccionado != null && !registroSeleccionado.equals("Seleccione un registro")) {
         		
-        		textNombre.setText(dtr.getEdicion());
-        		textCosto.setText(String.valueOf(dtr.getCosto()));
-        		textFecha.setText(dtr.getFecha().toString());
-        		
+        				textNombre.setText(RegEdicion);
+        				textCosto.setText(Float.toString(RegCosto));
+        				textFecha.setText(String.valueOf(RegFecha));
+        			}
+        		}
         	}
-        });     
+        });
         
 	}
 	
