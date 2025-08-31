@@ -129,6 +129,7 @@ public class ConsultaRegistro extends JInternalFrame {
                     for (DTRegistro registro : m.registrosDeAsistente(usuarioSeleccionado)) {
                         registrosModel.addElement(registro.getEdicion()); // 
                     }
+                    comboBoxRegistros.setModel(edicionesModel);
                 }
              
             }
