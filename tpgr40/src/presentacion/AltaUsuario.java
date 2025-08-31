@@ -319,6 +319,7 @@ public class AltaUsuario extends JInternalFrame {
     	textField_4.setText("");
     	textField_6.setText("");
     	textArea.setText("");
+    	comboBox.setSelectedItem("Sin Institución");
 	}
 
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
