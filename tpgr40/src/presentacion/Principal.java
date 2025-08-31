@@ -151,7 +151,7 @@ public class Principal extends JFrame {
         
         menuInstitucion.add(menuAltaInst);        
         
-        JMenuItem menuAltaTipoRegistro = new JMenuItem("Alta de Tipo Registro");
+        JMenuItem menuAltaTipoRegistro = new JMenuItem("Alta de Tipo de Registro");
         menuAltaTipoRegistro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -160,6 +160,17 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuAltaTipoRegistro);
+        
+        JMenuItem menuConsultaTipoRegistro = new JMenuItem("Consulta de Tipo de Registro");
+        menuConsultaTipoRegistro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame c = new ConsultaTipoRegistro();
+                frmPrincipal.getContentPane().add(c);
+            }
+        });
+        menuEventos.add(menuConsultaTipoRegistro);
 	}
+	
 	
 }

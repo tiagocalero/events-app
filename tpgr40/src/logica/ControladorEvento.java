@@ -173,12 +173,17 @@ public class ControladorEvento{
         }
 		return resultado;
 	}
-		//esto seria con la edicion del controlador? 
-	public List<DTTRegistro> seleccionarTipoRegistro(Edicion ed){
+
+	public List<DTTRegistro> listarTipoRegistro(String nombreEvento, String nombreEdicion){
 			
 			List<DTTRegistro> resultado = new ArrayList<>();
 			
+			ManejadorEvento m = ManejadorEvento.getInstance();
+			Evento ev = m.obtenerEvento(nombreEvento);
+			Edicion ed = m.obtenerEdicion(nombreEdicion, ev);
+			
 			for (TRegistro tr : ed.getTRegistros()) {
+				
 				DTTRegistro dtr = new DTTRegistro(
 						tr.getCupo(),
 						tr.getCosto(),
@@ -193,7 +198,7 @@ public class ControladorEvento{
 	}
 
 	//PRE:: hay un registro en edicion con string nombre
-	public DTTRegistro seleccionarTipoRegistro(String nombre){
+	public DTTRegistro seleccionarTipoRegistro(String nombreEdicion){
 		
 		TRegistro tr = edicion.getTipoRegistro(nombre);
 		
