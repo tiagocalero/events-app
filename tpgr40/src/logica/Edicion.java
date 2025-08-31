@@ -116,8 +116,10 @@ public class Edicion {
         return tRegistros.get(nombre);
     }
     
+    public void agregarRegistro(Registro r) {
+    	registros.add(r);
+    }
     /*public TRegistro obtenerTRegistro(String nombre) {
-    	return 
-    }*/
-    		
+	return 
+}*/
 }

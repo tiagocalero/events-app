@@ -288,6 +288,7 @@ public class ControladorEvento{
 		float costo = t.getCosto();
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion);
 		asistente.agregarRegistro(nuevoRegistro);
+		edicion.agregarRegistro(nuevoRegistro);
 		return false;
 	}
 	public boolean darDeAltaRegistroCD(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String fechaAlta, int costo) {
@@ -309,6 +310,7 @@ public class ControladorEvento{
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion);
 		asistente.agregarRegistro(nuevoRegistro);
+		edicion.agregarRegistro(nuevoRegistro);
 		return false;
 	}
 	
