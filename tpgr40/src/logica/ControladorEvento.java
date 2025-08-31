@@ -139,6 +139,29 @@ public class ControladorEvento{
 		return true;
 	}
 	
+	public boolean crearPatrocinioCargaDatos(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
+		//Obtengo la Institucion
+		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
+		Institucion instInstitucion = mi.obtener(nombreInstitucion);
+		
+		//Obtengo la Edicion
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		Evento instEvento = me.obtenerEvento(nombreEvento);
+		Edicion instEdicion = me.obtenerEdicion(nombreEdicion, instEvento);
+		
+		//Obtengo el TipoRegistro y la fecha
+		TRegistro tp = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
+				
+        //Obtengo el Costo y lo calculo para ver si falla
+		float costo = tp.getCosto();
+		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
+			return false;
+		
+		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
+		
+		return true;
+	}
+	
 	
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();

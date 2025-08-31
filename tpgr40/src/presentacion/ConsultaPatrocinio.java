@@ -21,6 +21,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class ConsultaPatrocinio extends JInternalFrame {
 	private JLabel lblEventos;
 	private JComboBox comboBoxEventos;
@@ -31,6 +34,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 	private JTextField textCantRegistros;
 	private JTextField textNivelPatrocinio;
 	private JTextField textTRegistros;
+	private JTextField textFechaAlta;
 	
 	public ConsultaPatrocinio() {
 		setVisible(true);
@@ -104,6 +108,17 @@ public class ConsultaPatrocinio extends JInternalFrame {
         textTRegistros.setColumns(10);
         textTRegistros.setBounds(535, 163, 226, 37);
         getContentPane().add(textTRegistros);
+        
+        JLabel lblNombre_1_1 = new JLabel("Fecha de Alta:");
+        lblNombre_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblNombre_1_1.setBounds(291, 263, 234, 37);
+        getContentPane().add(lblNombre_1_1);
+        
+        textFechaAlta = new JTextField();
+        textFechaAlta.setEditable(false);
+        textFechaAlta.setColumns(10);
+        textFechaAlta.setBounds(536, 263, 226, 37);
+        getContentPane().add(textFechaAlta);
 
         comboBoxEventos.addActionListener(new ActionListener() {
             @Override
@@ -193,6 +208,8 @@ public class ConsultaPatrocinio extends JInternalFrame {
             textAporteEconomico.setText(String.valueOf(dtp.getMonto()));
             textTRegistros.setText(dtp.getTipoRegistro());
             textCantRegistros.setText(String.valueOf(dtp.getCantRegistros()));
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            textFechaAlta.setText(dtp.getFechaAlta().format(fmt));
         }
 	}
 }
