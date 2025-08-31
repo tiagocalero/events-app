@@ -132,7 +132,8 @@ class ControladorEventoTest {
 			TipoNivelPatrocinio.Plata,
 			cantRegistrosOtorgados * tp.getCosto() * 4.9f,
 			"tp1",
-			(int) cantRegistrosOtorgados
+			(int) cantRegistrosOtorgados,
+			LocalDate.now()
 		);
 		assertEquals(false, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
 		
@@ -142,7 +143,8 @@ class ControladorEventoTest {
 			TipoNivelPatrocinio.Plata,
 			cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 			"tp1",
-			(int) cantRegistrosOtorgados
+			(int) cantRegistrosOtorgados,
+			LocalDate.now()
 		);
 		assertEquals(true, c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1"));
 	}

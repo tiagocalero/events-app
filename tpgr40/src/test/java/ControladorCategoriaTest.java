@@ -33,12 +33,12 @@ class ControladorCategoriaTest {
 		assertEquals(true, c.altaCategoria("Categoría 2"));
 		assertEquals(true, m.existe("Categoría 2"));
 	}
-	@Test @Order(1)
+	@Test @Order(2)
 	void testCrearExistente() {
 		assertEquals(false, c.altaCategoria("Categoría 1"));
 	}
 
-	@Test @Order(2)
+	@Test @Order(3)
 	void deberiaObtener() {
 		c.altaCategoria("Categoría 3");
 		c.altaCategoria("Categoría 4");
