@@ -43,7 +43,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consulta Patrocinio");
+		setTitle("Consultar un Patrocinio");
 		setBounds(30, 30, 833, 349);
 		getContentPane().setLayout(null);
 		

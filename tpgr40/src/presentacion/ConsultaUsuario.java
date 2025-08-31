@@ -52,6 +52,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JTextField txtEdFA;
 	private JTextField txtEdCiudad;
 	private JTextField txtEdPais;
+
 	private JTextField txtRgEd;
 	private JTextField txtRgFecha;
 	private JTextField txtRgCosto;
@@ -60,6 +61,8 @@ public class ConsultaUsuario extends JInternalFrame {
 	private String RegTipo;
 	private String RegFecha;
 	private float RegCosto;
+
+	private JButton btnCerrar;
 	
 	public ConsultaUsuario() {
 		setVisible(true);
@@ -69,7 +72,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Usuario");
-		setBounds(30, 30, 859, 752);
+		setBounds(30, 30, 854, 798);
 		getContentPane().setLayout(null);
 		
 		lblUsuarios = new JLabel("Usuarios");
@@ -83,13 +86,14 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg.setLayout(null);
         
         JPanel panelOrg_2 = new JPanel();
-        panelOrg_2.setBounds(12, 400, 799, 310);
+        panelOrg_2.setBounds(12, 400, 822, 310);
         getContentPane().add(panelOrg_2);
         panelOrg_2.setLayout(null);
         
         comboBoxEventos = new JComboBox();
         comboBoxEventos.setBounds(27, 53, 201, 43);
         ControladorUsuario c = ControladorUsuario.getInstance();
+        comboBoxEventos.addItem("Selecciona un Usuario");
         for (String e: c.listarUsuarios()) {
         	comboBoxEventos.addItem(e);
         }
@@ -223,7 +227,7 @@ public class ConsultaUsuario extends JInternalFrame {
         
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        panel.setBounds(0, 104, 812, 157);
+        panel.setBounds(0, 104, 822, 157);
         panelOrg_2.add(panel);
         
         JLabel lblEdNom = new JLabel("Nombre:");
@@ -232,6 +236,7 @@ public class ConsultaUsuario extends JInternalFrame {
         panel.add(lblEdNom);
         
         txtEdNom = new JTextField();
+        txtEdNom.setHorizontalAlignment(SwingConstants.LEFT);
         txtEdNom.setEditable(false);
         txtEdNom.setColumns(10);
         txtEdNom.setBounds(113, 0, 147, 37);
@@ -313,7 +318,7 @@ public class ConsultaUsuario extends JInternalFrame {
         txtEdPais.setColumns(10);
         txtEdPais.setBounds(657, 49, 147, 37);
         panel.add(txtEdPais);
-        
+
         JLabel lblRgEd = new JLabel("Edicion:");
         lblRgEd.setHorizontalAlignment(SwingConstants.RIGHT);
         lblRgEd.setBounds(27, 504, 106, 37);
@@ -357,6 +362,16 @@ public class ConsultaUsuario extends JInternalFrame {
         lblRgTipo.setHorizontalAlignment(SwingConstants.RIGHT);
         lblRgTipo.setBounds(286, 553, 106, 37);
         getContentPane().add(lblRgTipo);
+
+        btnCerrar = new JButton("Cerrar");
+        btnCerrar.setBounds(706, 722, 105, 27);
+		btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+        getContentPane().add(btnCerrar);
         
         
 	}
@@ -377,6 +392,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	    	RegFecha = reg.getFecha().format(formatter);
 	    	RegCosto = reg.getCosto();
 	    	RegTipo = reg.getTipo();
+	    	
 	       	comboBoxRegistro.addItem("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>" );
 		}   
 	}

@@ -119,5 +119,4 @@ public class Edicion {
     public void agregarRegistro(Registro r) {
     	registros.add(r);
     }
-    		
 }
