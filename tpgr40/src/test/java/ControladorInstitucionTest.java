@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import logica.ControladorInstitucion;
-import logica.ManejadorCategoria;
+import logica.ManejadorInstitucion;
 
 
 import excepciones.PatrocinioSuperaMontoException;
@@ -26,7 +26,6 @@ class ControladorInstitucionTest {
 	// Se ejecuta antes que todos los tests
 	@BeforeAll
 	static void setup() {
-		
 		// Crear instituciones de prueba
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
 		ci.altaInstitucion("Institucion 1", "inst", "http://");
@@ -37,7 +36,7 @@ class ControladorInstitucionTest {
 	// Se ejecuta después que todos los tests
 	@AfterAll
 	static void borrado() {
-		ManejadorCategoria.borrarInstance();
+		ManejadorInstitucion.borrarInstance();
 	}
 	
 	// Probar crear instituciones con nombre que ya existen

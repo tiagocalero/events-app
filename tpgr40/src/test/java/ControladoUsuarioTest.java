@@ -26,6 +26,8 @@ import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
 import logica.DTUsuario;
 import logica.ManejadorCategoria;
+import logica.ManejadorInstitucion;
+import logica.ManejadorUsuario;
 
 import org.junit.jupiter.api.MethodOrderer;
 import java.util.stream.Collectors;
@@ -64,6 +66,8 @@ class ControladorUsuarioTest {
 	// Se ejecuta después que todos los tests
 	@AfterAll
 	static void borrado() {
+		ManejadorUsuario.getInstance().liberarMemoria();
+		ManejadorInstitucion.borrarInstance();
 	}
 	
 	// Probar crear un usuario con nickname ya existente

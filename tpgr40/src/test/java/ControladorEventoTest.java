@@ -1,36 +1,37 @@
 package test.java;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import logica.ControladorEvento;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import excepciones.PatrocinioSuperaMontoException;
 import logica.ControladorCategoria;
+import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.Edicion;
-import logica.TipoNivelPatrocinio;
 import logica.ManejadorCategoria;
-import logica.ManejadorEvento;
-import logica.TRegistro;
+import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
-import excepciones.PatrocinioSuperaMontoException;
+import logica.ManejadorEvento;
+import logica.TipoNivelPatrocinio;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorEventoTest {
@@ -62,6 +63,8 @@ class ControladorEventoTest {
 	static void borrado() {
 		ManejadorCategoria.borrarInstance();
 		ManejadorUsuario.getInstance().liberarMemoria();
+		ManejadorInstitucion.borrarInstance();
+		ManejadorEvento.borrarInstance();
 	}
 	
 	// Probar crear eventos con categorías que ya existen
