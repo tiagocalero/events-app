@@ -323,7 +323,7 @@ public class ControladorEvento{
 		
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion, t);
+		Registro nuevoRegistro = new Registro(costo, LocalDate.parse(fechaAlta, fmt), asistente, edicion, t);
 		edicion.agregarRegistro(nuevoRegistro);
 		asistente.agregarRegistro(nuevoRegistro);
 		
