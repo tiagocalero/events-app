@@ -71,6 +71,7 @@ class ControladorUsuarioTest {
 	static void borrado() {
 		ManejadorUsuario.getInstance().liberarMemoria();
 		ManejadorInstitucion.borrarInstance();
+		ManejadorCategoria.borrarInstance();
 	}
 	
 	// Probar crear un usuario con nickname ya existente
@@ -193,5 +194,11 @@ class ControladorUsuarioTest {
 		
 	}
 
-	
+	@Test @Order(5)
+	void testRegistroUsuario() {
+		DTRegistro dt = c.datosRegistroUsuario("Edición test 1", "as");
+		assertEquals(101, dt.getCosto());
+		assertEquals("Edición test 1", dt.getEdicion());
+		assertEquals("tp5", dt.getTipo());
+	}
 }
