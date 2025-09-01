@@ -58,10 +58,6 @@ public class Asistente extends Usuario {
 		if (ins != null) this.institucion = c.obtenerInstitucion(ins);
 	}
 
-	public String getApellido() {
-		return apellido;
-	}
-	
 	//Retorna el registro con el nombre de la edicion
 	public Registro getRegistro(String nombreEdicion) {
 		Registro res = null;

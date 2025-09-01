@@ -55,10 +55,6 @@ public class Edicion {
 		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, nickAsistentes, organizador.getNickname());
 	}
 	
-	public List<String> getInstituciones() {
-		return patrocinios.values().stream().map(p -> p.getInstitucion().getNombre()).collect(Collectors.toList());
-	}
-
     public String getNombre() {
         return this.nombre;
     }
