@@ -20,8 +20,10 @@ import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 import logica.DTAsistente;
+import logica.DTAsistenteModificado;
 import logica.DTEvento;
 import logica.DTOrganizador;
+import logica.DTOrganizadorModificado;
 import logica.DTUsuario;
 import logica.ManejadorCategoria;
 
@@ -38,12 +40,13 @@ import java.util.List;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {
 	private static ControladorUsuario c;
+	private static DateTimeFormatter fmt;
 	
 	// Se ejecuta antes que todos los tests
 	@BeforeAll
 	static void setup() {
 		c = ControladorUsuario.getInstance();
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 
 		// Crear asistente de prueba
@@ -52,9 +55,10 @@ class ControladorUsuarioTest {
 		// Crear organizador de prueba
 		c.altaOrganizador("org", "Organizador 1", "o", "organiza", "http://");
 		
-		// Crear institución de prueba
+		// Crear instituciónes de prueba
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
 		ci.altaInstitucion("Institución 1", "inst", "http://");
+		ci.altaInstitucion("Institución 2", "inst2", "http://");
 	}
 	
 	// Se ejecuta después que todos los tests
@@ -65,8 +69,8 @@ class ControladorUsuarioTest {
 	// Probar crear un usuario con nickname ya existente
 	@Test @Order(1)
 	void testCrearUsuario() {
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		        
+		
+		// chequeo asistente
 		assertEquals(true, c.altaAsistente("as2", "Asistente 2", "a2", "prueba2", LocalDate.parse("12/12/2012", fmt), "Institución 1"));
 				
 		DTAsistente dta = (DTAsistente) c.elegirUsuario("as2");
@@ -77,7 +81,8 @@ class ControladorUsuarioTest {
 		assertEquals("prueba2", dta.getApellido());
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dta.getNacimiento());
 		assertEquals("Institución 1", dta.getInstitucion());
-		        
+		
+		// cheqeuo organizador
 		assertEquals(true, c.altaOrganizador("org2", "Organizador 2", "o2", "organiza2", "http://"));
 				
 		DTOrganizador dto = (DTOrganizador) c.elegirUsuario("org2");
@@ -91,9 +96,7 @@ class ControladorUsuarioTest {
 	
 	// Probar crear un usuario con nickname ya existente
 	@Test @Order(2)
-	void testCrearUsuarioConNickOCorreoExistente() {
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	    
+	void testCrearUsuarioConNickOCorreoExistente() {	    
 		// chequeo nickname
 		assertEquals(false, c.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
 		
@@ -115,6 +118,32 @@ class ControladorUsuarioTest {
 		assertEquals("prueba", dtu.getApellido());
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dtu.getNacimiento());
 		assertEquals(null, dtu.getInstitucion());
+	}
+	
+	@Test @Order(3)
+	void testModificarDatosUsuario() {
+		// chequeo asistente
+		DTAsistenteModificado dtam = new DTAsistenteModificado("Asistente Modificado", "apm", LocalDate.parse("01/01/2000", fmt), "Institución 2");
+		c.elegirUsuario("as");
+		c.modificarDatosUsuario(dtam);
+		DTAsistente dta = (DTAsistente) c.elegirUsuario("as");
+		// Tomar el dt y asegurarse que cada campo sea correcto
+		assertEquals("Asistente Modificado", dta.getNombre());
+		assertEquals("a", dta.getCorreo());
+		assertEquals("apm", dta.getApellido());
+		assertEquals(LocalDate.parse("01/01/2000", fmt), dta.getNacimiento());
+		assertEquals("Institución 2", dta.getInstitucion());
+		
+		// chequeo organizador
+		DTOrganizadorModificado dtom = new DTOrganizadorModificado("Organizador Modificado", "organiza modificado", "http:// modificado");
+		c.elegirUsuario("org");
+		c.modificarDatosUsuario(dtom);
+		DTOrganizador dto = (DTOrganizador) c.elegirUsuario("org");
+		// Tomar el dt y asegurarse que cada campo sea correcto
+		assertEquals("Organizador Modificado", dto.getNombre());
+		assertEquals("o", dto.getCorreo());
+		assertEquals("organiza modificado", dto.getDescripcion());
+		assertEquals("http:// modificado", dto.getLink());
 	}
 
 	

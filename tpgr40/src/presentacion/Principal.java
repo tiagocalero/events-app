@@ -14,8 +14,6 @@ public class Principal extends JFrame {
 	private JFrame frmPrincipal;
 	private AltaEvento altEventoInternalFrame;
 	private AltaPatrocinio altPatInternalFrame;
-    private ModificarDatosAsistente modDatosAsInternalFrame;
-    private ModificarDatosOrganizador modDatosOrgInternalFrame;
     private AltaInstitucion altaInstInternalFrame;
     private JDesktopPane desktopPane;
 

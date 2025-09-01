@@ -82,7 +82,6 @@ public class ModificarDatosUsuario extends JInternalFrame {
         comboBoxUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	String nom = (String) comboBoxUsuario.getSelectedItem();
-            	
             	if (nom != null) {
             		u = c.elegirUsuario(nom);
             		if(u instanceof DTAsistente) {
