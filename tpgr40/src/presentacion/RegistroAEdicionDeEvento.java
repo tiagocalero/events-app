@@ -48,12 +48,12 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
-		lblEventos.setBounds(22, 29, 262, 36);
+		lblEventos.setBounds(22, 40, 309, 36);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
         comboBoxEventos = new JComboBox();
-        comboBoxEventos.setBounds(22, 76, 262, 46);
+        comboBoxEventos.setBounds(22, 75, 309, 46);
         
         ControladorEvento c = ControladorEvento.getInstance();
         
@@ -65,11 +65,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         lblEdiciones = new JLabel("Ediciones: ");
         lblEdiciones.setHorizontalAlignment(SwingConstants.CENTER);
-        lblEdiciones.setBounds(30, 133, 254, 36);
+        lblEdiciones.setBounds(22, 152, 309, 36);
         getContentPane().add(lblEdiciones);
         
         comboBoxEdiciones = new JComboBox();
-        comboBoxEdiciones.setBounds(22, 188, 262, 46);
+        comboBoxEdiciones.setBounds(22, 188, 309, 46);
         getContentPane().add(comboBoxEdiciones);
         
         comboBoxEventos.addActionListener(e -> {
@@ -87,11 +87,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         lblTipoRegistro = new JLabel("Tipos de Registro: ");
         lblTipoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTipoRegistro.setBounds(22, 257, 262, 36);
+        lblTipoRegistro.setBounds(22, 268, 309, 36);
         getContentPane().add(lblTipoRegistro);
         
         comboBoxTipoRegistro = new JComboBox<>();
-        comboBoxTipoRegistro.setBounds(22, 304, 262, 46);
+        comboBoxTipoRegistro.setBounds(22, 304, 309, 46);
         getContentPane().add(comboBoxTipoRegistro);
         
         comboBoxEdiciones.addActionListener(e -> {
@@ -115,11 +115,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         lblAsistentes = new JLabel("Asistentes: ");
         lblAsistentes.setHorizontalAlignment(SwingConstants.CENTER);
-        lblAsistentes.setBounds(22, 375, 262, 36);
+        lblAsistentes.setBounds(22, 386, 309, 36);
         getContentPane().add(lblAsistentes);
         
         comboBoxAsistentes = new JComboBox<>();
-        comboBoxAsistentes.setBounds(22, 422, 262, 46);
+        comboBoxAsistentes.setBounds(22, 422, 309, 46);
         getContentPane().add(comboBoxAsistentes);
         
         ControladorUsuario cu = ControladorUsuario.getInstance();
@@ -128,7 +128,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         	comboBoxAsistentes.addItem(asistente.getNickname());
         }
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(81, 502, 150, 35);
+        btnRegistrar.setBounds(181, 520, 150, 35);
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = (String) comboBoxAsistentes.getSelectedItem();
             //String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
@@ -154,7 +154,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         getContentPane().add(btnRegistrar);
         
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(81, 551, 150, 35);
+        btnCancelar.setBounds(22, 520, 150, 35);
         getContentPane().add(btnCancelar);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

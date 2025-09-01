@@ -35,6 +35,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 	private JTextField textNivelPatrocinio;
 	private JTextField textTRegistros;
 	private JTextField textFechaAlta;
+	private JButton btnCerrar;
 	
 	public ConsultaPatrocinio() {
 		setVisible(true);
@@ -44,7 +45,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Patrocinio");
-		setBounds(30, 30, 833, 349);
+		setBounds(30, 30, 833, 399);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Patrocinio");
@@ -119,6 +120,16 @@ public class ConsultaPatrocinio extends JInternalFrame {
         textFechaAlta.setColumns(10);
         textFechaAlta.setBounds(536, 263, 226, 37);
         getContentPane().add(textFechaAlta);
+        
+        btnCerrar = new JButton("Cerrar");
+        btnCerrar.setBounds(657, 330, 105, 27);
+        btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+        getContentPane().add(btnCerrar);
 
         comboBoxEventos.addActionListener(new ActionListener() {
             @Override
