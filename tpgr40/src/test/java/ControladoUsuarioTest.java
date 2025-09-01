@@ -23,6 +23,7 @@ import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTAsistenteModificado;
+import logica.DTEdicion;
 import logica.DTEvento;
 import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
@@ -31,6 +32,7 @@ import logica.DTRegistro;
 import logica.ManejadorCategoria;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
+import logica.Organizador;
 
 import org.junit.jupiter.api.MethodOrderer;
 import java.util.stream.Collectors;
@@ -158,6 +160,16 @@ class ControladorUsuarioTest {
 		assertEquals(dtr1.getTipo(), dtr2.getTipo());
 	}
 	
+	void compararDTEdiciones(DTEdicion dte1, DTEdicion dte2) {
+		assertEquals(dte1.getPais(), dte2.getPais());
+		assertEquals(dte1.getCiudad(), dte2.getCiudad());
+		assertEquals(dte1.getFechaInicio(), dte2.getFechaInicio());
+		assertEquals(dte1.getFechaFin(), dte2.getFechaFin());
+		assertEquals(dte1.getFechaAlta(), dte2.getFechaAlta());
+		assertEquals(dte1.getSigla(), dte2.getSigla());
+		assertEquals(dte1.getNombre(), dte2.getNombre());
+	}
+	
 	@Test @Order(4)
 	void testConsultaUsuario() {
 		ControladorEvento ce = ControladorEvento.getInstance();
@@ -170,6 +182,8 @@ class ControladorUsuarioTest {
 		ce.ingresarDatosEvento("Evento test", "descripcion1", "e1", List.of("c1", "c2", "c3"));
 		assertEquals(true, ce.altaEdicion("Evento test", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
 		assertEquals(true, ce.altaEdicion("Evento test", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
+		DTEdicion dte1 = new DTEdicion("Uruguay", "Montevideo", f, f, f, "ed1", "Edición test 1");
+		DTEdicion dte2 = new DTEdicion("Uruguay", "Salto", f, f, f, "ed2", "Edición test 2");
 		
 		ce.crearTipoRegistro("Evento test", "Edición test 1", "tp5", "desc5", 101, 12);
 		ce.crearTipoRegistro("Evento test", "Edición test 2", "tp5", "desc5", 101, 12);
@@ -180,17 +194,21 @@ class ControladorUsuarioTest {
 		
 		Asistente a = (Asistente) c.obtenerUsuario("as");
 		// chequeo asistente
-		compararDTRegistros(dtr1, a.consulta().get(0));
-		compararDTRegistros(dtr2, a.consulta().get(1));
+		compararDTRegistros(dtr1, a.consulta().get(1));
+		compararDTRegistros(dtr2, a.consulta().get(0));
 		
 		c.elegirUsuario("as");
 		compararDTRegistros(a.consulta().get(1), c.consultaAsistente().get(1));
 		compararDTRegistros(a.consulta().get(0), c.consultaAsistente().get(0));
 		
-		
+		Organizador o = (Organizador) c.obtenerUsuario("org");
 		// chequeo organizador
+		compararDTEdiciones(dte1, o.consulta().get(0));
+		compararDTEdiciones(dte2, o.consulta().get(1));
 		
-		
+		c.elegirUsuario("org");
+		compararDTEdiciones(o.consulta().get(1), c.consultaOrganizador().get(1));
+		compararDTEdiciones(o.consulta().get(0), c.consultaOrganizador().get(0));
 	}
 
 	
