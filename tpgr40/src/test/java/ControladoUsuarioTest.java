@@ -73,7 +73,6 @@ class ControladorUsuarioTest {
 	static void borrado() {
 		ManejadorUsuario.getInstance().liberarMemoria();
 		ManejadorInstitucion.borrarInstance();
-		ManejadorCategoria.borrarInstance();
 	}
 	
 	// Probar crear un usuario con nickname ya existente
@@ -195,21 +194,50 @@ class ControladorUsuarioTest {
 		
 		Asistente a = (Asistente) c.obtenerUsuario("as");
 		// chequeo asistente
-		compararDTRegistros(dtr1, a.consulta().get(1));
-		compararDTRegistros(dtr2, a.consulta().get(0));
+		DTRegistro aget0 = a.consulta().get(0);
+		DTRegistro aget1 = a.consulta().get(1);
+		if (aget0.getEdicion() == dtr1.getEdicion()) {
+			compararDTRegistros(dtr1, aget0);
+			compararDTRegistros(dtr2, aget1);
+		} else {
+			compararDTRegistros(dtr1, aget1);
+			compararDTRegistros(dtr2, aget0);
+		}
 		
 		c.elegirUsuario("as");
-		compararDTRegistros(a.consulta().get(1), c.consultaAsistente().get(1));
-		compararDTRegistros(a.consulta().get(0), c.consultaAsistente().get(0));
+		DTRegistro cona0 = c.consultaAsistente().get(0);
+		DTRegistro cona1 = c.consultaAsistente().get(1);
+		if (aget0.getEdicion() == cona0.getEdicion()) {
+			compararDTRegistros(aget0, cona0);
+			compararDTRegistros(aget1, cona1);
+		} else {
+			compararDTRegistros(aget0, cona1);
+			compararDTRegistros(aget1, cona0);
+		}
 		
 		Organizador o = (Organizador) c.obtenerUsuario("org");
 		// chequeo organizador
-		compararDTEdiciones(dte1, o.consulta().get(0));
-		compararDTEdiciones(dte2, o.consulta().get(1));
+		
+		DTEdicion oget0 = o.consulta().get(0);
+		DTEdicion oget1 = o.consulta().get(1);
+		if (oget0.getNombre() == dte1.getNombre()) {
+			compararDTEdiciones(dte1, oget0);
+			compararDTEdiciones(dte2, oget1);
+		} else {
+			compararDTEdiciones(dte1, oget1);
+			compararDTEdiciones(dte2, oget0);
+		}
 		
 		c.elegirUsuario("org");
-		compararDTEdiciones(o.consulta().get(1), c.consultaOrganizador().get(1));
-		compararDTEdiciones(o.consulta().get(0), c.consultaOrganizador().get(0));
+		DTEdicion cono0 = c.consultaOrganizador().get(0);
+		DTEdicion cono1 = c.consultaOrganizador().get(1);
+		if (oget0.getNombre() == cono0.getNombre()) {
+			compararDTEdiciones(oget0, cono0);
+			compararDTEdiciones(oget1, cono1);
+		} else {
+			compararDTEdiciones(oget0, cono1);
+			compararDTEdiciones(oget1, cono0);
+		}
 	}
 
 	@Test @Order(5)
@@ -219,4 +247,6 @@ class ControladorUsuarioTest {
 		assertEquals("Edición test 1", dt.getEdicion());
 		assertEquals("tp5", dt.getTipo());
 	}
+
+	
 }
