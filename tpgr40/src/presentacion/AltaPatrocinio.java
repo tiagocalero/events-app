@@ -109,7 +109,7 @@ public class AltaPatrocinio extends JInternalFrame{
         
         labelPatrocinio = new JLabel("Nivel Patrocinio:");
         labelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelPatrocinio.setBounds(397, 25, 121, 37);
+        labelPatrocinio.setBounds(404, 23, 121, 37);
         getContentPane().add(labelPatrocinio);
         
         labelTipoRegistros = new JLabel("Tipo de Registro Gratutito:");
@@ -128,11 +128,11 @@ public class AltaPatrocinio extends JInternalFrame{
         getContentPane().add(textCantRegistros);
         
         botonCrear = new JButton("Crear");
-        botonCrear.setBounds(336, 314, 188, 37);
+        botonCrear.setBounds(556, 311, 188, 37);
         getContentPane().add(botonCrear);
         
         botonCancelar = new JButton("Cancelar");
-        botonCancelar.setBounds(556, 314, 188, 37);
+        botonCancelar.setBounds(356, 311, 188, 37);
         getContentPane().add(botonCancelar);
         
         labelCodigo = new JLabel("Codigo:");

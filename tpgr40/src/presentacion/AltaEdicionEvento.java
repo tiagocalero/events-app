@@ -63,18 +63,22 @@ public class AltaEdicionEvento extends JInternalFrame {
 		textCiudad.setColumns(10);
 		
 		lblNewLabel = new JLabel("Nombre:");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(340, 44, 140, 16);
 		panel.add(lblNewLabel);
 		
 		lblDescripcin = new JLabel("Sigla:");
+		lblDescripcin.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDescripcin.setBounds(340, 94, 140, 16);
 		panel.add(lblDescripcin);
 		
 		lblSigla = new JLabel("Ciudad:");
+		lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSigla.setBounds(340, 144, 140, 16);
 		panel.add(lblSigla);
 		
 		JLabel lblCategoras = new JLabel("País:");
+		lblCategoras.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCategoras.setBounds(340, 196, 140, 16);
 		panel.add(lblCategoras);
 		
@@ -120,10 +124,12 @@ public class AltaEdicionEvento extends JInternalFrame {
 		panel.add(textFechaFin);
 		
 		JLabel lblDescripcin_1 = new JLabel("Fecha Inicio:");
+		lblDescripcin_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDescripcin_1.setBounds(340, 243, 140, 16);
 		panel.add(lblDescripcin_1);
 		
 		JLabel lblSigla_1 = new JLabel("Fecha Fin:");
+		lblSigla_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSigla_1.setBounds(340, 288, 140, 16);
 		panel.add(lblSigla_1);
 		

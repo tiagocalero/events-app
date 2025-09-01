@@ -34,6 +34,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 	private JTextField textFieldDesc;
 	private JTextField textFieldCupo;
 	private JTextField textFieldCosto;
+	private JButton btnCerrar;
 
 
 
@@ -47,7 +48,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 		setClosable(true);
 
 		setTitle("Consultar un Tipo de Registro");
-		setBounds(30, 30, 727, 428);
+		setBounds(30, 30, 727, 453);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -164,6 +165,16 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         getContentPane().add(textFieldCosto);
 
         textFieldCosto.setText("Costo del registro");
+        
+        btnCerrar = new JButton("Cerrar");
+    	btnCerrar.setBounds(585, 384, 105, 27);
+    	btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+    	getContentPane().add(btnCerrar);
         
         
         comboBoxTipoRegistro.addActionListener(e -> {

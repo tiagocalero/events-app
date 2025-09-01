@@ -61,18 +61,22 @@ public class AltaTipoRegistro extends JInternalFrame {
 		textField_2.setColumns(10);
 		
 		lblNewLabel = new JLabel("Nombre:");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(340, 44, 140, 16);
 		panel.add(lblNewLabel);
 		
 		lblDescripcin = new JLabel("Descripcion:");
+		lblDescripcin.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDescripcin.setBounds(340, 94, 140, 16);
 		panel.add(lblDescripcin);
 		
 		lblSigla = new JLabel("Costo:");
+		lblSigla.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSigla.setBounds(340, 144, 140, 16);
 		panel.add(lblSigla);
 		
 		JLabel lblCategoras = new JLabel("Cupo:");
+		lblCategoras.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblCategoras.setBounds(340, 196, 140, 16);
 		panel.add(lblCategoras);
 		
