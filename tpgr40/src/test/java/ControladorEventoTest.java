@@ -264,6 +264,10 @@ class ControladorEventoTest {
         
 		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
 		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1"));
+		assertEquals(true, cu.altaAsistente("as3", "Asistente 3", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
+		
+		// Se supera el cupo
+		assertEquals(true, c.darDeAltaRegistro("as2", "Edición 1", "tp1", "Evento 1"));
 	}
 	@Test @Order(17)
 	void testListarTipoRegistro() {
