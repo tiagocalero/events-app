@@ -50,10 +50,10 @@ class ControladorUsuarioTest {
 		
 
 		// Crear asistente de prueba
-		c.altaAsistente("as", "Asistente 1", "ads", "prueba", LocalDate.parse("12/12/2012", fmt));
+		c.altaAsistente("as", "Asistente 1", "a", "prueba", LocalDate.parse("12/12/2012", fmt));
 		
 		// Crear organizador de prueba
-		c.altaOrganizador("org", "Organizador 1", "ads", "organiza", "http://");
+		c.altaOrganizador("org", "Organizador 1", "o", "organiza", "http://");
 		
 		// Crear instituciónes de prueba
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
@@ -69,15 +69,14 @@ class ControladorUsuarioTest {
 	// Probar crear un usuario con nickname ya existente
 	@Test @Order(1)
 	void testCrearUsuario() {
-		
 		// chequeo asistente
 		assertEquals(true, c.altaAsistente("as2", "Asistente 2", "a2", "prueba2", LocalDate.parse("12/12/2012", fmt), "Institución 1"));
 				
-		DTAsistente dta = (DTAsistente) c.elegirUsuario("as");
+		DTAsistente dta = (DTAsistente) c.elegirUsuario("as2");
 		// Tomar el dt y asegurarse que cada campo sea correcto
 		assertEquals("as2", dta.getNickname());
 		assertEquals("Asistente 2", dta.getNombre());
-		assertEquals("ads2", dta.getCorreo());
+		assertEquals("a2", dta.getCorreo());
 		assertEquals("prueba2", dta.getApellido());
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dta.getNacimiento());
 		assertEquals("Institución 1", dta.getInstitucion());
@@ -85,11 +84,11 @@ class ControladorUsuarioTest {
 		// cheqeueo organizador
 		assertEquals(true, c.altaOrganizador("org2", "Organizador 2", "o2", "organiza2", "http://"));
 				
-		DTOrganizador dtu = (DTOrganizador) c.elegirUsuario("as2");
+		DTOrganizador dtu = (DTOrganizador) c.elegirUsuario("org2");
 		// Tomar el dt y asegurarse que cada campo sea correcto
-		assertEquals("as2", dtu.getNickname());
-		assertEquals("Asistente 2", dtu.getNombre());
-		assertEquals("ads2", dtu.getCorreo());
+		assertEquals("org2", dtu.getNickname());
+		assertEquals("Organizador 2", dtu.getNombre());
+		assertEquals("o2", dtu.getCorreo());
 		assertEquals("organiza2", dtu.getDescripcion());
 		assertEquals("http://", dtu.getLink());
 	}
@@ -98,11 +97,21 @@ class ControladorUsuarioTest {
 	@Test @Order(2)
 	void testCrearUsuarioConNickOCorreoExistente() {	    
 		// chequeo nickname
-		assertEquals(false, c.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
+		assertEquals(false, c.altaAsistente("as", "Asistente 2", "a2", "prueba", LocalDate.parse("12/12/2012", fmt)));
 		DTAsistente dtu = (DTAsistente) c.elegirUsuario("as");
 		// Tomar el dt y asegurarse que cada campo sea correcto
 		assertEquals("Asistente 1", dtu.getNombre());
-		assertEquals("ads", dtu.getCorreo());
+		assertEquals("a", dtu.getCorreo());
+		assertEquals("prueba", dtu.getApellido());
+		assertEquals(LocalDate.parse("12/12/2012", fmt), dtu.getNacimiento());
+		assertEquals(null, dtu.getInstitucion());
+		
+		// chequeo correo
+		assertEquals(false, c.altaAsistente("as2", "Asistente 2", "a", "prueba", LocalDate.parse("12/12/2012", fmt)));
+		dtu = (DTAsistente) c.elegirUsuario("as");
+		// Tomar el dt y asegurarse que cada campo sea correcto
+		assertEquals("Asistente 1", dtu.getNombre());
+		assertEquals("a", dtu.getCorreo());
 		assertEquals("prueba", dtu.getApellido());
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dtu.getNacimiento());
 		assertEquals(null, dtu.getInstitucion());
