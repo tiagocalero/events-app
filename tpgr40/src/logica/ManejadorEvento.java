@@ -24,6 +24,9 @@ public class ManejadorEvento {
         return instance;
     }
     
+    public static void borrarInstance() {
+    	instance = null;
+    }
     
 	public boolean existe(String nombre) {
 		return eventos.containsKey(nombre);

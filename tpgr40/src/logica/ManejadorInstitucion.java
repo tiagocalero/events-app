@@ -23,6 +23,10 @@ public class ManejadorInstitucion {
         return instance;
     }
     
+    public static void borrarInstance() {
+    	instance = null;
+    }
+    
     public void altaInstitucion(String nombre, String desc, String url) {
     	Institucion nuevaInst = new Institucion(nombre, desc, url);
     	instituciones.put(nombre, nuevaInst);
