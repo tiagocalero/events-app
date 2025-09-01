@@ -178,6 +178,10 @@ public class AltaEdicionEvento extends JInternalFrame {
         	JOptionPane.showMessageDialog(this, "La edición debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         } 
+        if (fechaFin.isBefore(fechaInicio)) {
+        	JOptionPane.showMessageDialog(this, "La fecha de fin no puede ser mayor que la de inicio", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        } 
         
     	boolean ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
         if (ok) {
