@@ -149,11 +149,33 @@ public class AltaTipoRegistro extends JInternalFrame {
 		    boolean exito = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
 		    
 		    if (exito) {
-	            JOptionPane.showMessageDialog(null, "Tipo de registro creado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-	            textField.setText("");
-	            textField_1.setText("");
-	            textField_2.setText("");
-	            textField_3.setText("");
+	        	// Si se creó, dar la opción de agregar más tipos de registro o cerrar la ventana
+	            Object[] opciones = {"Agregar más tipos de registro", "Cerrar"};
+	            int resultado = JOptionPane.showOptionDialog(
+	                this,
+	                "Se creó el tipo de registro: " + nombre,
+	                "",
+	                JOptionPane.YES_NO_CANCEL_OPTION,
+	                JOptionPane.QUESTION_MESSAGE,
+	                null,        
+	                opciones,    
+	                opciones[0] // opción por defecto
+	            );
+
+	            // Ver qué eligió el usuario
+	            switch (resultado) {
+	                case 0:
+	                	// Borrar campos
+	                	textField.setText("");
+	                	textField_1.setText("");
+		            	break;
+	                case 1:
+	                	dispose(); // Cierra la ventana
+		            	break;
+	                default: // El usuario cierra el diálogo
+	                	dispose();
+	                	break;
+	            };
 	        } else {
 	            JOptionPane.showMessageDialog(null, "Ya existe un tipo de registro con ese nombre en esta edición", "Error", JOptionPane.WARNING_MESSAGE);
 	            textField.requestFocus();

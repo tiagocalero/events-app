@@ -28,7 +28,6 @@ public class Patrocinio {
 		this.cantRegistros = cantRegistros;
 		this.tp = tp;
 
-		tp.agregarPatrocinio(this);
 		i.agregarPatrocinio(this);
 		e.agregarPatrocinio(this);
 	}
