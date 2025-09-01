@@ -70,18 +70,18 @@ public class AltaPatrocinio extends JInternalFrame{
         getContentPane().add(labelDatosDelUsuario);
         
 		comboBoxEventos = new JComboBox<String>();
-        comboBoxEventos.setModel(new DefaultComboBoxModel<String>(new String[] {"Selecciona un Evento", "Evento 1", "Evento 2"}));
+        comboBoxEventos.setModel(new DefaultComboBoxModel<String>());
         comboBoxEventos.setBounds(27, 92, 226, 43);
         getContentPane().add(comboBoxEventos);       
 
         comboBoxInstituciones = new JComboBox();
-        comboBoxInstituciones.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una Institución"}));
+        comboBoxInstituciones.setModel(new DefaultComboBoxModel());
         comboBoxInstituciones.setBounds(27, 221, 226, 43);
         getContentPane().add(comboBoxInstituciones);
         inicializarCombos();
         
         comboBoxEdiciones = new JComboBox();
-        comboBoxEdiciones.setModel(new DefaultComboBoxModel(new String[] {"Selecciona una edición"}));
+        comboBoxEdiciones.setModel(new DefaultComboBoxModel());
         comboBoxEdiciones.setBounds(27, 155, 226, 43);
         getContentPane().add(comboBoxEdiciones);
 		
@@ -158,7 +158,7 @@ public class AltaPatrocinio extends JInternalFrame{
                 if (eventoSeleccionado != null && !eventoSeleccionado.equals("Seleccione un Evento")) {
                     // Llamar al método que carga las ediciones
                 	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
-                    edicionesModel.addElement("Seleccione una Edicion");
+                    edicionesModel.addElement("Seleccione una Edición");
                     
                     ControladorEvento m = ControladorEvento.getInstance();
                     m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
@@ -176,7 +176,7 @@ public class AltaPatrocinio extends JInternalFrame{
                 String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
                 
                 // Verificar que la selección sea válida
-                if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
+                if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edición")) {
                     // Cargar TipoRegistros para la edición y evento
                     DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<String>();
                     tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
@@ -199,83 +199,7 @@ public class AltaPatrocinio extends JInternalFrame{
         
         botonCrear.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // Obtener los datos seleccionados
-                String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
-                String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
-                String institucionSeleccionada = (String) comboBoxInstituciones.getSelectedItem();
-                String tipoRegistroSeleccionado = (String) comboBoxTipoRegistro.getSelectedItem();
-                String nivelPatrocinioSeleccionado = (String) comboBoxNivelPatrocinio.getSelectedItem();
-                String aporteEconomicoSeleccionado = (String) txtAporte.getText();
-                String cantRegistrosSeleccionados = (String) textCantRegistros.getText();
-                String codigoSeleccionado = (String) textCodigo.getText();
-                
-                // Transformar los datos seleccionados
-    		    // Validación de monto y cantidad registroslnk
-                TipoNivelPatrocinio tipoNivel = TipoNivelPatrocinio.valueOf(nivelPatrocinioSeleccionado);
-                float montoAporte;
-                int cantidadRegistros;
-                try {
-                	montoAporte = Float.parseFloat(aporteEconomicoSeleccionado);
-    		    } catch (NumberFormatException ex) {
-    		        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Aporte económico inválido", "Error", JOptionPane.ERROR_MESSAGE);
-    		        return;
-    		    }
-                try {
-                	cantidadRegistros = Integer.parseInt(cantRegistrosSeleccionados);
-    		    } catch (NumberFormatException ex) {
-    		        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Cantidad de registros inválido", "Error", JOptionPane.ERROR_MESSAGE);
-    		        return;
-    		    }
-                
-                // Crear el DTPatrocinio
-                DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, LocalDate.now());
-                
-                // Crear el Patrocinio
-                ControladorEvento me = ControladorEvento.getInstance();
-                try {
-                	me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
-                } catch(PatrocinioSuperaMontoException ex) {
-                	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                	return;
-                } catch(YaExistePatrocinioException ex) {
-                	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                	return;
-                } catch (Exception ex) {
-                    // Si la operación genera un error, mostrárselo al usuario
-        	    	JOptionPane.showMessageDialog(AltaPatrocinio.this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        	    	return;
-        	    }
-                
-            	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
-                Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
-                int resultado = JOptionPane.showOptionDialog(
-                    AltaPatrocinio.this,
-                    "Se creó el patrocinio: " + codigoSeleccionado,
-                    "",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,        
-                    opciones,    
-                    opciones[0] // opción por defecto
-                );
-
-                // Ver qué eligió el usuario
-                switch (resultado) {
-                    case 0:
-                    	// Borrar campos
-                    	txtAporte.setText("");
-                    	textCantRegistros.setText("");
-    	            	textCodigo.setText("");
-    	            	break;
-                    case 1:
-                    	dispose(); // Cierra la ventana
-    	            	break;
-                    default: // El usuario cierra el diálogo
-                    	dispose();
-                    	break;
-                };
-            }
+            public void actionPerformed(ActionEvent e) { crearPatrocinio(); }
         });
  
 	}
@@ -290,10 +214,116 @@ public class AltaPatrocinio extends JInternalFrame{
         
         // Llamar al método que carga las instituciones
     	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
-        institucionesModel.addElement("Seleccione una Institucion");
+        institucionesModel.addElement("Seleccione una Institución");
 
         ControladorInstitucion mi = ControladorInstitucion.getInstance();
         mi.listarInstituciones().forEach(institucionesModel::addElement);
         comboBoxInstituciones.setModel(institucionesModel);
     }
+	
+	private void crearPatrocinio() {
+        // Obtener los datos seleccionados
+        String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+        String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+        String institucionSeleccionada = (String) comboBoxInstituciones.getSelectedItem();
+        String tipoRegistroSeleccionado = (String) comboBoxTipoRegistro.getSelectedItem();
+        String nivelPatrocinioSeleccionado = (String) comboBoxNivelPatrocinio.getSelectedItem();
+        String aporteEconomicoSeleccionado = (String) txtAporte.getText();
+        String cantRegistrosSeleccionados = (String) textCantRegistros.getText();
+        String codigoSeleccionado = sacarEspacios(textCodigo.getText());
+        
+        // Transformar los datos seleccionados
+	    // Validación de monto y cantidad registroslnk
+        TipoNivelPatrocinio tipoNivel = TipoNivelPatrocinio.valueOf(nivelPatrocinioSeleccionado);
+        float montoAporte;
+        int cantidadRegistros;
+        try {
+        	montoAporte = Float.parseFloat(aporteEconomicoSeleccionado);
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Aporte económico inválido", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+        try {
+        	cantidadRegistros = Integer.parseInt(cantRegistrosSeleccionados);
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Cantidad de registros inválido", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+        
+        if (codigoSeleccionado.isEmpty()) {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "El código no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        
+        // Validar nombres de evento, edición e institución
+        if (eventoSeleccionado == null || eventoSeleccionado == "" || eventoSeleccionado == "Seleccione un Evento") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir un evento", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        if (edicionSeleccionada == null || edicionSeleccionada == "" || edicionSeleccionada == "Seleccione una Edición") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir una edición", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        if (institucionSeleccionada == null || institucionSeleccionada == "" || institucionSeleccionada == "Seleccione una Institución") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir una institución", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        if (tipoRegistroSeleccionado == null || tipoRegistroSeleccionado == "" || tipoRegistroSeleccionado == "Seleccione un Tipo de Registro") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir un tipo de registro", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        
+        // Crear el DTPatrocinio
+        DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, LocalDate.now());
+        
+        // Crear el Patrocinio
+        ControladorEvento me = ControladorEvento.getInstance();
+        try {
+        	me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
+        } catch(PatrocinioSuperaMontoException ex) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        } catch(YaExistePatrocinioException ex) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        } catch (Exception ex) {
+            // Si la operación genera un error, mostrárselo al usuario
+	    	JOptionPane.showMessageDialog(AltaPatrocinio.this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
+        
+    	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
+        Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
+        int resultado = JOptionPane.showOptionDialog(
+            AltaPatrocinio.this,
+            "Se creó el patrocinio: " + codigoSeleccionado,
+            "",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,        
+            opciones,    
+            opciones[0] // opción por defecto
+        );
+
+        // Ver qué eligió el usuario
+        switch (resultado) {
+            case 0:
+            	// Borrar campos
+            	txtAporte.setText("");
+            	textCantRegistros.setText("");
+            	textCodigo.setText("");
+            	break;
+            case 1:
+            	dispose(); // Cierra la ventana
+            	break;
+            default: // El usuario cierra el diálogo
+            	dispose();
+            	break;
+        };
+	}
+
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
+	private static String sacarEspacios(String s) {
+	    return s == null ? "" : s.trim();
+	}
 }
