@@ -163,10 +163,15 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            	
 
-            boolean error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
-
+            // Si la operación genera un error, mostrárselo al usuario
+            boolean error;
+            try {
+            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
+	        } catch (Exception ex) {
+		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		    	return;
+		    }
             if (error) {
                 JOptionPane.showMessageDialog(this, 
                     "No se puede registrar: cupo completo o asistente ya registrado",
@@ -177,7 +182,6 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
                     "Registro realizado con éxito",
                     "Éxito",
                     JOptionPane.INFORMATION_MESSAGE);
-                // Opcional: actualizar el combo de tipo de registro para reflejar el nuevo cupo
             }
         });
         getContentPane().add(btnRegistrar);
