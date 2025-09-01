@@ -1,7 +1,15 @@
-package logica;
+package datos;
 
 import java.util.Arrays;
 import java.util.List;
+
+import logica.ControladorCategoria;
+import logica.ControladorEvento;
+import logica.ControladorInstitucion;
+import logica.ControladorUsuario;
+import logica.DTPatrocinio;
+import logica.TipoNivelPatrocinio;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

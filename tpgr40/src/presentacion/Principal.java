@@ -4,10 +4,12 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.*;
 import javax.swing.*;
+
+import datos.CargarDatos;
+
 import java.awt.Color;
 
 import logica.ControladorCategoria;
-import logica.CargarDatos;
 
 public class Principal extends JFrame {
 

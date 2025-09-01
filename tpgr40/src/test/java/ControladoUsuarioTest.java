@@ -107,7 +107,7 @@ class ControladorUsuarioTest {
 		assertEquals(null, dtu.getInstitucion());
 		
 		// chequeo correo
-		assertEquals(false, c.altaAsistente("as2", "Asistente 2", "a", "prueba", LocalDate.parse("12/12/2012", fmt)));
+		assertEquals(false, c.altaAsistente("as3", "Asistente 2", "a", "prueba", LocalDate.parse("12/12/2012", fmt)));
 		dtu = (DTAsistente) c.elegirUsuario("as");
 		// Tomar el dt y asegurarse que cada campo sea correcto
 		assertEquals("Asistente 1", dtu.getNombre());
@@ -144,7 +144,16 @@ class ControladorUsuarioTest {
 
 	}
 	
+	@Test @Order(4)
 	void testConsultaUsuario() {
+		ControladorEvento ce = ControladorEvento.getInstance();
+		LocalDate f = LocalDate.now();
+		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
+		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
+		
+		
+		// chequeo asistente
+		
 	}
 
 	
