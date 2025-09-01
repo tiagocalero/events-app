@@ -81,16 +81,16 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		setTitle("Consulta Edicion de Evento");
 		setBounds(30, 30, 700, 600);
 		getContentPane().setLayout(null);
-		setSize(1130, 900);
+		setSize(1130, 755);
 		
 		lblEventos = new JLabel("Eventos:");
-		lblEventos.setBounds(12, 56, 107, 36);
+		lblEventos.setBounds(242, 52, 107, 36);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
         comboBoxEventos = new JComboBox();
         comboBoxEventos.addItem("Seleccione un Evento");
-        comboBoxEventos.setBounds(100, 53, 226, 43);
+        comboBoxEventos.setBounds(330, 49, 226, 43);
         
         ControladorEvento c = ControladorEvento.getInstance();
         
@@ -110,12 +110,12 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         txtPais.setColumns(10);
         
         comboBoxEdiciones = new JComboBox();
-        comboBoxEdiciones.setBounds(518, 53, 226, 43);
+        comboBoxEdiciones.setBounds(732, 49, 226, 43);
         getContentPane().add(comboBoxEdiciones);
         
         JLabel lblEdicionesDelEvento = new JLabel("Ediciones del Evento:");
         lblEdicionesDelEvento.setHorizontalAlignment(SwingConstants.CENTER);
-        lblEdicionesDelEvento.setBounds(356, 56, 158, 36);
+        lblEdicionesDelEvento.setBounds(570, 52, 158, 36);
         getContentPane().add(lblEdicionesDelEvento);
         
         lblCiudad = new JLabel("Ciudad:");
@@ -167,7 +167,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         getContentPane().add(comboBoxAsistentes);
         
         comboBoxPatrocinios = new JComboBox();
-        comboBoxPatrocinios.setBounds(415, 198, 255, 43);
+        comboBoxPatrocinios.setBounds(415, 186, 255, 36);
         getContentPane().add(comboBoxPatrocinios);
         
         JLabel lblFechaInicio = new JLabel("Fecha Inicio:");
@@ -204,7 +204,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         getContentPane().add(txtFechaAlta);
         
         comboBoxTipoRegistros = new JComboBox();
-        comboBoxTipoRegistros.setBounds(415, 446, 255, 43);
+        comboBoxTipoRegistros.setBounds(415, 482, 255, 36);
         getContentPane().add(comboBoxTipoRegistros);
         
         lblAsistentes = new JLabel("Asistentes:");
@@ -212,26 +212,26 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         lblAsistentes.setBounds(23, 544, 96, 37);
         getContentPane().add(lblAsistentes);
         
-        lblPatrocinios = new JLabel("Patrocinios:");
-        lblPatrocinios.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPatrocinios.setBounds(415, 152, 96, 37);
+        lblPatrocinios = new JLabel("Patrocinios de la edición:");
+        lblPatrocinios.setHorizontalAlignment(SwingConstants.LEFT);
+        lblPatrocinios.setBounds(415, 152, 255, 37);
         getContentPane().add(lblPatrocinios);
         
-        lblTipoRegistros = new JLabel("Tipo de Registros:");
-        lblTipoRegistros.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTipoRegistros.setBounds(415, 397, 139, 37);
+        lblTipoRegistros = new JLabel("Tipo de Registros de la edición:");
+        lblTipoRegistros.setHorizontalAlignment(SwingConstants.LEFT);
+        lblTipoRegistros.setBounds(415, 446, 255, 37);
         getContentPane().add(lblTipoRegistros);
         
-        lblDatos = new JLabel("Datos de la Edicion");
+        lblDatos = new JLabel("Datos de la Edición");
         lblDatos.setFont(new Font("Dialog", Font.BOLD, 18));
-        lblDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        lblDatos.setHorizontalAlignment(SwingConstants.LEFT);
         lblDatos.setBounds(27, 104, 226, 36);
         getContentPane().add(lblDatos);
         
-        lblSeleccioneUnEvento = new JLabel("Seleccione un Evento y una Edicion");
+        lblSeleccioneUnEvento = new JLabel("Seleccione un Evento y una Edición");
         lblSeleccioneUnEvento.setHorizontalAlignment(SwingConstants.CENTER);
         lblSeleccioneUnEvento.setFont(new Font("Dialog", Font.BOLD, 18));
-        lblSeleccioneUnEvento.setBounds(27, 8, 343, 36);
+        lblSeleccioneUnEvento.setBounds(12, 6, 1086, 36);
         getContentPane().add(lblSeleccioneUnEvento);
         
         lblAporte = new JLabel("Aporte Económico:");
@@ -335,7 +335,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         getContentPane().add(lblCupo);
         
         JButton btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(932, 795, 139, 36);
+        btnCerrar.setBounds(458, 670, 139, 36);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);

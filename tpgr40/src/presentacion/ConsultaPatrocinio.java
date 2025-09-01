@@ -5,6 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
@@ -19,6 +20,7 @@ import javax.swing.DropMode;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 import java.awt.Font;
 
 import java.time.LocalDate;
@@ -46,80 +48,87 @@ public class ConsultaPatrocinio extends JInternalFrame {
 		setClosable(true);
 		setTitle("Consultar un Patrocinio");
 		setBounds(30, 30, 814, 425);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Patrocinio");
 		lblEventos.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblEventos.setBounds(309, 6, 453, 60);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        getContentPane().add(lblEventos);
+        panel.add(lblEventos);
                 
         comboBoxEventos = new JComboBox();
         comboBoxEventos.setBounds(27, 53, 226, 43);
         inicializarCombos();
-        getContentPane().add(comboBoxEventos);
+        panel.add(comboBoxEventos);
         
         lblNombre = new JLabel("Aporte Económico:");
         lblNombre.setBounds(385, 113, 139, 37);
         lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
         //lblNombre.setBounds(100, 100, 170, 14);
-        getContentPane().add(lblNombre);
+        panel.add(lblNombre);
         textAporteEconomico.setEditable(false);
         textAporteEconomico.setBounds(535, 113, 226, 37);
-        getContentPane().add(textAporteEconomico);
+        panel.add(textAporteEconomico);
         textAporteEconomico.setColumns(10);
         
         comboBoxEdiciones = new JComboBox();
         comboBoxEdiciones.setBounds(27, 108, 226, 43);
-        getContentPane().add(comboBoxEdiciones);
+        panel.add(comboBoxEdiciones);
         
         comboBoxPatrocinios = new JComboBox();
         comboBoxPatrocinios.setBounds(27, 163, 226, 43);
-        getContentPane().add(comboBoxPatrocinios);
+        panel.add(comboBoxPatrocinios);
         
         JLabel lblNivelPatrocinio = new JLabel("Nivel Patrocinio:");
         lblNivelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
         lblNivelPatrocinio.setBounds(403, 63, 121, 37);
-        getContentPane().add(lblNivelPatrocinio);
+        panel.add(lblNivelPatrocinio);
         
         JLabel lblTipoDeRegistros = new JLabel("Tipo de Registro Gratutito:");
         lblTipoDeRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
         lblTipoDeRegistros.setBounds(308, 163, 216, 37);
-        getContentPane().add(lblTipoDeRegistros);
+        panel.add(lblTipoDeRegistros);
         
         JLabel lblNombre_1 = new JLabel("Cantidad de Registros Gratuitos:");
         lblNombre_1.setHorizontalAlignment(SwingConstants.RIGHT);
         lblNombre_1.setBounds(290, 213, 234, 37);
-        getContentPane().add(lblNombre_1);
+        panel.add(lblNombre_1);
         
         textCantRegistros = new JTextField();
         textCantRegistros.setEditable(false);
         textCantRegistros.setColumns(10);
         textCantRegistros.setBounds(535, 213, 226, 37);
-        getContentPane().add(textCantRegistros);
+        panel.add(textCantRegistros);
         
         textNivelPatrocinio = new JTextField();
         textNivelPatrocinio.setEditable(false);
         textNivelPatrocinio.setColumns(10);
         textNivelPatrocinio.setBounds(535, 63, 226, 37);
-        getContentPane().add(textNivelPatrocinio);
+        panel.add(textNivelPatrocinio);
         
         textTRegistros = new JTextField();
         textTRegistros.setEditable(false);
         textTRegistros.setColumns(10);
         textTRegistros.setBounds(535, 163, 226, 37);
-        getContentPane().add(textTRegistros);
+        panel.add(textTRegistros);
         
         JLabel lblNombre_1_1 = new JLabel("Fecha de Alta:");
         lblNombre_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
         lblNombre_1_1.setBounds(291, 263, 234, 37);
-        getContentPane().add(lblNombre_1_1);
+        panel.add(lblNombre_1_1);
         
         textFechaAlta = new JTextField();
         textFechaAlta.setEditable(false);
         textFechaAlta.setColumns(10);
         textFechaAlta.setBounds(536, 263, 226, 37);
-        getContentPane().add(textFechaAlta);
+        panel.add(textFechaAlta);
+
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
         
         btnCerrar = new JButton("Cerrar");
         btnCerrar.setBounds(352, 346, 105, 27);
@@ -129,7 +138,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
             	dispose();
             }
         });
-        getContentPane().add(btnCerrar);
+        panel_1.add(btnCerrar);
 
         comboBoxEventos.addActionListener(new ActionListener() {
             @Override
