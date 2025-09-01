@@ -197,7 +197,7 @@ public class ControladorEvento{
 		Evento evento = m.obtenerEvento(nombreEvento);
 		Usuario organizador = mu.obtener(nicknameOrganizador);
 		
-		if (m.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
+		if (evento.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
 			return false;
 
 		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);

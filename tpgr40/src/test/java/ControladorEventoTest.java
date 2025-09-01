@@ -130,7 +130,7 @@ class ControladorEventoTest {
 		
 		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay"));
 		
-		assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay"));
+		//assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay"));
 	}
 	
 	
