@@ -56,7 +56,7 @@ public class ManejadorEvento {
 	public boolean existeEdicion(String nombre) {
 		return eventos.values()
 		              .stream()
-		              .allMatch(e -> e.existeEdicion(nombre));
+		              .allMatch(e -> !e.existeEdicion(nombre));
 	}
 	
 	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {
