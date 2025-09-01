@@ -27,6 +27,8 @@ import logica.Edicion;
 import logica.TipoNivelPatrocinio;
 import logica.ManejadorCategoria;
 import logica.ManejadorEvento;
+import logica.TRegistro;
+
 
 import excepciones.PatrocinioSuperaMontoException;
 
@@ -202,13 +204,30 @@ class ControladorEventoTest {
 	}
 	@Test @Order(15)
 	void testConsultaPatrocinio() {
-		DTPatrocinio dtp = c.consultaPatrocinio("Evento 1", "Edición 1", "pat2");
-		//TRegistro t = 
+		DTPatrocinio dtp = c.consultaPatrocinio("Evento 1", "Edición 1", "pat1");
 		
-		assertEquals(dtp.getCodigo(), "pat2");
+		DTTRegistro tp = c.seleccionarTipoRegistro("tp1", "Evento 1", "Edición 1");
+		
+		assertEquals(dtp.getCodigo(), "pat1");
 		assertEquals(dtp.getTipo(), TipoNivelPatrocinio.Plata);
-		assertEquals(dtp.getMonto(), 10 * tp.getCosto() * 4.9f);
+		assertEquals(dtp.getMonto(), 10 * tp.getCosto() * 5.1f);
+		assertEquals(dtp.getTipoRegistro(), "tp1");
+		assertEquals(dtp.getCantRegistros(), 10);
+		assertEquals(dtp.getFechaAlta(), LocalDate.now());
 
+
+
+		
+	}
+	
+	@Test @Order(16)
+	//testeo Tipo Registro existente
+	void testMostrarTipoRegistro() {
+		DTTRegistro dtr = c.mostrarTipoRegistro("Evento 1", "Edición 1", "tp1");
+		assertEquals(dtr.getCupo(), 1);
+		assertEquals(dtr.getCosto(), 100);
+		assertEquals(dtr.getNombre(), "tp1");
+		assertEquals(dtr.getDescripcion(), "desc1");
 
 		
 	}
