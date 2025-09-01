@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 
+import logica.Asistente;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
@@ -25,6 +26,7 @@ import logica.DTEvento;
 import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
 import logica.DTUsuario;
+import logica.DTRegistro;
 import logica.ManejadorCategoria;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
@@ -148,15 +150,40 @@ class ControladorUsuarioTest {
 
 	}
 	
+	void compararDTRegistros(DTRegistro dtr1, DTRegistro dtr2) {
+		assertEquals(dtr1.getCosto(), dtr2.getCosto());
+		assertEquals(dtr1.getFecha(), dtr2.getFecha());
+		assertEquals(dtr1.getEdicion(), dtr2.getEdicion());
+		assertEquals(dtr1.getTipo(), dtr2.getTipo());
+	}
+	
 	@Test @Order(4)
 	void testConsultaUsuario() {
 		ControladorEvento ce = ControladorEvento.getInstance();
 		LocalDate f = LocalDate.now();
+		//ce.ingresarDatosEvento("Evento test 1", "descripcion1", "e1", null);
 		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
 		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
 		
+		ce.crearTipoRegistro("Evento 1", "Edición test 1", "tp5", "desc5", 101, 12);
+		ce.crearTipoRegistro("Evento 1", "Edición test 2", "tp5", "desc5", 101, 12);
+		ce.darDeAltaRegistroCD("as", "Edición test 1", "tp5", "Evento 1", f.format(fmt), 101);
+		ce.darDeAltaRegistroCD("as", "Edición test 2", "tp5", "Evento 1", f.format(fmt), 101);
+		DTRegistro dtr1 = new DTRegistro(101, f, "Edición test 1", "tp5");
+		DTRegistro dtr2 = new DTRegistro(101, f, "Edición test 2", "tp5");
 		
+		Asistente a = (Asistente) c.obtenerUsuario("as");
 		// chequeo asistente
+		compararDTRegistros(dtr1, a.consulta().get(1));
+		compararDTRegistros(dtr2, a.consulta().get(0));
+		
+		c.elegirUsuario("as");
+		compararDTRegistros(a.consulta().get(1), c.consultaAsistente().get(1));
+		compararDTRegistros(a.consulta().get(0), c.consultaAsistente().get(0));
+		
+		
+		// chequeo organizador
+		
 		
 	}
 
