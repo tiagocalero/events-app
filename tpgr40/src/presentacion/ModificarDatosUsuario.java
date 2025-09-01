@@ -197,6 +197,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
 		comboBoxInst = new JComboBox();
 		comboBoxInst.setBounds(374, 299, 255, 36);
+		comboBoxInst.addItem("Sin Institución");
 		for (String i: ci.listarInstituciones())
 			comboBoxInst.addItem(i);
 		getContentPane().add(comboBoxInst);
@@ -240,7 +241,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
 	        	return;
 	        }
-			DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
+			if (comboBoxInst.getSelectedItem() != "Sin Institución") DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
+			else if (comboBoxInst.getSelectedItem() == "Sin Institución") DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha);
 			um = am;
 		} else {
 			assert u instanceof DTOrganizador;
@@ -266,6 +268,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
         // Ver qué eligió el usuario
         switch (resultado) {
             case 0:
+            	borrarCampos();
             	break;
             case 1:
             	dispose(); // Cierra la ventana
@@ -274,5 +277,19 @@ public class ModificarDatosUsuario extends JInternalFrame {
             	dispose();
             	break;
         };
+        
+        
 	}
+	// Limpia todos los campos
+	private void borrarCampos() {
+		txtNick.setText("");
+		txtNom.setText("");
+		txtCorreo.setText("");
+		txtAp.setText("");
+		txtNac.setText("");
+		txtLink.setText("");
+	    Descripcion.setText("");
+	    comboBoxInst.setSelectedItem("Sin Institución");
+	}
+	
 }
