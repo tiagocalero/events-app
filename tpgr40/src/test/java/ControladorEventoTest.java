@@ -28,7 +28,7 @@ import logica.Edicion;
 import logica.TipoNivelPatrocinio;
 import logica.ManejadorCategoria;
 import logica.ManejadorEvento;
-
+import logica.ManejadorUsuario;
 import excepciones.PatrocinioSuperaMontoException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -60,6 +60,7 @@ class ControladorEventoTest {
 	@AfterAll
 	static void borrado() {
 		ManejadorCategoria.borrarInstance();
+		ManejadorUsuario.getInstance().liberarMemoria();
 	}
 	
 	// Probar crear eventos con categorías que ya existen

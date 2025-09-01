@@ -70,18 +70,14 @@ public class AltaPatrocinio extends JInternalFrame{
         getContentPane().add(labelDatosDelUsuario);
         
 		comboBoxEventos = new JComboBox<String>();
-        comboBoxEventos.setModel(new DefaultComboBoxModel<String>());
         comboBoxEventos.setBounds(27, 92, 226, 43);
         getContentPane().add(comboBoxEventos);       
 
         comboBoxInstituciones = new JComboBox();
-        comboBoxInstituciones.setModel(new DefaultComboBoxModel());
         comboBoxInstituciones.setBounds(27, 221, 226, 43);
         getContentPane().add(comboBoxInstituciones);
-        inicializarCombos();
         
         comboBoxEdiciones = new JComboBox();
-        comboBoxEdiciones.setModel(new DefaultComboBoxModel());
         comboBoxEdiciones.setBounds(27, 155, 226, 43);
         getContentPane().add(comboBoxEdiciones);
 		
@@ -98,7 +94,6 @@ public class AltaPatrocinio extends JInternalFrame{
         txtAporte.setColumns(10);
                            
         comboBoxTipoRegistro = new JComboBox();
-        comboBoxTipoRegistro.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Tipo de Registro"}));
         comboBoxTipoRegistro.setBounds(536, 172, 226, 43);
         getContentPane().add(comboBoxTipoRegistro);
         
@@ -145,7 +140,8 @@ public class AltaPatrocinio extends JInternalFrame{
         textCodigo.setBounds(536, 227, 226, 37);
         getContentPane().add(textCodigo);
 		
-        
+
+        inicializarCombos();
         //FUNCIONES
         
         comboBoxEventos.addActionListener(new ActionListener() {
@@ -163,6 +159,9 @@ public class AltaPatrocinio extends JInternalFrame{
                     ControladorEvento m = ControladorEvento.getInstance();
                     m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
                     comboBoxEdiciones.setModel(edicionesModel);
+                } else {
+                	// Si seleccionó "Seleccione un Evento", no mostrar ediciones
+                    comboBoxEdiciones.setModel(new DefaultComboBoxModel<>());
                 }
              
             }
@@ -219,6 +218,12 @@ public class AltaPatrocinio extends JInternalFrame{
         ControladorInstitucion mi = ControladorInstitucion.getInstance();
         mi.listarInstituciones().forEach(institucionesModel::addElement);
         comboBoxInstituciones.setModel(institucionesModel);
+
+        // Tipo Registro
+        comboBoxTipoRegistro.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Tipo de Registro"}));
+        
+        // Ediciones
+        comboBoxEdiciones.setModel(new DefaultComboBoxModel());
     }
 	
 	private void crearPatrocinio() {
@@ -312,6 +317,7 @@ public class AltaPatrocinio extends JInternalFrame{
             	txtAporte.setText("");
             	textCantRegistros.setText("");
             	textCodigo.setText("");
+            	inicializarCombos();
             	break;
             case 1:
             	dispose(); // Cierra la ventana
