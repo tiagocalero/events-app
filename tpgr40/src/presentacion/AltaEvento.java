@@ -113,8 +113,15 @@ public class AltaEvento extends JInternalFrame {
         	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener al menos una categoria.", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
-        
-        boolean ok = m.ingresarDatosEvento(nombre, desc, sigla, categorias);
+
+        // Si la operación genera un error, mostrárselo al usuario
+        boolean ok;
+        try {
+        	ok = m.ingresarDatosEvento(nombre, desc, sigla, categorias);
+		} catch (Exception ex) {
+	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
         if (ok) {
         	// Si se creó, dar la opción de agregar más eventos o cerrar la ventana
             Object[] opciones = {"Agregar más eventos", "Cerrar"};

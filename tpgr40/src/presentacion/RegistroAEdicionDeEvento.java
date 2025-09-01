@@ -44,7 +44,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Registro a Edicion de Evento");
-		setBounds(30, 30, 351, 630);
+		setBounds(30, 30, 378, 615);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -131,18 +131,52 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         btnRegistrar.setBounds(181, 520, 150, 35);
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = (String) comboBoxAsistentes.getSelectedItem();
-            //String nombreTRegistro = ((DTTRegistro) comboBoxTipoRegistro.getSelectedItem()).getNombre();
             String nombreTRegistro = (String) comboBoxTipoRegistro.getSelectedItem();
             String nombreEdicion = (String) comboBoxEdiciones.getSelectedItem();
             String nickEvento = (String) comboBoxEventos.getSelectedItem();
+            
+            if (nickEvento == null) {
+                JOptionPane.showMessageDialog(this, 
+                        "Debe existir un evento",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nombreEdicion == null) {
+                JOptionPane.showMessageDialog(this, 
+                        "Debe existir una edición",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nombreTRegistro == null) {
+                JOptionPane.showMessageDialog(this, 
+                        "Debe existir un tipo de registro",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (nickAsistente == null) {
+                JOptionPane.showMessageDialog(this, 
+                        "Debe existir un asistente",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            boolean error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
-
+            // Si la operación genera un error, mostrárselo al usuario
+            boolean error;
+            try {
+            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
+	        } catch (Exception ex) {
+		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		    	return;
+		    }
             if (error) {
                 JOptionPane.showMessageDialog(this, 
                     "No se puede registrar: cupo completo o asistente ya registrado",
                     "Error",
-                    JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, 
                     "Registro realizado con éxito",

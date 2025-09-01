@@ -241,7 +241,11 @@ public class AltaPatrocinio extends JInternalFrame{
                 } catch(YaExistePatrocinioException ex) {
                 	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 	return;
-                }
+                } catch (Exception ex) {
+                    // Si la operación genera un error, mostrárselo al usuario
+        	    	JOptionPane.showMessageDialog(AltaPatrocinio.this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	    	return;
+        	    }
                 
             	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
                 Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
