@@ -382,7 +382,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
             		Edicion instEdicion = c.obtenerEdicion(edicionSeleccionada, eventoSeleccionado);
             	
             		//Crear el datatype
-            		DTEdicion DTedicion = c.elegirEdicion(instEdicion);
+            		DTEdicion DTedicion = instEdicion.getDatos();            		
             		
             		DefaultComboBoxModel<String> asistentesModel = new DefaultComboBoxModel<>();
                     asistentesModel.addElement("Seleccione una Asistente");

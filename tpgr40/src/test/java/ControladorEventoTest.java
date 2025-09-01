@@ -126,7 +126,10 @@ class ControladorEventoTest {
 		LocalDate f = LocalDate.now();
 		
 		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay"));
+		
+		assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay"));
 	}
+	
 	
 	@Test @Order(7)
 	//testeo obtener con una que existe
@@ -259,4 +262,11 @@ class ControladorEventoTest {
 		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
 		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1"));
 	}
+	@Test @Order(17)
+	void testListarTipoRegistro() {
+		List<String> resultadoEsperado = c.listarTipoRegistro("Evento 1", "Edición 1");
+		assertEquals(List.of("tp1"), resultadoEsperado);
+	}
+	
+	
 }

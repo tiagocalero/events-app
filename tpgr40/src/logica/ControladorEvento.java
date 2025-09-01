@@ -95,10 +95,6 @@ public class ControladorEvento{
 		return dtp;
 	}
 
-	public DTEdicion elegirEdicion(Edicion edicion) {
-		return edicion.getDatos();
-	}
-	
 	//PRE:: hay un registro en edicion con string nombre
 	public DTTRegistro seleccionarTipoRegistro(String nombre, String nomEvento, String nomEdicion) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -209,26 +205,6 @@ public class ControladorEvento{
 		evento.agregarEdicion(e);
 		
 		return true;
-	}
-	//seria el evento del controlador?
-	public List<DTEdicion> seleccionarEvento(Evento e){
-		List<DTEdicion> resultado = new ArrayList<>();
-		
-		for (Edicion ed : e.getEdiciones().values()) {
-			DTEdicion dte = new DTEdicion(
-					
-				 ed.getPais(),
-		         ed.getCiudad(),
-		         ed.getFechaInicio(),
-		         ed.getFechaFinal(),
-		         ed.getFechaAlta(),
-		         ed.getSigla(),
-		         ed.getNombre()
-		        );
-		    resultado.add(dte);
-			
-        }
-		return resultado;
 	}
 
 	public List<String> listarTipoRegistro(String nombreEvento, String nombreEdicion){

@@ -434,7 +434,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		Organizador org = (Organizador) cu.obtenerUsuario(u.getNickname());
 		String nomEdicion = (String) comboBoxEdicion.getSelectedItem();
 		if (nomEdicion != null) {
-			DTEdicion ed = ce.elegirEdicion(org.obtenerEdicion(nomEdicion));
+			DTEdicion ed = org.obtenerEdicion(nomEdicion).getDatos();
 			txtEdNom.setText(ed.getNombre());
 			txtEdSigla.setText(ed.getSigla());
 			txtEdOrg.setText(ed.getOrganizador());
