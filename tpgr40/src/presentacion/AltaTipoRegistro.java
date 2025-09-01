@@ -133,12 +133,11 @@ public class AltaTipoRegistro extends JInternalFrame {
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(e -> {
-			
 		    // Obtenemos los datos de los campos de texto
 			String nombreEvento = (String) comboBox.getSelectedItem();
 			String nombreEdicion = (String) comboBox_1.getSelectedItem();
-		    String nombre = textField.getText().trim();
-		    String descripcion = textField_1.getText().trim();
+		    String nombre = sacarEspacios(textField.getText());
+		    String descripcion =  sacarEspacios(textField_1.getText().trim());
 		    float costo = 0;
 		    int cupo = 0;
 
@@ -150,8 +149,31 @@ public class AltaTipoRegistro extends JInternalFrame {
 		        JOptionPane.showMessageDialog(panel, "Costo o cupo inválido", "Error", JOptionPane.ERROR_MESSAGE);
 		        return;
 		    }
-		    boolean exito = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
 		    
+		    // Validar evento y edicion
+		    if (nombreEvento == null || nombreEvento == "") {
+		    	JOptionPane.showMessageDialog(panel, "Debe existir un evento", "Error", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+		    if (nombreEdicion == null || nombreEdicion == "") {
+		    	JOptionPane.showMessageDialog(panel, "Debe existir un evento", "Error", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+		    
+		    // Validar nombre
+		    if (nombre.isEmpty()) {
+		    	JOptionPane.showMessageDialog(panel, "El nombre no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+		        return;
+		    }
+
+            // Si la operación genera un error, mostrárselo al usuario
+		    boolean exito;
+		    try {
+		    	exito = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
+			} catch (Exception ex) {
+		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		    	return;
+		    }
 		    if (exito) {
 	        	// Si se creó, dar la opción de agregar más tipos de registro o cerrar la ventana
 	            Object[] opciones = {"Agregar más tipos de registro", "Cerrar"};
@@ -190,5 +212,10 @@ public class AltaTipoRegistro extends JInternalFrame {
 		panel_1.add(btnNewButton);
 	}
 
+
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
+	private static String sacarEspacios(String s) {
+	    return s == null ? "" : s.trim();
+	}
     
 }

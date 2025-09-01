@@ -279,7 +279,15 @@ public class AltaUsuario extends JInternalFrame {
         }
         
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if(c.altaOrganizador(nickname, nombre, correo, desc, link)) {    
+        // Si la operación genera un error, mostrárselo al usuario
+        boolean ok;
+        try {
+        	ok = c.altaOrganizador(nickname, nombre, correo, desc, link);
+		} catch (Exception ex) {
+	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
+        if(ok) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(

@@ -115,7 +115,14 @@ public class AltaInstitucion extends JInternalFrame{
         }
                 
         ControladorInstitucion c = ControladorInstitucion.getInstance();
-        boolean exito = c.altaInstitucion(nombre, desc, url);
+        // Si la operación genera un error, mostrárselo al usuario
+        boolean exito;
+        try {
+        	exito = c.altaInstitucion(nombre, desc, url);
+		} catch (Exception ex) {
+	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
         if (!exito) {
         	JOptionPane.showMessageDialog(AltaInstitucion.this, "La institución: " + nombre + " ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {

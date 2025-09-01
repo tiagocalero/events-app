@@ -173,12 +173,15 @@ public class AltaEdicionEvento extends JInternalFrame {
         String organizador = (String) comboBoxOrganizadores.getSelectedItem();
         
         // Chequear que existan organizadores y eventos
-        if (evento == "" || evento == null || organizador == "" || organizador == null) {
-        	JOptionPane.showMessageDialog(this, "Deben existir Evento y Organizador", "Error", JOptionPane.ERROR_MESSAGE);
+        if (evento == "" || evento == null || evento == "Selecciona un Evento") {
+        	JOptionPane.showMessageDialog(this, "Debe existir un evento", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        if (organizador == "Selecciona un Organizador" || organizador == "" || organizador == null) {
+        	JOptionPane.showMessageDialog(this, "Debe existir un organizador", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
         
-        ControladorEvento m = ControladorEvento.getInstance();
         // Chequear que exista el nombre
         if (nombre.isEmpty()) {
         	JOptionPane.showMessageDialog(this, "La edición debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -188,9 +191,17 @@ public class AltaEdicionEvento extends JInternalFrame {
         	JOptionPane.showMessageDialog(this, "La fecha de fin no puede ser mayor que la de inicio", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         } 
-        
-    	boolean ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-        if (ok) {
+
+        ControladorEvento m = ControladorEvento.getInstance();
+        // Si la operación genera un error, mostrárselo al usuario
+        boolean ok;
+        try {
+        	ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
+        } catch (Exception ex) {
+        	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+    	if (ok) {
         	// Si se creó, dar la opción de agregar más ediciones o cerrar la ventana
             Object[] opciones = {"Agregar más ediciones", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
