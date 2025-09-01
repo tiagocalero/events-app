@@ -46,6 +46,16 @@ public class Principal extends JFrame {
 
 		JMenu menuSistema = new JMenu("Sistema");
         menuBar.add(menuSistema);
+        
+
+        JMenuItem menuMinimizar = new JMenuItem("Minimizar");
+        menuMinimizar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                frmPrincipal.setState(JFrame.ICONIFIED);
+            }
+        });
+        menuSistema.add(menuMinimizar);
+        
         JMenuItem menuSalir = new JMenuItem("Salir");
         menuSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {

@@ -152,6 +152,15 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
             }
         });
         getContentPane().add(btnRegistrar);
+        
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setBounds(81, 551, 150, 35);
+        getContentPane().add(btnCancelar);
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
 	}
-
 }
