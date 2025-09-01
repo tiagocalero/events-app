@@ -161,9 +161,9 @@ class ControladorUsuarioTest {
 	void testConsultaUsuario() {
 		ControladorEvento ce = ControladorEvento.getInstance();
 		LocalDate f = LocalDate.now();
-		//ce.ingresarDatosEvento("Evento test 1", "descripcion1", "e1", null);
-		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
-		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
+		ce.ingresarDatosEvento("Evento test 1", "descripcion1", "e1", null);
+		assertEquals(true, ce.altaEdicion("Evento test 1", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
+		assertEquals(true, ce.altaEdicion("Evento test 1", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
 		
 		ce.crearTipoRegistro("Evento 1", "Edición test 1", "tp5", "desc5", 101, 12);
 		ce.crearTipoRegistro("Evento 1", "Edición test 2", "tp5", "desc5", 101, 12);
