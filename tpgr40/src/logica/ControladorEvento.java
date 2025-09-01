@@ -197,7 +197,7 @@ public class ControladorEvento{
 		Evento evento = m.obtenerEvento(nombreEvento);
 		Usuario organizador = mu.obtener(nicknameOrganizador);
 		
-		if (evento.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
+		if (m.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
 			return false;
 
 		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
@@ -299,7 +299,7 @@ public class ControladorEvento{
 		
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		Registro nuevoRegistro = new Registro(costo, LocalDate.parse("01/12/1992", fmt), asistente, edicion, t);
+		Registro nuevoRegistro = new Registro(costo, LocalDate.parse(fechaAlta, fmt), asistente, edicion, t);
 		edicion.agregarRegistro(nuevoRegistro);
 		asistente.agregarRegistro(nuevoRegistro);
 		
