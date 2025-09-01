@@ -106,7 +106,7 @@ public class CargarDatos {
 		fechaInicio = LocalDate.parse("06/04/2026", fmt);
         fechaFin = LocalDate.parse("10/04/2026", fmt);
         fechaAlta = LocalDate.parse("01/08/2025", fmt);
-		ed = e.altaEdicion("Conferencia de Tecnología", "udelar", "Tecnología Punta del Este 2026", "CONFTECH26", fechaInicio, fechaFin, fechaAlta, "", "");
+		ed = e.altaEdicion("Conferencia de Tecnología", "udelar", "Tecnología Punta del Este 2026", "CONFTECH26", fechaInicio, fechaFin, fechaAlta, "Punta del Este", "Uruguay");
 		
 		fechaInicio = LocalDate.parse("12/12/2025", fmt);
         fechaFin = LocalDate.parse("15/12/2025", fmt);
