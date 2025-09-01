@@ -44,7 +44,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Patrocinio");
-		setBounds(30, 30, 833, 349);
+		setBounds(30, 30, 833, 372);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Datos del Patrocinio");
@@ -158,7 +158,13 @@ public class ConsultaPatrocinio extends JInternalFrame {
             ControladorEvento m = ControladorEvento.getInstance();
             m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
             comboBoxEdiciones.setModel(edicionesModel);
+        } else {
+        	// Si se selecciono "Seleccione un Evento", no mostrar ediciones
+        	comboBoxEdiciones.setModel(new DefaultComboBoxModel<>());
         }
+        // Vaciar patrocinios y campos (si ya se habían seleccionado de antes)
+        comboBoxPatrocinios.setModel(new DefaultComboBoxModel<>());
+        borrarCampos();
 	}
 	private void edicionSeleccionada() {
         // Obtener la edicion seleccionada
@@ -174,7 +180,11 @@ public class ConsultaPatrocinio extends JInternalFrame {
             ControladorEvento m = ControladorEvento.getInstance();
             m.listarPatrocinios(eventoSeleccionado, edicionSeleccionada).forEach(patrociniosModel::addElement);
             comboBoxPatrocinios.setModel(patrociniosModel);
+        } else {
+        	// Si se selecciono "Seleccione una Edicion", no mostrar patrocinios
+            comboBoxPatrocinios.setModel(new DefaultComboBoxModel<>());
         }
+    	borrarCampos();
 	}
 	
 	private void patrocinioSeleccionado() {
@@ -189,27 +199,24 @@ public class ConsultaPatrocinio extends JInternalFrame {
             ControladorEvento m = ControladorEvento.getInstance();
             DTPatrocinio dtp = m.consultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleccionado);
             
-            // Convertir TipoNivelPatrocinio a String
-            switch (dtp.getTipo()) {
-            case Plata:
-            	textNivelPatrocinio.setText("Plata");
-            	break;
-            case Platino:
-            	textNivelPatrocinio.setText("Platino");
-            	break;
-            case Oro:
-            	textNivelPatrocinio.setText("Oro");
-            	break;
-            case Bronce:
-            	textNivelPatrocinio.setText("Bronce");
-            	break;
-            }
-            
+            textNivelPatrocinio.setText(dtp.getTipo().toString());
             textAporteEconomico.setText("$" + String.valueOf(dtp.getMonto()));
             textTRegistros.setText(dtp.getTipoRegistro());
             textCantRegistros.setText(String.valueOf(dtp.getCantRegistros()));
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             textFechaAlta.setText(dtp.getFechaAlta().format(fmt));
+        } else {
+        	// Si se selecciono "Seleccione un Patrocinio", borrar campos
+        	borrarCampos();
         }
+	}
+	
+	private void borrarCampos() {
+		textAporteEconomico.setText("");
+		textAporteEconomico.setText("");
+		textCantRegistros.setText("");
+		textFechaAlta.setText("");
+		textNivelPatrocinio.setText("");
+		textTRegistros.setText("");
 	}
 }
