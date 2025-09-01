@@ -249,7 +249,12 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		}
 		
 		assert um != null;
-		c.modificarDatosUsuario(um);
+		try {
+			c.modificarDatosUsuario(um);
+		} catch (Exception ex) {
+	    	JOptionPane.showMessageDialog(this, "Debe seleccionar un usuario", "Error", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
 		
 		Object[] opciones = {"Modificar otro usuario", "Cerrar"};
         int resultado = JOptionPane.showOptionDialog(
