@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import excepciones.PatrocinioSuperaMontoException;
+import excepciones.YaExistePatrocinioException;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.DTPatrocinio;
@@ -231,43 +233,45 @@ public class AltaPatrocinio extends JInternalFrame{
                 
                 // Crear el Patrocinio
                 ControladorEvento me = ControladorEvento.getInstance();
-                boolean b = me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
-                
-                //Mostrar mensaje
-                if (b) {
-                	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
-                    Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
-                    int resultado = JOptionPane.showOptionDialog(
-                        AltaPatrocinio.this,
-                        "Se creó el patrocinio: " + codigoSeleccionado,
-                        "",
-                        JOptionPane.YES_NO_CANCEL_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,        
-                        opciones,    
-                        opciones[0] // opción por defecto
-                    );
-
-                    // Ver qué eligió el usuario
-                    switch (resultado) {
-                        case 0:
-                        	// Borrar campos
-                        	txtAporte.setText("");
-                        	textCantRegistros.setText("");
-        	            	textCodigo.setText("");
-        	            	break;
-                        case 1:
-                        	dispose(); // Cierra la ventana
-        	            	break;
-                        default: // El usuario cierra el diálogo
-                        	dispose();
-                        	break;
-                    };
-                } else {
-                	JOptionPane.showMessageDialog(AltaPatrocinio.this, "Ya existe patrocinio para esa institución y edición, o el costo de los registros supera el 20% del aporte económico.", "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                	me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
+                } catch(PatrocinioSuperaMontoException ex) {
+                	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                	return;
+                } catch(YaExistePatrocinioException ex) {
+                	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                	return;
                 }
-           }
-          
+                
+            	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
+                Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
+                int resultado = JOptionPane.showOptionDialog(
+                    AltaPatrocinio.this,
+                    "Se creó el patrocinio: " + codigoSeleccionado,
+                    "",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,        
+                    opciones,    
+                    opciones[0] // opción por defecto
+                );
+
+                // Ver qué eligió el usuario
+                switch (resultado) {
+                    case 0:
+                    	// Borrar campos
+                    	txtAporte.setText("");
+                    	textCantRegistros.setText("");
+    	            	textCodigo.setText("");
+    	            	break;
+                    case 1:
+                    	dispose(); // Cierra la ventana
+    	            	break;
+                    default: // El usuario cierra el diálogo
+                    	dispose();
+                    	break;
+                };
+            }
         });
  
 	}

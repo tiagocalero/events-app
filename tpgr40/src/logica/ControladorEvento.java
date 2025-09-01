@@ -124,7 +124,7 @@ public class ControladorEvento{
 		return m.obtenerEdicion(nombre, evento);
 	}
 
-	public boolean crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException {
+	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException {
 		//Obtengo la Institucion
 		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
 		Institucion instInstitucion = mi.obtener(nombreInstitucion);
@@ -140,14 +140,15 @@ public class ControladorEvento{
 		
         //Obtengo el Costo y lo calculo para ver si falla
 		float costo = tp.getCosto();
-		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto()) return false;
+		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto()) 
+			throw new PatrocinioSuperaMontoException("El costo de los registros supera el 20% del aporte económico.");
+		if (instInstitucion.existePatrocinio(instEdicion)) 
+			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + instInstitucion.getNombre() + " para la edición " + instEdicion.getNombre());
 		
 		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
 		instInstitucion.agregarPatrocinio(p);
 		instEdicion.agregarPatrocinio(p);
 		tp.agregarPatrocinio(p);
-		
-		return true;
 	}
 	
 	public boolean crearPatrocinioCargaDatos(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
@@ -202,7 +203,7 @@ public class ControladorEvento{
 		Evento evento = m.obtenerEvento(nombreEvento);
 		Usuario organizador = mu.obtener(nicknameOrganizador);
 		
-		if (evento.existeEdicion(nombre))
+		if (evento.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
 			return false;
 
 		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
