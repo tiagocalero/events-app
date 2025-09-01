@@ -182,7 +182,6 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
                     "Registro realizado con éxito",
                     "Éxito",
                     JOptionPane.INFORMATION_MESSAGE);
-                // Opcional: actualizar el combo de tipo de registro para reflejar el nuevo cupo
             }
         });
         getContentPane().add(btnRegistrar);
