@@ -71,6 +71,7 @@ class ControladorUsuarioTest {
 	// Se ejecuta después que todos los tests
 	@AfterAll
 	static void borrado() {
+		ManejadorCategoria.borrarInstance();
 		ManejadorUsuario.getInstance().liberarMemoria();
 		ManejadorInstitucion.borrarInstance();
 	}

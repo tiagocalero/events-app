@@ -232,8 +232,15 @@ public class ModificarDatosUsuario extends JInternalFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		ControladorUsuario c = ControladorUsuario.getInstance();
 		DTUsuarioModificado um = null;
+		LocalDate fecha;
 		if (u instanceof DTAsistente) {
-			DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), LocalDate.parse(txtNac.getText(), formatter), (String) comboBoxInst.getSelectedItem());
+			try {
+		        fecha = LocalDate.parse(txtNac.getText(), formatter);
+	        } catch (Exception ex) {
+	        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+	        	return;
+	        }
+			DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
 			um = am;
 		} else {
 			assert u instanceof DTOrganizador;
