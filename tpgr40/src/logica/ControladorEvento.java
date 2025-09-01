@@ -148,7 +148,6 @@ public class ControladorEvento{
 		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
 		instInstitucion.agregarPatrocinio(p);
 		instEdicion.agregarPatrocinio(p);
-		tp.agregarPatrocinio(p);
 	}
 	
 	public boolean crearPatrocinioCargaDatos(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
@@ -172,7 +171,6 @@ public class ControladorEvento{
 		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
 		instInstitucion.agregarPatrocinio(p);
 		instEdicion.agregarPatrocinio(p);
-		tp.agregarPatrocinio(p);
 		
 		return true;
 	}
@@ -284,7 +282,7 @@ public class ControladorEvento{
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
 		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
 
-		if (t.getCupo() == 0 || estaAsistente)
+		if (t.getCuposLibres() == 0 || estaAsistente)
 			return true;
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 		Usuario usuario = mu.obtener(nickAsistente);
@@ -309,7 +307,7 @@ public class ControladorEvento{
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
 		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
 
-		if (t.getCupo() == 0 || estaAsistente)
+		if (t.getCuposLibres() == 0 || estaAsistente)
 			return true;
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 		Usuario usuario = mu.obtener(nickAsistente);

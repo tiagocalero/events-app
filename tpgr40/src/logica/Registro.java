@@ -17,6 +17,7 @@ public class Registro{
         this.asistente = asistente;
         this.edicion = edicion;
         this.tipo = tipo;
+        tipo.agregarRegistro(this);
     };
 
     public String getNicknameAsistente(){
