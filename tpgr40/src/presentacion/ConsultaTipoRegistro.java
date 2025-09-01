@@ -48,7 +48,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 		setClosable(true);
 
 		setTitle("Consultar un Tipo de Registro");
-		setBounds(30, 30, 727, 453);
+		setBounds(30, 30, 727, 430);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -127,8 +127,6 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         textFieldNombre.setBounds(441, 82, 249, 25);
         textFieldNombre.setEditable(false);
         getContentPane().add(textFieldNombre);
-
-        textFieldNombre.setText("Nombre del registro");
         
         lblDesc = new JLabel("Descripcion:");
 		lblDesc.setBounds(339, 142, 123, 21);
@@ -139,35 +137,29 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         textFieldDesc.setBounds(441, 140, 249, 65);
         textFieldDesc.setEditable(false);
         getContentPane().add(textFieldDesc);
-
-        textFieldDesc.setText("Descripcion del registro");
         
         lblCupo = new JLabel("Cupo:");
-		lblCupo.setBounds(350, 250, 109, 22);
+		lblCupo.setBounds(350, 226, 109, 22);
         lblCupo.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblCupo);
         
         textFieldCupo = new JTextField();
-        textFieldCupo.setBounds(441, 249, 249, 25);
+        textFieldCupo.setBounds(441, 225, 249, 25);
         textFieldCupo.setEditable(false);
         getContentPane().add(textFieldCupo);
-
-        textFieldCupo.setText("Cupo del registro");
         
         lblCosto = new JLabel("Costo:");
-		lblCosto.setBounds(350, 327, 115, 21);
+		lblCosto.setBounds(350, 276, 115, 21);
         lblCosto.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblCosto);
         
         textFieldCosto = new JTextField();
-        textFieldCosto.setBounds(441, 325, 249, 25);
+        textFieldCosto.setBounds(441, 274, 249, 25);
         textFieldCosto.setEditable(false);
         getContentPane().add(textFieldCosto);
-
-        textFieldCosto.setText("Costo del registro");
         
         btnCerrar = new JButton("Cerrar");
-    	btnCerrar.setBounds(585, 384, 105, 27);
+    	btnCerrar.setBounds(305, 351, 105, 27);
     	btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);

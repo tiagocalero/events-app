@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import excepciones.PatrocinioSuperaMontoException;
+import excepciones.YaExistePatrocinioException;
 import logica.ControladorCategoria;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
@@ -209,6 +210,19 @@ class ControladorEventoTest {
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 	    });
+		
+		assertThrows(YaExistePatrocinioException.class, () -> {
+			// Caso borde: Ya existe patrocinio para la institución
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat2",
+				TipoNivelPatrocinio.Plata,
+				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
+				"tp1",
+				(int) cantRegistrosOtorgados,
+				LocalDate.now()
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+		});
 	}
 	@Test @Order(15)
 	void testConsultaPatrocinio() {

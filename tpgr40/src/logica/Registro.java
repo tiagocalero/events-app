@@ -23,6 +23,7 @@ public class Registro{
     public String getNicknameAsistente(){
         return asistente.getNickname();
     }
+    
     public Asistente getAsistente() { return asistente; }
 
     public DTRegistro getDatos(){
