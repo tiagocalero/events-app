@@ -11,6 +11,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
@@ -33,6 +34,7 @@ import excepciones.PatrocinioSuperaMontoException;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorEventoTest {
 	private static ControladorEvento c;
+	private static ControladorUsuario cu;
 	
 	// Se ejecuta antes que todos los tests
 	@BeforeAll
@@ -225,5 +227,17 @@ class ControladorEventoTest {
 	@Test @Order(13)
 	void testListarCategorias() {
 		assertEquals(Set.of("c1", "c2", "c3", "c4"), new HashSet<>(c.listarCategorias()));
+	}
+	
+	//Dar de alta un registro de un Asistente a una Edicion
+	@Test @Order(16)
+	void testCrearRegistro() {
+		c = ControladorEvento.getInstance();
+		cu = ControladorUsuario.getInstance();
+		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
+		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1"));
 	}
 }
