@@ -17,10 +17,10 @@ import logica.ControladorEvento;
 import logica.DTEdicion;
 import logica.DTEvento;
 import javax.swing.JPanel;
+import java.awt.Font;
 
 public class ConsultaEventos extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;
-	private JLabel lblEventos;
 	private JComboBox comboBoxEventos;
 	private JLabel lblNombre;
 	private JButton btnConsulta;
@@ -60,13 +60,8 @@ public class ConsultaEventos extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Evento");
-		setBounds(30, 30, 1006, 620);
+		setBounds(30, 30, 878, 688);
 		getContentPane().setLayout(null);
-		
-		lblEventos = new JLabel("Eventos");
-		lblEventos.setBounds(12, 0, 188, 36);
-        lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
-        getContentPane().add(lblEventos);
 
         comboBoxEventos = new JComboBox();
         comboBoxEventos.setBounds(12, 41, 188, 43);
@@ -155,7 +150,7 @@ public class ConsultaEventos extends JInternalFrame {
         
         panel = new JPanel();
         panel.setLayout(null);
-        panel.setBounds(27, 381, 812, 157);
+        panel.setBounds(27, 440, 812, 157);
         getContentPane().add(panel);
         
         lblEdNom = new JLabel("Nombre:");
@@ -247,7 +242,7 @@ public class ConsultaEventos extends JInternalFrame {
         panel.add(txtEdPais);
         
         btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(734, 550, 105, 27);
+        btnCerrar.setBounds(376, 609, 105, 27);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);
@@ -255,6 +250,12 @@ public class ConsultaEventos extends JInternalFrame {
             }
         });
         getContentPane().add(btnCerrar);
+        
+        JLabel lblInformacinDeLa = new JLabel("Información de la edición:");
+        lblInformacinDeLa.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+        lblInformacinDeLa.setHorizontalAlignment(SwingConstants.CENTER);
+        lblInformacinDeLa.setBounds(27, 391, 812, 37);
+        getContentPane().add(lblInformacinDeLa);
 	}
 
 	protected void consulta(ActionEvent e) {
