@@ -151,6 +151,9 @@ class ControladorUsuarioTest {
 		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
 		assertEquals(true, ce.altaEdicion("Evento 1", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
 		
+		ce.crearTipoRegistro("Evento 1", "Edición 1", "tp5", "desc5", 101, 12);
+		ce.darDeAltaRegistro("as", "Edición test 1", "tp5", "Evento 1");
+		ce.darDeAltaRegistro("as", "Edición test 2", "tp5", "Evento 1");
 		
 		// chequeo asistente
 		
