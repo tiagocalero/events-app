@@ -293,7 +293,7 @@ public class ControladorEvento{
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento e = m.obtenerEvento(nickEvento);
 		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
-		
+				
 		float costo = t.getCosto();
 		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion, t);
 		edicion.agregarRegistro(nuevoRegistro);

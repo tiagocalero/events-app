@@ -103,7 +103,10 @@ class ControladorUsuarioTest {
 		assertEquals("prueba", dtu.getApellido());
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dtu.getNacimiento());
 		assertEquals(null, dtu.getInstitucion());
-			
+	}
+	
+	@Test @Order(3)
+	void testConsultaUsuario() {
 			
 	}
 
