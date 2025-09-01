@@ -84,7 +84,15 @@ public class Edicion {
     }
 
     public String getCiudad() {
-        return this.pais;
+        return this.ciudad;
+    }
+    public String getEvento() {
+        String nombreEv = evento.getNombre();
+        return nombreEv;
+    }
+    
+    public Organizador getOrganizador() {
+        return this.organizador;
     }
     
     public List<Registro> getRegistros() {

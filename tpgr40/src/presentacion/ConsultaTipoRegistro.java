@@ -56,7 +56,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
-        comboBoxEventos = new JComboBox();
+        comboBoxEventos = new JComboBox<>();
         comboBoxEventos.setBounds(22, 76, 262, 36);
         
         ControladorEvento c = ControladorEvento.getInstance();
@@ -72,7 +72,7 @@ public class ConsultaTipoRegistro extends JInternalFrame {
         lblEdiciones.setBounds(22, 134, 262, 36);
         getContentPane().add(lblEdiciones);
         
-        comboBoxEdiciones = new JComboBox();
+        comboBoxEdiciones = new JComboBox<>();
         comboBoxEdiciones.setBounds(22, 188, 262, 36);
         getContentPane().add(comboBoxEdiciones);
         

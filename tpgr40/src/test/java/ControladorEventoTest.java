@@ -23,6 +23,7 @@ import logica.ControladorUsuario;
 import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
+import logica.Edicion;
 import logica.TipoNivelPatrocinio;
 import logica.ManejadorCategoria;
 import logica.ManejadorEvento;
@@ -123,15 +124,43 @@ class ControladorEventoTest {
 		
 		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay"));
 	}
-
+	
 	@Test @Order(7)
+	//testeo obtener con una que existe
+	void testObtenerEdicionExistente() {
+		
+		Edicion e = c.obtenerEdicion("Edición 1", "Evento 1");
+		LocalDate f = LocalDate.now();
+		assertEquals("Edición 1", e.getNombre());
+		assertEquals("ed1", e.getSigla());
+		assertEquals("org", e.getOrganizador().getNickname());
+		assertEquals(f, e.getFechaAlta());
+		assertEquals(f, e.getFechaFinal());
+		assertEquals(f, e.getFechaInicio());
+		assertEquals("Evento 1", e.getEvento());
+		assertEquals("Montevideo", e.getCiudad());
+		assertEquals("Uruguay", e.getPais());
+
+	}
+	//testeo con una que no existe
+	@Test @Order(14)
+	void testObtenerEdicionNoExistente() {
+		
+		Edicion e = c.obtenerEdicion("Edición 20", "Evento 1");
+		assertEquals(null, e);
+
+	}
+	
+	
+
+	@Test @Order(8)
 	void testCrearTipoRegistro() {
 		c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc1", 100, 1);
 	}
 
 	// Probar crear TipoRegistro con nombre ya existente para una misma edicion y evento.
 	// Probar crear TipoRegistro con nombre ya existente, pero para distinta edicion/evento.
-	@Test @Order(8)
+	@Test @Order(9)
 	void testCrearTipoRegistroExistente() {
 		assertEquals(false, c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc2", 101, 12));
 		
@@ -140,7 +169,7 @@ class ControladorEventoTest {
 	}
 
 	// Probar crear patrocinios con casos borde de costos
-	@Test @Order(9)
+	@Test @Order(10)
 	void testCrearPatrocinio() {
 		DTTRegistro tp = c.seleccionarTipoRegistro("tp1", "Evento 1", "Edición 1");
 		float cantRegistrosOtorgados = 10;
@@ -172,18 +201,29 @@ class ControladorEventoTest {
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 	    });
 	}
+	@Test @Order(15)
+	void testConsultaPatrocinio() {
+		DTPatrocinio dtp = c.consultaPatrocinio("Evento 1", "Edición 1", "pat2");
+		//TRegistro t = 
+		
+		assertEquals(dtp.getCodigo(), "pat2");
+		assertEquals(dtp.getTipo(), TipoNivelPatrocinio.Plata);
+		assertEquals(dtp.getMonto(), 10 * tp.getCosto() * 4.9f);
 
-	@Test @Order(10)
+
+		
+	}
+	@Test @Order(11)
 	void testListarPatrocinios() {
 		assertEquals(List.of("pat1"), c.listarPatrocinios("Evento 1", "Edición 1"));
 	}
 
-	@Test @Order(11)
+	@Test @Order(12)
 	void testListarOrganizadores() {
 		assertEquals(List.of("org"), c.listarOrganizadores());
 	}
 
-	@Test @Order(12)
+	@Test @Order(13)
 	void testListarCategorias() {
 		assertEquals(Set.of("c1", "c2", "c3", "c4"), new HashSet<>(c.listarCategorias()));
 	}
