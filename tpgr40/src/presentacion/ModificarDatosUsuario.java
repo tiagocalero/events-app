@@ -241,8 +241,12 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
 	        	return;
 	        }
-			if (comboBoxInst.getSelectedItem() != "Sin Institución") DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
-			else if (comboBoxInst.getSelectedItem() == "Sin Institución") DTAsistenteModificado am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha);
+			DTAsistenteModificado am = null;
+			if (comboBoxInst.getSelectedItem() != "Sin Institución") {
+				am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
+			} else if (comboBoxInst.getSelectedItem() == "Sin Institución") {
+				am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha);
+			}
 			um = am;
 		} else {
 			assert u instanceof DTOrganizador;
