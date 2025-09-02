@@ -130,8 +130,7 @@ class ControladorEventoTest {
 		LocalDate f = LocalDate.now();
 		
 		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay"));
-		
-		//assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay"));
+		assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay"));
 	}
 	
 	
@@ -155,14 +154,10 @@ class ControladorEventoTest {
 	//testeo con una que no existe
 	@Test @Order(14)
 	void testObtenerEdicionNoExistente() {
-		
 		Edicion e = c.obtenerEdicion("Edición 20", "Evento 1");
 		assertEquals(null, e);
-
 	}
 	
-	
-
 	@Test @Order(8)
 	void testCrearTipoRegistro() {
 		c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc1", 100, 1);
