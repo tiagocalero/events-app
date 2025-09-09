@@ -123,11 +123,11 @@ public class AltaPatrocinio extends JInternalFrame{
         getContentPane().add(textCantRegistros);
         
         botonCrear = new JButton("Crear");
-        botonCrear.setBounds(556, 311, 188, 37);
+        botonCrear.setBounds(396, 349, 108, 29);
         getContentPane().add(botonCrear);
         
         botonCancelar = new JButton("Cancelar");
-        botonCancelar.setBounds(356, 311, 188, 37);
+        botonCancelar.setBounds(284, 349, 108, 29);
         getContentPane().add(botonCancelar);
         
         labelCodigo = new JLabel("Codigo:");
