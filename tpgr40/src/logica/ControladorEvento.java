@@ -120,7 +120,7 @@ public class ControladorEvento{
 		return m.obtenerEdicion(nombre, evento);
 	}
 
-	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException {
+	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
 		//Obtengo la Institucion
 		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
 		Institucion instInstitucion = mi.obtener(nombreInstitucion);
@@ -132,7 +132,6 @@ public class ControladorEvento{
 		
 		// Obtengo el TipoRegistro y la fecha
 		TRegistro tp = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
-        LocalDate fechaActual = LocalDate.now();
 
 		float costo = tp.getCosto();
 		int cantRegistros = dtp.getCantRegistros();
@@ -150,36 +149,10 @@ public class ControladorEvento{
 		if (instInstitucion.existePatrocinio(instEdicion)) 
 			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + instInstitucion.getNombre() + " para la edición " + instEdicion.getNombre());
 		
-		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
-		instInstitucion.agregarPatrocinio(p);
-		instEdicion.agregarPatrocinio(p);
-	}
-	
-	public boolean crearPatrocinioCargaDatos(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
-		//Obtengo la Institucion
-		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
-		Institucion instInstitucion = mi.obtener(nombreInstitucion);
-		
-		//Obtengo la Edicion
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		Evento instEvento = me.obtenerEvento(nombreEvento);
-		Edicion instEdicion = me.obtenerEdicion(nombreEdicion, instEvento);
-		
-		//Obtengo el TipoRegistro y la fecha
-		TRegistro tp = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
-				
-        //Obtengo el Costo y lo calculo para ver si falla
-		float costo = tp.getCosto();
-		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
-			return false;
-		
 		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
 		instInstitucion.agregarPatrocinio(p);
 		instEdicion.agregarPatrocinio(p);
-		
-		return true;
 	}
-	
 	
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
