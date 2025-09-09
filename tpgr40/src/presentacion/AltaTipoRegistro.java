@@ -170,7 +170,10 @@ public class AltaTipoRegistro extends JInternalFrame {
 		    boolean exito;
 		    try {
 		    	exito = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
-			} catch (Exception ex) {
+			} catch(IllegalArgumentException ex) {
+	        	JOptionPane.showMessageDialog(AltaTipoRegistro.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	        	return;
+	        } catch (Exception ex) {
 		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		    	return;
 		    }

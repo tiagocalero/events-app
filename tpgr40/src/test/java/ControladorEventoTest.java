@@ -162,6 +162,21 @@ class ControladorEventoTest {
 	void testCrearTipoRegistro() {
 		c.crearTipoRegistro("Evento 1", "Edición 1", "tp1", "desc1", 100, 1);
 	}
+	
+	@Test @Order(8)
+	void testCrearTipoRegistroValoresInvalidos() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			c.crearTipoRegistro("Evento 1", "Edición 1", "tp10", "desc1", -1, 0);
+		});
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			c.crearTipoRegistro("Evento 1", "Edición 1", "tp10", "desc1", -1, -1);
+		});
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			c.crearTipoRegistro("Evento 1", "Edición 1", "tp10", "desc1", 0, -1);
+		});
+	}
 
 	// Probar crear TipoRegistro con nombre ya existente para una misma edicion y evento.
 	// Probar crear TipoRegistro con nombre ya existente, pero para distinta edicion/evento.
@@ -188,6 +203,45 @@ class ControladorEventoTest {
 				cantRegistrosOtorgados * tp.getCosto() * 4.9f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
+				LocalDate.now()
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+		});
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			// Caso borde: costo negativo
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat2",
+				TipoNivelPatrocinio.Plata,
+				-1,
+				"tp1",
+				0,
+				LocalDate.now()
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+		});
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			// Caso borde: cantRegistros negativo
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat2",
+				TipoNivelPatrocinio.Plata,
+				100000,
+				"tp1",
+				-1,
+				LocalDate.now()
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+		});
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			// Caso borde: cantRegistros y cupos negativos
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat2",
+				TipoNivelPatrocinio.Plata,
+				-100000000,
+				"tp1",
+				-1,
 				LocalDate.now()
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
@@ -219,6 +273,7 @@ class ControladorEventoTest {
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
 	}
+	
 	@Test @Order(15)
 	void testConsultaPatrocinio() {
 		DTPatrocinio dtp = c.consultaPatrocinio("Evento 1", "Edición 1", "pat1");
@@ -231,10 +286,6 @@ class ControladorEventoTest {
 		assertEquals(dtp.getTipoRegistro(), "tp1");
 		assertEquals(dtp.getCantRegistros(), 10);
 		assertEquals(dtp.getFechaAlta(), LocalDate.now());
-
-
-
-		
 	}
 	
 	@Test @Order(16)
