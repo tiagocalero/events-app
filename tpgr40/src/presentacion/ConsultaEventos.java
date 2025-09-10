@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -14,9 +15,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
+import logica.ControladorUsuario;
 import logica.DTEdicion;
 import logica.DTEvento;
+import logica.Organizador;
+
 import javax.swing.JPanel;
+
+import java.awt.Dimension;
 import java.awt.Font;
 
 public class ConsultaEventos extends JInternalFrame {
@@ -33,26 +39,16 @@ public class ConsultaEventos extends JInternalFrame {
 	private JComboBox comboBoxCategorias;
 	private JComboBox comboBoxEdiciones;
 	private JTextArea textDesc;
-	private JPanel panel;
-	private JLabel lblEdNom;
-	private JTextField txtEdNom;
-	private JLabel lblEdSigla;
-	private JTextField txtEdSigla;
-	private JLabel lblEdOrg;
-	private JTextField txtEdOrg;
-	private JLabel lblEdFI;
-	private JLabel lblEdFF;
-	private JTextField txtEdFI;
-	private JTextField txtEdFF;
-	private JLabel lblEdFA;
-	private JTextField txtEdFA;
-	private JLabel lblEdCiudad;
-	private JTextField txtEdCiudad;
-	private JLabel lblEdPais;
-	private JTextField txtEdPais;
 	private JButton btnCerrar;
+	private JDesktopPane desktopPane;
 	
-	public ConsultaEventos() {
+	
+	public ConsultaEventos(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
+        initComponents();
+    }
+	
+	public void initComponents() {
 		setVisible(true);
 		setResizable(true);
 		setIconifiable(true);
@@ -60,7 +56,7 @@ public class ConsultaEventos extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Evento");
-		setBounds(30, 30, 878, 688);
+		setBounds(30, 30, 657, 461);
 		getContentPane().setLayout(null);
 
         comboBoxEventos = new JComboBox();
@@ -134,7 +130,7 @@ public class ConsultaEventos extends JInternalFrame {
         comboBoxEdiciones.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String si = (String) comboBoxEdiciones.getSelectedItem();
-        		if ( si != null ) consultaEdicion(e);
+        		if ( si != null ) llamarVentanaEdicion(e);
         	};
         });
         comboBoxEdiciones.setBounds(342, 310, 287, 43);
@@ -148,101 +144,8 @@ public class ConsultaEventos extends JInternalFrame {
         textDesc.setBounds(359, 140, 255, 67);
         getContentPane().add(textDesc);
         
-        panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBounds(27, 440, 812, 157);
-        getContentPane().add(panel);
-        
-        lblEdNom = new JLabel("Nombre:");
-        lblEdNom.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdNom.setBounds(0, 0, 106, 37);
-        panel.add(lblEdNom);
-        
-        txtEdNom = new JTextField();
-        txtEdNom.setEditable(false);
-        txtEdNom.setColumns(10);
-        txtEdNom.setBounds(113, 0, 147, 37);
-        panel.add(txtEdNom);
-        
-        lblEdSigla = new JLabel("Sigla:");
-        lblEdSigla.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdSigla.setBounds(0, 49, 106, 37);
-        panel.add(lblEdSigla);
-        
-        txtEdSigla = new JTextField();
-        txtEdSigla.setEditable(false);
-        txtEdSigla.setColumns(10);
-        txtEdSigla.setBounds(113, 49, 147, 37);
-        panel.add(txtEdSigla);
-        
-        lblEdOrg = new JLabel("Organizador:");
-        lblEdOrg.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdOrg.setBounds(0, 96, 106, 37);
-        panel.add(lblEdOrg);
-        
-        txtEdOrg = new JTextField();
-        txtEdOrg.setEditable(false);
-        txtEdOrg.setColumns(10);
-        txtEdOrg.setBounds(113, 96, 147, 37);
-        panel.add(txtEdOrg);
-        
-        lblEdFI = new JLabel("Fecha de Inicio:");
-        lblEdFI.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdFI.setBounds(272, 0, 111, 37);
-        panel.add(lblEdFI);
-        
-        lblEdFF = new JLabel("Fecha de Fin:");
-        lblEdFF.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdFF.setBounds(272, 49, 111, 37);
-        panel.add(lblEdFF);
-        
-        txtEdFI = new JTextField();
-        txtEdFI.setEditable(false);
-        txtEdFI.setColumns(10);
-        txtEdFI.setBounds(385, 0, 147, 37);
-        panel.add(txtEdFI);
-        
-        txtEdFF = new JTextField();
-        txtEdFF.setEditable(false);
-        txtEdFF.setColumns(10);
-        txtEdFF.setBounds(385, 49, 147, 37);
-        panel.add(txtEdFF);
-        
-        lblEdFA = new JLabel("Fecha de Alta:");
-        lblEdFA.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdFA.setBounds(272, 96, 111, 37);
-        panel.add(lblEdFA);
-        
-        txtEdFA = new JTextField();
-        txtEdFA.setEditable(false);
-        txtEdFA.setColumns(10);
-        txtEdFA.setBounds(385, 96, 147, 37);
-        panel.add(txtEdFA);
-        
-        lblEdCiudad = new JLabel("Ciudad:");
-        lblEdCiudad.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdCiudad.setBounds(544, 0, 106, 37);
-        panel.add(lblEdCiudad);
-        
-        txtEdCiudad = new JTextField();
-        txtEdCiudad.setEditable(false);
-        txtEdCiudad.setColumns(10);
-        txtEdCiudad.setBounds(657, 0, 147, 37);
-        panel.add(txtEdCiudad);
-        
-        lblEdPais = new JLabel("Pais:");
-        lblEdPais.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblEdPais.setBounds(544, 49, 106, 37);
-        panel.add(lblEdPais);
-        
-        txtEdPais = new JTextField();
-        txtEdPais.setEditable(false);
-        txtEdPais.setColumns(10);
-        txtEdPais.setBounds(657, 49, 147, 37);
-        panel.add(txtEdPais);
-        
         btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(376, 609, 105, 27);
+        btnCerrar.setBounds(268, 394, 105, 27);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);
@@ -250,12 +153,6 @@ public class ConsultaEventos extends JInternalFrame {
             }
         });
         getContentPane().add(btnCerrar);
-        
-        JLabel lblInformacinDeLa = new JLabel("Información de la edición:");
-        lblInformacinDeLa.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-        lblInformacinDeLa.setHorizontalAlignment(SwingConstants.CENTER);
-        lblInformacinDeLa.setBounds(27, 391, 812, 37);
-        getContentPane().add(lblInformacinDeLa);
 	}
 
 	protected void consulta(ActionEvent e) {
@@ -272,20 +169,38 @@ public class ConsultaEventos extends JInternalFrame {
         	comboBoxCategorias.addItem(cat);
         }
         comboBoxEdiciones.removeAllItems();
+        comboBoxEdiciones.addItem("Seleccione una Edicion");
         for (String ed: evento.getEdiciones()) {
         	comboBoxEdiciones.addItem(ed);
         }
     }
 	
-	protected void consultaEdicion(ActionEvent e) {ControladorEvento c = ControladorEvento.getInstance();
-	    DTEdicion ed = c.obtenerEdicion((String) comboBoxEdiciones.getSelectedItem(), (String) comboBoxEventos.getSelectedItem()).getDatos();
-		txtEdNom.setText(ed.getNombre());
-		txtEdSigla.setText(ed.getSigla());
-		txtEdOrg.setText(ed.getOrganizador());
-		txtEdFI.setText(ed.getFechaInicio().toString());
-		txtEdFF.setText(ed.getFechaFin().toString());
-		txtEdFA.setText(ed.getFechaAlta().toString());
-		txtEdPais.setText(ed.getPais());
-		txtEdCiudad.setText(ed.getCiudad());
+	
+	
+	public void llamarVentanaEdicion(ActionEvent e) {           	
+		String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+		String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion") 
+				&& eventoSeleccionado != null && !edicionSeleccionada.equals("Seleccione un Evento")) {
+			
+			JInternalFrame c = new ConsultaEdicionDeEvento(desktopPane, eventoSeleccionado, edicionSeleccionada);
+			desktopPane.add(c);
+	        centerInternalFrame(c);
+	        c.setVisible(true);
+	        c.toFront();
+		}
 	}
+	
+	// Método para centrar las ventanas internas
+    private void centerInternalFrame(JInternalFrame frame) {
+        if (desktopPane != null) {
+            Dimension desktopSize = desktopPane.getSize();
+            Dimension frameSize = frame.getSize();
+            if (frameSize.getWidth() > 0 && frameSize.getHeight() > 0) {
+                int x = (desktopSize.width - frameSize.width) / 2;
+                int y = (desktopSize.height - frameSize.height) / 2;
+                frame.setLocation(x, y);
+            }
+        }
+    }
 }

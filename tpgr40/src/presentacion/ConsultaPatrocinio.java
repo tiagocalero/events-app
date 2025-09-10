@@ -2,6 +2,7 @@
 package presentacion;
 
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -38,8 +39,20 @@ public class ConsultaPatrocinio extends JInternalFrame {
 	private JTextField textTRegistros;
 	private JTextField textFechaAlta;
 	private JButton btnCerrar;
+	private JDesktopPane desktopPane;
+
 	
-	public ConsultaPatrocinio() {
+	public ConsultaPatrocinio(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
+        initComponents();
+	}
+	
+	public ConsultaPatrocinio(String evento, String edicion, String patrocinio) {
+        initComponents();
+        cargarDatosIniciales(evento, edicion, patrocinio);
+    }
+	
+	public void initComponents() {
 		setVisible(true);
 		setResizable(true);
 		setIconifiable(true);
@@ -239,4 +252,12 @@ public class ConsultaPatrocinio extends JInternalFrame {
 		textNivelPatrocinio.setText("");
 		textTRegistros.setText("");
 	}
+	
+	private void cargarDatosIniciales(String evento, String edicion, String patrocinio) {
+        if (edicion != null) {
+        	comboBoxEventos.setSelectedItem(evento);
+            comboBoxEdiciones.setSelectedItem(edicion);
+            comboBoxPatrocinios.setSelectedItem(patrocinio);
+        }
+    }
 }

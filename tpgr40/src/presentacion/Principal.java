@@ -92,7 +92,7 @@ public class Principal extends JFrame {
         menuConEventos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	JInternalFrame c = new ConsultaEventos();
+            	JInternalFrame c = new ConsultaEventos(desktopPane);
                 desktopPane.add(c);
                 centerInternalFrame(c);
                 c.setVisible(true);
@@ -117,7 +117,7 @@ public class Principal extends JFrame {
         menuConsultaEdicion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JInternalFrame a = new ConsultaEdicionDeEvento();
+                JInternalFrame a = new ConsultaEdicionDeEvento(desktopPane);
                 desktopPane.add(a);
                 centerInternalFrame(a);
                 a.setVisible(true);
@@ -142,7 +142,7 @@ public class Principal extends JFrame {
         menuConPatrocinios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	JInternalFrame c = new ConsultaPatrocinio();
+            	JInternalFrame c = new ConsultaPatrocinio(desktopPane);
                 desktopPane.add(c);
                 centerInternalFrame(c);
                 c.setVisible(true);

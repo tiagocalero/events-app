@@ -12,6 +12,7 @@ import logica.TipoNivelPatrocinio;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ import logica.DTPatrocinio;
 import logica.Edicion;
 import logica.TipoNivelPatrocinio;
 
+import java.awt.Dimension;
 import java.awt.Font;
 
 public class ConsultaEdicionDeEvento extends JInternalFrame {
@@ -52,32 +54,20 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 	private JLabel lblTipoRegistros;
 	private JLabel lblDatos;
 	private JLabel lblSeleccioneUnEvento;
-	private JLabel lblAporte;
-	private JTextField textAporte;
-	private JLabel lblNivelPatrocinio;
-	private JLabel lblTipoDeRegistros;
-	private JTextField textCantRegistros;
-	private JTextField textNivelPatrocinio;
-	private JTextField textTipoRegistro;
-	private JLabel lblDatosDelPatrocinio;
-	private JLabel lblCantRegistros;
-	private JLabel lblDatosDelTipo;
-	private JTextField textNombreRegistro;
-	private JLabel lblNombre_1;
-	private JLabel lblDescripcion;
-	private JTextField textDescRegistro;
-	private JTextField textCupoRegistro;
-	private JLabel lblCupo_1;
-	private JTextField textCostoRegistro;
-	private JLabel lblCupo;
+	private JDesktopPane desktopPane;
 	
 	
-	public ConsultaEdicionDeEvento() {
-		initComponents();
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public ConsultaEdicionDeEvento(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
+        initComponents();
 	}
 	
-	public ConsultaEdicionDeEvento(String evento, String edicion) {
-        initComponents();
+	public ConsultaEdicionDeEvento(JDesktopPane desktopPane, String evento, String edicion) {
+		this.desktopPane = desktopPane;
+		initComponents();
         cargarDatosIniciales(evento, edicion);
     }
 	
@@ -91,16 +81,16 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		setTitle("Consulta Edicion de Evento");
 		setBounds(30, 30, 700, 600);
 		getContentPane().setLayout(null);
-		setSize(1130, 755);
+		setSize(851, 562);
 		
 		lblEventos = new JLabel("Eventos:");
-		lblEventos.setBounds(242, 52, 107, 36);
+		lblEventos.setBounds(34, 52, 107, 36);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
         comboBoxEventos = new JComboBox();
         comboBoxEventos.addItem("Seleccione un Evento");
-        comboBoxEventos.setBounds(330, 49, 226, 43);
+        comboBoxEventos.setBounds(135, 49, 226, 43);
         
         ControladorEvento c = ControladorEvento.getInstance();
         
@@ -120,12 +110,12 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         txtPais.setColumns(10);
         
         comboBoxEdiciones = new JComboBox();
-        comboBoxEdiciones.setBounds(732, 49, 226, 43);
+        comboBoxEdiciones.setBounds(539, 49, 226, 43);
         getContentPane().add(comboBoxEdiciones);
         
         JLabel lblEdicionesDelEvento = new JLabel("Ediciones del Evento:");
         lblEdicionesDelEvento.setHorizontalAlignment(SwingConstants.CENTER);
-        lblEdicionesDelEvento.setBounds(570, 52, 158, 36);
+        lblEdicionesDelEvento.setBounds(386, 52, 158, 36);
         getContentPane().add(lblEdicionesDelEvento);
         
         lblCiudad = new JLabel("Ciudad:");
@@ -173,63 +163,63 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         getContentPane().add(txtOrganizador);
         
         comboBoxAsistentes = new JComboBox();
-        comboBoxAsistentes.setBounds(115, 544, 255, 43);
+        comboBoxAsistentes.setBounds(115, 395, 255, 43);
         getContentPane().add(comboBoxAsistentes);
         
         comboBoxPatrocinios = new JComboBox();
-        comboBoxPatrocinios.setBounds(415, 186, 255, 36);
+        comboBoxPatrocinios.setBounds(554, 333, 255, 36);
         getContentPane().add(comboBoxPatrocinios);
         
         JLabel lblFechaInicio = new JLabel("Fecha Inicio:");
         lblFechaInicio.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFechaInicio.setBounds(12, 397, 96, 37);
+        lblFechaInicio.setBounds(448, 152, 96, 37);
         getContentPane().add(lblFechaInicio);
         
         JLabel lblFechaFin = new JLabel("Fecha Fin:");
         lblFechaFin.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFechaFin.setBounds(12, 446, 96, 37);
+        lblFechaFin.setBounds(448, 201, 96, 37);
         getContentPane().add(lblFechaFin);
         
         JLabel lblFechaAlta = new JLabel("Fecha Alta:");
         lblFechaAlta.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFechaAlta.setBounds(12, 495, 96, 37);
+        lblFechaAlta.setBounds(448, 250, 96, 37);
         getContentPane().add(lblFechaAlta);
         
         txtFechaInicio = new JTextField();
         txtFechaInicio.setEditable(false);
         txtFechaInicio.setColumns(10);
-        txtFechaInicio.setBounds(115, 397, 255, 37);
+        txtFechaInicio.setBounds(554, 152, 255, 37);
         getContentPane().add(txtFechaInicio);
         
         txtFechaFin = new JTextField();
         txtFechaFin.setEditable(false);
         txtFechaFin.setColumns(10);
-        txtFechaFin.setBounds(115, 446, 255, 37);
+        txtFechaFin.setBounds(554, 201, 255, 37);
         getContentPane().add(txtFechaFin);
         
         txtFechaAlta = new JTextField();
         txtFechaAlta.setEditable(false);
         txtFechaAlta.setColumns(10);
-        txtFechaAlta.setBounds(115, 495, 255, 37);
+        txtFechaAlta.setBounds(554, 250, 255, 37);
         getContentPane().add(txtFechaAlta);
         
         comboBoxTipoRegistros = new JComboBox();
-        comboBoxTipoRegistros.setBounds(415, 482, 255, 36);
+        comboBoxTipoRegistros.setBounds(554, 414, 255, 36);
         getContentPane().add(comboBoxTipoRegistros);
         
         lblAsistentes = new JLabel("Asistentes:");
         lblAsistentes.setHorizontalAlignment(SwingConstants.CENTER);
-        lblAsistentes.setBounds(23, 544, 96, 37);
+        lblAsistentes.setBounds(34, 395, 96, 37);
         getContentPane().add(lblAsistentes);
         
         lblPatrocinios = new JLabel("Patrocinios de la edición:");
         lblPatrocinios.setHorizontalAlignment(SwingConstants.LEFT);
-        lblPatrocinios.setBounds(415, 152, 255, 37);
+        lblPatrocinios.setBounds(458, 299, 255, 37);
         getContentPane().add(lblPatrocinios);
         
         lblTipoRegistros = new JLabel("Tipo de Registros de la edición:");
         lblTipoRegistros.setHorizontalAlignment(SwingConstants.LEFT);
-        lblTipoRegistros.setBounds(415, 446, 255, 37);
+        lblTipoRegistros.setBounds(458, 380, 255, 37);
         getContentPane().add(lblTipoRegistros);
         
         lblDatos = new JLabel("Datos de la Edición");
@@ -241,111 +231,11 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         lblSeleccioneUnEvento = new JLabel("Seleccione un Evento y una Edición");
         lblSeleccioneUnEvento.setHorizontalAlignment(SwingConstants.CENTER);
         lblSeleccioneUnEvento.setFont(new Font("Dialog", Font.BOLD, 18));
-        lblSeleccioneUnEvento.setBounds(12, 6, 1086, 36);
+        lblSeleccioneUnEvento.setBounds(12, 6, 616, 36);
         getContentPane().add(lblSeleccioneUnEvento);
         
-        lblAporte = new JLabel("Aporte Económico:");
-        lblAporte.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblAporte.setBounds(722, 247, 139, 37);
-        getContentPane().add(lblAporte);
-        
-        textAporte = new JTextField();
-        textAporte.setEditable(false);
-        textAporte.setColumns(10);
-        textAporte.setBounds(872, 247, 226, 37);
-        getContentPane().add(textAporte);
-        
-        lblNivelPatrocinio = new JLabel("Nivel Patrocinio:");
-        lblNivelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNivelPatrocinio.setBounds(740, 197, 121, 37);
-        getContentPane().add(lblNivelPatrocinio);
-        
-        lblTipoDeRegistros = new JLabel("Tipo de Registro Gratutito:");
-        lblTipoDeRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblTipoDeRegistros.setBounds(645, 298, 216, 37);
-        getContentPane().add(lblTipoDeRegistros);
-        
-        textCantRegistros = new JTextField();
-        textCantRegistros.setEditable(false);
-        textCantRegistros.setColumns(10);
-        textCantRegistros.setBounds(872, 347, 226, 37);
-        getContentPane().add(textCantRegistros);
-        
-        textNivelPatrocinio = new JTextField();
-        textNivelPatrocinio.setEditable(false);
-        textNivelPatrocinio.setColumns(10);
-        textNivelPatrocinio.setBounds(872, 197, 226, 37);
-        getContentPane().add(textNivelPatrocinio);
-        
-        textTipoRegistro = new JTextField();
-        textTipoRegistro.setEditable(false);
-        textTipoRegistro.setColumns(10);
-        textTipoRegistro.setBounds(872, 297, 226, 37);
-        getContentPane().add(textTipoRegistro);
-        
-        lblDatosDelPatrocinio = new JLabel("Datos del Patrocinio");
-        lblDatosDelPatrocinio.setHorizontalAlignment(SwingConstants.CENTER);
-        lblDatosDelPatrocinio.setFont(new Font("Dialog", Font.BOLD, 18));
-        lblDatosDelPatrocinio.setBounds(740, 152, 237, 36);
-        getContentPane().add(lblDatosDelPatrocinio);
-        
-        lblCantRegistros = new JLabel("Cantidad de Registros Gratuitos:");
-        lblCantRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblCantRegistros.setBounds(627, 347, 234, 37);
-        getContentPane().add(lblCantRegistros);
-        
-        lblDatosDelTipo = new JLabel("Datos del Tipo de Registro");
-        lblDatosDelTipo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblDatosDelTipo.setFont(new Font("Dialog", Font.BOLD, 18));
-        lblDatosDelTipo.setBounds(722, 446, 292, 36);
-        getContentPane().add(lblDatosDelTipo);
-        
-        textNombreRegistro = new JTextField();
-        textNombreRegistro.setEditable(false);
-        textNombreRegistro.setColumns(10);
-        textNombreRegistro.setBounds(872, 494, 226, 37);
-        getContentPane().add(textNombreRegistro);
-        
-        lblNombre_1 = new JLabel("Nombre:");
-        lblNombre_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNombre_1.setBounds(627, 494, 234, 37);
-        getContentPane().add(lblNombre_1);
-        
-        lblDescripcion = new JLabel("Descripcion:");
-        lblDescripcion.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblDescripcion.setBounds(627, 543, 234, 37);
-        getContentPane().add(lblDescripcion);
-        
-        textDescRegistro = new JTextField();
-        textDescRegistro.setEditable(false);
-        textDescRegistro.setColumns(10);
-        textDescRegistro.setBounds(872, 543, 226, 37);
-        getContentPane().add(textDescRegistro);
-        
-        textCupoRegistro = new JTextField();
-        textCupoRegistro.setEditable(false);
-        textCupoRegistro.setColumns(10);
-        textCupoRegistro.setBounds(872, 592, 226, 37);
-        getContentPane().add(textCupoRegistro);
-        
-        lblCupo_1 = new JLabel("Cupo:");
-        lblCupo_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblCupo_1.setBounds(627, 592, 234, 37);
-        getContentPane().add(lblCupo_1);
-        
-        textCostoRegistro = new JTextField();
-        textCostoRegistro.setEditable(false);
-        textCostoRegistro.setColumns(10);
-        textCostoRegistro.setBounds(872, 641, 226, 37);
-        getContentPane().add(textCostoRegistro);
-        
-        lblCupo = new JLabel("Costo:");
-        lblCupo.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblCupo.setBounds(627, 641, 234, 37);
-        getContentPane().add(lblCupo);
-        
         JButton btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(458, 670, 139, 36);
+        btnCerrar.setBounds(353, 482, 139, 36);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);
@@ -446,60 +336,18 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         comboBoxPatrocinios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	borrarCamposPatrocinio();
-            	// Obtener el evento seleccionado
-            	String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
-            	String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
-                String patrocinioSeleccionado = (String) comboBoxPatrocinios.getSelectedItem();
-                
-                // Verificar que la selección sea válida
-                if (patrocinioSeleccionado != null && !patrocinioSeleccionado.equals("Seleccione un Patrocinio")) {
-                    ControladorEvento m = ControladorEvento.getInstance();
-                    DTPatrocinio dtp = m.consultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleccionado);
-                    
-                    switch (dtp.getTipo()) {
-                    case Plata:
-                    	textNivelPatrocinio.setText("Plata");
-                    	break;
-                    case Platino:
-                    	textNivelPatrocinio.setText("Platino");
-                    	break;
-                    case Oro:
-                    	textNivelPatrocinio.setText("Oro");
-                    	break;
-                    case Bronce:
-                    	textNivelPatrocinio.setText("Bronce");
-                    	break;
-                    }
-                    
-                    textAporte.setText(String.valueOf(dtp.getMonto()));
-                    textTipoRegistro.setText(dtp.getTipoRegistro());
-                    textCantRegistros.setText(String.valueOf(dtp.getCantRegistros()));
-                }    
+        		llamarVentanaPatrocinio(e);           
            }
         });
         
         comboBoxTipoRegistros.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        			borrarCamposTipoRegistro();
-        			String registroSeleccionado = (String) comboBoxTipoRegistros.getSelectedItem();
-        			String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
-        			String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
-        			if (registroSeleccionado != null && !registroSeleccionado.equals("Seleccione un Tipo Registro")) {
-        				ControladorEvento m = ControladorEvento.getInstance();
-        				DTTRegistro registro = m.seleccionarTipoRegistro(registroSeleccionado, eventoSeleccionado, edicionSeleccionada);
-            
-        				// Mostramos los datos en los campos de texto
-        				textNombreRegistro.setText(registro.getNombre());
-        				textDescRegistro.setText(registro.getDescripcion());
-        				textCostoRegistro.setText("$" + String.valueOf(registro.getCosto()));
-        				textCupoRegistro.setText(String.valueOf(registro.getCupo()));
-        			}
-           
+        		llamarVentanaTRegistro(e);        
         	}
         });
 	}
+	
 	
 	private void cargarDatosIniciales(String evento, String edicion) {
         if (edicion != null) {
@@ -507,6 +355,39 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
             comboBoxEdiciones.setSelectedItem(edicion);
         }
     }
+	
+	public void llamarVentanaTRegistro(ActionEvent e) {           	
+		String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+		String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+		String tRegistroSeleccionado = (String) comboBoxTipoRegistros.getSelectedItem();
+		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion") 
+				&& eventoSeleccionado != null && !edicionSeleccionada.equals("Seleccione un Evento") 
+				&& tRegistroSeleccionado != null && !tRegistroSeleccionado.equals("Seleccione un Tipo Registro")) {
+			
+			JInternalFrame c = new ConsultaTipoRegistro(eventoSeleccionado, edicionSeleccionada, tRegistroSeleccionado);
+			desktopPane.add(c);
+	        centerInternalFrame(c);
+	        c.setVisible(true);
+	        c.toFront();
+		}
+	}
+	
+	public void llamarVentanaPatrocinio(ActionEvent e) {
+		String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+		String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+		String patrocinioSeleecionado = (String) comboBoxPatrocinios.getSelectedItem();
+		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion") 
+				&& eventoSeleccionado != null && !edicionSeleccionada.equals("Seleccione un Evento") 
+				&& patrocinioSeleecionado != null && !patrocinioSeleecionado.equals("Seleccione un Patrocinio")) {
+			
+			JInternalFrame c = new ConsultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleecionado);
+			desktopPane.add(c);
+	        centerInternalFrame(c);
+	        c.setVisible(true);
+	        c.toFront();
+		}
+	}
+	
 	
 	private void borrarCamposEvento() {
 
@@ -524,15 +405,6 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		comboBoxPatrocinios.removeAllItems();
 		comboBoxTipoRegistros.removeAllItems();
 		
-		textNombreRegistro.setText("");
-		textDescRegistro.setText("");
-		textCostoRegistro.setText("");
-		textCupoRegistro.setText("");
-		
-		textNivelPatrocinio.setText("");
-		textAporte.setText("");
-        textTipoRegistro.setText("");
-        textCantRegistros.setText("");
 	}
 	private void borrarCamposEdicion() {
 
@@ -550,29 +422,18 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		comboBoxPatrocinios.removeAllItems();
 		comboBoxTipoRegistros.removeAllItems();
 		
-		textNombreRegistro.setText("");
-		textDescRegistro.setText("");
-		textCostoRegistro.setText("");
-		textCupoRegistro.setText("");
-		
-		textNivelPatrocinio.setText("");
-		textAporte.setText("");
-        textTipoRegistro.setText("");
-        textCantRegistros.setText("");
 	}
 	
-	private void borrarCamposPatrocinio() {
-		
-		textNivelPatrocinio.setText("");
-		textAporte.setText("");
-        textTipoRegistro.setText("");
-        textCantRegistros.setText("");
-	}
-	
-	private void borrarCamposTipoRegistro() {
-		textNombreRegistro.setText("");
-		textDescRegistro.setText("");
-		textCostoRegistro.setText("");
-		textCupoRegistro.setText("");
-	}
+	// Método para centrar las ventanas internas
+    private void centerInternalFrame(JInternalFrame frame) {
+        if (desktopPane != null) {
+            Dimension desktopSize = desktopPane.getSize();
+            Dimension frameSize = frame.getSize();
+            if (frameSize.getWidth() > 0 && frameSize.getHeight() > 0) {
+                int x = (desktopSize.width - frameSize.width) / 2;
+                int y = (desktopSize.height - frameSize.height) / 2;
+                frame.setLocation(x, y);
+            }
+        }
+    }
 }

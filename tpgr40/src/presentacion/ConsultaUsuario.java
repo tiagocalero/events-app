@@ -266,7 +266,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
 			DTEdicion ed = org.obtenerEdicion(edicionSeleccionada).getDatos();
 			String evento = (ed.getEvento());
-			JInternalFrame c = new ConsultaEdicionDeEvento(evento, edicionSeleccionada);
+			JInternalFrame c = new ConsultaEdicionDeEvento(desktopPane, evento, edicionSeleccionada);
 			desktopPane.add(c);
 	        centerInternalFrame(c);
 	        c.setVisible(true);

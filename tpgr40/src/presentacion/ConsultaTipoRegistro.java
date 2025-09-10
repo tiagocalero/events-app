@@ -35,11 +35,20 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 	private JTextField textFieldCupo;
 	private JTextField textFieldCosto;
 	private JButton btnCerrar;
-
-
-
+	
+	
 	
 	public ConsultaTipoRegistro() {
+		initComponents();
+	}
+	
+	public ConsultaTipoRegistro(String evento, String edicion, String tregistro) {
+        initComponents();
+        cargarDatosIniciales(evento, edicion, tregistro);
+    }
+
+	
+	public void initComponents() {
 		setVisible(true);
 		setResizable(true);
 		setIconifiable(true);
@@ -187,5 +196,12 @@ public class ConsultaTipoRegistro extends JInternalFrame {
             }
         });
 	}
-
+	
+	private void cargarDatosIniciales(String evento, String edicion, String tregistro) {
+        if (edicion != null && evento != null && tregistro != null) {
+        	comboBoxEventos.setSelectedItem(evento);
+            comboBoxEdiciones.setSelectedItem(edicion);
+            comboBoxTipoRegistro.setSelectedItem(tregistro);
+        }
+    }
 }
