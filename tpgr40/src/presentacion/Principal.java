@@ -218,7 +218,7 @@ public class Principal extends JFrame {
         menuConsultaUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JInternalFrame a = new ConsultaUsuario();
+                JInternalFrame a = new ConsultaUsuario(desktopPane);
                 desktopPane.add(a);
                 centerInternalFrame(a);
                 a.setVisible(true);

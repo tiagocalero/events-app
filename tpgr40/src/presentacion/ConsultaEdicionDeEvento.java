@@ -71,7 +71,17 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 	private JTextField textCostoRegistro;
 	private JLabel lblCupo;
 	
+	
 	public ConsultaEdicionDeEvento() {
+		initComponents();
+	}
+	
+	public ConsultaEdicionDeEvento(String evento, String edicion) {
+        initComponents();
+        cargarDatosIniciales(evento, edicion);
+    }
+	
+	public void initComponents() {
 		setVisible(true);
 		setResizable(true);
 		setIconifiable(true);
@@ -490,6 +500,13 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         	}
         });
 	}
+	
+	private void cargarDatosIniciales(String evento, String edicion) {
+        if (edicion != null) {
+        	comboBoxEventos.setSelectedItem(evento);
+            comboBoxEdiciones.setSelectedItem(edicion);
+        }
+    }
 	
 	private void borrarCamposEvento() {
 

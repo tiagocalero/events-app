@@ -51,8 +51,9 @@ public class Edicion {
 		List<String> codigoPatrocinios = new ArrayList<>(patrocinios.keySet());
 		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
         List<String> nickAsistentes = registros.stream().map(r -> r.getNicknameAsistente()).collect(Collectors.toList());
+        
 
-		return new DTEdicion(pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, nickAsistentes, organizador.getNickname());
+		return new DTEdicion(evento.getNombre(), pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, codigoPatrocinios, nombreTRegistros, nickAsistentes, organizador.getNickname());
 	}
 	
     public String getNombre() {

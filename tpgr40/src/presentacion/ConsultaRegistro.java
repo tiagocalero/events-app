@@ -45,6 +45,15 @@ public class ConsultaRegistro extends JInternalFrame {
 	private JLabel lblTipo;
 	
 	public ConsultaRegistro() {
+		initComponents();
+	}
+	
+	public ConsultaRegistro(String usuario, String registro) {
+        initComponents();
+        cargarDatosIniciales(usuario, registro);
+    }
+	
+	public void initComponents() {
 		setVisible(true);
 		setResizable(true);
 		setIconifiable(true);
@@ -182,6 +191,13 @@ public class ConsultaRegistro extends JInternalFrame {
         });
         
 	}
+	
+	private void cargarDatosIniciales(String usuario, String registro) {
+        if (usuario != null) {
+        	comboBoxUsuarios.setSelectedItem(usuario);
+            comboBoxRegistros.setSelectedItem(registro);
+        }
+    }
 	
 	private void inicializarCombos() {
         DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<>();
