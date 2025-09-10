@@ -56,7 +56,7 @@ public class ConsultaEventos extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Evento");
-		setBounds(30, 30, 657, 461);
+		setBounds(30, 30, 657, 474);
 		getContentPane().setLayout(null);
 
         comboBoxEventos = new JComboBox();

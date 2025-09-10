@@ -156,6 +156,7 @@ public class CargarDatos {
 		tp = e.crearTipoRegistro("Conferencia de Tecnología", "Web Summit 2026", "Estudiante", "Acceso para estudiantes", 300, 1);
 		
 		//Cargar Patrocinios
+		// El try es necesario para que no tire que hay errores sin manejar
 		try {
 			DTPatrocinio dtp1 = new DTPatrocinio("TECHFING", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt));
 			e.crearPatrocinio(dtp1, "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");

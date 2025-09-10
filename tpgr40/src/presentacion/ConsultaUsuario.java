@@ -236,7 +236,7 @@ public class ConsultaUsuario extends JInternalFrame {
         panelOrg_2.add(comboBoxEdicion);
 
         btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(551, 498, 105, 27);
+        btnCerrar.setBounds(287, 497, 105, 27);
 		btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);

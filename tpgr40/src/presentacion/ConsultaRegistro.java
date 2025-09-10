@@ -119,7 +119,7 @@ public class ConsultaRegistro extends JInternalFrame {
         getContentPane().add(textCosto);
         
         btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(657, 280, 105, 27);
+        btnCerrar.setBounds(358, 270, 105, 27);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);

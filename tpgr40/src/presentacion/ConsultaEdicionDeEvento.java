@@ -81,7 +81,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		setTitle("Consulta Edicion de Evento");
 		setBounds(30, 30, 700, 600);
 		getContentPane().setLayout(null);
-		setSize(851, 562);
+		setSize(851, 569);
 		
 		lblEventos = new JLabel("Eventos:");
 		lblEventos.setBounds(34, 52, 107, 36);
@@ -231,11 +231,11 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         lblSeleccioneUnEvento = new JLabel("Seleccione un Evento y una Edición");
         lblSeleccioneUnEvento.setHorizontalAlignment(SwingConstants.CENTER);
         lblSeleccioneUnEvento.setFont(new Font("Dialog", Font.BOLD, 18));
-        lblSeleccioneUnEvento.setBounds(12, 6, 616, 36);
+        lblSeleccioneUnEvento.setBounds(112, 6, 616, 36);
         getContentPane().add(lblSeleccioneUnEvento);
         
         JButton btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(353, 482, 139, 36);
+        btnCerrar.setBounds(353, 489, 139, 29);
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);

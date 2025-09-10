@@ -47,6 +47,9 @@ public class ConsultaPatrocinio extends JInternalFrame {
         initComponents();
 	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public ConsultaPatrocinio(String evento, String edicion, String patrocinio) {
         initComponents();
         cargarDatosIniciales(evento, edicion, patrocinio);
