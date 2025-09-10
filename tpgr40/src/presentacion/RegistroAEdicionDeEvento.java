@@ -128,7 +128,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         	comboBoxAsistentes.addItem(asistente.getNickname());
         }
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(181, 520, 150, 35);
+        btnRegistrar.setBounds(181, 526, 132, 29);
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = (String) comboBoxAsistentes.getSelectedItem();
             String nombreTRegistro = (String) comboBoxTipoRegistro.getSelectedItem();
@@ -187,7 +187,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         getContentPane().add(btnRegistrar);
         
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(22, 520, 150, 35);
+        btnCancelar.setBounds(40, 526, 132, 29);
         getContentPane().add(btnCancelar);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

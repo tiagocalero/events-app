@@ -1,0 +1,111 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+header {
+  background: #ccc;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 20px;
+  font-weight: bold;
+  transform: rotate(-20deg);
+}
+
+header .search {
+  flex-grow: 1;
+  margin: 0 20px;
+  display: flex;
+}
+
+header input[type="text"] {
+  flex: 1;
+  padding: 5px;
+}
+
+header button {
+  padding: 5px 10px;
+  background: #3b5998;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+header .user-links {
+  font-size: 14px;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
+aside {
+  width: 200px;
+  background: #e0e0e0;
+  padding: 10px;
+}
+
+aside h3 {
+  margin-top: 0;
+  font-size: 16px;
+  border-bottom: 1px solid #999;
+}
+
+aside ul {
+  list-style: none;
+  padding: 0;
+}
+
+aside ul li {
+  margin: 5px 0;
+}
+
+aside ul li a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background: white;
+}
+
+.event {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.event img {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+}
+
+.event h4 {
+  margin: 0;
+}
+
+.right-sidebar {
+  width: 200px;
+  background: #f0f0f0;
+  padding: 10px;
+}
+
+.right-sidebar h4 {
+  border-bottom: 1px solid #999;
+  margin-top: 0;
+}

@@ -32,7 +32,7 @@ public class AltaUsuario extends JInternalFrame {
 	
 	public AltaUsuario() {
 		setVisible(true); 
-        setSize(524, 456);
+        setSize(438, 456);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -74,7 +74,7 @@ public class AltaUsuario extends JInternalFrame {
 		panel.add(lblSigla);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(32, 186, 472, 189);
+		panel_2.setBounds(32, 186, 372, 189);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -149,7 +149,7 @@ public class AltaUsuario extends JInternalFrame {
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		textArea.setBounds(193, 236, 311, 139);
+		textArea.setBounds(193, 236, 203, 89);
 		panel.add(textArea);
 		
 		JPanel panel_1 = new JPanel();

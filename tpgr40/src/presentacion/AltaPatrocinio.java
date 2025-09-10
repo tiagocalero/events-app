@@ -24,6 +24,7 @@ import javax.swing.DropMode;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -47,6 +48,7 @@ public class AltaPatrocinio extends JInternalFrame{
 	private JTextField textField;
 	private JLabel labelCodigo;
 	private JTextField textCodigo;
+	private JTextField textFecha;
 	
 	public AltaPatrocinio() {
 		
@@ -123,11 +125,11 @@ public class AltaPatrocinio extends JInternalFrame{
         getContentPane().add(textCantRegistros);
         
         botonCrear = new JButton("Crear");
-        botonCrear.setBounds(556, 311, 188, 37);
+        botonCrear.setBounds(396, 349, 108, 29);
         getContentPane().add(botonCrear);
         
         botonCancelar = new JButton("Cancelar");
-        botonCancelar.setBounds(356, 311, 188, 37);
+        botonCancelar.setBounds(284, 349, 108, 29);
         getContentPane().add(botonCancelar);
         
         labelCodigo = new JLabel("Codigo:");
@@ -139,6 +141,16 @@ public class AltaPatrocinio extends JInternalFrame{
         textCodigo.setColumns(10);
         textCodigo.setBounds(536, 227, 226, 37);
         getContentPane().add(textCodigo);
+        
+        JLabel labelFecha = new JLabel("Fecha Alta:");
+        labelFecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelFecha.setBounds(309, 273, 216, 37);
+        getContentPane().add(labelFecha);
+        
+        textFecha = new JTextField();
+        textFecha.setColumns(10);
+        textFecha.setBounds(536, 276, 226, 37);
+        getContentPane().add(textFecha);
 		
 
         inicializarCombos();
@@ -237,6 +249,16 @@ public class AltaPatrocinio extends JInternalFrame{
         String cantRegistrosSeleccionados = (String) textCantRegistros.getText();
         String codigoSeleccionado = sacarEspacios(textCodigo.getText());
         
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaAlta;
+        // Si la fecha es inválida, mostrar un error
+        try {
+        	fechaAlta = LocalDate.parse(sacarEspacios(textFecha.getText()), fmt);
+        } catch (Exception ex) {
+        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
         // Transformar los datos seleccionados
 	    // Validación de monto y cantidad registroslnk
         TipoNivelPatrocinio tipoNivel = TipoNivelPatrocinio.valueOf(nivelPatrocinioSeleccionado);
@@ -279,7 +301,7 @@ public class AltaPatrocinio extends JInternalFrame{
         }
         
         // Crear el DTPatrocinio
-        DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, LocalDate.now());
+        DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, fechaAlta);
         
         // Crear el Patrocinio
         ControladorEvento me = ControladorEvento.getInstance();
@@ -289,6 +311,9 @@ public class AltaPatrocinio extends JInternalFrame{
         	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         } catch(YaExistePatrocinioException ex) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        } catch(IllegalArgumentException ex) {
         	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         } catch (Exception ex) {

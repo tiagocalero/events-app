@@ -120,7 +120,7 @@ public class ControladorEvento{
 		return m.obtenerEdicion(nombre, evento);
 	}
 
-	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException {
+	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
 		//Obtengo la Institucion
 		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
 		Institucion instInstitucion = mi.obtener(nombreInstitucion);
@@ -130,47 +130,29 @@ public class ControladorEvento{
 		Evento instEvento = me.obtenerEvento(nombreEvento);
 		Edicion instEdicion = me.obtenerEdicion(nombreEdicion, instEvento);
 		
-		//Obtengo el TipoRegistro y la fecha
+		// Obtengo el TipoRegistro y la fecha
 		TRegistro tp = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
-        LocalDate fechaActual = LocalDate.now();
-		
-        //Obtengo el Costo y lo calculo para ver si falla
+
 		float costo = tp.getCosto();
-		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto()) 
+		int cantRegistros = dtp.getCantRegistros();
+		float monto = dtp.getMonto();
+        // Chequear valores:
+        // cantRegistros y montos no pueden ser negativos
+		if (cantRegistros < 0)
+			throw new IllegalArgumentException("El cantidad de registros no puede ser negativa");
+		if (monto < 0)
+			throw new IllegalArgumentException("El aporte económico no puede ser negativo");
+		// No se puede exceder el 20% del monto
+		if (costo * cantRegistros > 0.2 * monto) 
 			throw new PatrocinioSuperaMontoException("El costo de los registros supera el 20% del aporte económico.");
+		// No puede existir un patrocinio para la institución
 		if (instInstitucion.existePatrocinio(instEdicion)) 
 			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + instInstitucion.getNombre() + " para la edición " + instEdicion.getNombre());
-		
-		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), fechaActual, dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
-		instInstitucion.agregarPatrocinio(p);
-		instEdicion.agregarPatrocinio(p);
-	}
-	
-	public boolean crearPatrocinioCargaDatos(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) {
-		//Obtengo la Institucion
-		ManejadorInstitucion mi = ManejadorInstitucion.getInstance();		
-		Institucion instInstitucion = mi.obtener(nombreInstitucion);
-		
-		//Obtengo la Edicion
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		Evento instEvento = me.obtenerEvento(nombreEvento);
-		Edicion instEdicion = me.obtenerEdicion(nombreEdicion, instEvento);
-		
-		//Obtengo el TipoRegistro y la fecha
-		TRegistro tp = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
-				
-        //Obtengo el Costo y lo calculo para ver si falla
-		float costo = tp.getCosto();
-		if (costo * dtp.getCantRegistros() > 0.2 * dtp.getMonto())
-			return false;
 		
 		Patrocinio p = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tp);
 		instInstitucion.agregarPatrocinio(p);
 		instEdicion.agregarPatrocinio(p);
-		
-		return true;
 	}
-	
 	
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -197,7 +179,7 @@ public class ControladorEvento{
 		Evento evento = m.obtenerEvento(nombreEvento);
 		Usuario organizador = mu.obtener(nicknameOrganizador);
 		
-		if (evento.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
+		if (m.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
 			return false;
 
 		Edicion e = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
@@ -224,11 +206,17 @@ public class ControladorEvento{
 
 
 	public boolean crearTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTRegistro, String descripcion, float costo, int cupo) {
-		
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento e = m.obtenerEvento(nombreEvento);
 		Edicion ed = m.obtenerEdicion(nombreEdicion, e);
 		
+		// costo no puede ser negativo
+		if (costo < 0)
+			throw new IllegalArgumentException("El costo no puede ser negativo");
+		// cupo no puede ser negativo
+		if (cupo < 0)
+			throw new IllegalArgumentException("La cantidad de cupos no puede ser negativa");
+		// No debe existir el TRegistro
 		if (ed.getTipoRegistro(nombreTRegistro) != null)
 			return false;
 		
@@ -279,8 +267,8 @@ public class ControladorEvento{
 		
 		return false;
 	}
+	
 	public boolean darDeAltaRegistroCD(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String fechaAlta, int costo) {
-		
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
 		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);

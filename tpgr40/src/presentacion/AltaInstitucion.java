@@ -34,66 +34,48 @@ public class AltaInstitucion extends JInternalFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Institución");
-		setBounds(30, 30, 315, 422);
-		getContentPane().setLayout(null);
+		setBounds(30, 30, 402, 298);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(40, 54, 60, 17);
-		getContentPane().add(lblNombre);
+		lblNombre.setBounds(29, 22, 117, 17);
+		panel.add(lblNombre);
 		
 		JLabel lblSitioWeb = new JLabel("Sitio Web: ");
 		lblSitioWeb.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSitioWeb.setBounds(-18, 84, 118, 17);
-		getContentPane().add(lblSitioWeb);
+		lblSitioWeb.setBounds(29, 61, 118, 17);
+		panel.add(lblSitioWeb);
 		
 		JLabel lblDescripcin = new JLabel("Descripción:");
 		lblDescripcin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDescripcin.setBounds(11, 114, 89, 17);
-		getContentPane().add(lblDescripcin);
-		
-		JLabel lblDatosDeLa = new JLabel("Datos de la Institución:");
-		lblDatosDeLa.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDatosDeLa.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblDatosDeLa.setBounds(11, 2, 247, 40);
-		getContentPane().add(lblDatosDeLa);
+		lblDescripcin.setBounds(29, 103, 117, 17);
+		panel.add(lblDescripcin);
 		
 		textNombre = new JTextField();
-		textNombre.setBounds(107, 52, 151, 21);
-		getContentPane().add(textNombre);
+		textNombre.setBounds(158, 19, 178, 21);
+		panel.add(textNombre);
 		textNombre.setColumns(10);
 		
 		textWeb = new JTextField();
-		textWeb.setBounds(107, 82, 151, 21);
-		getContentPane().add(textWeb);
+		textWeb.setBounds(158, 58, 178, 21);
+		panel.add(textWeb);
 		textWeb.setColumns(10);
 		
 		textDesc = new JTextArea();
 		textDesc.setWrapStyleWord(true);
 		textDesc.setLineWrap(true);
-		textDesc.setBounds(107, 114, 151, 88);
-		getContentPane().add(textDesc);
-		
-		
-		JButton btnNewButton_1 = new JButton("Crear");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { crearInstitucion(e); }
-		});
-		btnNewButton_1.setBounds(55, 214, 188, 37);
-		getContentPane().add(btnNewButton_1);
-				
-		JButton btnNewButton_2 = new JButton("Cancelar");
-		btnNewButton_2.setBounds(54, 312, 188, 37);
-		btnNewButton_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	setVisible(false);
-            	dispose();
-            }
-        });
-		getContentPane().add(btnNewButton_2);
-		
+		textDesc.setBounds(158, 103, 178, 88);
+		panel.add(textDesc);
+
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
+
 		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(54, 263, 188, 37);
 		btnLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	textNombre.setText("");
@@ -101,7 +83,22 @@ public class AltaInstitucion extends JInternalFrame{
             	textDesc.setText(""); 
             }
         });
-		getContentPane().add(btnLimpiar);
+		panel_1.add(btnLimpiar);
+		
+		JButton btnNewButton_2 = new JButton("Cancelar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+		panel_1.add(btnNewButton_2);
+
+		JButton btnNewButton_1 = new JButton("Crear");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { crearInstitucion(e); }
+		});
+		panel_1.add(btnNewButton_1);
 	}
 	
 	protected void crearInstitucion(ActionEvent e) {

@@ -53,11 +53,11 @@ public class ManejadorEvento {
 	}
 	
 	// Devuelve si existe una edición en todo el sistema
-	/*public boolean existeEdicion(String nombre) {
+	public boolean existeEdicion(String nombre) {
 		return eventos.values()
-		              .stream()
-		              .allMatch(e -> !e.existeEdicion(nombre));
-	} */
+				      .stream()
+                      .anyMatch(e -> e.existeEdicion(nombre));
+	}
 	
 	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {
 		
