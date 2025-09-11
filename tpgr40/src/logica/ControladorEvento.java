@@ -64,6 +64,14 @@ public class ControladorEvento {
 		return edicion.getCodigosPatrocinios();
 	}
 	
+	public List<String> listarInstituciones(String nomEvento, String nomEdicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		return edicion.getInstitucionesPatrocinios();
+	}
+	
 	public List<String> listarOrganizadores() {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.organizadores();
@@ -91,6 +99,20 @@ public class ControladorEvento {
 		Evento evento = m.obtenerEvento(nomEvento);
 		Edicion edicion = evento.getEdicion(nomEdicion);
 		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
+		
+		return dtp;
+	}
+	
+	public DTPatrocinio consultaPatrocinioInstitucion(String nomEvento, String nomEdicion, String nomInstitucion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		ControladorInstitucion i = ControladorInstitucion.getInstance();
+		
+		Evento evento = m.obtenerEvento(nomEvento);
+		Edicion edicion = evento.getEdicion(nomEdicion);
+		Institucion inst = i.obtenerInstitucion(nomInstitucion);
+		Patrocinio p = inst.obtenerPatrocinio(edicion);
+		DTPatrocinio dtp = null;
+		if (p != null) dtp = p.getDatos();
 		
 		return dtp;
 	}

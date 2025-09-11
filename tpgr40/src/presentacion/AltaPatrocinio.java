@@ -301,7 +301,7 @@ public class AltaPatrocinio extends JInternalFrame{
         }
         
         // Crear el DTPatrocinio
-        DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, fechaAlta);
+        DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, fechaAlta, institucionSeleccionada);
         
         // Crear el Patrocinio
         ControladorEvento me = ControladorEvento.getInstance();

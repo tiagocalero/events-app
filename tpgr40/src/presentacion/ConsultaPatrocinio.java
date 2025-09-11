@@ -214,7 +214,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 
         	// Agregar patrocinios
             ControladorEvento m = ControladorEvento.getInstance();
-            m.listarPatrocinios(eventoSeleccionado, edicionSeleccionada).forEach(patrociniosModel::addElement);
+            m.listarInstituciones(eventoSeleccionado, edicionSeleccionada).forEach(patrociniosModel::addElement);
             comboBoxPatrocinios.setModel(patrociniosModel);
         } else {
         	// Si se selecciono "Seleccione una Edicion", no mostrar patrocinios
@@ -227,13 +227,13 @@ public class ConsultaPatrocinio extends JInternalFrame {
         // Obtener el evento seleccionado
         String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
         String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
-        String patrocinioSeleccionado = (String) comboBoxPatrocinios.getSelectedItem();
+        String institucionSeleccionada = (String) comboBoxPatrocinios.getSelectedItem();
         
         // Verificar que la selección sea válida
-        if (patrocinioSeleccionado != null && !patrocinioSeleccionado.equals("Seleccione un Patrocinio")) {
+        if (institucionSeleccionada != null && !institucionSeleccionada.equals("Seleccione un Patrocinio")) {
         	// Mostrar datos de patrocinio
             ControladorEvento m = ControladorEvento.getInstance();
-            DTPatrocinio dtp = m.consultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleccionado);
+            DTPatrocinio dtp = m.consultaPatrocinioInstitucion(eventoSeleccionado, edicionSeleccionada, institucionSeleccionada);
             
             textNivelPatrocinio.setText(dtp.getTipo().toString());
             textAporteEconomico.setText("$" + String.valueOf(dtp.getMonto()));

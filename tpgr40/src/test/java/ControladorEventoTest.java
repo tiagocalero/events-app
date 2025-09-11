@@ -207,7 +207,8 @@ class ControladorEventoTest {
 				cantRegistrosOtorgados * tp.getCosto() * 4.9f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
-				LocalDate.now()
+				LocalDate.now(),
+				"Institución 1"
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -220,7 +221,8 @@ class ControladorEventoTest {
 				-1,
 				"tp1",
 				0,
-				LocalDate.now()
+				LocalDate.now(),
+				"Institución 1"
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -233,7 +235,8 @@ class ControladorEventoTest {
 				100000,
 				"tp1",
 				-1,
-				LocalDate.now()
+				LocalDate.now(),
+				"Institución 1"
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -246,7 +249,8 @@ class ControladorEventoTest {
 				-100000000,
 				"tp1",
 				-1,
-				LocalDate.now()
+				LocalDate.now(),
+				"Institución 1"
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -259,7 +263,8 @@ class ControladorEventoTest {
 				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
-				LocalDate.now()
+				LocalDate.now(),
+				"Institución 1"
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 	    });
@@ -272,7 +277,8 @@ class ControladorEventoTest {
 				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
-				LocalDate.now()
+				LocalDate.now(),
+				"Institución 1"
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});

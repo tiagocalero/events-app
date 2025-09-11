@@ -33,11 +33,15 @@ public class Patrocinio {
 	}
 	
 	public DTPatrocinio getDatos() {
-		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros, fecha);
+		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros, fecha, institucion.getNombre());
 	}
 
 	public String getCodigo() {
 		return codigo;
+	}
+	
+	public Institucion getInstitucion() {
+		return institucion;
 	}
 	
 	public boolean buscarEdicion(Edicion e) {

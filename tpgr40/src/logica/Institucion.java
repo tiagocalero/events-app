@@ -26,6 +26,15 @@ public class Institucion {
 		return false;	
 	}
 	
+	public Patrocinio obtenerPatrocinio(Edicion e) {
+		for (Patrocinio p: patrocinios) {
+			if (p.buscarEdicion(e))
+				return p;
+		}
+		
+		return null;
+	}
+	
     public void agregarPatrocinio(Patrocinio p) {
     	patrocinios.add(p);
     }

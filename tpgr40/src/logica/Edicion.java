@@ -108,6 +108,10 @@ public class Edicion {
     	return new ArrayList<>(patrocinios.keySet());
     }
     
+    public List<String> getInstitucionesPatrocinios() {
+    	return new ArrayList<>(patrocinios.values().stream().map(patrocinio->patrocinio.getInstitucion().getNombre()).collect(Collectors.toList()));
+    }
+    
     public void agregarTRegistro(TRegistro tr) {
     	tRegistros.put(tr.getNombre(), tr);
     }
