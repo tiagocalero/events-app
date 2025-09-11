@@ -287,8 +287,10 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
                     comboBoxAsistentes.setModel(asistentesModel);
                     
                     DefaultComboBoxModel<String> patrociniosModel = new DefaultComboBoxModel<>();
+
                     patrociniosModel.addElement("Seleccione una Institución");
                     DTedicion.getInstitucionesPatrocinadoras().forEach(patrociniosModel::addElement);
+
                     comboBoxPatrocinios.setModel(patrociniosModel);
                     
                     DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<>();
