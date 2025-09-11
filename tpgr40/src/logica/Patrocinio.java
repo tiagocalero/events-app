@@ -43,6 +43,10 @@ public class Patrocinio {
 	public Institucion getInstitucion() {
 		return institucion;
 	}
+
+	public String getNombreInstitucion() {
+		return institucion.getNombre();
+	}
 	
 	public boolean buscarEdicion(Edicion e) {
 		return e == edicion;

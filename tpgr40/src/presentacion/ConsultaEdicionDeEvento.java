@@ -279,10 +279,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
            		
             		// Obtener la edicion
             		ControladorEvento c = ControladorEvento.getInstance();
-            		Edicion instEdicion = c.obtenerEdicion(edicionSeleccionada, eventoSeleccionado);
-            	
-            		//Crear el datatype
-            		DTEdicion DTedicion = instEdicion.getDatos();            		
+            		DTEdicion DTedicion = c.obtenerEdicion(edicionSeleccionada, eventoSeleccionado);           		
             		
             		DefaultComboBoxModel<String> asistentesModel = new DefaultComboBoxModel<>();
                     asistentesModel.addElement("Seleccione una Asistente");
@@ -290,8 +287,8 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
                     comboBoxAsistentes.setModel(asistentesModel);
                     
                     DefaultComboBoxModel<String> patrociniosModel = new DefaultComboBoxModel<>();
-                    patrociniosModel.addElement("Seleccione un Patrocinio");
-                    DTedicion.getPatrocinio().forEach(patrociniosModel::addElement);
+                    patrociniosModel.addElement("Seleccione una Institución");
+                    DTedicion.getInstitucionesPatrocinadoras().forEach(patrociniosModel::addElement);
                     comboBoxPatrocinios.setModel(patrociniosModel);
                     
                     DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<>();
@@ -378,7 +375,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		String patrocinioSeleecionado = (String) comboBoxPatrocinios.getSelectedItem();
 		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion") 
 				&& eventoSeleccionado != null && !edicionSeleccionada.equals("Seleccione un Evento") 
-				&& patrocinioSeleecionado != null && !patrocinioSeleecionado.equals("Seleccione un Patrocinio")) {
+				&& patrocinioSeleecionado != null && !patrocinioSeleecionado.equals("Seleccione una Institución")) {
 			
 			JInternalFrame c = new ConsultaPatrocinio(eventoSeleccionado, edicionSeleccionada, patrocinioSeleecionado);
 			desktopPane.add(c);

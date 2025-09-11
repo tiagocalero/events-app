@@ -33,13 +33,15 @@ public class ConsultaPatrocinio extends JInternalFrame {
 	private JComboBox comboBoxEdiciones;
 	private JLabel lblNombre;
 	private final JTextField textAporteEconomico = new JTextField();
-	private JComboBox comboBoxPatrocinios;
+	private JComboBox comboBoxInstituciones;
 	private JTextField textCantRegistros;
 	private JTextField textNivelPatrocinio;
 	private JTextField textTRegistros;
 	private JTextField textFechaAlta;
 	private JButton btnCerrar;
 	private JDesktopPane desktopPane;
+	private JLabel libCodigo;
+	private JTextField textCodigo;
 
 	
 	public ConsultaPatrocinio(JDesktopPane desktopPane) {
@@ -63,85 +65,111 @@ public class ConsultaPatrocinio extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Patrocinio");
-		setBounds(30, 30, 814, 425);
+		setBounds(30, 30, 814, 454);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
+        comboBoxEventos = new JComboBox();
+        comboBoxEventos.setBounds(27, 53, 226, 43);
+        panel.add(comboBoxEventos);
+        
+                comboBoxEventos.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { eventoSeleccionado(); }
+                });
+		
+		comboBoxEdiciones = new JComboBox();
+		comboBoxEdiciones.setBounds(27, 108, 226, 43);
+		panel.add(comboBoxEdiciones);
+		
+		        comboBoxEdiciones.addActionListener(new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) { edicionSeleccionada(); }
+		        });
+		
+		comboBoxInstituciones = new JComboBox();
+		comboBoxInstituciones.setBounds(27, 163, 226, 43);
+		panel.add(comboBoxInstituciones);
+		
+		        comboBoxInstituciones.addActionListener(new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) { institucionSeleccionada(); }
+		        });
+		
 		lblEventos = new JLabel("Datos del Patrocinio");
 		lblEventos.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblEventos.setBounds(309, 6, 453, 60);
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(lblEventos);
-                
-        comboBoxEventos = new JComboBox();
-        comboBoxEventos.setBounds(27, 53, 226, 43);
         inicializarCombos();
-        panel.add(comboBoxEventos);
+        
+        JLabel lblNivelPatrocinio = new JLabel("Nivel Patrocinio:");
+        lblNivelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblNivelPatrocinio.setBounds(403, 108, 121, 37);
+        panel.add(lblNivelPatrocinio);
+        
+        textNivelPatrocinio = new JTextField();
+        textNivelPatrocinio.setEditable(false);
+        textNivelPatrocinio.setColumns(10);
+        textNivelPatrocinio.setBounds(535, 108, 226, 37);
+        panel.add(textNivelPatrocinio);
         
         lblNombre = new JLabel("Aporte Económico:");
-        lblNombre.setBounds(385, 113, 139, 37);
+        lblNombre.setBounds(385, 158, 139, 37);
         lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
         //lblNombre.setBounds(100, 100, 170, 14);
         panel.add(lblNombre);
         textAporteEconomico.setEditable(false);
-        textAporteEconomico.setBounds(535, 113, 226, 37);
+        textAporteEconomico.setBounds(535, 158, 226, 37);
         panel.add(textAporteEconomico);
         textAporteEconomico.setColumns(10);
         
-        comboBoxEdiciones = new JComboBox();
-        comboBoxEdiciones.setBounds(27, 108, 226, 43);
-        panel.add(comboBoxEdiciones);
-        
-        comboBoxPatrocinios = new JComboBox();
-        comboBoxPatrocinios.setBounds(27, 163, 226, 43);
-        panel.add(comboBoxPatrocinios);
-        
-        JLabel lblNivelPatrocinio = new JLabel("Nivel Patrocinio:");
-        lblNivelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNivelPatrocinio.setBounds(403, 63, 121, 37);
-        panel.add(lblNivelPatrocinio);
-        
         JLabel lblTipoDeRegistros = new JLabel("Tipo de Registro Gratutito:");
         lblTipoDeRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblTipoDeRegistros.setBounds(308, 163, 216, 37);
+        lblTipoDeRegistros.setBounds(308, 208, 216, 37);
         panel.add(lblTipoDeRegistros);
+        
+        textTRegistros = new JTextField();
+        textTRegistros.setEditable(false);
+        textTRegistros.setColumns(10);
+        textTRegistros.setBounds(535, 208, 226, 37);
+        panel.add(textTRegistros);
         
         JLabel lblNombre_1 = new JLabel("Cantidad de Registros Gratuitos:");
         lblNombre_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNombre_1.setBounds(290, 213, 234, 37);
+        lblNombre_1.setBounds(290, 258, 234, 37);
         panel.add(lblNombre_1);
         
         textCantRegistros = new JTextField();
         textCantRegistros.setEditable(false);
         textCantRegistros.setColumns(10);
-        textCantRegistros.setBounds(535, 213, 226, 37);
+        textCantRegistros.setBounds(535, 258, 226, 37);
         panel.add(textCantRegistros);
-        
-        textNivelPatrocinio = new JTextField();
-        textNivelPatrocinio.setEditable(false);
-        textNivelPatrocinio.setColumns(10);
-        textNivelPatrocinio.setBounds(535, 63, 226, 37);
-        panel.add(textNivelPatrocinio);
-        
-        textTRegistros = new JTextField();
-        textTRegistros.setEditable(false);
-        textTRegistros.setColumns(10);
-        textTRegistros.setBounds(535, 163, 226, 37);
-        panel.add(textTRegistros);
         
         JLabel lblNombre_1_1 = new JLabel("Fecha de Alta:");
         lblNombre_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblNombre_1_1.setBounds(291, 263, 234, 37);
+        lblNombre_1_1.setBounds(291, 308, 234, 37);
         panel.add(lblNombre_1_1);
         
         textFechaAlta = new JTextField();
         textFechaAlta.setEditable(false);
         textFechaAlta.setColumns(10);
-        textFechaAlta.setBounds(536, 263, 226, 37);
+        textFechaAlta.setBounds(536, 308, 226, 37);
         panel.add(textFechaAlta);
+        
+        libCodigo = new JLabel("Código:");
+        libCodigo.setHorizontalAlignment(SwingConstants.RIGHT);
+        libCodigo.setBounds(403, 59, 121, 37);
+        panel.add(libCodigo);
+        
+        textCodigo = new JTextField();
+        textCodigo.setEditable(false);
+        textCodigo.setColumns(10);
+        textCodigo.setBounds(535, 59, 226, 37);
+        panel.add(textCodigo);
 
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
@@ -155,21 +183,6 @@ public class ConsultaPatrocinio extends JInternalFrame {
             }
         });
         panel_1.add(btnCerrar);
-
-        comboBoxEventos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { eventoSeleccionado(); }
-        });
-
-        comboBoxEdiciones.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { edicionSeleccionada(); }
-        });
-
-        comboBoxPatrocinios.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { patrocinioSeleccionado(); }
-        });
 	}
 	
 	private void inicializarCombos() {
@@ -189,7 +202,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
         if (eventoSeleccionado != null && !eventoSeleccionado.equals("Seleccione un Evento")) {
             // Llamar al método que carga las ediciones
         	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
-            edicionesModel.addElement("Seleccione una Edicion");
+            edicionesModel.addElement("Seleccione una Edición");
             
             ControladorEvento m = ControladorEvento.getInstance();
             m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
@@ -199,7 +212,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
         	comboBoxEdiciones.setModel(new DefaultComboBoxModel<>());
         }
         // Vaciar patrocinios y campos (si ya se habían seleccionado de antes)
-        comboBoxPatrocinios.setModel(new DefaultComboBoxModel<>());
+        comboBoxInstituciones.setModel(new DefaultComboBoxModel<>());
         borrarCampos();
 	}
 	private void edicionSeleccionada() {
@@ -208,33 +221,34 @@ public class ConsultaPatrocinio extends JInternalFrame {
         String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
         
         // Verificar que la selección sea válida
-        if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
+        if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edición")) {
         	DefaultComboBoxModel<String> patrociniosModel = new DefaultComboBoxModel<>();
-        	patrociniosModel.addElement("Seleccione un Patrocinio");
+        	patrociniosModel.addElement("Seleccione una Institución");
 
         	// Agregar patrocinios
             ControladorEvento m = ControladorEvento.getInstance();
             m.listarInstituciones(eventoSeleccionado, edicionSeleccionada).forEach(patrociniosModel::addElement);
-            comboBoxPatrocinios.setModel(patrociniosModel);
+            comboBoxInstituciones.setModel(patrociniosModel);
         } else {
         	// Si se selecciono "Seleccione una Edicion", no mostrar patrocinios
-            comboBoxPatrocinios.setModel(new DefaultComboBoxModel<>());
+            comboBoxInstituciones.setModel(new DefaultComboBoxModel<>());
         }
     	borrarCampos();
 	}
 	
-	private void patrocinioSeleccionado() {
+	private void institucionSeleccionada() {
         // Obtener el evento seleccionado
         String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
         String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
-        String institucionSeleccionada = (String) comboBoxPatrocinios.getSelectedItem();
+        String institucionSeleccionada = (String) comboBoxInstituciones.getSelectedItem();
         
         // Verificar que la selección sea válida
-        if (institucionSeleccionada != null && !institucionSeleccionada.equals("Seleccione un Patrocinio")) {
+        if (institucionSeleccionada != null && !institucionSeleccionada.equals("Seleccione una Institución")) {
         	// Mostrar datos de patrocinio
             ControladorEvento m = ControladorEvento.getInstance();
             DTPatrocinio dtp = m.consultaPatrocinioInstitucion(eventoSeleccionado, edicionSeleccionada, institucionSeleccionada);
             
+            textCodigo.setText(dtp.getCodigo());
             textNivelPatrocinio.setText(dtp.getTipo().toString());
             textAporteEconomico.setText("$" + String.valueOf(dtp.getMonto()));
             textTRegistros.setText(dtp.getTipoRegistro());
@@ -248,6 +262,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
 	}
 	
 	private void borrarCampos() {
+		textCodigo.setText("");
 		textAporteEconomico.setText("");
 		textAporteEconomico.setText("");
 		textCantRegistros.setText("");
@@ -260,7 +275,7 @@ public class ConsultaPatrocinio extends JInternalFrame {
         if (edicion != null) {
         	comboBoxEventos.setSelectedItem(evento);
             comboBoxEdiciones.setSelectedItem(edicion);
-            comboBoxPatrocinios.setSelectedItem(patrocinio);
+            comboBoxInstituciones.setSelectedItem(patrocinio);
         }
     }
 }

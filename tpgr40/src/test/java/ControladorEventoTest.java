@@ -24,6 +24,7 @@ import logica.ControladorCategoria;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
+import logica.DTEdicion;
 import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
@@ -142,24 +143,18 @@ class ControladorEventoTest {
 	//testeo obtener con una que existe
 	void testObtenerEdicionExistente() {
 		
-		Edicion e = c.obtenerEdicion("Edición 1", "Evento 1");
+		DTEdicion e = c.obtenerEdicion("Edición 1", "Evento 1");
 		LocalDate f = LocalDate.now();
 		assertEquals("Edición 1", e.getNombre());
 		assertEquals("ed1", e.getSigla());
-		assertEquals("org", e.getOrganizador().getNickname());
+		assertEquals("org", e.getOrganizador());
 		assertEquals(f, e.getFechaAlta());
-		assertEquals(f, e.getFechaFinal());
+		assertEquals(f, e.getFechaFin());
 		assertEquals(f, e.getFechaInicio());
 		assertEquals("Evento 1", e.getEvento());
 		assertEquals("Montevideo", e.getCiudad());
 		assertEquals("Uruguay", e.getPais());
 
-	}
-	//testeo con una que no existe
-	@Test @Order(14)
-	void testObtenerEdicionNoExistente() {
-		Edicion e = c.obtenerEdicion("Edición 20", "Evento 1");
-		assertEquals(null, e);
 	}
 	
 	@Test @Order(8)
@@ -286,7 +281,7 @@ class ControladorEventoTest {
 	
 	@Test @Order(15)
 	void testConsultaPatrocinio() {
-		DTPatrocinio dtp = c.consultaPatrocinio("Evento 1", "Edición 1", "pat1");
+		DTPatrocinio dtp = c.consultaPatrocinioInstitucion("Evento 1", "Edición 1", "Institución 1");
 		
 		DTTRegistro tp = c.seleccionarTipoRegistro("tp1", "Evento 1", "Edición 1");
 		

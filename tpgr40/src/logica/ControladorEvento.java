@@ -92,16 +92,6 @@ public class ControladorEvento {
 		
 		return res;
 	}
-
-	public DTPatrocinio consultaPatrocinio(String nomEvento, String nomEdicion, String nomPatrocinio) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		Evento evento = m.obtenerEvento(nomEvento);
-		Edicion edicion = evento.getEdicion(nomEdicion);
-		DTPatrocinio dtp = edicion.getPatrocinio(nomPatrocinio).getDatos();
-		
-		return dtp;
-	}
 	
 	public DTPatrocinio consultaPatrocinioInstitucion(String nomEvento, String nomEdicion, String nomInstitucion) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -136,10 +126,10 @@ public class ControladorEvento {
 		return dtr;
 	}
 	
-	public Edicion obtenerEdicion(String nombre, String ev) {
+	public DTEdicion obtenerEdicion(String nombre, String ev) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		Evento evento = m.obtenerEvento(ev);
-		return m.obtenerEdicion(nombre, evento);
+		return m.obtenerEdicion(nombre, evento).getDatos();
 	}
 
 	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
