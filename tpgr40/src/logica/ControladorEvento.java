@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
-public class ControladorEvento{
+public class ControladorEvento {
 	private static volatile ControladorEvento instance;
-	private ControladorEvento(){};
+	private ControladorEvento() {}
 	
 	public static ControladorEvento getInstance() {
 		if (instance == null) {
@@ -154,23 +154,11 @@ public class ControladorEvento{
 		instEdicion.agregarPatrocinio(p);
 	}
 	
-	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, List<String> categorias) {
+	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-        LocalDate fechaActual = LocalDate.now();
-		
-		return m.crearEvento(nombre, descripcion, sigla, fechaActual, categorias);	
-	}
-	
-	public boolean altaEventoCargaDatos(String nombre, String descripcion, String sigla, String fecha, List<String> categorias) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaAlta = LocalDate.parse(fecha, fmt);
 		
 		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
 	}
-
 	
 	public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -190,20 +178,17 @@ public class ControladorEvento{
 	}
 
 	public List<String> listarTipoRegistro(String nombreEvento, String nombreEdicion){
-			List<String> resultado = new ArrayList<>();
-			
-			ManejadorEvento m = ManejadorEvento.getInstance();
-			Evento ev = m.obtenerEvento(nombreEvento);
-			Edicion ed = m.obtenerEdicion(nombreEdicion, ev);
-			
-			for (TRegistro tr : ed.getTRegistros()) {
-			    resultado.add(tr.getNombre());
-				
-	        }
-			return resultado;
+		List<String> resultado = new ArrayList<>();
 		
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento ev = m.obtenerEvento(nombreEvento);
+		Edicion ed = m.obtenerEdicion(nombreEdicion, ev);
+		
+		for (TRegistro tr : ed.getTRegistros())
+		    resultado.add(tr.getNombre());
+		
+		return resultado;
 	}
-
 
 	public boolean crearTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTRegistro, String descripcion, float costo, int cupo) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
@@ -227,7 +212,6 @@ public class ControladorEvento{
 	}
 	
 	public DTTRegistro mostrarTipoRegistro(String nombreEvento, String nombreEdicion, String nombreTipoRegistro){
-		
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		TRegistro tr = m.encontrarTRegistroDeEdicion(nombreTipoRegistro, nombreEdicion, nombreEvento);
 			
@@ -238,17 +222,15 @@ public class ControladorEvento{
 				tr.getDescripcion()
 	        );			
 		return dtr;
-	
-}
+	}
 	
 	//PRE:: asumo que seleccionara un nickTRegistro valido
-	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento) {
-		
+	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, LocalDate fechaAlta) {
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
-		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
+		TRegistro tregistro = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
 
-		if (t.getCuposLibres() == 0 || estaAsistente)
+		if (tregistro.getCuposLibres() == 0 || estaAsistente)
 			return true;
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();
 		Usuario usuario = mu.obtener(nickAsistente);
@@ -260,39 +242,11 @@ public class ControladorEvento{
 		Evento e = m.obtenerEvento(nickEvento);
 		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
 				
-		float costo = t.getCosto();
-		Registro nuevoRegistro = new Registro(costo, LocalDate.now(), asistente, edicion, t);
+		float costo = tregistro.getCosto();
+		Registro nuevoRegistro = new Registro(costo, fechaAlta, asistente, edicion, tregistro);
 		edicion.agregarRegistro(nuevoRegistro);
 		asistente.agregarRegistro(nuevoRegistro);
 		
 		return false;
 	}
-	
-	public boolean darDeAltaRegistroCD(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, String fechaAlta, int costo) {
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		boolean estaAsistente = me.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
-		TRegistro t = me.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
-
-		if (t.getCuposLibres() == 0 || estaAsistente)
-			return true;
-		ManejadorUsuario mu = ManejadorUsuario.getInstance();
-		Usuario usuario = mu.obtener(nickAsistente);
-		
-		assert usuario instanceof Asistente;
-		Asistente asistente = (Asistente) mu.obtener(nickAsistente);
-
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento e = m.obtenerEvento(nickEvento);
-		Edicion edicion = m.obtenerEdicion(nombreEdicion, e);
-		
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
-		Registro nuevoRegistro = new Registro(costo, LocalDate.parse(fechaAlta, fmt), asistente, edicion, t);
-		edicion.agregarRegistro(nuevoRegistro);
-		asistente.agregarRegistro(nuevoRegistro);
-		
-		return false;
-	}
-	
-	
 }

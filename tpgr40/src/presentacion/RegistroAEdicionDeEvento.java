@@ -2,6 +2,7 @@ package presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
@@ -32,6 +33,8 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 	//private JComboBox comboBoxTipoRegistro;
 	private JComboBox<String> comboBoxTipoRegistro;
 	private JComboBox<String> comboBoxAsistentes;
+	private JTextField textFecha;
+	private JLabel lblFecha;
 	
 	
 
@@ -44,7 +47,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Registro a Edicion de Evento");
-		setBounds(30, 30, 378, 615);
+		setBounds(30, 30, 709, 441);
 		getContentPane().setLayout(null);
 		
 		lblEventos = new JLabel("Eventos:");
@@ -87,11 +90,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         lblTipoRegistro = new JLabel("Tipos de Registro: ");
         lblTipoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTipoRegistro.setBounds(22, 268, 309, 36);
+        lblTipoRegistro.setBounds(343, 40, 309, 36);
         getContentPane().add(lblTipoRegistro);
         
         comboBoxTipoRegistro = new JComboBox<>();
-        comboBoxTipoRegistro.setBounds(22, 304, 309, 46);
+        comboBoxTipoRegistro.setBounds(343, 75, 309, 46);
         getContentPane().add(comboBoxTipoRegistro);
         
         comboBoxEdiciones.addActionListener(e -> {
@@ -115,11 +118,11 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         lblAsistentes = new JLabel("Asistentes: ");
         lblAsistentes.setHorizontalAlignment(SwingConstants.CENTER);
-        lblAsistentes.setBounds(22, 386, 309, 36);
+        lblAsistentes.setBounds(343, 152, 309, 36);
         getContentPane().add(lblAsistentes);
         
         comboBoxAsistentes = new JComboBox<>();
-        comboBoxAsistentes.setBounds(22, 422, 309, 46);
+        comboBoxAsistentes.setBounds(343, 188, 309, 46);
         getContentPane().add(comboBoxAsistentes);
         
         ControladorUsuario cu = ControladorUsuario.getInstance();
@@ -128,7 +131,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         	comboBoxAsistentes.addItem(asistente.getNickname());
         }
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(181, 526, 132, 29);
+        btnRegistrar.setBounds(343, 353, 132, 29);
         btnRegistrar.addActionListener(e -> {
             String nickAsistente = (String) comboBoxAsistentes.getSelectedItem();
             String nombreTRegistro = (String) comboBoxTipoRegistro.getSelectedItem();
@@ -163,11 +166,20 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaAlta;
+            // Si la fecha es inválida, mostrar un error
+            try {
+            	fechaAlta = LocalDate.parse(textFecha.getText(), fmt);
+            } catch (Exception ex) {
+            	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+            	return;
+            }
 
             // Si la operación genera un error, mostrárselo al usuario
             boolean error;
             try {
-            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento);
+            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta);
 	        } catch (Exception ex) {
 		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		    	return;
@@ -187,8 +199,18 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         getContentPane().add(btnRegistrar);
         
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(40, 526, 132, 29);
+        btnCancelar.setBounds(199, 353, 132, 29);
         getContentPane().add(btnCancelar);
+        
+        textFecha = new JTextField();
+        textFecha.setBounds(343, 287, 155, 26);
+        getContentPane().add(textFecha);
+        textFecha.setColumns(10);
+        
+        lblFecha = new JLabel("Fecha Alta");
+        lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblFecha.setBounds(199, 292, 132, 16);
+        getContentPane().add(lblFecha);
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	setVisible(false);

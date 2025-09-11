@@ -342,6 +342,7 @@ public class AltaPatrocinio extends JInternalFrame{
             	txtAporte.setText("");
             	textCantRegistros.setText("");
             	textCodigo.setText("");
+            	textFecha.setText("");
             	inicializarCombos();
             	break;
             case 1:

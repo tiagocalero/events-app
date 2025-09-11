@@ -30,10 +30,12 @@ public class AltaEdicionEvento extends JInternalFrame {
 	private JComboBox comboBoxEventos;
 	private JComboBox comboBoxOrganizadores;
 	private JButton btnCancelar;
+	private JTextField textFechaAlta;
+	private JLabel libFechaAlta;
 	
 	public AltaEdicionEvento() {
 		setVisible(true); 
-        setSize(699, 420);
+        setSize(699, 456);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -133,6 +135,16 @@ public class AltaEdicionEvento extends JInternalFrame {
 		lblSigla_1.setBounds(340, 288, 140, 16);
 		panel.add(lblSigla_1);
 		
+		textFechaAlta = new JTextField();
+		textFechaAlta.setColumns(10);
+		textFechaAlta.setBounds(490, 327, 140, 26);
+		panel.add(textFechaAlta);
+		
+		libFechaAlta = new JLabel("Fecha Alta:");
+		libFechaAlta.setHorizontalAlignment(SwingConstants.RIGHT);
+		libFechaAlta.setBounds(340, 327, 140, 16);
+		panel.add(libFechaAlta);
+		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
@@ -160,15 +172,16 @@ public class AltaEdicionEvento extends JInternalFrame {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaInicio;
         LocalDate fechaFin;
+        LocalDate fechaAlta;
         // Si las fechas son inválidas, mostrar un error
         try {
 	        fechaInicio = LocalDate.parse(textFechaIni.getText(), fmt);
 	        fechaFin = LocalDate.parse(textFechaFin.getText(), fmt);
+	        fechaAlta = LocalDate.parse(textFechaAlta.getText(), fmt);
         } catch (Exception ex) {
         	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
-        LocalDate fechaAlta = LocalDate.now();
         String evento = (String) comboBoxEventos.getSelectedItem();
         String organizador = (String) comboBoxOrganizadores.getSelectedItem();
         
@@ -225,6 +238,7 @@ public class AltaEdicionEvento extends JInternalFrame {
                 	textCiudad.setText("");
                 	textFechaIni.setText("");
                 	textFechaFin.setText("");
+                	textFechaAlta.setText("");
 	            	break;
                 case 1:
                 	dispose(); // Cierra la ventana

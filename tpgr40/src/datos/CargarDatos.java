@@ -44,27 +44,36 @@ public class CargarDatos {
 		
 		//Cargar Eventos
 		ControladorEvento e = ControladorEvento.getInstance();
-		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate fechaAlta;
+
+        fechaAlta = LocalDate.parse("10/01/2025", fmt);
 		List<String> cats1 = new ArrayList<>(Arrays.asList("Tecnología", "Innovación"));
-		boolean ev = e.altaEventoCargaDatos("Conferencia de Tecnología", "Evento sobre innovación tecnológica", "CONFTEC", "10/01/2025", cats1);
-		
+		boolean ev = e.ingresarDatosEvento("Conferencia de Tecnología", "Evento sobre innovación tecnológica", "CONFTEC", fechaAlta, cats1);
+
+        fechaAlta = LocalDate.parse("01/02/2025", fmt);
 		List<String> cats2 = new ArrayList<>(Arrays.asList("Innovación", "Literatura"));
-		ev = e.altaEventoCargaDatos("Feria del Libro", "Encuentro anual de literatura", "FERLIB", "01/02/2025", cats2);
-		
+		ev = e.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2);
+
+        fechaAlta = LocalDate.parse("15/03/2023", fmt);
 		List<String> cats3 = new ArrayList<>(Arrays.asList("Cultura", "Música"));
-		ev = e.altaEventoCargaDatos("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", "15/03/2023", cats3);
-		
+		ev = e.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3);
+
+        fechaAlta = LocalDate.parse("01/01/2022", fmt);
 		List<String> cats4 = new ArrayList<>(Arrays.asList("Deporte", "Salud"));
-		ev = e.altaEventoCargaDatos("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", "01/01/2022", cats4);
-		
+		ev = e.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4);
+
+        fechaAlta = LocalDate.parse("10/04/2024", fmt);
 		List<String> cats5 = new ArrayList<>(Arrays.asList("Cultura", "Entretenimiento"));
-		ev = e.altaEventoCargaDatos("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", "10/04/2024", cats5);
-		
+		ev = e.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5);
+
+        fechaAlta = LocalDate.parse("12/12/2024", fmt);
 		List<String> cats6 = new ArrayList<>(Arrays.asList("Agro", "Negocios"));
-		ev = e.altaEventoCargaDatos("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", "12/12/2024", cats6);
-		
+		ev = e.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6);
+
+        fechaAlta = LocalDate.parse("20/07/2025", fmt);
 		List<String> cats7 = new ArrayList<>(Arrays.asList("Cultura", "Moda"));
-		ev = e.altaEventoCargaDatos("Montevideo Fashion Week", "Pasarela de moda uruguaya e internacional", "MFASHION", "20/07/2025", cats7);
+		ev = e.ingresarDatosEvento("Montevideo Fashion Week", "Pasarela de moda uruguaya e internacional", "MFASHION", fechaAlta, cats7);
 		
 		
 		//Cargar Organizaciones
@@ -76,11 +85,9 @@ public class CargarDatos {
 		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "Institución pública promotora de cultura.", "https://mec.gub.uy");
 		
 		//Cargar Ediciones
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
         LocalDate fechaInicio = LocalDate.parse("20/11/2025", fmt);
         LocalDate fechaFin = LocalDate.parse("22/11/2025", fmt);
-        LocalDate fechaAlta = LocalDate.parse("12/03/2025", fmt);
+        fechaAlta = LocalDate.parse("12/03/2025", fmt);
 		boolean  ed = e.altaEdicion("Montevideo Rock", "imm", "Montevideo Rock 2025", "MONROCK25", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay");
 		
 		fechaInicio = LocalDate.parse("14/09/2025", fmt);
@@ -181,15 +188,24 @@ public class CargarDatos {
 		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "Martínez", LocalDate.parse("05/02/1997", fmt));
 	
 		//Cargar Registros
-		boolean reg = e.darDeAltaRegistroCD("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", "14/05/2025", 4000);
-		reg = e.darDeAltaRegistroCD("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", "30/07/2024", 500);
-		reg = e.darDeAltaRegistroCD("andrearod", "Web Summit 2026", "Estudiante", "Conferencia de Tecnología", "21/08/2025", 300);
-		reg = e.darDeAltaRegistroCD("sofirod", "Maratón de Montevideo 2025", "Corredor 42K", "Maratón de Montevideo", "03/03/2025", 1200);
-		reg = e.darDeAltaRegistroCD("vale23", "Mobile World Congress 2025", "Full", "Conferencia de Tecnología", "22/08/2025", 750);
-		reg = e.darDeAltaRegistroCD("AnaG", "Maratón de Montevideo 2025", "Corredor 10K", "Maratón de Montevideo", "09/04/2025", 500);
-		reg = e.darDeAltaRegistroCD("JaviL", "Maratón de Montevideo 2025", "Corredor 21K", "Maratón de Montevideo", "10/04/2025", 800);
-		reg = e.darDeAltaRegistroCD("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", "03/08/2025", 500);
-		reg = e.darDeAltaRegistroCD("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", "16/07/2024", 600);
+        fechaAlta = LocalDate.parse("14/05/2025", fmt);
+		e.darDeAltaRegistro("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", fechaAlta);
+        fechaAlta = LocalDate.parse("30/07/2024", fmt);
+		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", fechaAlta);
+        fechaAlta = LocalDate.parse("21/08/2025", fmt);
+		e.darDeAltaRegistro("andrearod", "Web Summit 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta);
+        fechaAlta = LocalDate.parse("03/03/2025", fmt);
+		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2025", "Corredor 42K", "Maratón de Montevideo", fechaAlta);
+        fechaAlta = LocalDate.parse("22/08/2025", fmt);
+		e.darDeAltaRegistro("vale23", "Mobile World Congress 2025", "Full", "Conferencia de Tecnología", fechaAlta);
+        fechaAlta = LocalDate.parse("09/04/2025", fmt);
+		e.darDeAltaRegistro("AnaG", "Maratón de Montevideo 2025", "Corredor 10K", "Maratón de Montevideo", fechaAlta);
+        fechaAlta = LocalDate.parse("10/04/2025", fmt);
+		e.darDeAltaRegistro("JaviL", "Maratón de Montevideo 2025", "Corredor 21K", "Maratón de Montevideo", fechaAlta);
+        fechaAlta = LocalDate.parse("03/08/2025", fmt);
+		e.darDeAltaRegistro("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", fechaAlta);
+        fechaAlta = LocalDate.parse("16/07/2024", fmt);
+		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta);
 		
 	
 	}

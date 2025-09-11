@@ -180,7 +180,7 @@ class ControladorUsuarioTest {
 		cg.altaCategoria("c2");
 		cg.altaCategoria("c3");
 		
-		ce.ingresarDatosEvento("Evento test", "descripcion1", "e1", List.of("c1", "c2", "c3"));
+		ce.ingresarDatosEvento("Evento test", "descripcion1", "e1", f, List.of("c1", "c2", "c3"));
 		assertEquals(true, ce.altaEdicion("Evento test", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
 		assertEquals(true, ce.altaEdicion("Evento test", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
 		DTEdicion dte1 = new DTEdicion("Uruguay", "Montevideo", f, f, f, "ed1", "Edición test 1");
@@ -188,8 +188,8 @@ class ControladorUsuarioTest {
 		
 		ce.crearTipoRegistro("Evento test", "Edición test 1", "tp5", "desc5", 101, 12);
 		ce.crearTipoRegistro("Evento test", "Edición test 2", "tp5", "desc5", 101, 12);
-		ce.darDeAltaRegistroCD("as", "Edición test 1", "tp5", "Evento test", f.format(fmt), 101);
-		ce.darDeAltaRegistroCD("as", "Edición test 2", "tp5", "Evento test", f.format(fmt), 101);
+		ce.darDeAltaRegistro("as", "Edición test 1", "tp5", "Evento test", f);
+		ce.darDeAltaRegistro("as", "Edición test 2", "tp5", "Evento test", f);
 		DTRegistro dtr1 = new DTRegistro(101, f, "Edición test 1", "tp5");
 		DTRegistro dtr2 = new DTRegistro(101, f, "Edición test 2", "tp5");
 		

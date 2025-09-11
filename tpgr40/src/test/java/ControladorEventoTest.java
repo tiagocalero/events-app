@@ -38,6 +38,7 @@ import logica.TipoNivelPatrocinio;
 class ControladorEventoTest {
 	private static ControladorEvento c;
 	private static ControladorUsuario cu;
+	private static LocalDate fActual;
 	
 	// Se ejecuta antes que todos los tests
 	@BeforeAll
@@ -57,6 +58,9 @@ class ControladorEventoTest {
 		// Crear institución de prueba
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
 		ci.altaInstitucion("Institución 1", "inst", "http://");
+		
+		// Guardar la fecha actual
+		fActual = LocalDate.now();
 	}
 
 	// Se ejecuta después que todos los tests
@@ -71,7 +75,7 @@ class ControladorEventoTest {
 	// Probar crear eventos con categorías que ya existen
 	@Test @Order(1)
 	void testCrearEventoConCategoriaExistente() {
-		assertEquals(true, c.ingresarDatosEvento("Evento 1", "descripcion1", "e1", List.of("c1", "c2", "c3")));
+		assertEquals(true, c.ingresarDatosEvento("Evento 1", "descripcion1", "e1", fActual, List.of("c1", "c2", "c3")));
 		
 		DTEvento dte = c.informacionEvento("Evento 1");
 		// Tomar el dt y asegurarse que cada campo sea correcto
@@ -84,7 +88,7 @@ class ControladorEventoTest {
 	// Probar crear eventos con categorías que no existen
 	@Test @Order(2)
 	void testCrearEventoConCategoriaNoExistente() {
-		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", List.of("c4")));
+		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", fActual, List.of("c4")));
 		
 		DTEvento dte = c.informacionEvento("Evento 2");
 		assertEquals("Evento 2", dte.getNombre());
@@ -97,7 +101,7 @@ class ControladorEventoTest {
 	// Probar crear un evento con un nombre que ya existe
 	@Test @Order(3)
 	void testCrearEventoExistente() {
-		assertEquals(false, c.ingresarDatosEvento("Evento 1", "descripcion2", "e2", List.of("c4")));
+		assertEquals(false, c.ingresarDatosEvento("Evento 1", "descripcion2", "e2", fActual, List.of("c4")));
 
 		// Chequear que no se modifique el evento existente
 		DTEvento dte = c.informacionEvento("Evento 1");
@@ -323,11 +327,11 @@ class ControladorEventoTest {
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
 		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
-		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1"));
+		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt)));
 		assertEquals(true, cu.altaAsistente("asistente3", "Asistente 3", "dsada", "ff", LocalDate.parse("12/12/2012", fmt)));
 		
 		// Se supera el cupo
-		assertEquals(true, c.darDeAltaRegistro("asistente3", "Edición 1", "tp1", "Evento 1"));
+		assertEquals(true, c.darDeAltaRegistro("asistente3", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt)));
 	}
 	@Test @Order(17)
 	void testListarTipoRegistro() {

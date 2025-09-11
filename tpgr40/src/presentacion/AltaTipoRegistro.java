@@ -31,7 +31,7 @@ public class AltaTipoRegistro extends JInternalFrame {
 	
 	public AltaTipoRegistro() {
 		setVisible(true); 
-        setSize(699, 405);
+        setSize(699, 349);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -197,6 +197,8 @@ public class AltaTipoRegistro extends JInternalFrame {
 	                	// Borrar campos
 	                	textField.setText("");
 	                	textField_1.setText("");
+	                	textField_2.setText("");
+	                	textField_3.setText("");
 		            	break;
 	                case 1:
 	                	dispose(); // Cierra la ventana

@@ -11,6 +11,8 @@ import java.awt.GridLayout;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,12 @@ public class AltaEvento extends JInternalFrame {
 	private JLabel lblSigla;
 	private JList<String> listaCategorias;
 	private JButton btnCancelar;
+	private JTextField textFecha;
+	private JLabel libFecha;
 	
 	public AltaEvento() {
 		setVisible(true); 
-        setSize(410, 367);
+        setSize(410, 423);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -71,13 +75,22 @@ public class AltaEvento extends JInternalFrame {
 		listaCategorias = new JList<String>(m.listarCategorias().toArray(new String[0]));
 		
         JScrollPane scrollPane = new JScrollPane(listaCategorias);
-		scrollPane.setBounds(193, 176, 140, 81);
+		scrollPane.setBounds(193, 220, 140, 112);
 		panel.add(scrollPane);
 		listaCategorias.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
 		JLabel lblCategoras = new JLabel("Categorías:");
-		lblCategoras.setBounds(43, 176, 140, 16);
+		lblCategoras.setBounds(43, 220, 140, 16);
 		panel.add(lblCategoras);
+		
+		textFecha = new JTextField();
+		textFecha.setColumns(10);
+		textFecha.setBounds(193, 172, 140, 26);
+		panel.add(textFecha);
+		
+		libFecha = new JLabel("Fecha Alta:");
+		libFecha.setBounds(43, 172, 140, 16);
+		panel.add(libFecha);
 		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
@@ -101,6 +114,15 @@ public class AltaEvento extends JInternalFrame {
         String desc = sacarEspacios(textDesc.getText());
         String sigla = sacarEspacios(textSigla.getText());
         List<String> categorias = listaCategorias.getSelectedValuesList();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaAlta;
+        // Si la fecha es inválida, mostrar un error
+        try {
+        	fechaAlta = LocalDate.parse(textFecha.getText(), fmt);
+        } catch (Exception ex) {
+        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
         
         ControladorEvento m = ControladorEvento.getInstance();
         // Chequear que exista el nombre
@@ -117,7 +139,7 @@ public class AltaEvento extends JInternalFrame {
         // Si la operación genera un error, mostrárselo al usuario
         boolean ok;
         try {
-        	ok = m.ingresarDatosEvento(nombre, desc, sigla, categorias);
+        	ok = m.ingresarDatosEvento(nombre, desc, sigla, fechaAlta, categorias);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;
@@ -143,6 +165,7 @@ public class AltaEvento extends JInternalFrame {
 	            	textNombre.setText("");
 	            	textDesc.setText("");
 	            	textSigla.setText("");
+	            	textFecha.setText("");
 	            	break;
                 case 1:
                 	dispose(); // Cierra la ventana
