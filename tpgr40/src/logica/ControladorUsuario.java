@@ -26,10 +26,9 @@ public class ControladorUsuario{
 				}
 			}
 		}
-		return instance;
-	
-	
+		return instance;	
 	}
+	
 	public Set<DTAsistente> listarAsistentes() {
 		Set<DTAsistente> res = new HashSet<>();
 		ManejadorUsuario m = ManejadorUsuario.getInstance();

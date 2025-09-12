@@ -39,10 +39,6 @@ public class Patrocinio {
 	public String getCodigo() {
 		return codigo;
 	}
-	
-	public Institucion getInstitucion() {
-		return institucion;
-	}
 
 	public String getNombreInstitucion() {
 		return institucion.getNombre();

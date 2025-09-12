@@ -48,11 +48,7 @@ public class Edicion {
     }
 
 	public DTEdicion getDatos() {
-		List<String> institucionesPatrocinadoras =
-				patrocinios.values()
-			               .stream()
-			               .map(p -> p.getNombreInstitucion())
-			               .collect(Collectors.toList());  
+		List<String> institucionesPatrocinadoras = getInstitucionesPatrocinios();
 		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
         List<String> nickAsistentes =
         		registros.stream()
@@ -116,7 +112,7 @@ public class Edicion {
     }
     
     public List<String> getInstitucionesPatrocinios() {
-    	return new ArrayList<>(patrocinios.values().stream().map(patrocinio->patrocinio.getInstitucion().getNombre()).collect(Collectors.toList()));
+    	return new ArrayList<>(patrocinios.values().stream().map(p->p.getNombreInstitucion()).collect(Collectors.toList()));
     }
     
     public void agregarTRegistro(TRegistro tr) {
