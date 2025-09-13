@@ -36,15 +36,15 @@ class Header extends HTMLElement {
             <div class="dropdown text-end">
               <a
                 href="#"
-                class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                class="d-block link-body-emphasis text-decoration-none"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <img
                   src="https://github.com/mdo.png"
                   alt="mdo"
-                  width="32"
-                  height="32"
+                  width="40"
+                  height="40"
                   class="rounded-circle"
                 />
               </a>

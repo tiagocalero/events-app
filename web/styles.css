@@ -118,7 +118,8 @@ aside ul li a {
   margin-bottom: 0.5rem;
 }
 
-.content-form-alta input[type="text"], 
+.content-form-alta input[type="text"],
+.content-form-alta input[type="password"],
 .content-form-alta [type="number"], 
 .content-form-alta select {
   width: 180px; /* todos los inputs del mismo ancho */
@@ -131,8 +132,20 @@ aside ul li a {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  float: right;
+  float: center;
   margin-top: 1rem;
+}
+
+.content-form-alta input[type=reset] {
+  background-color: #E9E9ED;
+  color: black;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 .content-form-alta label {
@@ -141,9 +154,11 @@ aside ul li a {
   margin-right: 10px;
   margin-bottom: 0.5rem;
   padding-top: 12px;
+  vertical-align: top;
 }
 
-.content-form-alta input[type=text], 
+.content-form-alta input[type=text],
+.content-form-alta input[type="password"],
 .content-form-alta select, 
 .content-form-alta textarea{
   padding: 4px;
