@@ -1,3 +1,7 @@
+html {
+  height: -webkit-fill-available;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -5,8 +9,11 @@ body {
   display: flex;
   flex-direction: column;
   background: #f5f5f5;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
+/*### HEADER ###*/
 header {
   background: #ccc;
   padding: 10px;
@@ -44,11 +51,18 @@ header .user-links {
   font-size: 14px;
 }
 
+/*### MAIN ###*/
 main {
   display: flex;
   flex: 1;
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
+/*### ASIDE ###*/
 aside {
   width: 200px;
   background: #e0e0e0;
@@ -76,6 +90,7 @@ aside ul li a {
   font-weight: bold;
 }
 
+/*### CONTENT ###*/
 .content {
   flex: 1;
   padding: 20px;
@@ -89,6 +104,53 @@ aside ul li a {
 .content h3 {
     align-self: flex-start; 
 }
+
+.content-form-alta {
+  align-items: center;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.content-form-alta select,
+.content-form-alta input,
+.content-form-alta button {
+  margin-bottom: 0.5rem;
+}
+
+.content-form-alta input[type="text"], 
+.content-form-alta [type="number"], 
+.content-form-alta select {
+  width: 180px; /* todos los inputs del mismo ancho */
+}
+
+.content-form-alta input[type=submit] {
+  background-color: #FFC107;
+  color: black;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-top: 1rem;
+}
+
+.content-form-alta label {
+  display: inline-block;
+  width: 200px;            
+  margin-right: 10px;
+  margin-bottom: 0.5rem;
+  padding-top: 12px;
+}
+
+.content-form-alta input[type=text], 
+.content-form-alta select, 
+.content-form-alta textarea{
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 
 .event {
   display: flex;
@@ -117,31 +179,19 @@ aside ul li a {
   border-bottom: 1px solid #999;
   margin-top: 0;
 }
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+
+.dropdown-toggle { 
+  outline: 0; 
 }
 
-html {
-  height: -webkit-fill-available;
-}
-
-main {
-  height: 100vh;
-  height: -webkit-fill-available;
-  max-height: 100vh;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.dropdown-toggle { outline: 0; }
-
+/*### btn-toggle ###*/
 .btn-toggle {
   padding: .25rem .5rem;
   font-weight: 600;
   color: var(--bs-emphasis-color);
   background-color: transparent;
 }
+
 .btn-toggle:hover,
 .btn-toggle:focus {
   color: rgba(var(--bs-emphasis-color-rgb), .85);
@@ -179,15 +229,4 @@ main {
 
 .scrollarea {
   overflow-y: auto;
-}
-
-.form-alta {
-  align-items: center;
-}
-
-.form-alta label,
-.form-alta select,
-.form-alta input,
-.form-alta button {
-  margin-bottom: 0.5rem;
 }
