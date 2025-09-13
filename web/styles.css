@@ -134,6 +134,11 @@ aside ul li a {
   cursor: pointer;
   float: center;
   margin-top: 1rem;
+  transition: 0.5s all ease;
+}
+
+.content-form-alta input[type=submit]:hover {
+  background-color: grey;
 }
 
 .content-form-alta input[type=reset] {
@@ -166,6 +171,12 @@ aside ul li a {
   border-radius: 4px;
 }
 
+.flex-shrink-0 {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
 
 .event {
   display: flex;
@@ -240,6 +251,10 @@ aside ul li a {
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
   background-color: var(--bs-tertiary-bg);
+}
+
+.btn-warning {
+  margin-right: 0.5rem;
 }
 
 .scrollarea {
