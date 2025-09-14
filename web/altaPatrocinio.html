@@ -25,17 +25,20 @@
           <option value="comics">Montevideo Comics</option>
           <option value="maratón">Maratón de Montevideo</option>
         </select><br/>
+        
         <label for="edicion">Edición:</label>
         <select id="edicion" name="edicion">
           <option value="2022">Maratón de Montevideo 2022</option>
           <option value="2024">Maratón de Montevideo 2024</option>
           <option value="2025">Maratón de Montevideo 2025</option>
         </select><br/>
+        
         <label for="institucion">Institución:</label>
         <select id="institucion" name="institucion">
           <option value="antel">Antel</option>
           <option value="fing">Facultad de Ingeniería</option>
         </select><br/>
+        
         <label for="nivel">Nivel patrocinio:</label>
         <select id="nivel" name="nivel">
           <option value="platino">Platino</option>
@@ -43,18 +46,23 @@
           <option value="plata">Plata</option>
           <option value="bronce">Bronce</option>
         </select><br/>
+        
         <label for = "monto">Aporte económico:</label>
-        <input type = "number" id = "monto" name = "monto" min="0" step="0.01"/><br/>
+        <input type = "number" id = "monto" name = "monto" min="0" step="0.01" required/><br/>
+        
         <label for = "cantRegistros">Cantidad de Registros Gratuitos:</label>
-        <input type = "number" id = "cantRegistros" name = "cantRegistros" min="0" step="any"/><br/>
+        <input type = "number" id = "cantRegistros" name = "cantRegistros" min="0" step="any" required/><br/>
+        
         <label for="tregistro">Tipo de registro gratuito:</label>
         <select id="tregistro" name="tregistro">
           <option value="42k">Corredor 42k</option>
           <option value="21k">Corredor 21k</option>
           <option value="10k">Corredor 10k</option>
         </select><br/>
+        
         <label for="codigo">Código:</label>
-        <input type = "text" id = "codigo" name = "codigo"/><br/>
+        <input type="text" id = "codigo" name = "codigo" required/><br/>
+        
         <input type="reset" value = "Borrar"/>
         <input type="submit" value = "Crear"/>
       </form>
