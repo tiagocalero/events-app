@@ -166,12 +166,47 @@ aside ul li a {
   border-radius: 4px;
 }
 
+.content-form-consulta {
+  display: flex; 
+  float: left;
+  background-color: #f2f2f2;
+  width: 70%;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;  
+}
+
+.right-sidebar-consulta {
+  float: right;
+  width: 15%; 
+  border-left: 1px solid #ccc;
+  padding: 10px;
+}
+
+.event-image {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
 .lblDesc {
   vertical-align: top;
 }
 
 #passbtn {
-  border-radius: 15px;
+  background: transparent;
+  border: 0px;
+}
+
+#tipoUsuario {
+  border-radius: 18px;
+  width: 180px;
+  background-color: #FFC107;
 }
 
 .flex-shrink-0 {
@@ -199,7 +234,7 @@ aside ul li a {
 }
 
 .right-sidebar {
-  width: 200px;
+  width: 300px;
   background: #f0f0f0;
   padding: 10px;
 }
@@ -207,6 +242,11 @@ aside ul li a {
 .right-sidebar h4 {
   border-bottom: 1px solid #999;
   margin-top: 0;
+}
+
+.right-sidebar .btn {
+	width: auto;
+	margin-bottom: 15px;
 }
 
 .dropdown-toggle { 
