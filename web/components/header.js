@@ -28,9 +28,9 @@ class Header extends HTMLElement {
             </form>
             <div class="text-end">
               <button type="button" class="btn btn-outline-light me-2">
-                Login
+                Iniciar Sesión
               </button>
-              <button type="button" class="btn btn-warning">Sign-up</button>
+              <button type="button" class="btn btn-warning">Registrarse</button>
             </div>
 
           </div>
