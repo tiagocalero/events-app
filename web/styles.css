@@ -199,7 +199,14 @@ aside ul li a {
 }
 
 #passbtn {
-  border-radius: 15px;
+  background: transparent;
+  border: 0px;
+}
+
+#tipoUsuario {
+  border-radius: 18px;
+  width: 180px;
+  background-color: #FFC107;
 }
 
 .flex-shrink-0 {
