@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eventos.uy - Inicio</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
   <script src="components/header.js" type="text/javascript" defer></script>
   <script src="components/sidebar.js" type="text/javascript" defer></script>
+  <script src="altaUsuario.js" type="text/javascript" defer></script>
 </head>
 <body>
   <header-component></header-component>
@@ -17,11 +17,13 @@
     <sidebar-component></sidebar-component>
 
     <div class="content">
-      <h3><strong>Ingrese los datos del nuevo Usuario:</strong></h3><br/>
-          <button type="button" id="tipoUsuario" onclick="toggleInput()">Asistente</button><br/>
-      
+      <h3><strong>Registrar un Usurario:</strong></h3><br/>
+
           <form class="content-form-alta" action="alta_usuario" method="post">
-            
+
+            <label for="tipoUsuario">Tipo de Usuario:</label>
+            <button type="button" id="tipoUsuario" onclick="toggleTipoUsuario()">Asistente</button><br/>
+
             <label for="nickname">Nickname:</label>
             <input type="text" id="nickname" name="nickname"/><br/>
 
@@ -33,7 +35,7 @@
 
             <label for="pass">Contraseña:</label>
             <input type="password" id="pass" name="pass"/>
-            <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye"></i></button><br/>
+            <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye" style="vertical-align: center"></i></button><br/>
 
             <label for="passconf">Confirma la Contraseña:</label>
             <input type="password" id="passconf" name="passconf"/><br/>
@@ -41,73 +43,31 @@
             <label for="foto">Seleccione una Imágen:</label>
             <input type="file" id="foto" name="foto"><br/>
 
-            <label for="apellido" id="apellidolbl">Apellido:</label>
-            <input type="text" id="apellido" name="apellido"/><br/>
+            <div id="datosAs">
+              <label for="apellido">Apellido:</label>
+              <input type="text" id="apellido" name="apellido"/><br/>
 
-            <label for="nacimiento" id="nacimientolbl">Seleccione una Fecha:</label>
-            <input type="date" id="nacimiento" name="nacimiento"><br/>
+              <label for="nacimiento">Seleccione una Fecha:</label>
+              <input type="date" id="nacimiento" name="nacimiento"/><br/>
+            </div>
 
-            <label for="link" id="linklbl" style="display:none">Link:</label>
-            <input type="text" id="link" name="link" style="display:none"/><br/>
+            <div id="datosOrg" style="display:none">
+              <label for="link">Link:</label>
+              <input type="text" id="link" name="link"/><br/>
 
-            <label for="desc" id="desclbl" style="display:none">Description:</label>
-            <textarea id="desc" name="desc" style="display:none" rows="5" cols="50" placeholder="Enter your description..."></textarea><br/>
+              <label for="desc" id="desclbl" class="lblDesc">Description:</label>
 
-            <input type="reset" value="Borrar"/>
-            <input type="submit" value="Crear"/>
+              <textarea id="desc" name="desc" rows="5" cols="50" placeholder="Escriba su descripción..."></textarea><br/>
+            </div>
+
+            <div id="btns">
+              <input type="reset" value="Borrar"/>
+              <input type="submit" value="Registrarse"/>
+            </div>
           </form>
     </div>
 
   </main>
-
-  <script>
-    function togglePassword() {
-      const input = document.getElementById("pass");
-      const input2 = document.getElementById("passconf");
-      const icon = document.querySelector("#passbtn i");
-
-      const isHidden = input.type === "password";
-
-      input.type = isHidden ? "text" : "password";
-      input2.type = isHidden ? "text" : "password";
-
-      icon.classList.toggle("nf-cod-eye");
-      icon.classList.toggle("nf-cod-eye_closed");
-    }
-    function toggleInput() {
-      const btn = document.getElementById('tipoUsuario');
-      const ap = document.getElementById('apellido');
-      const aplbl = document.getElementById('apellidolbl');
-      const nac = document.getElementById('nacimiento');
-      const naclbl = document.getElementById('nacimientolbl');
-      const link = document.getElementById('link');
-      const linklbl = document.getElementById('linklbl');
-      const desc = document.getElementById('desc');
-      const desclbl = document.getElementById('desclbl');
-
-      if (btn.textContent == 'Organizador') {
-          btn.textContent = 'Asistente'
-          ap.style.display = 'inline-block';
-          aplbl.style.display = 'inline-block';
-          nac.style.display = 'inline-block';
-          naclbl.style.display = 'inline-block';
-          link.style.display = 'none';
-          linklbl.style.display = 'none';
-          desc.style.display = 'none';
-          desclbl.style.display = 'none';
-      } else {
-          btn.textContent = 'Organizador'
-          ap.style.display = 'none';
-          aplbl.style.display = 'none';
-          nac.style.display = 'none';
-          naclbl.style.display = 'none';
-          link.style.display = 'inline-block';
-          linklbl.style.display = 'inline-block';
-          desc.style.display = 'inline-block';
-          desclbl.style.display = 'inline-block';
-      }
-    }
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
