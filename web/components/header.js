@@ -12,7 +12,7 @@ class Header extends HTMLElement {
               href="index.html"
               class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
             >
-              Eventos.uy
+              <img class="logo" src="logo.png">
             </a>
             <ul
               class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
@@ -28,11 +28,11 @@ class Header extends HTMLElement {
             </form>
             <div class="text-end">
               <button type="button" class="btn btn-outline-light me-2"
-                onclick="window.location.href='inicio sesion.html'">
+                onclick="window.location.href='inicio_sesion.html'">
                 Iniciar Sesión
               </button>
 
-              <button type="button" class="btn btn-warning">Registrarse</button>
+              <a href="altaUsuario.html" type="button" class="btn btn-warning">Registrarse</a>
               
             </div>
 
