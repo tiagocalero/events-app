@@ -19,25 +19,26 @@
     <div class="content">
       <h3><strong>Ingrese los datos del nuevo patrocinio:</strong></h3><br/>
       <form class="content-form-alta" action="info_tipo_registro" method="post">
-		<label for="nivel">Nivel patrocinio:</label>
-		<select id="nivel" name="nivel">
-		  <option value="platino">Platino</option>
-		  <option value="oro">Oro</option>
-		  <option value="plata">Plata</option>
-		  <option value="bronce">Bronce</option>
-		</select><br/>
+        <label for="nivel">Nivel patrocinio:</label>
+        <select id="nivel" name="nivel">
+          <option value="platino">Platino</option>
+          <option value="oro">Oro</option>
+          <option value="plata">Plata</option>
+          <option value="bronce">Bronce</option>
+        </select><br/>
         <label for = "monto">Aporte económico:</label>
         <input type = "number" id = "monto" name = "monto" min="0" step="0.01"/><br/>
         <label for = "cantRegistros">Cantidad de Registros Gratuitos:</label>
         <input type = "number" id = "cantRegistros" name = "cantRegistros" min="0" step="any"/><br/>
-		<label for="tregistro">Tipo de registro gratuito:</label>
-		<select id="tregistro" name="tregistro">
-		  <option value="42k">Corredor 42k</option>
-		  <option value="21k">Corredor 21k</option>
-		  <option value="10k">Corredor 10k</option>
-		</select><br/>
-		<label for="codigo">Código:</label>
-		<input type = "text" id = "codigo" name = "codigo"/><br/>
+        <label for="tregistro">Tipo de registro gratuito:</label>
+        <select id="tregistro" name="tregistro">
+          <option value="42k">Corredor 42k</option>
+          <option value="21k">Corredor 21k</option>
+          <option value="10k">Corredor 10k</option>
+        </select><br/>
+        <label for="codigo">Código:</label>
+        <input type = "text" id = "codigo" name = "codigo"/><br/>
+        <input type="reset" value = "Borrar"/>
         <input type="submit" value = "Crear"/>
       </form>
     </div>

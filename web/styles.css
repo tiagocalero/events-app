@@ -118,7 +118,8 @@ aside ul li a {
   margin-bottom: 0.5rem;
 }
 
-.content-form-alta input[type="text"], 
+.content-form-alta input[type="text"],
+.content-form-alta input[type="password"],
 .content-form-alta [type="number"], 
 .content-form-alta select {
   width: 180px; /* todos los inputs del mismo ancho */
@@ -131,8 +132,25 @@ aside ul li a {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  float: right;
+  float: center;
   margin-top: 1rem;
+  transition: 0.5s all ease;
+}
+
+.content-form-alta input[type=submit]:hover {
+  background-color: grey;
+}
+
+.content-form-alta input[type=reset] {
+  background-color: #E9E9ED;
+  color: black;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 .content-form-alta label {
@@ -141,9 +159,11 @@ aside ul li a {
   margin-right: 10px;
   margin-bottom: 0.5rem;
   padding-top: 12px;
+  vertical-align: top;
 }
 
-.content-form-alta input[type=text], 
+.content-form-alta input[type=text],
+.content-form-alta input[type="password"],
 .content-form-alta select, 
 .content-form-alta textarea{
   padding: 4px;
@@ -151,6 +171,12 @@ aside ul li a {
   border-radius: 4px;
 }
 
+.flex-shrink-0 {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
 
 .event {
   display: flex;
@@ -225,6 +251,10 @@ aside ul li a {
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
   background-color: var(--bs-tertiary-bg);
+}
+
+.btn-warning {
+  margin-right: 0.5rem;
 }
 
 .scrollarea {
