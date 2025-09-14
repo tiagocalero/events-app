@@ -28,11 +28,11 @@ class Header extends HTMLElement {
             </form>
             <div class="text-end">
               <button type="button" class="btn btn-outline-light me-2"
-                onclick="window.location.href='inicio sesion.html'">
+                onclick="window.location.href='inicio_sesion.html'">
                 Iniciar Sesión
               </button>
 
-              <button type="button" class="btn btn-warning">Registrarse</button>
+              <a href="altaUsuario.html" type="button" class="btn btn-warning">Registrarse</a>
               
             </div>
 
