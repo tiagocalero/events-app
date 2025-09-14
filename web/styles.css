@@ -234,7 +234,7 @@ aside ul li a {
 }
 
 .right-sidebar {
-  width: 200px;
+  width: 300px;
   background: #f0f0f0;
   padding: 10px;
 }
@@ -242,6 +242,11 @@ aside ul li a {
 .right-sidebar h4 {
   border-bottom: 1px solid #999;
   margin-top: 0;
+}
+
+.right-sidebar .btn {
+	width: auto;
+	margin-bottom: 15px;
 }
 
 .dropdown-toggle { 
