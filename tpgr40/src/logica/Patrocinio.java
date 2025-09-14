@@ -47,8 +47,4 @@ public class Patrocinio {
 	public boolean buscarEdicion(Edicion e) {
 		return e == edicion;
 	}
-	
-	public void setCantRegistro(int cr) {
-		cantRegistros = cr;
-	}
 }

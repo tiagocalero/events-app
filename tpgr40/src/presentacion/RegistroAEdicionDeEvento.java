@@ -127,8 +127,8 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         
         ControladorUsuario cu = ControladorUsuario.getInstance();
         
-        for (DTAsistente asistente : cu.listarAsistentes()) {
-        	comboBoxAsistentes.addItem(asistente.getNickname());
+        for (String asistente : cu.listarAsistentes()) {
+        	comboBoxAsistentes.addItem(asistente);
         }
         JButton btnRegistrar = new JButton("Registrar");
         btnRegistrar.setBounds(343, 353, 132, 29);

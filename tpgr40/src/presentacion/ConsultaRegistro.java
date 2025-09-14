@@ -155,15 +155,10 @@ public class ConsultaRegistro extends JInternalFrame {
                     registrosModel.addElement("Seleccione un registro");
                     
                     ControladorUsuario m = ControladorUsuario.getInstance();
-                    for (DTRegistro reg : m.registrosDeAsistente(usuarioSeleccionado)) {
-            	    	/*RegEdicion = reg.getEdicion();
-            	    	RegFecha = reg.getFecha().format(fmt);
-            	    	RegCosto = reg.getCosto();
-            	    	RegTipo = reg.getTipo();
-            	    	
-                        registrosModel.addElement("<html>" + RegEdicion + "<br>" + RegFecha + " $" + RegCosto + "</html>"); */
-                    	registrosModel.addElement(reg.getEdicion());
-                    }
+                    m.elegirUsuario(usuarioSeleccionado);
+                    for (DTRegistro reg : m.consultaAsistente())
+            	    	registrosModel.addElement(reg.getEdicion());
+               
                     comboBoxRegistros.setModel(registrosModel);
                 }
              
@@ -204,7 +199,7 @@ public class ConsultaRegistro extends JInternalFrame {
         eventosModel.addElement("Seleccione un usuario");
         
         ControladorUsuario m = ControladorUsuario.getInstance();
-        m.listarNicknameAsistentes().forEach(eventosModel::addElement);
+        m.listarAsistentes().forEach(eventosModel::addElement);
         
         comboBoxUsuarios.setModel(eventosModel); 
     }

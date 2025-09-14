@@ -38,10 +38,6 @@ public class Organizador extends Usuario {
 	public List<DTEdicion> consulta() {
 		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.toList());
 	}
-	
-	public Map<String, Edicion> obtenerEdiciones() {
-		return Map.copyOf(ediciones);
-	}
 
 	public Edicion obtenerEdicion(String nom) {
 		return ediciones.get(nom);

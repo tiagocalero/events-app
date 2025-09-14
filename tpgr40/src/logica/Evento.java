@@ -34,18 +34,6 @@ public class Evento {
 	public String getNombre() {
 		return nombre;
 	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-	
-	public LocalDate getFechaAlta() {
-		return fechaAlta;
-	}
 	
 	public DTEvento getDatos() {
 		List<String> nomCategorias = 

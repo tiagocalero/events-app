@@ -29,20 +29,7 @@ public class ControladorUsuario{
 		return instance;	
 	}
 	
-	public Set<DTAsistente> listarAsistentes() {
-		Set<DTAsistente> res = new HashSet<>();
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		for (Usuario u : m.usuarios().values()) {
-			if (u instanceof Asistente) {
-				Asistente e = (Asistente) u;
-				DTAsistente dts = ((Asistente) e).getDatos();
-				res.add(dts);
-			}
-		}
-		return res;
-	}
-	
-	public List<String> listarNicknameAsistentes() {
+	public List<String> listarAsistentes() {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
         return m.asistentes();
  
@@ -57,7 +44,6 @@ public class ControladorUsuario{
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
         return new ArrayList<>(m.usuarios().keySet());
 	}
-	
 
 	public DTUsuario elegirUsuario(String nickname) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
@@ -106,18 +92,6 @@ public class ControladorUsuario{
 		return a.consulta();
 	}
 	
-	
-	//RECIBE PARAMETROS
-	public List<DTRegistro> registrosDeAsistente(String nicknameAsistente) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return ((Asistente) m.obtener(nicknameAsistente)).consulta();
-	}
-	
-	public List<DTEdicion> edicionesDeOrganizador(String nicknameOrganizador) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return ((Organizador) m.obtener(nicknameOrganizador)).consulta();
-	}
-	
 	//Devuelve el Datatype del registro con nombreEdicion del usuario 
 	public DTRegistro datosRegistroUsuario (String nombreEdicion, String usuario) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();	
@@ -127,10 +101,5 @@ public class ControladorUsuario{
 		Registro registro = asistente.getRegistro(nombreEdicion);
 		
 		return registro.getDatos();
-	}
-	
-	//Liberar memoria
-	public void liberarMemoria() {
-		usuario = null;
 	}
 }
