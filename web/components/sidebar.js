@@ -41,38 +41,38 @@ class Sidebar extends HTMLElement {
               data-bs-target="#account-collapse"
               aria-expanded="false"
             >
-              Account
+              Acciones
             </button>
             <div class="collapse" id="account-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+				<li>
+				  <a
+				    href="altaEvento.html"
+				    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				    >Crear Evento</a
+				  >
+				</li>
                 <li>
                   <a
-                    href="#"
+                    href="altaEdicion.html"
                     class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                    >New...</a
+                    >Crear Edición</a
                   >
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                    >Profile</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                    >Settings</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                    >Sign out</a
-                  >
-                </li>
+				  <li>
+				    <a
+				      href="alta_tipo_registro.html"
+				      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				      >Crear Tipo Registro</a
+				    >
+				  </li>
+				<li>
+				  <a
+				    href="altaPatrocinio.html"
+				    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				    >Crear Patrocinio</a
+				  >
+				</li>
               </ul>
             </div>
           </li>
