@@ -92,12 +92,7 @@ aside ul li a {
 
 /*### CONTENT ###*/
 .content {
-  flex: 1;
   padding: 20px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
   width: 100%;
 }
 
@@ -121,7 +116,8 @@ aside ul li a {
 .content-form-alta input[type="text"],
 .content-form-alta input[type="password"],
 .content-form-alta [type="number"], 
-.content-form-alta select {
+.content-form-alta select,
+.content-form-alta textarea {
   width: 180px; /* todos los inputs del mismo ancho */
 }
 
