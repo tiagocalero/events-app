@@ -22,7 +22,7 @@ header {
   align-items: center;
 }
 
-header .logo {
+.logo {
   height: 50px;
   width: auto;
 }
