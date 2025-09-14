@@ -27,10 +27,10 @@ class Header extends HTMLElement {
               />
             </form>
             <div class="text-end">
-              <button type="button" class="btn btn-outline-light me-2">
+              <a type="button" class="btn btn-outline-light me-2">
                 Iniciar Sesión
-              </button>
-              <button type="button" class="btn btn-warning">Registrarse</button>
+              </a>
+              <a class="btn btn-warning" href="altaUsuario.html">Registrarse</a>
             </div>
 
           </div>
