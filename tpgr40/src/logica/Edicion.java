@@ -62,38 +62,6 @@ public class Edicion {
     public String getNombre() {
         return this.nombre;
     }
-
-    public String getSigla() {
-        return this.sigla;
-    }
-
-    public LocalDate getFechaAlta() {
-        return this.fecha_alta;
-    }
-    
-    public LocalDate getFechaFinal() {
-        return this.fecha_final;
-    }
-
-    public LocalDate getFechaInicio() {
-        return this.fecha_inicio;
-    }
-    
-    public String getPais() {
-        return this.pais;
-    }
-
-    public String getCiudad() {
-        return this.ciudad;
-    }
-    public String getEvento() {
-        String nombreEv = evento.getNombre();
-        return nombreEv;
-    }
-    
-    public Organizador getOrganizador() {
-        return this.organizador;
-    }
     
     public List<Registro> getRegistros() {
         return new ArrayList<>(registros);
@@ -117,11 +85,6 @@ public class Edicion {
     
     public void agregarTRegistro(TRegistro tr) {
     	tRegistros.put(tr.getNombre(), tr);
-    }
-    		
-    		
-    public Patrocinio getPatrocinio(String codigo) {
-    	return patrocinios.get(codigo);
     }
 
     public TRegistro getTipoRegistro(String nombre) {

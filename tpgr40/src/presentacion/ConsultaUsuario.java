@@ -326,9 +326,6 @@ public class ConsultaUsuario extends JInternalFrame {
 	       	comboBoxEdicion.addItem(ed.getNombre());
 	    }
     }
-
-	
-	
 	
 	private void borrarCampos() {
 		txtNick.setText("");

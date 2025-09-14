@@ -249,5 +249,12 @@ class ControladorUsuarioTest {
 		assertEquals("tp5", dt.getTipo());
 	}
 
+
+	@Test @Order(6)
+	void testListarUsuarios() {
+		assertEquals(Set.of("as", "as2", "org", "org2"), c.listarUsuarios().stream().collect(Collectors.toSet()));
+		assertEquals(Set.of("as", "as2"), c.listarAsistentes().stream().collect(Collectors.toSet()));
+		assertEquals(Set.of("org", "org2"), c.listarOrganizadores().stream().collect(Collectors.toSet()));
+	}
 	
 }
