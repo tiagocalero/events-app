@@ -489,3 +489,8 @@ body {
   background-color: gray;
   color: white;
 }
+
+/* margen en el ingrese datos tipo registro*/
+.titulo-tipo-reg {
+  margin-bottom: 60px; /* espacio entre el título y el form */
+}
