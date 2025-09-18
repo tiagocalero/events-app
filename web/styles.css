@@ -121,7 +121,6 @@ aside ul li a {
 .content-form-alta input[type="text"],
 .content-form-alta input[type="password"],
 .content-form-alta [type="number"], 
-.content-form-alta select,
 .content-form-alta textarea {
   width: 180px; /* todos los inputs del mismo ancho */
 }
@@ -169,6 +168,10 @@ aside ul li a {
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.content-form-alta select {
+  width: 250px;
 }
 
 /*### MODIFICAR ###*/
@@ -239,6 +242,7 @@ aside ul li a {
   border-radius: 4px;
   background: transparent;
 }
+
 
 /*### ###*/
 
