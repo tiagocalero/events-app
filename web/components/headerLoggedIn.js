@@ -12,7 +12,7 @@ class Header extends HTMLElement {
               href="index.html"
               class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
             >
-              <img class="logo" src="logo.png">
+              <img class="logo" src="assets/logo.png">
             </a>
             <ul
               class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
@@ -45,7 +45,7 @@ class Header extends HTMLElement {
               <ul class="dropdown-menu text-small">
                 <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item" href="sesionFinalizada.html">Cerrar Sesión</a></li>
               </ul>
             </div>
           </div>
