@@ -66,6 +66,13 @@ class Sidebar extends HTMLElement {
 				    >Crear Patrocinio</a
 				  >
 				</li>
+				  <li>
+				    <a
+				      href="altaInstitucion.html"
+				      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				      >Crear Institución</a
+				    >
+				  </li>
               </ul>
             </div>
           </li>
