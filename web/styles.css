@@ -120,7 +120,8 @@ aside ul li a {
 
 .content-form-alta input[type="text"],
 .content-form-alta input[type="password"],
-.content-form-alta [type="number"], 
+.content-form-alta [type="number"],
+.content-form-alta #institucion,
 .content-form-alta textarea {
   width: 180px; /* todos los inputs del mismo ancho */
 }
@@ -163,7 +164,8 @@ aside ul li a {
 
 .content-form-alta input[type=text],
 .content-form-alta input[type="password"],
-.content-form-alta select, 
+.content-form-alta select,
+.content-form-alta #institucion,
 .content-form-alta textarea{
   padding: 4px;
   border: 1px solid #ccc;
@@ -192,9 +194,9 @@ aside ul li a {
 .content-form-modificar input[type="text"],
 .content-form-modificar input[type="password"],
 .content-form-modificar [type="number"],
-.content-form-modificar select,
+.content-form-alta #institucion,
 .content-form-modificar textarea {
-  width: 400px; /* todos los inputs del mismo ancho */
+  /* width: 400px; /\* todos los inputs del mismo ancho *\/ */
 }
 
 .content-form-modificar input[type=submit] {
@@ -234,8 +236,9 @@ aside ul li a {
 }
 
 .content-form-modificar input[type=text],
-.content-form-modificar input[type="password"],
+.content-form-modificar input[type=password],
 .content-form-modificar select,
+.content-form-modificar input[type=date],
 .content-form-modificar textarea{
   padding: 4px;
   border: 0px solid #ccc;
@@ -510,6 +513,7 @@ body {
 .titulo-tipo-reg {
   margin-bottom: 60px; /* espacio entre el título y el form */
 }
+<<<<<<< HEAD
 
 .custom-card-img {
   max-width: 50%;   
@@ -519,3 +523,5 @@ body {
   margin-top:10px;
   margin-bottom:10px;
 }
+=======
+>>>>>>> 263a3c3e80964b307aeb580510ab9e8d00803a2b
