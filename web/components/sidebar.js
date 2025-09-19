@@ -16,14 +16,11 @@ class Sidebar extends HTMLElement {
             </button>
             <div class="collapse show" id="home-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-		        >Tecnología</a></li>
-				<li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tecnología</a></li>
-				<li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Innovación</a></li>
-		        <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Deporte</a></li>
-		        <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Salud</a></li>
-		      </ul>
+                <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tecnología</a></li>
+                <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Innovación</a></li>
+                <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Deporte</a></li>
+                <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Salud</a></li>
+              </ul>
             </div>
           </li>
           <li class="border-top my-3"></li>
@@ -38,34 +35,30 @@ class Sidebar extends HTMLElement {
             </button>
             <div class="collapse" id="account-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-				<li>
-				  <a
-				    href="altaEvento.html"
-				    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-				    >Crear Evento</a
-				  >
-				</li>
+                <li>
+                  <a
+                    href="altaEvento.html"
+                    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                    >Crear Evento</a>
+                </li>
                 <li>
                   <a
                     href="altaEdicion.html"
                     class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                    >Crear Edición</a
-                  >
+                    >Crear Edición</a>
                 </li>
-				  <li>
-				    <a
-				      href="altaTipoRegistro.html"
-				      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-				      >Crear Tipo Registro</a
-				    >
-				  </li>
-				<li>
-				  <a
-				    href="altaPatrocinio.html"
-				    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-				    >Crear Patrocinio</a
-				  >
-				</li>
+                <li>
+                  <a
+                    href="altaTipoRegistro.html"
+                    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                    >Crear Tipo Registro</a>
+                </li>
+                <li>
+                  <a
+                    href="altaPatrocinio.html"
+                    class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                    >Crear Patrocinio</a>
+                </li>
               </ul>
             </div>
           </li>
