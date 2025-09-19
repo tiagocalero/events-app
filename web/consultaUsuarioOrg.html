@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eventos.uy - Consulta de Usuario</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="components/headerLoggedIn.js" type="text/javascript" defer></script>
   <script src="components/sidebar.js" type="text/javascript" defer></script>
   <script src="consultaUsuario.js" type="text/javascript" defer></script>
+  <script src="altaUsuario.js" type="text/javascript" defer></script>
 </head>
 <body>
   <header-component></header-component>
@@ -20,23 +22,28 @@
       <form id="modifyUserForm" class="content-form-modificar" action="alta_usuario" method="post">
 
         <div class="event-image">
-          <img id="profile-pic" src="data:image/png;base64,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" alt="Intendencia de Montevideo">
+          <img id="profile-pic" src="assets/IMG-US04.jpeg" alt="miseventos.jpg">
           <input id="file-input" type="file" accept="image/*" style="display: none"/>
         </div>
 
-        <h2>Intendencia de Montevideo</h2>
+        <label for="nombre"><strong>Nombre:</strong></label>
+        <input type="text" id="nombre" value="MisEventos"/><br/>
 
         <label for="nick"><strong>Nickname:</strong></label>
-        <input type="text" id="nick" value="imm" disabled /><br/>
+        <input type="text" id="nick" value="miseventos" disabled /><br/>
 
         <label for="correo"><strong>Email:</strong></label>
-        <input type="text" id="correo" value="contacto@imm.gub.uy" disabled /><br/>
+        <input type="text" id="correo" value="contacto@miseventos.com" disabled /><br/>
+
+        <label for="pass"><strong>Contraseña:</strong></label>
+        <input type="password" id="pass" value="22miseventos"/>
+        <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye" style="vertical-align: center"></i></button><br/>
 
         <label for="link"><strong>Sitio Web:</strong></label>
-        <input type="text" id="link" value="https://montevideo.gub.uy/" /><br/>
+        <input type="text" id="link" value="https://miseventos.com" /><br/>
 
         <label for="desc" class="lblDesc"><strong>Descripción:</strong></label>
-        <textarea type="text" id="desc">Gobierno departamental de Montevideo</textarea><br/>
+        <textarea type="text" id="desc">Empresa de organizacion de eventos.</textarea><br/>
 
         <button id="modifyBtn" type="submit" class="btn_login" disabled>Modificar</button>
       </form>
@@ -48,9 +55,12 @@
           <li class="mb-1">
             Ediciones
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-		        <li><a href="consultaEdicion.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Maratón de Montevideo 2025</a></li>
-		        <li><a href="consultaEdicion.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Maratón de Montevideo 2022</a></li>
-       
+            <li><a href="consultaEdicionEDEV03.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Maratón de Montevideo 2024</a></li>
+            <li><a href="consultaEdicionEDEV04.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Maratón de Montevideo 2022</a></li>
+            <li><a href="consultaEdicionEDEV08.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tecnologia Punta del Este 2026</a></li>
+            <li><a href="consultaEdicionEDEV09.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Mobile World Congress 2025</a></li>
+            <li><a href="consultaEdicionEDEV10.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Web Summit 2026</a></li>
+
             </ul>
           </li>
         </ul>

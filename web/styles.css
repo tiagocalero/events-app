@@ -196,7 +196,7 @@ aside ul li a {
 .content-form-modificar [type="number"],
 .content-form-alta #institucion,
 .content-form-modificar textarea {
-  width: 400px; /* todos los inputs del mismo ancho */
+  /* width: 400px; /\* todos los inputs del mismo ancho *\/ */
 }
 
 .content-form-modificar input[type=submit] {
