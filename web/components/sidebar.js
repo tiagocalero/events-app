@@ -61,7 +61,7 @@ class Sidebar extends HTMLElement {
                 </li>
 				  <li>
 				    <a
-				      href="alta_tipo_registro.html"
+				      href="altaTipoRegistro.html"
 				      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 				      >Crear Tipo Registro</a
 				    >
