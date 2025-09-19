@@ -175,6 +175,16 @@ aside ul li a {
 .content-form-alta select {
   width: 250px;
 }
+.content-form-alta .no-spinner {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;      /* Estándar */
+}
+
+.content-form-alta .no-spinner::-webkit-inner-spin-button,
+.content-form-alta .no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Chrome, Safari */
+  margin: 0;
+}
 
 /*### MODIFICAR ###*/
 
@@ -531,3 +541,4 @@ body {
   margin-top:10px;
   margin-bottom:10px;
 }
+
