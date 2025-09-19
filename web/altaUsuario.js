@@ -27,3 +27,20 @@ function toggleTipoUsuario() {
         datosOrg.style.display = 'inline-block';
     }
 }
+
+function validarSeleccionAltaUsuario() {
+	const input = document.getElementById("pass");
+	const input2 = document.getElementById("passconf");
+	if (input.value != input2.value) {
+		alert("Las contraseñas no coinciden.");
+		return false; // evita el submit
+	}
+
+	const select = document.getElementById("institucion");
+	console.log(select.value);
+	if (select.value == "none") {
+		alert("Debe seleccionar una institución.");
+		return false; // evita el submit
+	}
+	return true;
+}

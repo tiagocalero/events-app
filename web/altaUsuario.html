@@ -21,13 +21,13 @@
     <div class="content">
       <h3><strong>Registrar un Usuario:</strong></h3><br/>
 
-          <form class="content-form-alta" action="alta_usuario" method="post">
+          <form class="content-form-alta" onsubmit="return validarSeleccionAltaUsuario()" action="alta_usuario" method="post">
 
             <label for="tipoUsuario">Tipo de Usuario:</label>
             <button type="button" id="tipoUsuario" onclick="toggleTipoUsuario()">Asistente</button><br/>
 
             <label for="nickname">Nickname:</label>
-            <input type="text" id="nickname" name="nickname"/><br/>
+            <input type="text" id="nickname" name="nickname" required/><br/>
 
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name"/><br/>
@@ -37,7 +37,7 @@
               <input type="text" id="apellido" name="apellido"/><br/>
 
               <label for="nacimiento">Fecha Nacimiento:</label>
-              <input type="date" id="nacimiento" name="nacimiento"/><br/>
+              <input type="date" id="nacimiento" name="nacimiento" required/><br/>
 
               <label for="institucion">Institución:</label>
               <select id="institucion" name="institucion">
@@ -48,7 +48,7 @@
 
             <div>
               <label for="correo">Email:</label>
-              <input type="text" id="correo" name="correo"/><br/>
+              <input type="text" id="correo" name="correo" required/><br/>
             </div>
 
             <div id="datosOrg" style="display:none">
@@ -62,7 +62,7 @@
 
             <div>
               <label for="pass">Contraseña:</label>
-              <input type="password" id="pass" name="pass"/>
+              <input type="password" id="pass" name="pass" required/>
               <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye" style="vertical-align: center"></i></button><br/>
 
               <label for="passconf">Confirma la Contraseña:</label>

@@ -22,7 +22,7 @@
           <form class="content-form-alta" action="info_tipo_registro" method="post">
     
             <label for= "name">Nombre:</label>
-            <input type = "text" id = "name" name = "name"/><br/>
+            <input type = "text" id = "name" name = "name" required/><br/>
             
             <label for= "sigla">Sigla:</label>
             <input type = "text" id = "sigla" name = "desc"/><br/>
@@ -34,10 +34,10 @@
             <input type = "text" id = "pais" name = "pais"/><br/>
             
             <label for="fecha-inicio">Selecciona una fecha:</label>
-            <input type="date" id="fecha-inicio" name="fecha-inicio"><br/>
+            <input type="date" id="fecha-inicio" name="fecha-inicio" required><br/>
 
             <label for="fecha-fin">Selecciona una fecha:</label>
-            <input type="date" id="fecha-fin" name="fecha-fin"><br/>
+            <input type="date" id="fecha-fin" name="fecha-fin" required><br/>
 
             <label for="foto">Selecciona una foto:</label>
             <input type="file" id="foto" name="foto" accept="image/*"><br/>

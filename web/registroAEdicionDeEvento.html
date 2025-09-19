@@ -10,6 +10,7 @@
   <script src="components/headerLoggedIn.js" type="text/javascript" defer></script>
   <script src="components/sidebar.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="assets/logoChico.png">
+  <script src="registroAEdicionDeEvento.js" type="text/javascript" defer></script>
 </head>
 <body>
   <header-component></header-component>
@@ -20,14 +21,14 @@
 
         <h3><strong>Ingrese los datos necesarios para el registro:</strong></h3><br/>
 
-        <form class="content-form-alta" onsubmit="return validarSeleccion()" action="info_tipo_registro" method="post">
+        <form class="content-form-alta" onsubmit="return validarSeleccionRegistroEdicion()" action="info_tipo_registro" method="post">
 
             
           <label for="tiposRegistro" style="vertical-align: top ">Seleccione un tipo de Registro:</label>
             <select id="tiposRegistro" name="tiposRegistro" multiple size="3" style="margin-bottom: 20px;">
-            <option value="tregistro1">Corredor42K</option>
-            <option value="tregistro2">Corredor21K</option>
-            <option value="tregistro3">Corredor10K</option>
+	            <option value="tregistro1">Corredor42K</option>
+	            <option value="tregistro2">Corredor21K</option>
+	            <option value="tregistro3">Corredor10K</option>
             </select><br/>
 
             <form action="procesar_registro.php" method="post">

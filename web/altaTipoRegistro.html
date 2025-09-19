@@ -21,13 +21,13 @@
       <h3 class = "titulo-tipo-reg"><strong>Ingrese los datos del nuevo tipo de registro:</strong></h3>
       <form class = "content-form-alta "action="info_tipo_registro" method="post">
         <label for= "Nombre">Nombre:</label>
-        <input type = "text" id = "name" name = "name"/><br/>
+        <input type = "text" id = "name" name = "name" required/><br/>
         <label for= "Descripción">Descripción:</label>
         <input type = "text" id = "Descripción" name = "Descripción"/><br/>
         <label for= "c">Costo:</label>
-        <input type = "number" id = "c" name = "c" min="0" class="no-spinner"/><br/>
+        <input type = "number" id = "c" name = "c" min="0" class="no-spinner" required/><br/>
         <label for= "Cupo">Cupo:</label>
-        <input type = "number" id = "Cupo" name = "Cupo" min="0" class="no-spinner"/><br/><br/>
+        <input type = "number" id = "Cupo" name = "Cupo" min="0" class="no-spinner" required/><br/><br/>
         <input type="reset" value = "Borrar"/>
         <input type="submit" value = "Crear"/>
 
