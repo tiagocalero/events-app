@@ -19,18 +19,11 @@ class Sidebar extends HTMLElement {
 
 		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 		        >Tecnología</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Innovación</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Literatura</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cultura</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Música</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Deporte</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Salud</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Entretenimiento</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Agro</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Negocios</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Moda</a></li>
-		        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Investigación</a></li>
-              </ul>
+				<li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tecnología</a></li>
+				<li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Innovación</a></li>
+		        <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Deporte</a></li>
+		        <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Salud</a></li>
+		      </ul>
             </div>
           </li>
           <li class="border-top my-3"></li>
