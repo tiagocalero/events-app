@@ -45,7 +45,7 @@ class Header extends HTMLElement {
               <ul class="dropdown-menu text-small">
                 <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item" href="sesionFinalizada.html">Cerrar Sesión</a></li>
               </ul>
             </div>
           </div>
