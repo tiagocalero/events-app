@@ -55,6 +55,16 @@ public class ControladorEvento {
 
 		return res;
 	}
+	
+	public List<DTEvento> listarDTEventos(){
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Map<String, Evento> eventos = m.eventos();
+
+		return eventos.values().stream()
+                	  .map(Evento::getDatos)
+                	  .collect(Collectors.toList());  
+	}
 
 	public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
 		ManejadorEvento m = ManejadorEvento.getInstance();

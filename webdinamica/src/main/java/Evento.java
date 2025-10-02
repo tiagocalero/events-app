@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import logica.ControladorEvento;
+import logica.DTEvento;
 
 /**
  * Servlet implementation class Evento
@@ -51,7 +52,10 @@ public class Evento extends HttpServlet {
 		String path = request.getPathInfo();
 
         if (path == null || path.equals("/")) {
-            response.getWriter().println("Página principal");
+            ControladorEvento c = ControladorEvento.getInstance();
+            List<String> eventos = c.listarEventos();
+            request.setAttribute("eventos", eventos);
+    		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
         } else if (path.equals("/consulta")) {
             response.getWriter().println("Página de consulta");
         } else if (path.equals("/alta")) {
