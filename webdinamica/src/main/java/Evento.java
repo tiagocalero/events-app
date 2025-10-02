@@ -53,7 +53,7 @@ public class Evento extends HttpServlet {
 
         if (path == null || path.equals("/")) {
             ControladorEvento c = ControladorEvento.getInstance();
-            List<String> eventos = c.listarEventos();
+            List<DTEvento> eventos = c.listarDTEventos();
             request.setAttribute("eventos", eventos);
     		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
         } else if (path.equals("/consulta")) {

@@ -73,7 +73,7 @@ public class ManejadorEvento {
 	}
 	// Devuelve una copia del map de eventos sobre el que se puede iterar
 	public Map<String, Evento> eventos() {
-        return new HashMap<>(eventos);
+        return Map.copyOf(eventos);
     }
 	
 	public TRegistro encontrarTRegistroDeEdicion(String nombreTRegistro, String nombreEdicion, String nickEvento) {
