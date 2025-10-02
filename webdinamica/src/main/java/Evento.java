@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import logica.ControladorEvento;
 
@@ -23,18 +25,37 @@ public class Evento extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    // POST /evento/alta
+    // Crea un evento con los parámetros pasados
+    protected void altaEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String nombre = request.getParameter("nombre");
+    	String descripcion = request.getParameter("desc");
+    	String sigla = request.getParameter("sigla");
+    	String[] categoriasA = request.getParameterValues("categorias");
+    	List<String> categorias = (categoriasA != null)
+    								? Arrays.asList(categoriasA)
+    								: List.of();
+    	
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
+    	
+    	// Volver a AltaEvento
+		request.getRequestDispatcher("/WEB-INF/eventos/alta.html").forward(request, response);
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String path = request.getPathInfo();
 
         if (path == null || path.equals("/")) {
             response.getWriter().println("Página principal");
         } else if (path.equals("/consulta")) {
             response.getWriter().println("Página de consulta");
+        } else if (path.equals("/alta")) {
+    		request.getRequestDispatcher("/WEB-INF/eventos/alta.html").forward(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");
@@ -45,8 +66,18 @@ public class Evento extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String path = request.getPathInfo();
+
+        if (path == null || path.equals("/")) {
+            response.getWriter().println("Página principal");
+        } else if (path.equals("/consulta")) {
+            response.getWriter().println("Página de consulta");
+        } else if (path.equals("/alta")) {
+        	altaEvento(request, response);
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().println("404 - Página no encontrada");
+        }
 	}
 
 }
