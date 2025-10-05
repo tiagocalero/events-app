@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import logica.ControladorEvento;
+import logica.ControladorCategoria;
 import logica.DTEvento;
 
 /**
@@ -27,9 +28,37 @@ public class Evento extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+    // GET /evento
+    protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ControladorEvento c = ControladorEvento.getInstance();
+        
+        // Cargar eventos
+        List<DTEvento> eventos = c.listarDTEventos();
+        request.setAttribute("eventos", eventos);
+        
+        // Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+    }
+    
+    // GET /evento/alta
+    protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	
+    	List<String> categorias = c.listarCategorias();
+        
+        if (categorias.isEmpty())
+        	// BORRAR!! Para usar mientras no haya CargaDatos
+            request.setAttribute("categorias", List.of("Categoría 1"));
+        else
+            request.setAttribute("categorias", categorias);
+    	
+    	// Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
+    }
+    
     // POST /evento/alta
     // Crea un evento con los parámetros pasados
-    protected void altaEvento(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String nombre = request.getParameter("nombre");
     	String descripcion = request.getParameter("desc");
     	String sigla = request.getParameter("sigla");
@@ -39,10 +68,20 @@ public class Evento extends HttpServlet {
     								: List.of();
     	
     	ControladorEvento c = ControladorEvento.getInstance();
-    	c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
+    	boolean ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
     	
+    	if (!ok) {
+    		// Se incluyen todos los atributos para que se vuelvan a cargar y que el
+    		// usuario no tenga que llenarlos de vuelta
+    		request.setAttribute("nombre", nombre);
+    		request.setAttribute("descripcion", descripcion);
+    		request.setAttribute("sigla", sigla);
+    		request.setAttribute("categoriasA", categoriasA);
+    		
+    		request.setAttribute("error", "Ya existe un evento con ese nombre");
+    	}
     	// Volver a AltaEvento
-		request.getRequestDispatcher("/WEB-INF/eventos/alta.html").forward(request, response);
+		altaEventoGET(request, response);
     }
 
 	/**
@@ -52,14 +91,11 @@ public class Evento extends HttpServlet {
 		String path = request.getPathInfo();
 
         if (path == null || path.equals("/")) {
-            ControladorEvento c = ControladorEvento.getInstance();
-            List<DTEvento> eventos = c.listarDTEventos();
-            request.setAttribute("eventos", eventos);
-    		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+            listarEventos(request, response);
         } else if (path.equals("/consulta")) {
             response.getWriter().println("Página de consulta");
         } else if (path.equals("/alta")) {
-    		request.getRequestDispatcher("/WEB-INF/eventos/alta.html").forward(request, response);
+        	altaEventoGET(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");
@@ -73,11 +109,11 @@ public class Evento extends HttpServlet {
 		String path = request.getPathInfo();
 
         if (path == null || path.equals("/")) {
-            response.getWriter().println("Página principal");
+            listarEventos(request, response);
         } else if (path.equals("/consulta")) {
             response.getWriter().println("Página de consulta");
         } else if (path.equals("/alta")) {
-        	altaEvento(request, response);
+        	altaEventoPOST(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");

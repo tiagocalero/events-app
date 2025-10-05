@@ -57,8 +57,8 @@ main {
   height: 100vh;
   height: -webkit-fill-available;
   max-height: 100vh;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /*### ASIDE ###*/
@@ -104,6 +104,10 @@ aside ul li a {
 }
 
 /*### ALTA ###*/
+
+.error {
+	color: red;
+}
 
 .content-form-alta {
   align-items: center;

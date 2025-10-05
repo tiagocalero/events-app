@@ -179,6 +179,9 @@ public class ControladorEvento {
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
+		if (categorias.isEmpty())
+			return false;
+		
 		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
 	}
 	
