@@ -7,8 +7,10 @@ function validarSeleccionAltaEvento() {
 	const mensajeErrorNombreVacio = document.getElementById("error_nombre_vacio");
 
 	mensajeErrorCategorias.style.display = "none";
-	mensajeErrorNombreRepetido.style.display = "none";
 	mensajeErrorNombreVacio.style.display = "none";
+	
+	if (mensajeErrorNombreRepetido != null)
+		mensajeErrorNombreRepetido.style.display = "none";
 
 	if (!nombreInput.value.trim()) {
 		mensajeErrorNombreVacio.style.display = "block";
