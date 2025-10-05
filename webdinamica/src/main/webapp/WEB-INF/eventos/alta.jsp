@@ -26,13 +26,14 @@
         <!-- En cada atributo, se carga el valor pasado desde el servlet si existe -->
         
         <label for= "nombre">Nombre:</label>
-        <input type = "text" id = "nombre" name = "nombre" required
+        <input type = "text" id = "nombre" name = "nombre" 
         	   value="<%= request.getAttribute("nombre") != null ? request.getAttribute("nombre") : "" %>"/><br/>
         
         <!-- Mostrar mensaje de error si existe -->
         <% if (request.getAttribute("error") != null) { %>
-		    <p style="color:red;"><%= request.getAttribute("error") %></p>
+		    <p style="color:red;" id="error_nombre_repetido"><%= request.getAttribute("error") %></p>
 		<% } %>
+		<p style="color:red; display: none;" id="error_nombre_vacio">No puede estar vacío.</p>
         
         <label for= "desc">Descripción:</label>
         <input type = "text" id = "desc" name = "desc"
@@ -58,7 +59,7 @@
 				</option>
           	<% } %>
         </select><br/>
-		<p id="error_categorias" class="error" style="display: none;">Debe seleccionar al menos una categoría</p>
+		<p id="error_categorias" class="error" style="display: none;">Debe seleccionar al menos una categoría.</p>
         
         <input type="reset" value = "Borrar"/>
         <input type="submit" value = "Crear"/>
