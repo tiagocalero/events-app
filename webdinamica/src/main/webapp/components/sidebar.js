@@ -56,7 +56,7 @@ class Sidebar extends HTMLElement {
 			  </li>
 			  <li>
 			    <a
-			      href="altaPatrocinio.html"
+			      href="/webdinamica/evento/altaPatrocinio"
 			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Crear Patrocinio</a>
 			  </li>

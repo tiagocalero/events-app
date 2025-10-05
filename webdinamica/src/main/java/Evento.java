@@ -12,6 +12,8 @@ import java.util.List;
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
+import logica.DTPatrocinio;
+import logica.TipoNivelPatrocinio;
 
 /**
  * Servlet implementation class Evento
@@ -41,6 +43,7 @@ public class Evento extends HttpServlet {
     }
     
     // GET /evento/alta
+    // Carga las categorías existentes en el formulario
     protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
     	
@@ -54,6 +57,38 @@ public class Evento extends HttpServlet {
     	
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
+    }
+
+    // GET /evento/altaPatrocinio
+    protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// FALTA cargar eventos, ediciones, instituciones
+    	
+    	// Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/altaPatrocinio.jsp").forward(request, response);
+    }
+    
+    // POST /evento/altaPatrocinio
+    // Crea un patrocinio con los parámetros pasados
+    protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String evento = request.getParameter("evento");
+    	String edicion = request.getParameter("edicion");
+    	String institucion = request.getParameter("institucion");
+    	TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel"));
+    	float monto = Float.parseFloat(request.getParameter("monto"));
+    	int cantRegistros = Integer.parseInt(request.getParameter("cantRegistros"));
+    	String tipoRegistro = request.getParameter("tregistro");
+    	String codigo = request.getParameter("codigo");
+    	
+    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), "");
+    	
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	try {
+    		c.crearPatrocinio(dtp, edicion, institucion, evento);
+    	} catch (Exception ex) {
+    		// FALTA
+    	}
+    	// Volver a AltaPatrocinio
+		altaPatrocinioGET(request, response);
     }
     
     // POST /evento/alta
@@ -96,6 +131,8 @@ public class Evento extends HttpServlet {
             response.getWriter().println("Página de consulta");
         } else if (path.equals("/alta")) {
         	altaEventoGET(request, response);
+        } else if (path.equals("/altaPatrocinio")) {
+        	altaPatrocinioGET(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");
@@ -114,6 +151,8 @@ public class Evento extends HttpServlet {
             response.getWriter().println("Página de consulta");
         } else if (path.equals("/alta")) {
         	altaEventoPOST(request, response);
+        } else if (path.equals("/altaPatrocinio")) {
+        	altaPatrocinioPOST(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");
