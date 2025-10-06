@@ -66,6 +66,12 @@ class Sidebar extends HTMLElement {
 			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Crear Institución</a>
 			  </li>
+				  <li>
+				    <a
+				      href="/webdinamica/CargarDatos?redirect=${encodeURIComponent(window.location.pathname)}"
+				      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				      >Cargar Datos</a>
+				  </li>
 			</ul>
 
             </div>

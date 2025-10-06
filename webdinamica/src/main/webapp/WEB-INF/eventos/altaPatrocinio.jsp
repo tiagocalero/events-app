@@ -24,7 +24,7 @@
         <select id="evento" name="evento">
           <option value="rock">Montevideo Rock</option>
           <option value="comics">Montevideo Comics</option>
-          <option value="maratÃ³n">Maratón de Montevideo</option>
+          <option value="maratón">Maratón de Montevideo</option>
         </select><br/>
         
         <label for="edicion">Edición:</label>

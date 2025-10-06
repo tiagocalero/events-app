@@ -49,11 +49,7 @@ public class Evento extends HttpServlet {
     	
     	List<String> categorias = c.listarCategorias();
         
-        if (categorias.isEmpty())
-        	// BORRAR!! Para usar mientras no haya CargaDatos
-            request.setAttribute("categorias", List.of("Categoría 1"));
-        else
-            request.setAttribute("categorias", categorias);
+        request.setAttribute("categorias", categorias);
     	
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
