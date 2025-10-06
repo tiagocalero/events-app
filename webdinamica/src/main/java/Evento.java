@@ -47,11 +47,17 @@ public class Evento extends HttpServlet {
     	// FALTA cargar eventos, ediciones, instituciones
     	ControladorEvento c = ControladorEvento.getInstance();
 
-    	List<String> eventos = c.listarEventos();
-    	List<String> instituciones = c.listarInstituciones();
+    	String evento = request.getParameter("evento");
+    	String edicion = request.getParameter("edicion");
+    	
+    	if (!c.existeEdicionEvento(evento, edicion))
+    		return;
 
-        request.setAttribute("eventos", eventos);
+    	List<String> instituciones = c.listarInstituciones();
         request.setAttribute("instituciones", instituciones);
+        
+        List<String> tipoRegistros = c.listarTipoRegistro(evento, edicion);
+        request.setAttribute("tipoRegistros", tipoRegistros);
     	
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/altaPatrocinio.jsp").forward(request, response);
@@ -66,7 +72,7 @@ public class Evento extends HttpServlet {
     	TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel"));
     	float monto = Float.parseFloat(request.getParameter("monto"));
     	int cantRegistros = Integer.parseInt(request.getParameter("cantRegistros"));
-    	String tipoRegistro = request.getParameter("tregistro");
+    	String tipoRegistro = request.getParameter("tipoRegistro");
     	String codigo = request.getParameter("codigo");
     	
     	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), "");

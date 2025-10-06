@@ -22,22 +22,8 @@
     <div class="content">
       <h3><strong>Ingrese los datos del nuevo patrocinio:</strong></h3><br/>
       <form class="content-form-alta" action="altaPatrocinio" method="post">
-        <label for="evento">Evento:</label>
-        <select id="evento" name="evento">
-          	<% List<String> eventos = (List<String>) request.getAttribute("eventos");
-    	       for (String evento : eventos) { %>
-          		<option value="<%= evento %>">
-					<%= evento %>
-				</option>
-          	<% } %>
-        </select><br/>
-        
-        <label for="edicion">Edición:</label>
-        <select id="edicion" name="edicion">
-          <option value="2022">Maratón de Montevideo 2022</option>
-          <option value="2024">Maratón de Montevideo 2024</option>
-          <option value="2025">Maratón de Montevideo 2025</option>
-        </select><br/>
+      	<input type="hidden" name="evento" value="<%= request.getParameter("evento") %>">
+      	<input type="hidden" name="edicion" value="<%= request.getParameter("edicion") %>">
         
         <label for="institucion">Institución:</label>
         <select id="institucion" name="institucion">
@@ -63,11 +49,14 @@
         <label for = "cantRegistros">Cantidad de Registros Gratuitos:</label>
         <input type = "number" id = "cantRegistros" name = "cantRegistros" min="0" step="any" class="no-spinner" required/><br/>
         
-        <label for="tregistro">Tipo de registro gratuito:</label>
-        <select id="tregistro" name="tregistro">
-          <option value="42k">Corredor 42k</option>
-          <option value="21k">Corredor 21k</option>
-          <option value="10k">Corredor 10k</option>
+        <label for="tipoRegistro">Tipo de registro gratuito:</label>
+        <select id="tipoRegistro" name="tipoRegistro">
+          	<% List<String> tipoRegistros = (List<String>) request.getAttribute("tipoRegistros");
+    	       for (String tipoRegistro : tipoRegistros) { %>
+          		<option value="<%= tipoRegistro %>">
+					<%= tipoRegistro %>
+				</option>
+          	<% } %>
         </select><br/>
         
         <label for="codigo">Código:</label>
