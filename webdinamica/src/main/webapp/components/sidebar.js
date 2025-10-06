@@ -38,7 +38,7 @@ class Sidebar extends HTMLElement {
 			<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 			  <li>
 			    <a
-			      href="/webdinamica/evento/alta"
+			      href="/webdinamica/eventos/alta"
 			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Crear Evento</a>
 			  </li>

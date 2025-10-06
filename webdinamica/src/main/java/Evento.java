@@ -18,7 +18,7 @@ import logica.TipoNivelPatrocinio;
 /**
  * Servlet implementation class Evento
  */
-@WebServlet({"/evento/*", "/ediciones/*", "/patrocinios/*"}) 
+@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*"}) 
 public class Evento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class Evento extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    // GET /evento
+    // GET /eventos
     protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ControladorEvento c = ControladorEvento.getInstance();
         
@@ -102,7 +102,7 @@ public class Evento extends HttpServlet {
 		altaPatrocinioGET(request, response);
     }
     
-    // GET /evento/alta
+    // GET /eventos/alta
     // Carga las categorías existentes en el formulario
     protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
@@ -115,7 +115,7 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
     }
     
-    // POST /evento/alta
+    // POST /eventos/alta
     // Crea un evento con los parámetros pasados
     protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String nombre = request.getParameter("nombre");
@@ -177,7 +177,7 @@ public class Evento extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
-	    if (servletPath.equals("/evento")) {
+	    if (servletPath.equals("/eventos")) {
 		
 				String path = request.getPathInfo();
 		
