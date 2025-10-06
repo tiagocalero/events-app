@@ -79,14 +79,25 @@ public class Evento extends HttpServlet {
     	String tipoRegistro = request.getParameter("tipoRegistro");
     	String codigo = request.getParameter("codigo");
     	
-    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), "");
+    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion);
     	
     	ControladorEvento c = ControladorEvento.getInstance();
     	try {
     		c.crearPatrocinio(dtp, edicion, institucion, evento);
     	} catch (Exception ex) {
-    		// FALTA
+    		request.setAttribute("error", ex.getMessage());
+    		
+    		// Se incluyen todos los atributos para que se vuelvan a cargar y
+    		// que el usuario no tenga que llenarlos de vuelta
+    		request.setAttribute("institucion", institucion);
+    		request.setAttribute("nivel", nivel.toString());
+    		request.setAttribute("monto", monto);
+    		request.setAttribute("cantRegistros", cantRegistros);
+    		request.setAttribute("tipoRegistro", tipoRegistro);
+    		request.setAttribute("codigo", codigo);
+    		altaPatrocinioGET(request, response);
     	}
+    	
     	// Volver a AltaPatrocinio
 		altaPatrocinioGET(request, response);
     }
