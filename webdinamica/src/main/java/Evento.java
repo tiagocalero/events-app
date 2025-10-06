@@ -41,23 +41,17 @@ public class Evento extends HttpServlet {
         // Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
     }
-    
-    // GET /evento/alta
-    // Carga las categorías existentes en el formulario
-    protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ControladorEvento c = ControladorEvento.getInstance();
-    	
-    	List<String> categorias = c.listarCategorias();
-        
-        request.setAttribute("categorias", categorias);
-    	
-    	// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
-    }
 
     // GET /evento/altaPatrocinio
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// FALTA cargar eventos, ediciones, instituciones
+    	ControladorEvento c = ControladorEvento.getInstance();
+
+    	List<String> eventos = c.listarEventos();
+    	List<String> instituciones = c.listarInstituciones();
+
+        request.setAttribute("eventos", eventos);
+        request.setAttribute("instituciones", instituciones);
     	
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/altaPatrocinio.jsp").forward(request, response);
@@ -85,6 +79,19 @@ public class Evento extends HttpServlet {
     	}
     	// Volver a AltaPatrocinio
 		altaPatrocinioGET(request, response);
+    }
+    
+    // GET /evento/alta
+    // Carga las categorías existentes en el formulario
+    protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	
+    	List<String> categorias = c.listarCategorias();
+        
+        request.setAttribute("categorias", categorias);
+    	
+    	// Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
     }
     
     // POST /evento/alta

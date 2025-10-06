@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,22 +24,29 @@
       <form class="content-form-alta" action="altaPatrocinio" method="post">
         <label for="evento">Evento:</label>
         <select id="evento" name="evento">
-          <option value="rock">Montevideo Rock</option>
-          <option value="comics">Montevideo Comics</option>
-          <option value="marat髇">Marat髇 de Montevideo</option>
+          	<% List<String> eventos = (List<String>) request.getAttribute("eventos");
+    	       for (String evento : eventos) { %>
+          		<option value="<%= evento %>">
+					<%= evento %>
+				</option>
+          	<% } %>
         </select><br/>
         
-        <label for="edicion">Edici髇:</label>
+        <label for="edicion">Edici贸n:</label>
         <select id="edicion" name="edicion">
-          <option value="2022">Marat髇 de Montevideo 2022</option>
-          <option value="2024">Marat髇 de Montevideo 2024</option>
-          <option value="2025">Marat髇 de Montevideo 2025</option>
+          <option value="2022">Marat贸n de Montevideo 2022</option>
+          <option value="2024">Marat贸n de Montevideo 2024</option>
+          <option value="2025">Marat贸n de Montevideo 2025</option>
         </select><br/>
         
-        <label for="institucion">Instituci髇:</label>
+        <label for="institucion">Instituci贸n:</label>
         <select id="institucion" name="institucion">
-          <option value="antel">Antel</option>
-          <option value="fing">Facultad de Ingenier韆</option>
+          	<% List<String> instituciones = (List<String>) request.getAttribute("instituciones");
+    	       for (String institucion : instituciones) { %>
+          		<option value="<%= institucion %>">
+					<%= institucion %>
+				</option>
+          	<% } %>
         </select><br/>
         
         <label for="nivel">Nivel patrocinio:</label>
@@ -48,7 +57,7 @@
           <option value="Bronce">Bronce</option>
         </select><br/>
         
-        <label for = "monto">Aporte econ髆ico:</label>
+        <label for = "monto">Aporte econ贸mico:</label>
         <input type = "number" id = "monto" name = "monto" min="0" step="0.01" class="no-spinner" required/><br/>
         
         <label for = "cantRegistros">Cantidad de Registros Gratuitos:</label>
@@ -61,7 +70,7 @@
           <option value="10k">Corredor 10k</option>
         </select><br/>
         
-        <label for="codigo">C骴igo:</label>
+        <label for="codigo">C贸digo:</label>
         <input type="text" id = "codigo" name = "codigo" required/><br/>
         
         <input type="reset" value = "Borrar"/>
