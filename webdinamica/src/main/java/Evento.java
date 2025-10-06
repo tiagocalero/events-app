@@ -41,23 +41,27 @@ public class Evento extends HttpServlet {
         // Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
     }
-    
-    // GET /evento/alta
-    // Carga las categorías existentes en el formulario
-    protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ControladorEvento c = ControladorEvento.getInstance();
-    	
-    	List<String> categorias = c.listarCategorias();
-        
-        request.setAttribute("categorias", categorias);
-    	
-    	// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
-    }
 
     // GET /evento/altaPatrocinio
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// FALTA cargar eventos, ediciones, instituciones
+    	ControladorEvento c = ControladorEvento.getInstance();
+
+    	String evento = request.getParameter("evento");
+    	String edicion = request.getParameter("edicion");
+    	
+    	// Si el evento/edición seleccionados no existen o la edición
+    	// no existe para ese evento, redirigir a página principal
+    	if (!c.existeEdicionEvento(evento, edicion)) {
+        	response.sendRedirect("/webdinamica");
+    		return;
+    	}
+
+    	List<String> instituciones = c.listarInstituciones();
+        request.setAttribute("instituciones", instituciones);
+        
+        List<String> tipoRegistros = c.listarTipoRegistro(evento, edicion);
+        request.setAttribute("tipoRegistros", tipoRegistros);
     	
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/altaPatrocinio.jsp").forward(request, response);
@@ -72,19 +76,43 @@ public class Evento extends HttpServlet {
     	TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel"));
     	float monto = Float.parseFloat(request.getParameter("monto"));
     	int cantRegistros = Integer.parseInt(request.getParameter("cantRegistros"));
-    	String tipoRegistro = request.getParameter("tregistro");
+    	String tipoRegistro = request.getParameter("tipoRegistro");
     	String codigo = request.getParameter("codigo");
     	
-    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), "");
+    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion);
     	
     	ControladorEvento c = ControladorEvento.getInstance();
     	try {
     		c.crearPatrocinio(dtp, edicion, institucion, evento);
     	} catch (Exception ex) {
-    		// FALTA
+    		request.setAttribute("error", ex.getMessage());
+    		
+    		// Se incluyen todos los atributos para que se vuelvan a cargar y
+    		// que el usuario no tenga que llenarlos de vuelta
+    		request.setAttribute("institucion", institucion);
+    		request.setAttribute("nivel", nivel.toString());
+    		request.setAttribute("monto", monto);
+    		request.setAttribute("cantRegistros", cantRegistros);
+    		request.setAttribute("tipoRegistro", tipoRegistro);
+    		request.setAttribute("codigo", codigo);
+    		altaPatrocinioGET(request, response);
     	}
+    	
     	// Volver a AltaPatrocinio
 		altaPatrocinioGET(request, response);
+    }
+    
+    // GET /evento/alta
+    // Carga las categorías existentes en el formulario
+    protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	
+    	List<String> categorias = c.listarCategorias();
+        
+        request.setAttribute("categorias", categorias);
+    	
+    	// Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
     }
     
     // POST /evento/alta
