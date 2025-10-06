@@ -50,8 +50,12 @@ public class Evento extends HttpServlet {
     	String evento = request.getParameter("evento");
     	String edicion = request.getParameter("edicion");
     	
-    	if (!c.existeEdicionEvento(evento, edicion))
+    	// Si el evento/edición seleccionados no existen o la edición
+    	// no existe para ese evento, redirigir a página principal
+    	if (!c.existeEdicionEvento(evento, edicion)) {
+        	response.sendRedirect("/webdinamica");
     		return;
+    	}
 
     	List<String> instituciones = c.listarInstituciones();
         request.setAttribute("instituciones", instituciones);
