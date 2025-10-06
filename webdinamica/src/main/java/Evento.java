@@ -18,7 +18,7 @@ import logica.TipoNivelPatrocinio;
 /**
  * Servlet implementation class Evento
  */
-@WebServlet({"/evento/*", "/ediciones/*"}) 
+@WebServlet({"/evento/*", "/ediciones/*", "/patrocinios/*"}) 
 public class Evento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,7 +42,7 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
     }
 
-    // GET /evento/altaPatrocinio
+    // GET /patrocinios/alta
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// FALTA cargar eventos, ediciones, instituciones
     	ControladorEvento c = ControladorEvento.getInstance();
@@ -67,7 +67,7 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/altaPatrocinio.jsp").forward(request, response);
     }
     
-    // POST /evento/altaPatrocinio
+    // POST /patrocinios/alta
     // Crea un patrocinio con los parámetros pasados
     protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String evento = request.getParameter("evento");
@@ -187,15 +187,21 @@ public class Evento extends HttpServlet {
 		            response.getWriter().println("Página de consulta");
 		        } else if (path.equals("/alta")) {
 		        	altaEventoGET(request, response);
-		        } else if (path.equals("/altaPatrocinio")) {
-		        	altaPatrocinioGET(request, response);
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
 	    
 		} else if (servletPath.equals("/ediciones")) {
-			
+
+		} else if (servletPath.equals("/patrocinios")) {
+			String path = request.getPathInfo();
+        	if (path.equals("/alta")) {
+        		altaPatrocinioGET(request, response);
+        	} else {
+	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	            response.getWriter().println("404 - Página no encontrada");
+	        }
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		        response.getWriter().println("404 - Página no encontrada");
@@ -219,8 +225,6 @@ public class Evento extends HttpServlet {
 		            response.getWriter().println("Página de consulta");
 		        } else if (path.equals("/alta")) {
 		        	altaEventoPOST(request, response);
-		        } else if (path.equals("/altaPatrocinio")) {
-		        	altaPatrocinioPOST(request, response);
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
@@ -234,7 +238,15 @@ public class Evento extends HttpServlet {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
-		        
+
+		} else if (servletPath.equals("/patrocinios")) {
+			String path = request.getPathInfo();
+        	if (path.equals("/alta")) {
+        		altaPatrocinioPOST(request, response);
+        	} else {
+	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	            response.getWriter().println("404 - Página no encontrada");
+	        }
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		        response.getWriter().println("404 - Página no encontrada");
