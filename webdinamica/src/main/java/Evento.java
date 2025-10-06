@@ -18,7 +18,7 @@ import logica.TipoNivelPatrocinio;
 /**
  * Servlet implementation class Evento
  */
-@WebServlet("/evento/*")
+@WebServlet({"/evento/*", "/ediciones/*"}) 
 public class Evento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -114,45 +114,103 @@ public class Evento extends HttpServlet {
     	// Volver a AltaEvento
 		altaEventoGET(request, response);
     }
+    
+    // POST /edicion/alta
+    // Crea una edicion con los parámetros pasados
+    protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String nombre = request.getParameter("name");
+    	String ciudad = request.getParameter("ciudad");
+    	String sigla = request.getParameter("sigla");
+    	String pais = request.getParameter("pais");
+    	LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
+    	LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
+    	
+    	
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	boolean ok = c.altaEdicion(altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais));
+    	
+    	if (!ok) {
+    		// Se incluyen todos los atributos para que se vuelvan a cargar y que el
+    		// usuario no tenga que llenarlos de vuelta
+    		request.setAttribute("nombre", nombre);
+    		request.setAttribute("ciudad", ciudad);
+    		request.setAttribute("sigla", sigla);
+    		request.setAttribute("pais", pais);
+    		
+    		request.setAttribute("error", "Ya existe un evento con ese nombre");
+    	}
+    	// Volver a AltaEvento
+		altaEventoGET(request, response);
+    }
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = request.getPathInfo();
-
-        if (path == null || path.equals("/")) {
-            listarEventos(request, response);
-        } else if (path.equals("/consulta")) {
-            response.getWriter().println("Página de consulta");
-        } else if (path.equals("/alta")) {
-        	altaEventoGET(request, response);
-        } else if (path.equals("/altaPatrocinio")) {
-        	altaPatrocinioGET(request, response);
-        } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("404 - Página no encontrada");
-        }
+	    String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+	    if (servletPath.equals("/evento")) {
+		
+				String path = request.getPathInfo();
+		
+		        if (path == null || path.equals("/")) {
+		            listarEventos(request, response);
+		        } else if (path.equals("/consulta")) {
+		            response.getWriter().println("Página de consulta");
+		        } else if (path.equals("/alta")) {
+		        	altaEventoGET(request, response);
+		        } else if (path.equals("/altaPatrocinio")) {
+		        	altaPatrocinioGET(request, response);
+		        } else {
+		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		            response.getWriter().println("404 - Página no encontrada");
+		        }
+	    
+		} else if (servletPath.equals("/ediciones")) {
+			
+		} else {
+		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		        response.getWriter().println("404 - Página no encontrada");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = request.getPathInfo();
-
-        if (path == null || path.equals("/")) {
-            listarEventos(request, response);
-        } else if (path.equals("/consulta")) {
-            response.getWriter().println("Página de consulta");
-        } else if (path.equals("/alta")) {
-        	altaEventoPOST(request, response);
-        } else if (path.equals("/altaPatrocinio")) {
-        	altaPatrocinioPOST(request, response);
-        } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("404 - Página no encontrada");
-        }
+        
+        String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+        
+	    if (servletPath.equals("/evento")) {
+		
+		    	String path = request.getPathInfo();
+	
+		        if (path == null || path.equals("/")) {
+		            listarEventos(request, response);
+		        } else if (path.equals("/consulta")) {
+		            response.getWriter().println("Página de consulta");
+		        } else if (path.equals("/alta")) {
+		        	altaEventoPOST(request, response);
+		        } else if (path.equals("/altaPatrocinio")) {
+		        	altaPatrocinioPOST(request, response);
+		        } else {
+		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		            response.getWriter().println("404 - Página no encontrada");
+		        }
+	    
+		} else if (servletPath.equals("/ediciones")) {
+								
+		        if (path.equals("/alta")) {
+		        	altaEdicionPOST(request, response);
+		        } else {
+		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		            response.getWriter().println("404 - Página no encontrada");
+		        }
+		        
+		} else {
+		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		        response.getWriter().println("404 - Página no encontrada");
+		}
 	}
 
 }
