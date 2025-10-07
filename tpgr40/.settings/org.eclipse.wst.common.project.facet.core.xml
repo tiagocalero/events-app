@@ -3,6 +3,6 @@
   <runtime name="apache-tomcat-11.0.4"/>
   <fixed facet="jst.utility"/>
   <fixed facet="java"/>
-  <installed facet="java" version="9"/>
   <installed facet="jst.utility" version="1.0"/>
+  <installed facet="java" version="21"/>
 </faceted-project>
