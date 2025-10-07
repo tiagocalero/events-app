@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="webdinamica">
-                
-        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <dependent-module archiveName="tpgr40.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/tpgr40/tpgr40">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-                
-        <property name="context-root" value="webdinamica"/>
-                
-        <property name="java-output-path" value="/webdinamica/build/classes"/>
-            
-    </wb-module>
+                    
     
+    
+    
+    <wb-module deploy-name="webdinamica">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/webapps"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
+                                
+        
+        
+        <dependent-module archiveName="tpgr40.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/tpgr40/tpgr40">
+                                                
+            
+            
+            <dependency-type>uses</dependency-type>
+                                            
+        
+        
+        </dependent-module>
+                                        
+        
+        
+        
+        <property name="context-root" value="webdinamica"/>
+                                        
+        
+        
+        
+        <property name="java-output-path" value="/webdinamica/build/classes"/>
+                                    
+    
+    
+    
+    </wb-module>
+                
+
+
+
 </project-modules>

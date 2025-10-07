@@ -1,0 +1,48 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eventos.uy - Alta de Tipo Registro</title>
+  
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="components/headerLoggedIn.js" type="text/javascript" defer></script>
+  <script src="components/sidebar.js" type="text/javascript" defer></script>
+  <link rel="icon" type="image/png" href="assets/logoChico.png">
+</head>
+<body>
+	<header-component></header-component>
+  <main>
+    <sidebar-component></sidebar-component>
+
+
+    <div class="content">
+      <h3 class = "titulo-tipo-reg"><strong>Ingrese los datos del nuevo tipo de registro:</strong></h3>
+      <form class = "content-form-alta "action="info_tipo_registro" method="post">
+      
+      	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+		<input type="hidden" name="idE" value="${evento.id}" />
+  		<input type="hidden" name="idEd" value="${edicion.id}" />
+  		
+        <input type = "text" id = "name" name = "name" required/><br/>
+        <label for= "Descripción">Descripción:</label>
+        <input type = "text" id = "Descripción" name = "Descripción"/><br/>
+        <label for= "c">Costo:</label>
+        <input type = "number" id = "c" name = "c" min="0" class="no-spinner" required/><br/>
+        <label for= "Cupo">Cupo:</label>
+        <input type = "number" id = "Cupo" name = "Cupo" min="0" class="no-spinner" required/><br/><br/>
+        <input type="reset" value = "Borrar"/>
+        <input type="submit" value = "Crear"/>
+
+      </form>
+      
+    </div>
+
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</body>
+</html>

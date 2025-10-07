@@ -195,6 +195,26 @@ public class Evento extends HttpServlet {
 		altaEventoGET(request, response);
     }
 
+    
+    protected void altaTipoRegistroPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String nombre = request.getParameter("nombre");
+    	String desc = request.getParameter("descripcion");
+    	float costo = request.getParameter(costo);
+    	int cupo = request.getParameter(cupo);
+    	
+    	ControladorEvento c = ControladorEvento.getInstance();
+    	boolean ok = c.crearTipoRegistro(c.nombre, nombre, nombre, desc, costo, cupo);
+    	
+    	if (!ok) {
+    		request.setAttribute("nombre", nombre);
+    		request.setAttribute("descripcion", desc);
+    		request.setAttribute("costo", costo);
+    		request.setAttribute("cupo", cupo);
+    		
+    	}
+    	
+    	
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -273,6 +293,16 @@ public class Evento extends HttpServlet {
 	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 	            response.getWriter().println("404 - Página no encontrada");
 	        }
+        	
+		} else if (servletPath.equals("/TipoRegistro")) {
+			String path = request.getPathInfo();
+			if (path.equals("/alta")) {
+				altaTipoRegistroPOST(request, response);
+			} else {
+	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	            response.getWriter().println("404 - Página no encontrada");
+	        }
+			
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		        response.getWriter().println("404 - Página no encontrada");
