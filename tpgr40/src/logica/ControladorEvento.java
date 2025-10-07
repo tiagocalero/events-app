@@ -74,12 +74,20 @@ public class ControladorEvento {
 		return edicion.getCodigosPatrocinios();
 	}
 	
+	// Lista las instituciones de una edición
 	public List<String> listarInstituciones(String nomEvento, String nomEdicion) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
 		Evento evento = m.obtenerEvento(nomEvento);
 		Edicion edicion = evento.getEdicion(nomEdicion);
 		return edicion.getInstitucionesPatrocinios();
+	}
+
+	// Lista todas las instituciones del sistema
+	public List<String> listarInstituciones() {
+		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
+		
+		return new ArrayList<>(m.instituciones().keySet());
 	}
 	
 	public List<String> listarOrganizadores() {
@@ -273,5 +281,17 @@ public class ControladorEvento {
 		asistente.agregarRegistro(nuevoRegistro);
 		
 		return false;
+	}
+	
+	// Retorna true si existe el evento y la edición para ese evento
+	public boolean existeEdicionEvento(String eventoS, String edicionS) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		if (!m.existe(eventoS))
+			return false;
+		
+		Evento evento = m.obtenerEvento(eventoS);
+		
+		return evento.existeEdicion(edicionS);
 	}
 }
