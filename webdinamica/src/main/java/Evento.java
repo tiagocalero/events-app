@@ -215,7 +215,7 @@ public class Evento extends HttpServlet {
         
         String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
         
-	    if (servletPath.equals("/evento")) {
+	    if (servletPath.equals("/eventos")) {
 		
 		    	String path = request.getPathInfo();
 	

@@ -22,7 +22,7 @@
 
     <div class="content">
       <h3><strong>Ingrese los datos del nuevo patrocinio:</strong></h3><br/>
-      <form class="content-form-alta" action="altaPatrocinio" method="post">
+      <form class="content-form-alta" action="alta" method="post">
         <label for="evento">Evento:</label>
       	<input name="evento" id="evento" value="<%= request.getParameter("evento") %>" readonly><br/>
       	
