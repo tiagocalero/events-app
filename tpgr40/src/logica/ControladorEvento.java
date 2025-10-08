@@ -184,13 +184,20 @@ public class ControladorEvento {
 		instEdicion.agregarPatrocinio(p);
 	}
 	
+	// Crea un evento sin imagen (imagen = null)
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias) {
+		return ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias, null);	
+	}
+
+	// Incluye imagen en los parámetros
+	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias, String imagen) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
+		// Todo evento debe tener una categoría
 		if (categorias.isEmpty())
 			return false;
 		
-		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias);	
+		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen);	
 	}
 	
 	public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {

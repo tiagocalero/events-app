@@ -36,11 +36,12 @@ public class ManejadorEvento {
 		return eventos.get(nombre);
 	}
 	
-	public boolean crearEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias) {
+	// Devuelve false si ya existe un evento con el mismo nombre
+	public boolean crearEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias, String imagen) {
 		if (existe(nombre))
 			return false;
 		
-		Evento e = new Evento(nombre, sigla, descripcion, fechaAlta, categorias);
+		Evento e = new Evento(nombre, sigla, descripcion, fechaAlta, categorias, imagen);
 		eventos.put(nombre, e);
 		
 		return true;
