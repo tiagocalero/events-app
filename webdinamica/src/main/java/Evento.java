@@ -3,11 +3,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
+
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
@@ -19,6 +24,11 @@ import logica.TipoNivelPatrocinio;
  * Servlet implementation class Evento
  */
 @WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*"}) 
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024,     // 1 MB
+	    maxFileSize = 1024 * 1024 * 10,      // 10 MB
+	    maxRequestSize = 1024 * 1024 * 50    // 50 MB
+)
 public class Evento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -149,9 +159,28 @@ public class Evento extends HttpServlet {
     	List<String> categorias = (categoriasA != null)
     								? Arrays.asList(categoriasA)
     								: List.of();
-    	
+    	// Obtener imagen
+        Part filePart = request.getPart("imagen");
+    	boolean subioImagen = filePart != null && filePart.getSize() > 0;
+
     	ControladorEvento c = ControladorEvento.getInstance();
-    	boolean ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
+    	boolean ok;
+    	
+    	if (subioImagen) {
+	        // Generar un nombre aleatorio para la imagen,
+	        // guardarla en una carpeta temporal
+	        String fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
+	        String uploadPath = getServletContext().getRealPath("/uploads");
+	        File uploadDir = new File(uploadPath);
+	        
+	        if (!uploadDir.exists()) uploadDir.mkdir();
+	
+	        filePart.write(uploadPath + File.separator + fileName);
+	    	
+	    	ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias, fileName);
+    	} else {
+    		ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
+    	}
     	
     	if (!ok) {
     		// Se incluyen todos los atributos para que se vuelvan a cargar y que el
@@ -277,6 +306,7 @@ public class Evento extends HttpServlet {
 		        }
 	    
 		} else if (servletPath.equals("/ediciones")) {
+	    		String path = request.getPathInfo();
 								
 		        if (path.equals("/alta")) {
 		        	altaEdicionPOST(request, response);

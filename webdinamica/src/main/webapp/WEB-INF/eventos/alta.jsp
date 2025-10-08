@@ -21,7 +21,7 @@
 
     <div class="content">
       <h3><strong>Ingrese los datos del nuevo evento:</strong></h3><br/>
-      <form class="content-form-alta" onsubmit="return validarSeleccionAltaEvento()" action="alta" method="post">
+      <form class="content-form-alta" onsubmit="return validarSeleccionAltaEvento()" action="alta" method="post" enctype="multipart/form-data">
         <!-- En cada atributo, se carga el valor pasado desde el servlet si existe -->
         
         <label for= "nombre">Nombre:</label>
@@ -41,6 +41,9 @@
         <label for= "sigla">Sigla:</label>
         <input type = "text" id = "sigla" name = "sigla"
                value="<%= request.getAttribute("sigla") != null ? request.getAttribute("sigla") : "" %>"/><br/>
+        
+		<label for="imagen">Selecciona una imagen:</label>
+		<input type="file" name="imagen" id="imagen" accept="image/*"> <br/>
         
         <!-- Se marcan como seleccionadas las categorías en categoriasA -->
         <%
