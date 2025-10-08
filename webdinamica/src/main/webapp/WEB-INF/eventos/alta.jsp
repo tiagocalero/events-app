@@ -43,7 +43,7 @@
                value="<%= request.getAttribute("sigla") != null ? request.getAttribute("sigla") : "" %>"/><br/>
         
 		<label for="imagen">Selecciona una imagen:</label>
-		<input type="file" name="imagen" id="imagen" accept="image/*" required> <br/>
+		<input type="file" name="imagen" id="imagen" accept="image/*"> <br/>
         
         <!-- Se marcan como seleccionadas las categorías en categoriasA -->
         <%

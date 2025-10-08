@@ -161,19 +161,26 @@ public class Evento extends HttpServlet {
     								: List.of();
     	// Obtener imagen
         Part filePart = request.getPart("imagen");
-        
-        // Generar un nombre aleatorio para la imagen,
-        // guardarla en una carpeta temporal
-        String fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
-        String uploadPath = getServletContext().getRealPath("/uploads");
-        File uploadDir = new File(uploadPath);
-        
-        if (!uploadDir.exists()) uploadDir.mkdir();
+    	boolean subioImagen = filePart != null && filePart.getSize() > 0;
 
-        filePart.write(uploadPath + File.separator + fileName);
-    	
     	ControladorEvento c = ControladorEvento.getInstance();
-    	boolean ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias, fileName);
+    	boolean ok;
+    	
+    	if (subioImagen) {
+	        // Generar un nombre aleatorio para la imagen,
+	        // guardarla en una carpeta temporal
+	        String fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
+	        String uploadPath = getServletContext().getRealPath("/uploads");
+	        File uploadDir = new File(uploadPath);
+	        
+	        if (!uploadDir.exists()) uploadDir.mkdir();
+	
+	        filePart.write(uploadPath + File.separator + fileName);
+	    	
+	    	ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias, fileName);
+    	} else {
+    		ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
+    	}
     	
     	if (!ok) {
     		// Se incluyen todos los atributos para que se vuelvan a cargar y que el
