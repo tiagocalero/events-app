@@ -3,7 +3,6 @@
 	<name>webdinamica</name>
 	<comment></comment>
 	<projects>
-		<project>tpgr40</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
