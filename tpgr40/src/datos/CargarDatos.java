@@ -53,23 +53,23 @@ public class CargarDatos {
 
         fechaAlta = LocalDate.parse("01/02/2025", fmt);
 		List<String> cats2 = new ArrayList<>(Arrays.asList("Innovación", "Literatura"));
-		ev = e.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2);
+		ev = e.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2, "IMG-EV02.jpeg");
 
         fechaAlta = LocalDate.parse("15/03/2023", fmt);
 		List<String> cats3 = new ArrayList<>(Arrays.asList("Cultura", "Música"));
-		ev = e.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3);
+		ev = e.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3, "IMG-EV03.jpeg");
 
         fechaAlta = LocalDate.parse("01/01/2022", fmt);
 		List<String> cats4 = new ArrayList<>(Arrays.asList("Deporte", "Salud"));
-		ev = e.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4);
+		ev = e.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4, "IMG-EV04.png");
 
         fechaAlta = LocalDate.parse("10/04/2024", fmt);
 		List<String> cats5 = new ArrayList<>(Arrays.asList("Cultura", "Entretenimiento"));
-		ev = e.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5);
+		ev = e.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5, "IMG-EV05.png");
 
         fechaAlta = LocalDate.parse("12/12/2024", fmt);
 		List<String> cats6 = new ArrayList<>(Arrays.asList("Agro", "Negocios"));
-		ev = e.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6);
+		ev = e.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6, "IMG-EV06.png");
 
         fechaAlta = LocalDate.parse("20/07/2025", fmt);
 		List<String> cats7 = new ArrayList<>(Arrays.asList("Cultura", "Moda"));
