@@ -3,8 +3,6 @@ package datos;
 import java.util.Arrays;
 import java.util.List;
 
-import excepciones.PatrocinioSuperaMontoException;
-import excepciones.YaExistePatrocinioException;
 import logica.ControladorCategoria;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
@@ -81,16 +79,11 @@ public class CargarDatos {
 		
 		//Cargar Organizaciones
 		ControladorUsuario u = ControladorUsuario.getInstance();
-		String cont = hashPassword("22miseventos");
-		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", cont, "Empresa de organización de eventos.", "https://miseventos.com");
-		cont = hashPassword("tech25corp");
-		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", cont, "Empresa líder en tecnologías de la información.", "");
-		cont = hashPassword("imm2025");
-		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", cont, "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
-		cont = hashPassword("25udelar");
-		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", cont, "Universidad pública de Uruguay.", "https://udelar.edu.uy");
-		cont = hashPassword("mec2025ok");
-		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", cont, "Institución pública promotora de cultura.", "https://mec.gub.uy");
+		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "22miseventos", "Empresa de organización de eventos.", "https://miseventos.com");
+		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "tech25corp", "Empresa líder en tecnologías de la información.", "");
+		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "imm2025", "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
+		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "25udelar", "Universidad pública de Uruguay.", "https://udelar.edu.uy");
+		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "mec2025ok", "Institución pública promotora de cultura.", "https://mec.gub.uy");
 		
 		//Cargar Ediciones
         LocalDate fechaInicio = LocalDate.parse("20/11/2025", fmt);
@@ -184,26 +177,16 @@ public class CargarDatos {
 		} catch (Exception e1) {}
 		
 		//Cargar Asistentes
-		cont = hashPassword("123.torres");
-		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", cont, "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
-		cont = hashPassword("msilva2025");
-		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", cont, "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
-		cont = hashPassword("srod.abc1");
-		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", cont, "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
-		cont = hashPassword("valen11c");
-		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", cont, "Costa", LocalDate.parse("01/12/1992", fmt));
-		cont = hashPassword("garcia.22l");
-		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", cont, "García", LocalDate.parse("09/11/1993", fmt));
-		cont = hashPassword("rod77and");
-		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", cont, "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
-		cont = hashPassword("gomez88a");
-		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", cont, "Gómez", LocalDate.parse("15/03/1998", fmt));
-		cont = hashPassword("jl99lopez");
-		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", cont, "López", LocalDate.parse("22/07/1995", fmt));
-		cont = hashPassword("maria55r");
-		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", cont, "Rodríguez", LocalDate.parse("10/11/2000", fmt));
-		cont = hashPassword("smarti99z");
-		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", cont, "Martínez", LocalDate.parse("05/02/1997", fmt));
+		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "srod.abc1", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
+		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "valen11c", "Costa", LocalDate.parse("01/12/1992", fmt));
+		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "garcia.22l", "García", LocalDate.parse("09/11/1993", fmt));
+		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "rod77and", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
+		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "gomez88a", "Gómez", LocalDate.parse("15/03/1998", fmt));
+		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "jl99lopez", "López", LocalDate.parse("22/07/1995", fmt));
+		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "maria55r", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
+		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "smarti99z", "Martínez", LocalDate.parse("05/02/1997", fmt));
 	
 		//Cargar Registros
         fechaAlta = LocalDate.parse("14/05/2025", fmt);
@@ -226,21 +209,4 @@ public class CargarDatos {
 		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta);
 		
 	}
-	
-	public static String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes());
-            
-            // Convert bytes to hex
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                hexString.append(String.format("%02x", b));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-	
 }

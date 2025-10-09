@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class AltaUsuario extends JInternalFrame {
 	private JTextField textField;
@@ -236,24 +234,9 @@ public class AltaUsuario extends JInternalFrame {
         	JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
-        
-        String hashedcont;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(cont.getBytes());
-            
-            // Convert bytes to hex
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                hexString.append(String.format("%02x", b));
-            }
-            hashedcont = hexString.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
-        }
-        
+                
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, hashedcont, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
+        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -280,7 +263,7 @@ public class AltaUsuario extends JInternalFrame {
                 	break;
             };
         }
-        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, hashedcont, apellido, nacimiento)) {    
+        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, apellido, nacimiento)) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -340,26 +323,12 @@ public class AltaUsuario extends JInternalFrame {
         	return;
         }
         
-        String hashedcont;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(cont.getBytes());
-            
-            // Convert bytes to hex
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                hexString.append(String.format("%02x", b));
-            }
-            hashedcont = hexString.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
-        }
-        
+               
         ControladorUsuario c = ControladorUsuario.getInstance();
         // Si la operación genera un error, mostrárselo al usuario
         boolean ok;
         try {
-        	ok = c.altaOrganizador(nickname, nombre, correo, hashedcont, desc, link);
+        	ok = c.altaOrganizador(nickname, nombre, correo, cont, desc, link);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;
