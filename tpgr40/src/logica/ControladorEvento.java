@@ -301,4 +301,24 @@ public class ControladorEvento {
 		
 		return evento.existeEdicion(edicionS);
 	}
+
+	public List<DTRegistro> registrosEdicion(String edicion, String evento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		
+		Evento ev = m.obtenerEvento(evento);
+		Edicion edi = m.obtenerEdicion(edicion, ev);
+		
+		List<Registro> registros = edi.getRegistros();
+		
+		List<DTRegistro> dtRegistros = new ArrayList<>();
+	    
+	    for (Registro registro : registros) {
+	        
+	        DTRegistro dtReg = registro.getDatos();
+	        dtRegistros.add(dtReg);
+	    
+	    }
+
+	    return dtRegistros;
+	}
 }
