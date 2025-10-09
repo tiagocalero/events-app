@@ -42,28 +42,11 @@ public class Usuario extends HttpServlet {
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/usuarios/alta.jsp").forward(request, response);
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String servletPath = request.getServletPath();
-	    if (servletPath.equals("/usuarios")) {
-				String path = request.getPathInfo();
-		        if (path == null || path.equals("/")) {
-		            response.getWriter().println("Página de consulta");
-		        } else if (path.equals("/alta")) {
-		        	altaUsuarioGET(request, response);
-		        } else {
-		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		            response.getWriter().println("404 - Página no encontrada");
-		        }
-		} else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("404 - Página no encontrada");
-        }
-	}
-	
+    
+    protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    }
+    
 	// POST /usuarios/alta
     // Crea una usuario con los parámetros pasados
     protected void altaUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -104,10 +87,35 @@ public class Usuario extends HttpServlet {
     		request.setAttribute("desc", desc);
     		
     		request.setAttribute("error", "Ya existe un usuario con ese nickname o correo");
+
+        	// Volver a AltaUsuario
+    		altaUsuarioGET(request, response);
+    	} else {
+    		request.getRequestDispatcher("/WEB-INF/eventos").forward(request, response);
     	}
-    	// Volver a AltaUsuario
-		altaUsuarioGET(request, response);
     }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String servletPath = request.getServletPath();
+	    if (servletPath.equals("/usuarios")) {
+				String path = request.getPathInfo();
+		        if (path == null || path.equals("/")) {
+		            consultaUsuarioGET(request, response);
+		        } else if (path.equals("/alta")) {
+		        	altaUsuarioGET(request, response);
+		        } else {
+		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		            response.getWriter().println("404 - Página no encontrada");
+		        }
+		} else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().println("404 - Página no encontrada");
+        }
+	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
