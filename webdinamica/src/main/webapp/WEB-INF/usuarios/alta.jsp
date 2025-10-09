@@ -5,12 +5,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/webdinamica/assets/styles.css">
   <title>Eventos.uy - Registrarse</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
-  <script src="webdinamica/components/header.js" type="text/javascript" defer></script>
-  <script src="webdinamica/altaUsuario.js" type="text/javascript" defer></script>
+  <script src="/webdinamica/components/header.js" type="text/javascript" defer></script>
+  <script src="/webdinamica/js/altaUsuario.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
@@ -43,8 +43,11 @@
 
               <label for="institucion">Institución:</label>
               <select id="institucion" name="institucion">
-                <option value="none">Sin Institución</option>
-                <option value="fing">Facultad de Ingeniería</option>
+              <% List<String> instituciones = (List<String>) request.getAttribute("instituciones");
+    			 for (String e : instituciones) { %>
+                <option value=<%= e %>
+                		><%= e %></option>
+              <% } %>
               </select><br/>
             </div>
 

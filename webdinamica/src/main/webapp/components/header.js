@@ -32,7 +32,7 @@ class Header extends HTMLElement {
                 Iniciar Sesión
               </button>
 
-              <a href="altaUsuario.html" type="button" class="btn btn-warning">Registrarse</a>
+              <a href="/webdinamica/usuarios/alta" type="button" class="btn btn-warning">Registrarse</a>
               
             </div>
 
