@@ -332,7 +332,39 @@ public class Evento extends HttpServlet {
 	   		    }
     
     
-    
+    // ######  CONSULTA REGISTRO DOGET (VA EN SERVLET USUARIOS) ###### 
+	/*
+	        protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	        	
+   		    	ControladorUsuario cu = ControladorUsuario.getInstance();
+   		    	
+   		    	//ver como obtener el usuario. ¿se pasa solo? ¿obtener de la sesion?
+   		    	//segun chat es lo siguiente
+   		    	Usuario usuarioGenerico = (Usuario) request.getSession().getAttribute("usuario");
+   		    	
+   		    	String evento = request.getParameter("evento");
+   		    	String edicion = request.getParameter("edicion");
+   		    	
+   		    	if (usuarioGenerico instanceof Organizador) {
+   		    		
+   		    		ControladorEvento ce = ControladorEvento.getInstance();
+   		    		
+   		    		List<DTRegistro> registros = cu.registrosEdicion(edicion, evento)
+   		    		request.setAttribute("registros", registros);
+   		    		
+   		    		request.getRequestDispatcher("/vistas/consultaRegistroOrg.jsp").forward(request, response);
+   		    	
+   		    	} else if (usuarioGenerico instanceof Asistente) {
+   		    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario);
+   		    		request.setAttribute("registros", registro);
+   		    		
+   		    		request.getRequestDispatcher("/vistas/consultaRegistroAsis.jsp").forward(request, response);
+   		    	} else {
+   		    	    // Error: Usuario no logueado o tipo desconocido
+   		    	    response.sendRedirect("login.jsp");
+   		    	}	    	
+   		    }
+	  */     
     
     
 	/**
