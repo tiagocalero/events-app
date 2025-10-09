@@ -3,6 +3,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import logica.ControladorInstitucion;
 import logica.DTUsuario;
 import logica.DTAsistente;
 import logica.DTOrganizador;
+import logica.DTRegistro;
+import logica.DTEdicion;
 
 /**
  * Servlet implementation class Usuario
@@ -44,6 +47,25 @@ public class Usuario extends HttpServlet {
     }
     
     protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorUsuario c = ControladorUsuario.getInstance();
+    	ControladorInstitucion i = ControladorInstitucion.getInstance();
+    	
+    	List<String> instituciones = i.listarInstituciones();
+        
+        request.setAttribute("instituciones", instituciones);
+    	
+    	HttpSession user = request.getSession(false);
+    	
+    	DTUsuario u = c.elegirUsuario((String) user.getAttribute("nick"));
+    	
+    	/* if (u instanceof DTAsistente) {
+    		List<DTRegistro> registros = c.consultaAsistente();
+    		request.setAttribute("registros", registros);
+    	} else if (u instanceof DTOrganizador) {
+    		List<DTEdicion> ediciones = c.consultaOrganizador();
+    		request.setAttribute("ediciones", ediciones);
+    	} */
+    	
     	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
     }
     
