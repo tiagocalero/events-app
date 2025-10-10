@@ -89,8 +89,8 @@
             <% } else if (user.getAttribute("tipoUsuario") == "Organizador") { %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-            		<% List<String> registros = (List<String>) request.getAttribute("registros");
-    	      			for (String reg : registros) { %>
+            		<% List<String> ediciones = (List<String>) request.getAttribute("registros");
+    	      			for (String ed : ediciones) { %>
             			<li><a href="/webdinamica/ediciones?nomEd=<%= ed %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed %></a></li>
             		<% } %>
             	</ul>

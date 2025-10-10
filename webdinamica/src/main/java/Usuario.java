@@ -11,9 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import logica.ControladorUsuario;
+import logica.Asistente;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.DTUsuario;
+import logica.Organizador;
 import logica.DTAsistente;
 import logica.DTOrganizador;
 import logica.DTRegistro;
@@ -22,7 +24,7 @@ import logica.DTEdicion;
 /**
  * Servlet implementation class Usuario
  */
-@WebServlet("/usuarios/*")
+@WebServlet({"/usuarios/*, /inicio_sesion/*"})
 public class Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -54,9 +56,9 @@ public class Usuario extends HttpServlet {
         
         request.setAttribute("instituciones", instituciones);
     	
-    	HttpSession user = request.getSession(false);
+    	//HttpSession user = request.getSession(false);
     	
-    	DTUsuario u = c.elegirUsuario((String) user.getAttribute("nick"));
+    	//DTUsuario u = c.elegirUsuario((String) user.getAttribute("nick"));
     	
     	/* if (u instanceof DTAsistente) {
     		List<DTRegistro> registros = c.consultaAsistente();
@@ -117,6 +119,29 @@ public class Usuario extends HttpServlet {
     	}
     }
 
+    protected void inicio_sesionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getRequestDispatcher("/WEB-INF/inicio_sesion.jsp").forward(request, response);
+    }
+    
+    protected void inicio_sesionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String nick_o_name = request.getParameter("nick_o_name");
+    	
+    	ControladorUsuario c = ControladorUsuario.getInstance();
+    	DTUsuario u = c.elegirUsuario(nick_o_name);
+    	
+    	if (u != null) {
+    		HttpSession session = request.getSession(true);
+    		session.setAttribute("usuario", u);
+    	    request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+    	} else {
+    		request.setAttribute("error", "No existe un usuario con ese nickname");
+    	    request.getRequestDispatcher("/WEB-INF/inicio_sesion.jsp").forward(request, response);
+    	    return;
+    	}
+    	
+    	
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -132,7 +157,9 @@ public class Usuario extends HttpServlet {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
-		} else {
+		} else if (servletPath.equals("/inicio_sesion")) {
+			inicio_sesionGET(request, response);
+        } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");
         }
@@ -155,6 +182,8 @@ public class Usuario extends HttpServlet {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
+		} else if (servletPath.equals("/inicio_sesion")) {
+			inicio_sesionPOST(request, response);
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		        response.getWriter().println("404 - Página no encontrada");
