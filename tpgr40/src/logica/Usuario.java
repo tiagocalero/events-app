@@ -12,33 +12,12 @@ public abstract class Usuario {
 	private String correo;
 	private String contrasena;
 	
-	/*public Usuario(String nick, String nom, String c) {
-		this.nickname = nick;
-		this.nombre = nom;
-		this.correo = c;
-	}
-	*/
-	
-	//Se puede fusionar con la de arriba
 	public Usuario(String nick, String nom, String c, String contrasena) {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
 		this.nickname = nick;
 		this.nombre = nom;
 		this.correo = c;
-		String hashedcont;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(contrasena.getBytes());
-            
-            // Convert bytes to hex
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                hexString.append(String.format("%02x", b));
-            }
-            hashedcont = hexString.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
-        }
-		this.contrasena = hashedcont;
+		this.contrasena = cu.hashearContrasena(contrasena);
 	}
 	
 	public String getNickname() {
@@ -51,6 +30,11 @@ public abstract class Usuario {
 	
 	public String getCorreo() {
 		return correo;
+	}
+	
+	public boolean chequearContrasena(String pass) {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		return contrasena == cu.hashearContrasena(pass);
 	}
 	
 	public abstract DTUsuario getDatos();

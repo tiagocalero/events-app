@@ -17,24 +17,6 @@ public class Asistente extends Usuario {
 	private Institucion institucion;
 	private Set<Registro> registros;
 	
-	/*public Asistente(String nick, String nom, String c, String ap, LocalDate fecha) {
-		super(nick, nom, c);
-		this.apellido = ap;
-		this.nacimiento = fecha;
-		this.institucion = null;
-		this.registros = new HashSet<>();
-	}
-		
-	public Asistente(String nick, String nom, String c, String ap, LocalDate fecha, Institucion ins) {
-		super(nick, nom, c);
-		this.apellido = ap;
-		this.nacimiento = fecha;
-		this.institucion = ins;
-		this.registros = new HashSet<>();
-	}
-	*/
-	
-	//Se pueden fusionar con las de arriba
 	public Asistente(String nick, String nom, String c, String contrasena, String ap, LocalDate fecha) {
 		super(nick, nom, c, contrasena);
 		this.apellido = ap;

@@ -2,6 +2,7 @@ class Header extends HTMLElement {
   constructor() { super(); }
 
   connectedCallback() {
+  	const imgPath = this.getAttribute("imgPath");
     this.innerHTML = `
     <header>
         <div class="container">
@@ -35,7 +36,7 @@ class Header extends HTMLElement {
                 aria-expanded="false"
               >
                 <img
-                  src="https://github.com/mdo.png"
+                  src=/webdinamica/assets/IMG-US01.jpg
                   alt="mdo"
                   width="40"
                   height="40"
@@ -43,7 +44,7 @@ class Header extends HTMLElement {
                 />
               </a>
               <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                <li><a class="dropdown-item" href="/webdinamica/usuarios">Mi Perfil</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="sesionFinalizada.html">Cerrar Sesión</a></li>
               </ul>
