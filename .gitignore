@@ -7,3 +7,6 @@
 *tpgr40./classpath
 *tpgr40./classpath
 /bin/
+/.settings/
+/.classpath
+/.project

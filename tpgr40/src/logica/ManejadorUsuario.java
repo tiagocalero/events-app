@@ -39,36 +39,7 @@ public class ManejadorUsuario {
         return this.usuarios.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.toList());
     }
     
-    /*public boolean crearAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
-    	for(Usuario u: usuarios.values()) {
-    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
-    	}		
-        Asistente a = new Asistente(nick, nom, c, ap, nac);
-        usuarios.put(nick, a);
-        return true;
-    }
-    
-    public boolean crearAsistente(String nick, String nom, String c, String ap, LocalDate nac, String ins) {
-    	for(Usuario u: usuarios.values()) {
-    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
-    	}
-    	ControladorInstitucion ci = ControladorInstitucion.getInstance();
-    	Institucion institucion = ci.obtenerInstitucion(ins);
-        Asistente a = new Asistente(nick, nom, c, ap, nac, institucion);
-        usuarios.put(nick, a);
-        return true;
-    }
 
-	public boolean crearOrganizador(String nick, String nom, String c, String desc, String link) {
-    	for(Usuario u: usuarios.values()) {
-    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
-    	}		
-        Organizador o = new Organizador(nick, nom, c, desc, link);
-        usuarios.put(nick, o);
-        return true;
-    }
-	*/
-	//Se pueden fusionar con las de arriba
 	public boolean crearAsistente(String nick, String nom, String c, String cont, String ap, LocalDate nac) {
     	for(Usuario u: usuarios.values()) {
     		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
