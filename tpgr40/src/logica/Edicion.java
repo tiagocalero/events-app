@@ -14,6 +14,7 @@ import logica.Registro;
 import logica.Patrocinio;
 import logica.DTEdicion;
 import logica.Evento;
+import logica.TipoEstado;
 
 public class Edicion {
 	private String pais;
@@ -23,6 +24,7 @@ public class Edicion {
 	private LocalDate fecha_inicio;
 	private String sigla;
     private String nombre;
+    private TipoEstado estado;
     private Map<String, Patrocinio> patrocinios;
     private Map<String, TRegistro> tRegistros;
     private Organizador organizador;
@@ -39,6 +41,7 @@ public class Edicion {
         this.fecha_inicio = fechaInicio;
         this.fecha_final = fechaFin;
         this.fecha_alta = fechaAlta;
+        this.estado = TipoEstado.Ingresada;
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
@@ -61,6 +64,42 @@ public class Edicion {
 	
     public String getNombre() {
         return this.nombre;
+    }
+
+    public String getSigla() {
+        return this.sigla;
+    }
+
+    public LocalDate getFechaAlta() {
+        return this.fecha_alta;
+    }
+    
+    public LocalDate getFechaFinal() {
+        return this.fecha_final;
+    }
+
+    public LocalDate getFechaInicio() {
+        return this.fecha_inicio;
+    }
+    
+    public String getPais() {
+        return this.pais;
+    }
+
+    public String getCiudad() {
+        return this.ciudad;
+    }
+    public String getEvento() {
+        String nombreEv = evento.getNombre();
+        return nombreEv;
+    }
+    
+    public TipoEstado getEstado() {
+        return this.estado;
+    }
+    
+    public Organizador getOrganizador() {
+        return this.organizador;
     }
     
     public List<Registro> getRegistros() {
@@ -93,5 +132,13 @@ public class Edicion {
     
     public void agregarRegistro(Registro r) {
     	registros.add(r);
+    }
+    
+    public void confirmar() {
+    	estado = TipoEstado.Confirmada;
+    }
+    
+    public void rechazar() {
+    	estado = TipoEstado.Rechazada;
     }
 }

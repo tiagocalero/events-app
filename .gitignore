@@ -2,4 +2,8 @@
 *.settings
 *.classpath
 *.project
+/Servers
+*tpgr40/.settings
+*tpgr40./classpath
+*tpgr40./classpath
 /bin/

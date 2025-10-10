@@ -13,8 +13,16 @@ public class Organizador extends Usuario {
 	private String link;
 	private Map<String, Edicion> ediciones;
 	
-	public Organizador(String nick, String nom, String c, String desc, String link) {
+	/*public Organizador(String nick, String nom, String c, String desc, String link) {
 		super(nick, nom, c);
+		this.descripcion = desc;
+		this.link = link;
+		this.ediciones = new HashMap<String, Edicion>();
+	}
+	*/
+	
+	public Organizador(String nick, String nom, String c, String contrasena, String desc, String link) {
+		super(nick, nom, c, contrasena);
 		this.descripcion = desc;
 		this.link = link;
 		this.ediciones = new HashMap<String, Edicion>();
