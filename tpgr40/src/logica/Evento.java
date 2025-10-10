@@ -13,17 +13,19 @@ import java.util.stream.Stream;
 public class Evento {
 	private String nombre;
 	private String sigla;
-	private String descripcion;
 	private LocalDate fechaAlta;
 	private List<Categoria> categorias;
 	private Map<String, Edicion> ediciones;
+	private String descripcion;
+	private String imagen;
 	
-	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias) {
+	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
 		this.categorias = new ArrayList<>();
+		this.imagen = imagen;
 		ediciones = new HashMap<>();
 		
 		ManejadorCategoria mc = ManejadorCategoria.getInstance();
@@ -43,7 +45,7 @@ public class Evento {
 
 		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
 	}
 	
 	public boolean existeEdicion(String nombre) {

@@ -3,8 +3,6 @@ package datos;
 import java.util.Arrays;
 import java.util.List;
 
-import excepciones.PatrocinioSuperaMontoException;
-import excepciones.YaExistePatrocinioException;
 import logica.ControladorCategoria;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
@@ -15,6 +13,9 @@ import logica.TipoNivelPatrocinio;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class CargarDatos {
 	public static void cargaDatos() {
@@ -53,23 +54,23 @@ public class CargarDatos {
 
         fechaAlta = LocalDate.parse("01/02/2025", fmt);
 		List<String> cats2 = new ArrayList<>(Arrays.asList("Innovación", "Literatura"));
-		ev = e.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2);
+		ev = e.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2, "IMG-EV02.jpeg");
 
         fechaAlta = LocalDate.parse("15/03/2023", fmt);
 		List<String> cats3 = new ArrayList<>(Arrays.asList("Cultura", "Música"));
-		ev = e.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3);
+		ev = e.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3, "IMG-EV03.jpeg");
 
         fechaAlta = LocalDate.parse("01/01/2022", fmt);
 		List<String> cats4 = new ArrayList<>(Arrays.asList("Deporte", "Salud"));
-		ev = e.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4);
+		ev = e.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4, "IMG-EV04.png");
 
         fechaAlta = LocalDate.parse("10/04/2024", fmt);
 		List<String> cats5 = new ArrayList<>(Arrays.asList("Cultura", "Entretenimiento"));
-		ev = e.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5);
+		ev = e.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5, "IMG-EV05.png");
 
         fechaAlta = LocalDate.parse("12/12/2024", fmt);
 		List<String> cats6 = new ArrayList<>(Arrays.asList("Agro", "Negocios"));
-		ev = e.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6);
+		ev = e.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6, "IMG-EV06.png");
 
         fechaAlta = LocalDate.parse("20/07/2025", fmt);
 		List<String> cats7 = new ArrayList<>(Arrays.asList("Cultura", "Moda"));
@@ -78,11 +79,11 @@ public class CargarDatos {
 		
 		//Cargar Organizaciones
 		ControladorUsuario u = ControladorUsuario.getInstance();
-		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "Empresa de organización de eventos.", "https://miseventos.com");
-		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "Empresa líder en tecnologías de la información.", "");
-		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
-		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "Universidad pública de Uruguay.", "https://udelar.edu.uy");
-		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "Institución pública promotora de cultura.", "https://mec.gub.uy");
+		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "22miseventos", "Empresa de organización de eventos.", "https://miseventos.com");
+		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "tech25corp", "Empresa líder en tecnologías de la información.", "");
+		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "imm2025", "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
+		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "25udelar", "Universidad pública de Uruguay.", "https://udelar.edu.uy");
+		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "mec2025ok", "Institución pública promotora de cultura.", "https://mec.gub.uy");
 		
 		//Cargar Ediciones
         LocalDate fechaInicio = LocalDate.parse("20/11/2025", fmt);
@@ -176,16 +177,16 @@ public class CargarDatos {
 		} catch (Exception e1) {}
 		
 		//Cargar Asistentes
-		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
-		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
-		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
-		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "Costa", LocalDate.parse("01/12/1992", fmt));
-		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "García", LocalDate.parse("09/11/1993", fmt));
-		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
-		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "Gómez", LocalDate.parse("15/03/1998", fmt));
-		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "López", LocalDate.parse("22/07/1995", fmt));
-		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
-		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "Martínez", LocalDate.parse("05/02/1997", fmt));
+		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "srod.abc1", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
+		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "valen11c", "Costa", LocalDate.parse("01/12/1992", fmt));
+		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "garcia.22l", "García", LocalDate.parse("09/11/1993", fmt));
+		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "rod77and", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
+		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "gomez88a", "Gómez", LocalDate.parse("15/03/1998", fmt));
+		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "jl99lopez", "López", LocalDate.parse("22/07/1995", fmt));
+		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "maria55r", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
+		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "smarti99z", "Martínez", LocalDate.parse("05/02/1997", fmt));
 	
 		//Cargar Registros
         fechaAlta = LocalDate.parse("14/05/2025", fmt);
@@ -207,6 +208,5 @@ public class CargarDatos {
         fechaAlta = LocalDate.parse("16/07/2024", fmt);
 		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta);
 		
-	
 	}
 }
