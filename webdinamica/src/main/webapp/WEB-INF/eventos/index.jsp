@@ -34,7 +34,7 @@
 		        <div class="card-body">
 		          <h5 class="card-title"><%= e.getNombre() %></h5>
 		          <p class="card-text"><%= e.getDescripcion() %></p>
-		          <a href="eventos/consultaEvento?evento=<%= e.getNombre() %>" class="btn btn-primary">Mï¿½s informaciï¿½n</a>
+		          <a href="eventos/consultaEvento?evento=<%= e.getNombre() %>" class="btn btn-primary">Más información</a>
 		        </div>
 		      </div>
 		  </div>
