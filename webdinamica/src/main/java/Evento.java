@@ -13,12 +13,13 @@ import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
 import logica.DTPatrocinio;
+import logica.DTTRegistro;
 import logica.TipoNivelPatrocinio;
 
 /**
  * Servlet implementation class Evento
  */
-@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*"}) 
+@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*", "/TipoRegistro/*"}) 
 public class Evento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -167,43 +168,60 @@ public class Evento extends HttpServlet {
 		altaEventoGET(request, response);
     }
     
-    // POST /edicion/alta
-    // Crea una edicion con los parámetros pasados
-    protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String nombre = request.getParameter("name");
-    	String ciudad = request.getParameter("ciudad");
-    	String sigla = request.getParameter("sigla");
-    	String pais = request.getParameter("pais");
-    	LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
-    	LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
+    protected void altaTipoRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorEvento c = ControladorEvento.getInstance();
+
+    	String evento = request.getParameter("evento");
+    	String edicion = request.getParameter("edicion");
     	
+    	// Si el evento/edición seleccionados no existen o la edición
+    	// no existe para ese evento, redirigir a página principal
+    	if (!c.existeEdicionEvento(evento, edicion)) {
+        	response.sendRedirect("/webdinamica");
+    		return;
+    	}
+    	
+    	// Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/altaTipoRegistro.jsp").forward(request, response);
+    }
+    
+    protected void consultaTipoRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	String evento = request.getParameter("evento");
+    	String edicion = request.getParameter("edicion");
+    	String tregistro = request.getParameter("tipoRegistro");
     	
     	ControladorEvento c = ControladorEvento.getInstance();
-    	boolean ok = c.altaEdicion(altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais));
-    	
-    	if (!ok) {
-    		// Se incluyen todos los atributos para que se vuelvan a cargar y que el
-    		// usuario no tenga que llenarlos de vuelta
-    		request.setAttribute("nombre", nombre);
-    		request.setAttribute("ciudad", ciudad);
-    		request.setAttribute("sigla", sigla);
-    		request.setAttribute("pais", pais);
-    		
-    		request.setAttribute("error", "Ya existe un evento con ese nombre");
+    	if (!c.existeEdicionEvento(evento, edicion) 
+    			|| !c.listarTipoRegistro(evento, edicion).contains(tregistro)) {
+    		response.sendRedirect("/webdinamica");
+    		return;
+
     	}
-    	// Volver a AltaEvento
-		altaEventoGET(request, response);
+    	DTTRegistro dtr = c.mostrarTipoRegistro(evento, edicion, tregistro);
+    	request.setAttribute("tipoRegistro", dtr);
+    	
+		request.getRequestDispatcher("/WEB-INF/TipoRegistro/consulta.jsp").forward(request, response);
+   		
     }
+    
+    // POST /edicion/alta
+    // Crea una edicion con los parámetros pasados
+    
 
     
     protected void altaTipoRegistroPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	String nombreEvento = request.getParameter("nombreEvento");
+    	String nombreEdicion = request.getParameter("nombreEdicion");
     	String nombre = request.getParameter("nombre");
+ 
     	String desc = request.getParameter("descripcion");
-    	float costo = request.getParameter(costo);
-    	int cupo = request.getParameter(cupo);
+    	float costo = Float.parseFloat(request.getParameter("costo"));
+    	int cupo = Integer.parseInt(request.getParameter("cupo"));
     	
     	ControladorEvento c = ControladorEvento.getInstance();
-    	boolean ok = c.crearTipoRegistro(c.nombre, nombre, nombre, desc, costo, cupo);
+    	boolean ok = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
     	
     	if (!ok) {
     		request.setAttribute("nombre", nombre);
@@ -211,7 +229,10 @@ public class Evento extends HttpServlet {
     		request.setAttribute("costo", costo);
     		request.setAttribute("cupo", cupo);
     		
+    		request.setAttribute("error", "Ya existe un tipo registro con ese nombre");
     	}
+    	
+    	altaTipoRegistroGET(request, response);
     	
     	
     }
@@ -248,7 +269,20 @@ public class Evento extends HttpServlet {
 	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 	            response.getWriter().println("404 - Página no encontrada");
 	        }
+		} else if (servletPath.equals("/TipoRegistro")) {
+        		
+			String path = request.getPathInfo();
+		    if (path.equals("/alta")) {
+		    	altaTipoRegistroGET(request, response);
+		    } else if (path.equals("/consulta")){
+		    	consultaTipoRegistro(request, response);
+		           	
+		    } else {
+		         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		         response.getWriter().println("404 - Página no encontrada");
+		    }
 		} else {
+			
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		        response.getWriter().println("404 - Página no encontrada");
 		}
@@ -276,15 +310,7 @@ public class Evento extends HttpServlet {
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
 	    
-		} else if (servletPath.equals("/ediciones")) {
-								
-		        if (path.equals("/alta")) {
-		        	altaEdicionPOST(request, response);
-		        } else {
-		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		            response.getWriter().println("404 - Página no encontrada");
-		        }
-
+		
 		} else if (servletPath.equals("/patrocinios")) {
 			String path = request.getPathInfo();
         	if (path.equals("/alta")) {
@@ -296,11 +322,11 @@ public class Evento extends HttpServlet {
         	
 		} else if (servletPath.equals("/TipoRegistro")) {
 			String path = request.getPathInfo();
-			if (path.equals("/alta")) {
+			if (path.equals("/altaTipoRegistro")) {
 				altaTipoRegistroPOST(request, response);
-			} else {
+			} else { 
 	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-	            response.getWriter().println("404 - Página no encontrada");
+	            response.getWriter().println("414 - Página no encontrada");
 	        }
 			
 		} else {
