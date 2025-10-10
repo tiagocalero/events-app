@@ -3,6 +3,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,6 +50,8 @@ public class ServletUsuario extends HttpServlet {
     	Usuario u = c.obtenerUsuario(nick_o_name);
     	
     	if (u != null) {
+    		HttpSession session = request.getSession(true);
+    		session.setAttribute("usuario", u);
     		if (u instanceof Asistente) {
     	    	request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
     	    	//distingo que partes del index?
