@@ -38,7 +38,7 @@
           <li class="mb-1">
             Evento
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-		        <li><a href="consultaEvento2.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("evento") %></a></li>
+		        <li><a href="/webdinamica/eventos/consultaEvento?evento=<%= request.getParameter("evento") %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("evento") %></a></li>
 		    </ul>
           </li>
         </ul>
@@ -46,7 +46,7 @@
           <li class="mb-1">
             Edición
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-		        <li><a href="consultaEdicionEDEV08.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("edicion") %></a></li>
+		        <li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= request.getParameter("evento") %>&edicion=<%= request.getParameter("edicion") %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("edicion") %></a></li>
             </ul>
           </li>
         </ul>

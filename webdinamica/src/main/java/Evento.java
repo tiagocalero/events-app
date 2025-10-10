@@ -55,7 +55,6 @@ public class Evento extends HttpServlet {
 
     // GET /patrocinios/alta
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// FALTA cargar eventos, ediciones, instituciones
     	ControladorEvento c = ControladorEvento.getInstance();
 
     	String evento = request.getParameter("evento");
@@ -75,7 +74,7 @@ public class Evento extends HttpServlet {
         request.setAttribute("tipoRegistros", tipoRegistros);
     	
     	// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/altaPatrocinio.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/patrocinios/alta.jsp").forward(request, response);
     }
     
     // POST /patrocinios/alta
@@ -112,6 +111,32 @@ public class Evento extends HttpServlet {
     	// Volver a AltaPatrocinio
 		altaPatrocinioGET(request, response);
     }
+    
+ // GET /patrocinios
+    // POST /patrocinios
+    protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorEvento c = ControladorEvento.getInstance();
+
+    	String evento = request.getParameter("evento");
+    	String edicion = request.getParameter("edicion");
+    	String institucion = request.getParameter("institucion");
+    	
+    	// Si el evento/edición seleccionados no existen o la edición
+    	// no existe para ese evento, o la institución no existe
+    	// para la edición, redirigir a página principal
+    	if (!c.existeEdicionEvento(evento, edicion)
+    		|| !c.listarInstituciones(evento, edicion).contains(institucion)) {
+        	response.sendRedirect("/webdinamica");
+    		return;
+    	}
+  
+    	DTPatrocinio dtp = c.consultaPatrocinioInstitucion(evento, edicion, institucion);
+	    request.setAttribute("dtp", dtp);
+    	
+    	// Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/patrocinios/consulta.jsp").forward(request, response);
+    }
+
     
     // GET /eventos/alta
     // Carga las categorías existentes en el formulario
@@ -266,6 +291,9 @@ public class Evento extends HttpServlet {
 				    	
 				    	String organizador = datosEdicion.getOrganizador();
 				    	request.setAttribute("organizador", organizador);
+				    	
+				    	List<String> instituciones = c.listarInstituciones(evento, edicion);
+				    	request.setAttribute("instituciones", instituciones);
 				    	
 				    	if (!c.existeEdicionEvento(evento, edicion)) {
 				        	response.sendRedirect("/webdinamica");
@@ -442,7 +470,10 @@ public class Evento extends HttpServlet {
 				
 		} else if (servletPath.equals("/patrocinios")) {
 			String path = request.getPathInfo();
-        	if (path.equals("/alta")) {
+
+	        if (path == null || path.equals("/")) {
+	            consultaPatrocinio(request, response);
+	        } else if (path.equals("/alta")) {
         		altaPatrocinioGET(request, response);
         	} else {
 	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -494,7 +525,10 @@ public class Evento extends HttpServlet {
 
 		} else if (servletPath.equals("/patrocinios")) {
 			String path = request.getPathInfo();
-        	if (path.equals("/alta")) {
+
+	        if (path == null || path.equals("/")) {
+	            consultaPatrocinio(request, response);
+	        } else if (path.equals("/alta")) {
         		altaPatrocinioPOST(request, response);
         	} else {
 	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
