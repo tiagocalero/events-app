@@ -45,6 +45,21 @@ public class ControladorEvento {
 		return res;	
 	}
 	
+	public List<String> listarEdicionesIngresadas(String nombreEvento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento eventoBuscado = m.obtenerEvento(nombreEvento);
+		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
+		List<String> res = new ArrayList<>();
+		
+		for (Map.Entry<String, Edicion> entry : ediciones.entrySet()) {
+		    if (entry.getValue().getEstado() == TipoEstado.Ingresada) {
+		        res.add(entry.getKey());
+		    }
+		}
+		
+		return res;	
+	}
+	
 	public List<String> listarEventos(){
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		
@@ -308,17 +323,31 @@ public class ControladorEvento {
 		Evento ev = m.obtenerEvento(evento);
 		Edicion edi = m.obtenerEdicion(edicion, ev);
 		
-		
-		List<Registro> registros = edi.getRegistros(); 
+		List<Registro> registros = edi.getRegistros();
 		
 		List<DTRegistro> dtRegistros = new ArrayList<>();
 	    
 	    for (Registro registro : registros) {
 	        
-	        DTRegistro dtReg = registro.getDatos();	       
+	        DTRegistro dtReg = registro.getDatos();
 	        dtRegistros.add(dtReg);
-	    }
 	    
+	    }
+
 	    return dtRegistros;
+	}
+
+	public void confirmarEdicion(String evento, String edicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento ev = m.obtenerEvento(evento);
+		Edicion ed = m.obtenerEdicion(edicion, ev);
+		ed.confirmar();
+	}
+	public void rechazarEdicion(String evento, String edicion) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento ev = m.obtenerEvento(evento);
+		Edicion ed = m.obtenerEdicion(edicion, ev);
+		ed.rechazar();
+
 	}
 }

@@ -54,7 +54,7 @@ class ControladorEventoTest {
 		
 		// Crear organizador de prueba
 		ControladorUsuario cu = ControladorUsuario.getInstance();
-		cu.altaOrganizador("org", "Organizador 1", "ads", "organiza", "http://");
+		cu.altaOrganizador("org", "Organizador 1", "ads", "cont","organiza", "http://");
 
 		// Crear institución de prueba
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
@@ -327,9 +327,9 @@ class ControladorEventoTest {
 		
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa", "prueba", LocalDate.parse("12/12/2012", fmt)));
+		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa","cont", "prueba", LocalDate.parse("12/12/2012", fmt)));
 		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt)));
-		assertEquals(true, cu.altaAsistente("asistente3", "Asistente 3", "dsada", "ff", LocalDate.parse("12/12/2012", fmt)));
+		assertEquals(true, cu.altaAsistente("asistente3", "Asistente 3", "dsada", "cont", "ff", LocalDate.parse("12/12/2012", fmt)));
 		
 		// Se supera el cupo
 		assertEquals(true, c.darDeAltaRegistro("asistente3", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt)));
