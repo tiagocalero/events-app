@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="logica.DTUsuario" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,12 +17,13 @@
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
-  <header-component></header-component>
+  <% HttpSession user = request.getSession(false);
+  	 DTUsuario usuario = (DTUsuario) user.getAttribute("usuario"); %>
+  <!-- <header-component imgPath="<%= usuario.getImg() %>"></header-component> -->
+  <header-component imgPath="/assets/default.jpg"></header-component>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
-    
-    <% HttpSession user = request.getSession(false); %>
 
     <div class="content content-consulta">
       <form id="modifyUserForm" class="content-form-modificar" action="alta_usuario" method="post">

@@ -126,8 +126,8 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void inicio_sesionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String nick_o_correo = request.getParameter("floatingInput");
-    	String passwd = request.getParameter("floatingPassword");    	
+    	String nick_o_correo = request.getParameter("nick_o_correo");
+    	String passwd = request.getParameter("passwd");    	
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	Usuario u = c.obtenerUsuario(nick_o_correo);
     	
@@ -181,15 +181,15 @@ public class servletUsuario extends HttpServlet {
 		            response.getWriter().println("Página de consulta");
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioPOST(request, response);
-		        } else if (servletPath.equals("/inicio_sesion")) {
+		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
 				} else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		            response.getWriter().println("404 - Página no encontrada");
+		            response.getWriter().println("404 - 1 Página no encontrada");
 		        }
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		        response.getWriter().println("404 - Página no encontrada");
+		        response.getWriter().println("404 - 2 Página no encontrada");
 		}
 
 	}

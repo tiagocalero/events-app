@@ -24,14 +24,14 @@
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto">
-      <form>
+      <form action="/webdinamica/usuarios/inicio_sesion" method="post">
         <a href="index.html"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
         <h1 class="h3 mb-3 fw-normal">inicie sesión</h1>
         <div class="form-floating">
           <input
-            type="email"
             class="form-control"
             id="floatingInput"
+            name="nick_o_correo"
             placeholder="name@example.com"
           />
           <label for="floatingInput">nickname / mail </label>
@@ -41,6 +41,7 @@
             type="password"
             class="form-control"
             id="floatingPassword"
+            name="passwd"
             placeholder="Password"
           />
           <label for="floatingPassword">contraseña</label>
