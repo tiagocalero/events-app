@@ -39,7 +39,7 @@
 		  </li>
 		  <li>
 		    <a
-		      href="altaInstitucion.html"
+		      href="/webdinamica/instituciones/altaInstitucion"
 		      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 		      >Crear Institución</a>
 		  </li>
