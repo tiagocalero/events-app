@@ -135,14 +135,11 @@ public class servletUsuario extends HttpServlet {
     		HttpSession session = request.getSession(true);
     		DTUsuario dtu = u.getDatos();
     		session.setAttribute("usuario", dtu);
-    	    request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+        	response.sendRedirect("/webdinamica");
     	} else {
-    		request.setAttribute("error", "El usuario o contrasenia son incorrectos");
+    		request.setAttribute("error", "El usuario o contraseña son incorrectos");
     	    request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
-    	    return;
     	}
-    	
-    	
     }
     
 	/**

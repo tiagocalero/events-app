@@ -31,10 +31,10 @@ public abstract class Usuario {
 	public String getCorreo() {
 		return correo;
 	}
-	
+
 	public boolean chequearContrasena(String pass) {
 		ControladorUsuario cu = ControladorUsuario.getInstance();
-		return contrasena == cu.hashearContrasena(pass);
+		return contrasena.equals(cu.hashearContrasena(pass));
 	}
 	
 	public abstract DTUsuario getDatos();

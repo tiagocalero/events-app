@@ -57,6 +57,10 @@
             Remember me
           </label>
         </div>
+        
+        <% if (request.getAttribute("error") != null) { %>
+		    <p style="color:red;"><%= request.getAttribute("error") %></p>
+		<% } %>
         <button class="btn_login" type="submit">
           iniciar sesión
         </button>
