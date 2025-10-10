@@ -113,6 +113,17 @@ public class Principal extends JFrame {
             }
         });
         menuEdiciones.add(menuAltaEdicion);
+        JMenuItem menuAceptRecEdicion = new JMenuItem("Aceptar/Rechazar Edición de Evento");
+        menuAceptRecEdicion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JInternalFrame a = new AceptarRechazarEdEvento(desktopPane);
+                desktopPane.add(a);
+                centerInternalFrame(a);
+                a.setVisible(true);
+            }
+        });
+        menuEdiciones.add(menuAceptRecEdicion);
         JMenuItem menuConsultaEdicion = new JMenuItem("Consulta de Edición de Evento");
         menuConsultaEdicion.addActionListener(new ActionListener() {
             @Override
