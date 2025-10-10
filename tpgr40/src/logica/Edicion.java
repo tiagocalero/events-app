@@ -52,7 +52,7 @@ public class Edicion {
 
 	public DTEdicion getDatos() {
 		List<String> institucionesPatrocinadoras = getInstitucionesPatrocinios();
-		List<String> nombreTRegistros = new ArrayList<>(patrocinios.keySet());
+		List<String> nombreTRegistros = new ArrayList<>(tRegistros.keySet());
         List<String> nickAsistentes =
         		registros.stream()
         		         .map(r -> r.getNicknameAsistente())
