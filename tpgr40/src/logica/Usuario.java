@@ -7,11 +7,14 @@ public abstract class Usuario {
 	private String nickname;
 	private String nombre;
 	private String correo;
+	private String contrasena;
 	
-	public Usuario(String nick, String nom, String c) {
+	public Usuario(String nick, String nom, String c, String contrasena) {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
 		this.nickname = nick;
 		this.nombre = nom;
 		this.correo = c;
+		this.contrasena = cu.hashearContrasena(contrasena);
 	}
 	
 	public String getNickname() {
@@ -24,6 +27,11 @@ public abstract class Usuario {
 	
 	public String getCorreo() {
 		return correo;
+	}
+	
+	public boolean chequearContrasena(String pass) {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		return contrasena == cu.hashearContrasena(pass);
 	}
 	
 	public abstract DTUsuario getDatos();

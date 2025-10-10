@@ -6,6 +6,9 @@ import logica.ManejadorUsuario;
 import logica.Asistente;
 import logica.Usuario;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +55,24 @@ public class ControladorUsuario{
 		return u.getDatos();
 	}
 	
+	public String hashearContrasena(String contrasena) {
+		String hashedcont;
+		try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(contrasena.getBytes());
+            
+            // Convert bytes to hex
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                hexString.append(String.format("%02x", b));
+            }
+            hashedcont = hexString.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+		return hashedcont;
+	}
+	
 	public Usuario obtenerUsuario(String nick) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.obtener(nick);
@@ -64,19 +85,19 @@ public class ControladorUsuario{
 
 	// Retorna false si ya existe un usuario con ese nickname o correo,
 	// Retorna true si no existe y se creo el usuario correctamente.
-	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac, String ins) {
+	public boolean altaAsistente(String nick, String nom, String c, String contrasena, String ap, LocalDate nac, String ins) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearAsistente(nick, nom, c, ap, nac, ins);
+		return m.crearAsistente(nick, nom, c, contrasena, ap, nac, ins);
 	}
 	
-	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac) {
+	public boolean altaAsistente(String nick, String nom, String c, String contrasena, String ap, LocalDate nac) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearAsistente(nick, nom, c, ap, nac);
+		return m.crearAsistente(nick, nom, c, contrasena, ap, nac);
 	}
 
-	public boolean altaOrganizador(String nick, String nom, String c, String desc, String link) {
+	public boolean altaOrganizador(String nick, String nom, String c, String contrasena, String desc, String link) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearOrganizador(nick, nom, c, desc, link);
+		return m.crearOrganizador(nick, nom, c, contrasena, desc, link);
 	}
 	
 	//RECUERDA USUARIO CON MEMORIA

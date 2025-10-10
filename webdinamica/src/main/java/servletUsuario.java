@@ -14,9 +14,11 @@ import logica.ControladorUsuario;
 import logica.Asistente;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
+import logica.Usuario;
 import logica.DTUsuario;
-import logica.Organizador;
+import logica.Asistente;
 import logica.DTAsistente;
+import logica.Organizador;
 import logica.DTOrganizador;
 import logica.DTRegistro;
 import logica.DTEdicion;
@@ -25,13 +27,13 @@ import logica.DTEdicion;
  * Servlet implementation class Usuario
  */
 @WebServlet("/usuarios/*")
-public class Usuario extends HttpServlet {
+public class servletUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Usuario() {
+    public servletUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -124,17 +126,18 @@ public class Usuario extends HttpServlet {
     }
     
     protected void inicio_sesionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String nick_o_correo = request.getParameter("nick_o_correo");
-    	
+    	String nick_o_correo = request.getParameter("floatingInput");
+    	String passwd = request.getParameter("floatingPassword");    	
     	ControladorUsuario c = ControladorUsuario.getInstance();
-    	DTUsuario u = c.elegirUsuario(nick_o_correo);
+    	Usuario u = c.obtenerUsuario(nick_o_correo);
     	
-    	if (u != null) {
+    	if (u != null && u.chequearContrasena(passwd)) {
     		HttpSession session = request.getSession(true);
-    		session.setAttribute("usuario", u);
+    		DTUsuario dtu = u.getDatos();
+    		session.setAttribute("usuario", dtu);
     	    request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
     	} else {
-    		request.setAttribute("error", "No existe un usuario con ese nickname");
+    		request.setAttribute("error", "El usuario o contrasenia son incorrectos");
     	    request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
     	    return;
     	}
