@@ -2,7 +2,7 @@
 *.project
 *.settings
 *.classpath
-*/Servers/
+*/Servers
 *tpgr40/.settings
 *tpgr40./classpath
 *tpgr40./classpath

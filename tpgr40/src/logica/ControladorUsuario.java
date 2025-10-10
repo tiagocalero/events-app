@@ -64,6 +64,7 @@ public class ControladorUsuario{
 
 	// Retorna false si ya existe un usuario con ese nickname o correo,
 	// Retorna true si no existe y se creo el usuario correctamente.
+	/*
 	public boolean altaAsistente(String nick, String nom, String c, String ap, LocalDate nac, String ins) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.crearAsistente(nick, nom, c, ap, nac, ins);
@@ -77,6 +78,22 @@ public class ControladorUsuario{
 	public boolean altaOrganizador(String nick, String nom, String c, String desc, String link) {
 		ManejadorUsuario m = ManejadorUsuario.getInstance();
 		return m.crearOrganizador(nick, nom, c, desc, link);
+	}
+	*/
+	//Se puede mergear con lo de arriba
+	public boolean altaAsistente(String nick, String nom, String c, String cont, String ap, LocalDate nac, String ins) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, cont, ap, nac, ins);
+	}
+	
+	public boolean altaAsistente(String nick, String nom, String c, String cont, String ap, LocalDate nac) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, cont, ap, nac);
+	}
+
+	public boolean altaOrganizador(String nick, String nom, String c, String cont, String desc, String link) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearOrganizador(nick, nom, c, cont, desc, link);
 	}
 	
 	//RECUERDA USUARIO CON MEMORIA

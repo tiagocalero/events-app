@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class AltaUsuario extends JInternalFrame {
 	private JTextField textField;
@@ -29,21 +31,23 @@ public class AltaUsuario extends JInternalFrame {
 	private JTextField textField_6;
 	private JTextArea textArea;
 	private JComboBox comboBox;
+	private JTextField textField_5;
+	private JTextField textField_7;
 	
 	public AltaUsuario() {
 		setVisible(true); 
-        setSize(438, 456);
+        setSize(426, 512);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Usuario");
-		//setBounds(30, 30, 402, 376);
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setBounds(0, 0, 1108, 661);
+		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		textField = new JTextField();
@@ -74,21 +78,22 @@ public class AltaUsuario extends JInternalFrame {
 		panel.add(lblSigla);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(32, 186, 372, 189);
+		panel_2.setBounds(30, 253, 372, 189);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
+				
 		
 		JLabel lblLink = new JLabel("Link:");
-		lblLink.setBounds(43, 198, 140, 17);
+		lblLink.setBounds(41, 265, 140, 17);
 		panel.add(lblLink);
 		
 		textField_6 = new JTextField();
+		textField_6.setBounds(191, 265, 140, 26);
 		textField_6.setColumns(10);
-		textField_6.setBounds(193, 198, 140, 26);
 		panel.add(textField_6);
 		
 		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setBounds(43, 236, 93, 17);
+		lblDescripcion.setBounds(41, 303, 93, 17);
 		panel.add(lblDescripcion);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
@@ -124,7 +129,9 @@ public class AltaUsuario extends JInternalFrame {
 	
 		
 		JRadioButton rdbtnOrganizador = new JRadioButton("Organizador");
+		rdbtnOrganizador.setBounds(191, 220, 153, 25);
 		JRadioButton rdbtnAsistente = new JRadioButton("Asistente");
+		rdbtnAsistente.setBounds(41, 220, 130, 25);
 		rdbtnAsistente.setSelected(true);
 		rdbtnAsistente.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
@@ -133,10 +140,7 @@ public class AltaUsuario extends JInternalFrame {
 				panel_2.setVisible(true);
 			}
 		});
-		rdbtnAsistente.setBounds(43, 153, 130, 25);
 		panel.add(rdbtnAsistente);
-		
-		rdbtnOrganizador.setBounds(193, 153, 153, 25);
 		rdbtnOrganizador.addActionListener(new ActionListener( ) {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnAsistente.setSelected(false);
@@ -147,13 +151,32 @@ public class AltaUsuario extends JInternalFrame {
 		panel.add(rdbtnOrganizador);
 		
 		textArea = new JTextArea();
+		textArea.setBounds(191, 303, 203, 89);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		textArea.setBounds(193, 236, 203, 89);
 		panel.add(textArea);
 		
+		JLabel lblContrasea = new JLabel("Contraseña:");
+		lblContrasea.setBounds(43, 132, 140, 16);
+		panel.add(lblContrasea);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(193, 132, 140, 26);
+		textField_5.setColumns(10);
+		panel.add(textField_5);
+		
+		JLabel lblConfirmarContrase = new JLabel("Confirmar Contraseña:");
+		lblConfirmarContrase.setBounds(43, 170, 140, 16);
+		panel.add(lblConfirmarContrase);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(193, 170, 140, 26);
+		textField_7.setColumns(10);
+		panel.add(textField_7);
+		
 		JPanel panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.SOUTH);
+		panel_1.setBounds(0, 444, 418, 37);
+		panel.add(panel_1);
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -182,6 +205,8 @@ public class AltaUsuario extends JInternalFrame {
         String nombre = sacarEspacios(textField_1.getText());
         String correo = sacarEspacios(textField_2.getText());
         String apellido = sacarEspacios(textField_3.getText());
+        String cont = sacarEspacios(textField_5.getText());
+        String confcont = sacarEspacios(textField_7.getText());
         LocalDate nacimiento;
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         // Validar fecha
@@ -202,8 +227,33 @@ public class AltaUsuario extends JInternalFrame {
         	return;
         }
         
+        if (cont.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "La contraseña no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        if (!cont.equals(confcont)) {
+        	JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        String hashedcont;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(cont.getBytes());
+            
+            // Convert bytes to hex
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                hexString.append(String.format("%02x", b));
+            }
+            hashedcont = hexString.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+        
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
+        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, hashedcont, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -230,7 +280,7 @@ public class AltaUsuario extends JInternalFrame {
                 	break;
             };
         }
-        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, apellido, nacimiento)) {    
+        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, hashedcont, apellido, nacimiento)) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -265,6 +315,8 @@ public class AltaUsuario extends JInternalFrame {
         String nickname = sacarEspacios(textField.getText());
         String nombre = sacarEspacios(textField_1.getText());
         String correo = sacarEspacios(textField_2.getText());
+        String cont = sacarEspacios(textField_5.getText());
+        String confcont = sacarEspacios(textField_7.getText());
         String desc = sacarEspacios(textArea.getText());
         String link = sacarEspacios(textField_6.getText());
 
@@ -278,11 +330,36 @@ public class AltaUsuario extends JInternalFrame {
         	return;
         }
         
+        if (cont.isEmpty()) {
+        	JOptionPane.showMessageDialog(this, "La contraseña no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        if (!cont.equals(confcont)) {
+        	JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        String hashedcont;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(cont.getBytes());
+            
+            // Convert bytes to hex
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                hexString.append(String.format("%02x", b));
+            }
+            hashedcont = hexString.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+        
         ControladorUsuario c = ControladorUsuario.getInstance();
         // Si la operación genera un error, mostrárselo al usuario
         boolean ok;
         try {
-        	ok = c.altaOrganizador(nickname, nombre, correo, desc, link);
+        	ok = c.altaOrganizador(nickname, nombre, correo, hashedcont, desc, link);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;
