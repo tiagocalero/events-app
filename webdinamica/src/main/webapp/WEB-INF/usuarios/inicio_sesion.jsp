@@ -18,14 +18,14 @@
       href="https://getbootstrap.com/docs/5.3/examples/sign-in/"
     />
     <meta name="theme-color" content="#712cf9" />
-    <link href="styles.css" rel="stylesheet" />
+    <link href="/webdinamica/assets/styles.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  	<link rel="icon" type="image/png" href="assets/logoChico.png">
+  	<link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png">
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto">
       <form>
-        <a href="index.html"><img class="logo" src="assets/logoNegro.png"> </a>
+        <a href="index.html"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
         <h1 class="h3 mb-3 fw-normal">inicie sesión</h1>
         <div class="form-floating">
           <input

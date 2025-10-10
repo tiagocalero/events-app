@@ -28,7 +28,7 @@ class Header extends HTMLElement {
             </form>
             <div class="text-end">
               <button type="button" class="btn btn-outline-light me-2"
-                onclick="window.location.href='/webdinamica/inicio_sesion'">
+                onclick="window.location.href='/webdinamica/usuarios/inicio_sesion'">
                 Iniciar Sesión
               </button>
 

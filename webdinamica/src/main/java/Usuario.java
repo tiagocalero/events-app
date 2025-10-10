@@ -24,7 +24,7 @@ import logica.DTEdicion;
 /**
  * Servlet implementation class Usuario
  */
-@WebServlet({"/usuarios/*, /inicio_sesion/*"})
+@WebServlet("/usuarios/*")
 public class Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -85,7 +85,7 @@ public class Usuario extends HttpServlet {
     	String link = request.getParameter("link");
     	String passwd = request.getParameter("pass");
     	
-    	boolean ok;
+    	boolean ok = false;
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	if (tipo == "Asistente") {
     		if (inst != "none") {
@@ -120,14 +120,14 @@ public class Usuario extends HttpServlet {
     }
 
     protected void inicio_sesionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getRequestDispatcher("/WEB-INF/inicio_sesion.jsp").forward(request, response);
+    	request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
     }
     
     protected void inicio_sesionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String nick_o_name = request.getParameter("nick_o_name");
+    	String nick_o_correo = request.getParameter("nick_o_correo");
     	
     	ControladorUsuario c = ControladorUsuario.getInstance();
-    	DTUsuario u = c.elegirUsuario(nick_o_name);
+    	DTUsuario u = c.elegirUsuario(nick_o_correo);
     	
     	if (u != null) {
     		HttpSession session = request.getSession(true);
@@ -135,7 +135,7 @@ public class Usuario extends HttpServlet {
     	    request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
     	} else {
     		request.setAttribute("error", "No existe un usuario con ese nickname");
-    	    request.getRequestDispatcher("/WEB-INF/inicio_sesion.jsp").forward(request, response);
+    	    request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
     	    return;
     	}
     	
@@ -153,12 +153,12 @@ public class Usuario extends HttpServlet {
 		            consultaUsuarioGET(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioGET(request, response);
+		        } else if (path.equals("/inicio_sesion")) {
+					inicio_sesionGET(request, response);
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
-		} else if (servletPath.equals("/inicio_sesion")) {
-			inicio_sesionGET(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().println("404 - Página no encontrada");
@@ -178,12 +178,12 @@ public class Usuario extends HttpServlet {
 		            response.getWriter().println("Página de consulta");
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioPOST(request, response);
-		        } else {
+		        } else if (servletPath.equals("/inicio_sesion")) {
+					inicio_sesionPOST(request, response);
+				} else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
-		} else if (servletPath.equals("/inicio_sesion")) {
-			inicio_sesionPOST(request, response);
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		        response.getWriter().println("404 - Página no encontrada");
