@@ -21,7 +21,7 @@
 
     <div class="content">
       <h3><strong>Ingrese los datos de la nueva Institución:</strong></h3><br/>
-      <form class="content-form-alta" action="altaInstitucion" method="post">
+      <form class="content-form-alta" action="instituciones/altaInstitucion" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre*:</label>
         <input type = "text" id = "nombre" name = "nombre" required
         	value=" <%= request.getAttribute("nombre") != null ? request.getAttribute("nombre") : "" %>"/><br/>

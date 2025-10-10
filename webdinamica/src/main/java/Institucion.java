@@ -31,7 +31,8 @@ public class Institucion extends HttpServlet {
 	
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		    	
+    	
     	request.getRequestDispatcher("/WEB-INF/instituciones/altaInstitucion.jsp").forward(request, response);
 	}
 	
@@ -39,10 +40,10 @@ public class Institucion extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		request.setCharacterEncoding("UTF-8");
+				
+		//request.setCharacterEncoding("UTF-8");
 
         // Get form fields
         String nombre = request.getParameter("nombre");
@@ -50,11 +51,11 @@ public class Institucion extends HttpServlet {
         String sitioWeb = request.getParameter("sitioweb");
         Part fotoPart = request.getPart("foto");
 
-        /*byte[] fotoBytes = null;
+        byte[] fotoBytes = null;
         if (fotoPart != null && fotoPart.getSize() > 0) {
             fotoBytes = fotoPart.getInputStream().readAllBytes();
         }
-        */
+        
 
         // Use your existing controller
         ControladorInstitucion controlador = ControladorInstitucion.getInstance();
@@ -68,7 +69,7 @@ public class Institucion extends HttpServlet {
             request.setAttribute("mensaje", "Error al crear la institución: " + e.getMessage());
         }
 
-        // Forward to JSP for feedback
-        request.getRequestDispatcher("resultadoInstitucion.jsp").forward(request, response);
+        //volver a alta Institucion
+        doGet(request, response);
     }
 }
