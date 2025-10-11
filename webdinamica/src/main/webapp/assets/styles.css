@@ -289,6 +289,11 @@ aside ul li a {
 .event-image {
   margin-top: 1rem;
   margin-bottom: 1rem;
+  max-width: 300px;
+}
+
+.event-image img {
+	max-width: 100%;
 }
 
 .lblDesc {

@@ -26,9 +26,9 @@
         
         <p><strong>Código:</strong> <%= dtp.getCodigo() %></p>
         <p><strong>Aporte económico:</strong> $<%= dtp.getMonto() %></p>
-        <p><strong>Cantidad de registros gratuitos:</strong> <%= dtp.getCantRegistros() %></p>
-        <p><strong>Institución:</strong><%= dtp.getInstitucion() %></p>
-	    <p><strong>Fecha Alta:</strong> <%= dtp.getFechaAlta() %></p>
+        <p><strong>Cantidad de registros gratuitos: </strong><%= dtp.getCantRegistros() %></p>
+        <p><strong>Institución: </strong><%= dtp.getInstitucion() %></p>
+	    <p><strong>Fecha Alta: </strong><%= dtp.getFechaAlta() %></p>
       </div>
     </form>
     </div>
