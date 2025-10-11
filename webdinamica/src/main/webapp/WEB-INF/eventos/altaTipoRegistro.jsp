@@ -14,6 +14,7 @@
   <link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png">
 </head>
 <body>
+	<%@ include file="/components/header.jsp" %>
 	
   <main>
     <%@ include file="/components/sidebar.jsp" %>

@@ -10,7 +10,7 @@ public class Institucion {
 	private String url;
 	private List<Patrocinio> patrocinios;
 	
-	public Institucion (String nombre, String desc, String url) {
+	public Institucion(String nombre, String desc, String url) {
 		this.nombre = nombre;
 		this.desc = desc;
 		this.url = url;

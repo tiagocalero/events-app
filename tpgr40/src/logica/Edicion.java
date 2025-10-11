@@ -1,27 +1,18 @@
 package logica;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.Stream;
+import java.util.Map;
 import java.util.stream.Collectors;
-import logica.Categoria;
-import logica.TRegistro;
-import logica.Organizador;
-import logica.Registro;
-import logica.Patrocinio;
-import logica.DTEdicion;
-import logica.Evento;
-import logica.TipoEstado;
 
 public class Edicion {
 	private String pais;
 	private String ciudad;
-	private LocalDate fecha_alta;
-	private LocalDate fecha_final;
-	private LocalDate fecha_inicio;
+	private LocalDate fechaAlta;
+	private LocalDate fechaFinal;
+	private LocalDate fechaInicio;
 	private String sigla;
     private String nombre;
     private TipoEstado estado;
@@ -38,9 +29,9 @@ public class Edicion {
         this.sigla = sigla;
         this.ciudad = ciudad;
         this.pais = pais;
-        this.fecha_inicio = fechaInicio;
-        this.fecha_final = fechaFin;
-        this.fecha_alta = fechaAlta;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFin;
+        this.fechaAlta = fechaAlta;
         this.estado = TipoEstado.Ingresada;
         this.patrocinios = new HashMap<String, Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
@@ -59,7 +50,7 @@ public class Edicion {
         		         .collect(Collectors.toList());
         
 
-		return new DTEdicion(evento.getNombre(), pais, ciudad, fecha_inicio, fecha_final, fecha_alta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname());
+		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname());
 	}
 	
     public String getNombre() {
@@ -71,15 +62,15 @@ public class Edicion {
     }
 
     public LocalDate getFechaAlta() {
-        return this.fecha_alta;
+        return this.fechaAlta;
     }
     
     public LocalDate getFechaFinal() {
-        return this.fecha_final;
+        return this.fechaFinal;
     }
 
     public LocalDate getFechaInicio() {
-        return this.fecha_inicio;
+        return this.fechaInicio;
     }
     
     public String getPais() {
@@ -110,8 +101,8 @@ public class Edicion {
 	    return new ArrayList<>(tRegistros.values());
 	}
 	
-    public void agregarPatrocinio(Patrocinio p) {
-    	patrocinios.put(p.getCodigo(), p);
+    public void agregarPatrocinio(Patrocinio patrocinio) {
+    	patrocinios.put(patrocinio.getCodigo(), patrocinio);
     }
     
     public List<String> getCodigosPatrocinios() {
@@ -119,19 +110,24 @@ public class Edicion {
     }
     
     public List<String> getInstitucionesPatrocinios() {
-    	return new ArrayList<>(patrocinios.values().stream().map(p->p.getNombreInstitucion()).collect(Collectors.toList()));
+    	return new ArrayList<>(
+			patrocinios.values()
+					   .stream()
+					   .map(p -> p.getNombreInstitucion())
+					   .collect(Collectors.toList())
+		);
     }
     
-    public void agregarTRegistro(TRegistro tr) {
-    	tRegistros.put(tr.getNombre(), tr);
+    public void agregarTRegistro(TRegistro tipoRegistro) {
+    	tRegistros.put(tipoRegistro.getNombre(), tipoRegistro);
     }
 
     public TRegistro getTipoRegistro(String nombre) {
         return tRegistros.get(nombre);
     }
     
-    public void agregarRegistro(Registro r) {
-    	registros.add(r);
+    public void agregarRegistro(Registro registro) {
+    	registros.add(registro);
     }
     
     public void confirmar() {
