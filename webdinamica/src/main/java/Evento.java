@@ -18,6 +18,7 @@ import java.util.UUID;
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
+import logica.DTOrganizador;
 import logica.DTEdicion;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
@@ -207,6 +208,16 @@ public class Evento extends HttpServlet {
     protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
     	
+    	HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	
+	  	// No permitir que asistentes o visitantes accedan
+	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
+        	response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+     
+    	
     	List<String> categorias = c.listarCategorias();
         
         request.setAttribute("categorias", categorias);
@@ -218,6 +229,15 @@ public class Evento extends HttpServlet {
     // POST /eventos/alta
     // Crea un evento con los parámetros pasados
     protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	
+	  	// No permitir que asistentes o visitantes accedan
+	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
+        	response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+    	
     	String nombre = request.getParameter("nombre");
     	String descripcion = request.getParameter("desc");
     	String sigla = request.getParameter("sigla");

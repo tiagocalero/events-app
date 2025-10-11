@@ -1,3 +1,5 @@
+<%@ page import="logica.DTUsuario" %>
+<%@ page import="logica.DTOrganizador" %>
 <div class="flex-shrink-0 p-3" style="width: 280px">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
@@ -18,6 +20,14 @@
           </ul>
         </div>
       </li>
+      
+	  <% HttpSession userSessionSidebar = request.getSession(false);
+	     DTUsuario usuarioLoggeadoSidebar = (DTUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
+	     boolean datosCargados = false;
+	     if (getServletContext().getAttribute("datosCargados") != null)
+	      	datosCargados = (boolean) getServletContext().getAttribute("datosCargados");
+	     
+	     if ((usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DTOrganizador)) || !datosCargados) { %>
       <li class="border-top my-3"></li>
       <li class="mb-1">
         <button
@@ -31,22 +41,22 @@
         <div class="collapse" id="account-collapse">
 
 		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-		  <li>
-		    <a
-		      href="/webdinamica/eventos/alta"
-		      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-		      >Crear Evento</a>
-		  </li>
-		  <li>
-		    <a
-		      href="/webdinamica/instituciones/altaInstitucion"
-		      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-		      >Crear Institución</a>
-		  </li>
-		  <% boolean datosCargados = false;
-		     if (getServletContext().getAttribute("datosCargados") != null)
-		      	datosCargados = (boolean) getServletContext().getAttribute("datosCargados");
-		      	
+	  	  <% if (usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DTOrganizador)) { %>
+			  <li>
+			    <a
+			      href="/webdinamica/eventos/alta"
+			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+			      >Crear Evento</a>
+			  </li>
+			  <li>
+			    <a
+			      href="/webdinamica/instituciones/altaInstitucion"
+			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+			      >Crear Institución</a>
+			  </li>
+		  <% } %>
+		  	 
+		  <% 
 	      	 // No mostrar el botón de cargar datos si ya se cargaron los datos
 	      	 if (!datosCargados) {
 	  	  %>
@@ -68,5 +78,6 @@
 
         </div>
       </li>
+	  <% } %>
     </ul>
 </div>

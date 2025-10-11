@@ -14,11 +14,10 @@
   <link rel="stylesheet" href="/webdinamica/assets/styles.css"> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   
-  <script src="/webdinamica/components/headerLoggedIn.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png"> 
   </head>
 <body>
-  <header-component></header-component>
+  <%@ include file="/components/header.jsp" %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
@@ -34,15 +33,12 @@
     String urlConsultaOrganizador = "/webdinamica/registros/consultaRegistroOrg?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
 
     // --- LÓGICA DE VISIBILIDAD DE BOTONES (Organizador/Asistente) ---
-    HttpSession userSession = request.getSession(false);
-    Object usuario = (userSession != null) ? userSession.getAttribute("usuario") : null;
-    
     // Obtener datos del organizador de la edición
     String organizadorNickname = (String) request.getAttribute("organizador");
     
     // Chequeos de rol y registro
-    boolean esOrganizador = (usuario != null) && (usuario instanceof logica.DTOrganizador);
-    boolean esAsistente = (usuario != null) && (usuario instanceof logica.DTAsistente);
+    boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTOrganizador);
+    boolean esAsistente = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTAsistente);
     
     // NOTA: 'estaRegistrado' DEBE ser enviado por el Servlet (true/false)
     Boolean estaRegistrado = (Boolean) request.getAttribute("estaRegistrado");
@@ -52,7 +48,7 @@
     
     // Chequeo si el usuario logueado es el organizador de ESTA edición
     boolean esElOrganizadorDeEstaEdicion = esOrganizador && 
-                                           ((logica.DTOrganizador)usuario).getNickname().equals(organizadorNickname);
+                                           ((logica.DTOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
                                            
 	%>
 	
@@ -113,7 +109,7 @@
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
            <% 
              String organizadorNicknameConsulta = (String) request.getAttribute("organizador");
-             String urlConsultaUsuario = "/webdinamica/consultaUsuario?nick=" + organizadorNicknameConsulta;
+             String urlConsultaUsuario = "/webdinamica/usuarios/consulta?nick=" + organizadorNicknameConsulta;
            %>
            <li>
              <%-- Enlace dinámico al organizador --%>
@@ -148,7 +144,7 @@
          <li class="mb-1">
            Patrocinios
            <%-- Bloque Condicional para el botón de Patrocinios (solo para el Organizador logueado) --%>
-           <% if (esOrganizador) { %>
+           <% if (esOrganizador && esElOrganizadorDeEstaEdicion) { %>
            <a href="/webdinamica/patrocinios/alta?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
 		          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
