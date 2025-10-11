@@ -1,14 +1,11 @@
 package logica;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
-import logica.Categoria;
-import logica.DTEvento;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Evento {
 	private String nombre;
@@ -28,9 +25,9 @@ public class Evento {
 		this.imagen = imagen;
 		ediciones = new HashMap<>();
 		
-		ManejadorCategoria mc = ManejadorCategoria.getInstance();
+		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
 		for (String cat: categorias)
-			mc.asignar(cat, this);
+			manejador.asignar(cat, this);
 	}
 
 	public String getNombre() {
@@ -56,15 +53,15 @@ public class Evento {
 		return ediciones.get(nombre);
 	}
 
-	public void agregarEdicion(Edicion e) {
-		ediciones.put(e.getNombre(), e);
+	public void agregarEdicion(Edicion edicion) {
+		ediciones.put(edicion.getNombre(), edicion);
 	}
 	
 	public Map<String, Edicion> getEdiciones() {
 		return Map.copyOf(ediciones);
 	}
 	
-	public void agregarCategoria(Categoria c) {
-		categorias.add(c);
+	public void agregarCategoria(Categoria categoria) {
+		categorias.add(categoria);
 	}
 }

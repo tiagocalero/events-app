@@ -1,7 +1,5 @@
 package logica;
 
-import logica.Categoria;
-
 public class ControladorCategoria{
 	private static volatile ControladorCategoria instance;
 	private ControladorCategoria(){};
@@ -18,10 +16,10 @@ public class ControladorCategoria{
 	}
 	
 	public boolean altaCategoria(String nombreCategoria) {
-		ManejadorCategoria m = ManejadorCategoria.getInstance();
-		boolean existe = m.existe(nombreCategoria);
+		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
+		boolean existe = manejador.existe(nombreCategoria);
 		if (!existe)
-			m.altaCategoria(nombreCategoria);
+			manejador.altaCategoria(nombreCategoria);
 		
 		return !existe;
 	}
