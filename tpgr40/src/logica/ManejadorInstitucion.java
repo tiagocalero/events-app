@@ -27,8 +27,8 @@ public class ManejadorInstitucion {
     	instance = null;
     }
     
-    public void altaInstitucion(String nombre, String desc, String url) {
-    	Institucion nuevaInst = new Institucion(nombre, desc, url);
+    public void altaInstitucion(String nombre, String desc, String url, String imagen) {
+    	Institucion nuevaInst = new Institucion(nombre, desc, url, imagen);
     	instituciones.put(nombre, nuevaInst);
     }
     

@@ -150,7 +150,7 @@ public class Evento extends HttpServlet {
     	String tipoRegistro = request.getParameter("tipoRegistro");
     	String codigo = request.getParameter("codigo");
     	
-    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion);
+    	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion, null);
     	
     	ControladorEvento c = ControladorEvento.getInstance();
     	try {

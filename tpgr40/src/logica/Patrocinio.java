@@ -33,7 +33,7 @@ public class Patrocinio {
 	}
 	
 	public DTPatrocinio getDatos() {
-		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros, fecha, institucion.getNombre());
+		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros, fecha, getNombreInstitucion(), institucion.getImagen());
 	}
 
 	public String getCodigo() {
