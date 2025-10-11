@@ -145,6 +145,40 @@ public class servletUsuario extends HttpServlet {
     	
     }
     
+    // ######  CONSULTA REGISTRO DOGET  ###### 
+
+ 	        protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 	        	
+    		    	ControladorUsuario cu = ControladorUsuario.getInstance();
+    		    	
+    		    	//ver como obtener el usuario. ¿se pasa solo? ¿obtener de la sesion?
+    		    	//segun chat es lo siguiente
+    		    	Usuario usuarioGenerico = (Usuario) request.getSession().getAttribute("usuario");
+    		    	
+    		    	String evento = request.getParameter("evento");
+    		    	String edicion = request.getParameter("edicion");
+    		    	
+    		    	if (usuarioGenerico instanceof Organizador) {
+    		    		
+    		    		ControladorEvento ce = ControladorEvento.getInstance();
+    		    		
+    		    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento)
+    		    		request.setAttribute("registros", registros);
+    		    		
+    		    		request.getRequestDispatcher("/vistas/consultaRegistroOrg.jsp").forward(request, response);
+    		    	
+    		    	} else if (usuarioGenerico instanceof Asistente) {
+    		    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuarioGenerico);
+    		    		request.setAttribute("registros", registro);
+    		    		
+    		    		request.getRequestDispatcher("/vistas/consultaRegistroAsis.jsp").forward(request, response);
+    		    	} else {
+    		    	    // Error: Usuario no logueado o tipo desconocido
+    		    	    response.sendRedirect("login.jsp");
+    		    	}	    	
+    		    }
+
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -158,7 +192,10 @@ public class servletUsuario extends HttpServlet {
 		        	altaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
-		        } else {
+		        } else if (path.equals("/consultaRegistro")) {
+		        	consultaRegistroGET(request, response);
+		        }
+		        else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
