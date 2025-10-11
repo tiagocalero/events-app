@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ page import="logica.DTUsuario" %>
 <%@ page import="logica.DTOrganizador" %>
 <div class="flex-shrink-0 p-3" style="width: 280px">
@@ -11,14 +12,24 @@
         >
           Categorías
         </button>
-        <div class="collapse show" id="home-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Tecnologí­a</a></li>
-            <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Innovación</a></li>
-            <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Deporte</a></li>
-            <li><a href="index.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Salud</a></li>
-          </ul>
-        </div>
+		<div class="collapse show" id="home-collapse">
+    		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+       			<%       			
+            		List<String> categorias = (List<String>) request.getAttribute("categorias");
+            		if (categorias != null && !categorias.isEmpty()) {
+                		for (String entry : categorias) {
+        			%>
+                    		<li>
+                        		<a href="eventos?categoria=<%= entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                            		<%= entry %>
+                        		</a>
+                    		</li>
+        			<%
+                			}
+            			}
+        			%>
+			</ul>
+		</div>
       </li>
       
 	  <% HttpSession userSessionSidebar = request.getSession(false);

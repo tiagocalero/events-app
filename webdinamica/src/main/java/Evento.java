@@ -95,14 +95,8 @@ public class Evento extends HttpServlet {
     protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ControladorEvento c = ControladorEvento.getInstance();
         
-        /*
         // Cargar eventos
-        List<DTEvento> eventos = c.listarDTEventos();
-        request.setAttribute("eventos", eventos);
         
-        // Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
-		*/
     	String categoria = request.getParameter("categoria");
         List<DTEvento> eventos;
     	if (categoria != null && !categoria.trim().isEmpty()) {
@@ -112,7 +106,9 @@ public class Evento extends HttpServlet {
         }
 
         request.setAttribute("eventos", eventos);
-        request.setAttribute("categoriaSeleccionada", categoria); // optional, for JSP filter
+        request.setAttribute("categoriaSeleccionada", categoria); 
+        
+        // Mostrar el HTML
         request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
 		
     }
@@ -577,10 +573,12 @@ public class Evento extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+	    listarCategorias(request, response);
+	    
 	    if (servletPath.equals("/eventos")) {
 		
 				String path = request.getPathInfo();
-		
+						
 		        if (path == null || path.equals("/")) {
 		            listarEventos(request, response);
 		        } else if (path.equals("/consulta")) {
@@ -652,11 +650,12 @@ public class Evento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+        listarCategorias(request,response);
         
 	    if (servletPath.equals("/eventos")) {
 		
 		    	String path = request.getPathInfo();
-	
+		    		
 		        if (path == null || path.equals("/")) {
 		            listarEventos(request, response);
 		        } else if (path.equals("/consulta")) {
@@ -706,6 +705,19 @@ public class Evento extends HttpServlet {
 		        response.getWriter().println("404 - Página no encontrada");
 		}
 	}
+	
+	//GET Categorias
+	protected void listarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ControladorCategoria c = ControladorCategoria.getInstance();
+        
+        // Cargar categorias
+        List<String> categorias = c.categorias();
+        request.setAttribute("categorias", categorias);
+        
+        
+        // Mostrar el HTML
+        request.getRequestDispatcher("/WEB-INF/eventos/index.jsp"); //.forward(request, response)		
+    }
 
 }
 
