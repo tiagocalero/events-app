@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,7 +34,7 @@ public class Institucion extends HttpServlet {
 	
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    	
+    	Categoria.listarCategorias(request, response);
     	
     	request.getRequestDispatcher("/WEB-INF/instituciones/altaInstitucion.jsp").forward(request, response);
 	}
@@ -51,18 +54,23 @@ public class Institucion extends HttpServlet {
         String sitioWeb = request.getParameter("sitioweb");
         Part fotoPart = request.getPart("foto");
 
-        byte[] fotoBytes = null;
+        String fileName = null;
         if (fotoPart != null && fotoPart.getSize() > 0) {
-            fotoBytes = fotoPart.getInputStream().readAllBytes();
-        }
-        
+	        // Generar un nombre aleatorio para la imagen,
+	        // guardarla en una carpeta temporal
+	        fileName = UUID.randomUUID().toString() + "_" + fotoPart.getSubmittedFileName();
+	        String uploadPath = getServletContext().getRealPath("/uploads");
+	        File uploadDir = new File(uploadPath);
 
-        // Use your existing controller
+	        if (!uploadDir.exists()) uploadDir.mkdir();
+	
+	        fotoPart.write(uploadPath + File.separator + fileName);
+        }
+
         ControladorInstitucion controlador = ControladorInstitucion.getInstance();
 
         try {
-            //controlador.altaInstitucion(nombre, descripcion, sitioWeb, fotoBytes);
-        	controlador.altaInstitucion(nombre, descripcion, sitioWeb);
+            controlador.altaInstitucion(nombre, descripcion, sitioWeb, fileName);
         	request.setAttribute("mensaje", "Institución creada correctamente.");
         } catch (Exception e) {
             e.printStackTrace();

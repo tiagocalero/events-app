@@ -10,8 +10,9 @@ public class DTPatrocinio {
 	private int cantRegistros;
 	private LocalDate fechaAlta;
 	private String institucion;
+	private String imagenInstitucion;
 	
-	public DTPatrocinio(String codigo, TipoNivelPatrocinio tipo, float monto, String tipoRegistro, int cantRegistros, LocalDate fechaAlta, String institucion) {
+	public DTPatrocinio(String codigo, TipoNivelPatrocinio tipo, float monto, String tipoRegistro, int cantRegistros, LocalDate fechaAlta, String institucion, String imagenInstitucion) {
 		this.codigo = codigo;
 		this.tipo = tipo;
 		this.monto = monto;
@@ -19,6 +20,7 @@ public class DTPatrocinio {
 		this.cantRegistros = cantRegistros;
 		this.fechaAlta = fechaAlta;
 		this.institucion = institucion;
+		this.imagenInstitucion = imagenInstitucion;
 	}
 	
 	public String getCodigo() {
@@ -47,5 +49,9 @@ public class DTPatrocinio {
 	
 	public String getInstitucion() {
 		return institucion;
+	}
+
+	public String getImagenInstitucion() {
+		return imagenInstitucion;
 	}
 }

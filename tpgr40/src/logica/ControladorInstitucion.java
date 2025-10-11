@@ -20,19 +20,29 @@ public class ControladorInstitucion{
 		}
 		return instance;
 	}
-	
+
+	// Crea insitución sin imagen
 	public boolean altaInstitucion(String nombre, String desc, String url) {
+		return altaInstitucion(nombre, desc, url, null);
+	}
+
+	// Crea insitución con imagen
+	public boolean altaInstitucion(String nombre, String desc, String url, String imagen) {
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
 		boolean res = m.existe(nombre);
 		if (!res) {
-			m.altaInstitucion(nombre, desc, url);
+			m.altaInstitucion(nombre, desc, url, imagen);
 		}
 		return !res;
 	}
 	
 	public List<String> listarInstituciones() {
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
-		return m.instituciones().values().stream().map(inst->inst.getNombre()).collect(Collectors.toList());
+		return m.instituciones()
+				.values()
+				.stream()
+				.map(inst -> inst.getNombre())
+				.collect(Collectors.toList());
 	}
 	
 	public Institucion obtenerInstitucion(String nombre) {

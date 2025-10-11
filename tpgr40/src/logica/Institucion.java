@@ -9,13 +9,15 @@ public class Institucion {
 	private String desc;
 	private String url;
 	private List<Patrocinio> patrocinios;
+	private String imagen;
 	
-	public Institucion(String nombre, String desc, String url) {
+	public Institucion(String nombre, String desc, String url, String imagen) {
 		this.nombre = nombre;
 		this.desc = desc;
 		this.url = url;
+		this.imagen = imagen;
 		patrocinios = new ArrayList<>();
-	}	
+	}
 	
 	public boolean existePatrocinio(Edicion e) {
 		for (Patrocinio p: patrocinios) {
@@ -41,5 +43,9 @@ public class Institucion {
 	
 	public String getNombre() {
 		return nombre;
+	}
+	
+	public String getImagen() {
+		return imagen;
 	}
 }

@@ -203,7 +203,8 @@ class ControladorEventoTest {
 				"tp1",
 				(int) cantRegistrosOtorgados,
 				LocalDate.now(),
-				"Institución 1"
+				"Institución 1",
+				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -217,7 +218,8 @@ class ControladorEventoTest {
 				"tp1",
 				0,
 				LocalDate.now(),
-				"Institución 1"
+				"Institución 1",
+				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -231,7 +233,8 @@ class ControladorEventoTest {
 				"tp1",
 				-1,
 				LocalDate.now(),
-				"Institución 1"
+				"Institución 1",
+				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -245,7 +248,8 @@ class ControladorEventoTest {
 				"tp1",
 				-1,
 				LocalDate.now(),
-				"Institución 1"
+				"Institución 1",
+				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
@@ -259,7 +263,8 @@ class ControladorEventoTest {
 				"tp1",
 				(int) cantRegistrosOtorgados,
 				LocalDate.now(),
-				"Institución 1"
+				"Institución 1",
+				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 	    });
@@ -273,7 +278,8 @@ class ControladorEventoTest {
 				"tp1",
 				(int) cantRegistrosOtorgados,
 				LocalDate.now(),
-				"Institución 1"
+				"Institución 1",
+				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
