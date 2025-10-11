@@ -1,3 +1,4 @@
+<%@ page import="logica.DTUsuario" %>
 <header>
 	<div class="container">
 <% HttpSession userSession = request.getSession(false);

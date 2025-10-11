@@ -173,7 +173,7 @@ public class Evento extends HttpServlet {
 		altaPatrocinioGET(request, response);
     }
     
- // GET /patrocinios
+    // GET /patrocinios
     // POST /patrocinios
     protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();

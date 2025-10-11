@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="logica.DTUsuario" %>
 <%@ page import="logica.DTOrganizador" %>
-<div class="flex-shrink-0 p-3" style="width: 280px">
+<div class="flex-shrink-0 p-3 mb-3" style="width: 280px">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
         <button
