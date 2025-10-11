@@ -170,6 +170,12 @@ public class servletUsuario extends HttpServlet {
 		        	altaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
+		        } else if (path.equals("/fin_sesion")) {
+		        	HttpSession session = request.getSession(false);
+		            if (session != null) {
+		                session.invalidate(); // destroys the session
+		            }
+		            response.sendRedirect("/webdinamica/");
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
