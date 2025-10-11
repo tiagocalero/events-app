@@ -98,7 +98,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
     	      			for (DTRegistro reg : registros) { %>
-              			<li><a href="/webdinamica/registros/consultaRegistro?registro='<%= reg.getEdicion() %>'" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= reg.getEdicion() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
               		<% } %>
            		</ul>
             <% } else if (usuario instanceof DTOrganizador) { %>
@@ -106,7 +106,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
             		<% List<DTEdicion> ediciones = (List<DTEdicion>) request.getAttribute("ediciones");
     	      			for (DTEdicion ed : ediciones) { %>
-            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento='<%= ed.getEvento() %>'&edicion='<%= ed.getNombre() %>'" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
+            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= ed.getEvento() %>&edicion=<%= ed.getNombre() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>
             	</ul>
             <% } %>

@@ -13,15 +13,6 @@ public abstract class Usuario {
 	private String contrasena;
 	private String imagen;
 	
-	public Usuario(String nick, String nom, String c, String contrasena) {
-		ControladorUsuario cu = ControladorUsuario.getInstance();
-		this.nickname = nick;
-		this.nombre = nom;
-		this.correo = c;
-		this.contrasena = cu.hashearContrasena(contrasena);
-		this.imagen = null;
-	}
-	
 	public Usuario(String nick, String nom, String c, String contrasena, String img) {
 		ControladorUsuario cu = ControladorUsuario.getInstance();
 		this.nickname = nick;

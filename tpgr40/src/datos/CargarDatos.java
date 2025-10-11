@@ -80,10 +80,10 @@ public class CargarDatos {
 		//Cargar Organizaciones
 		ControladorUsuario u = ControladorUsuario.getInstance();
 		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "22miseventos", "IMG-US04.jpeg", "Empresa de organización de eventos.", "https://miseventos.com");
-		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "tech25corp", "Empresa líder en tecnologías de la información.", "");
-		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "imm2025", "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
-		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "25udelar", "Universidad pública de Uruguay.", "https://udelar.edu.uy");
-		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "mec2025ok", "Institución pública promotora de cultura.", "https://mec.gub.uy");
+		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "tech25corp", null, "Empresa líder en tecnologías de la información.", "");
+		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "imm2025", null, "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
+		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "25udelar", null, "Universidad pública de Uruguay.", "https://udelar.edu.uy");
+		org = u.altaOrganizador("mec", "Ministerio de Educación y Cultura", "mec@mec.gub.uy", "mec2025ok", null, "Institución pública promotora de cultura.", "https://mec.gub.uy");
 		
 		//Cargar Ediciones
         LocalDate fechaInicio = LocalDate.parse("20/11/2025", fmt);
@@ -178,15 +178,15 @@ public class CargarDatos {
 		
 		//Cargar Asistentes
 		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "IMG-US01.jpg", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
-		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
-		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "srod.abc1", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
-		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "valen11c", "Costa", LocalDate.parse("01/12/1992", fmt));
-		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "garcia.22l", "García", LocalDate.parse("09/11/1993", fmt));
-		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "rod77and", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
-		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "gomez88a", "Gómez", LocalDate.parse("15/03/1998", fmt));
-		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "jl99lopez", "López", LocalDate.parse("22/07/1995", fmt));
-		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "maria55r", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
-		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "smarti99z", "Martínez", LocalDate.parse("05/02/1997", fmt));
+		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", null, "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
+		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "srod.abc1", null, "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
+		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "valen11c", null, "Costa", LocalDate.parse("01/12/1992", fmt));
+		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "garcia.22l", null, "García", LocalDate.parse("09/11/1993", fmt));
+		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "rod77and", null, "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
+		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "gomez88a", null, "Gómez", LocalDate.parse("15/03/1998", fmt));
+		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "jl99lopez", null, "López", LocalDate.parse("22/07/1995", fmt));
+		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "maria55r", null, "Rodríguez", LocalDate.parse("10/11/2000", fmt));
+		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "smarti99z", null, "Martínez", LocalDate.parse("05/02/1997", fmt));
 	
 		//Cargar Registros
         fechaAlta = LocalDate.parse("14/05/2025", fmt);
