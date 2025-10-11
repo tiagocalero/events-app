@@ -66,7 +66,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
 		setTitle("Consulta Edicion de Evento");
 		setBounds(30, 30, 700, 600);
 		getContentPane().setLayout(null);
-		setSize(851, 183);
+		setSize(851, 201);
 		
 		lblEventos = new JLabel("Eventos:");
 		lblEventos.setBounds(34, 52, 107, 36);
