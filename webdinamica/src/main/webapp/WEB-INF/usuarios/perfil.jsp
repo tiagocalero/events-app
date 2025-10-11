@@ -21,48 +21,42 @@
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
-  <% HttpSession user = request.getSession(false);
-  	 DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
-	 DTAsistente asistente = null;
-	 DTOrganizador organizador = null;
-  	 if (usuario.getImagen() != null) { %>
-  	 	<header-component-logeado imgPath="/webdinamica/uploads/<%= usuario.getImagen() %>"></header-component-logeado>
-  	 <% } else { %>
-  		<header-component-logeado imgPath="/webdinamica/assets/default_profile.jpg"></header-component-logeado>
-  	 <% } %>
+  <%@ include file="/components/header.jsp" %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
+    <% DTAsistente asistente = null;
+       DTOrganizador organizador = null; %>
 
     <div class="content content-consulta">
       <form id="modifyUserForm" class="content-form-modificar" action="alta_usuario" method="post">
 
         <div class="event-image">
-          <img id="profile-pic" src="/webdinamica/uploads/<%= usuario.getImagen() %>"  onerror="this.onerror=null; this.src='/webdinamica/assets/default_profile.jpg';"
-          	alt="Foto Perfil de <%= usuario.getNickname() %>">
+          <img id="profile-pic" src="/webdinamica/uploads/<%= usuarioLoggeado.getImagen() %>"  onerror="this.onerror=null; this.src='/webdinamica/assets/default_profile.jpg';"
+          	alt="Foto Perfil de <%= usuarioLoggeado.getNickname() %>">
           <input id="file-input" type="file" accept="image/*" style="display: none"/>
         </div>
 
         <label for="nombre"><strong>Nombre:</strong></label>
-        <input type="text" id="nombre" value="<%= usuario.getNombre() != null ? usuario.getNombre() : "" %>"/><br/>
+        <input type="text" id="nombre" value="<%= usuarioLoggeado.getNombre() != null ? usuarioLoggeado.getNombre() : "" %>"/><br/>
 
-		<% if (usuario instanceof DTAsistente) { 
-			asistente = (DTAsistente) usuario; %>
+		<% if (usuarioLoggeado instanceof DTAsistente) { 
+			asistente = (DTAsistente) usuarioLoggeado; %>
         	<label for="apellido"><strong>Apellido:</strong></label>
         	<input type="text" id="apellido" value="<%= asistente.getApellido() != null ? asistente.getApellido() : "" %>"/><br/>
         <% } %>
 
         <label for="nick"><strong>Nickname:</strong></label>
-        <input type="text" id="nick" value="<%= usuario.getNickname() != null ? usuario.getNickname() : "" %>" disabled /><br/>
+        <input type="text" id="nick" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
 
         <label for="correo"><strong>Email:</strong></label>
-        <input type="text" id="correo" value="<%= usuario.getCorreo() != null ? usuario.getCorreo() : "" %>" disabled /><br/>
+        <input type="text" id="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
 
         <label for="pass"><strong>Contraseña:</strong></label>
         <%-- <input type="password" id="pass" value="<%= user.getAttribute("pass") != null ? user.getAttribute("pass") : "" %>"/> --%>
         <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye" style="vertical-align: center"></i></button><br/>
 
-		<% if (usuario instanceof DTAsistente) { %>
+		<% if (usuarioLoggeado instanceof DTAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
         	<input type="date" id="nacimiento"  value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>"/><br/>
 
@@ -76,7 +70,7 @@
 					</option>
           		<% } %>
         	</select><br/>
-        <% } else if (usuario instanceof DTOrganizador) { 
+        <% } else if (usuarioLoggeado instanceof DTOrganizador) { 
         	organizador = (DTOrganizador) organizador;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
         	<input type="text" id="link" value="https://miseventos.com" /><br/>
@@ -92,7 +86,7 @@
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-          	<% if (usuario instanceof DTAsistente) { %>
+          	<% if (usuarioLoggeado instanceof DTAsistente) { %>
             	Registros
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
@@ -100,7 +94,7 @@
               			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= reg.getEdicion() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
               		<% } %>
            		</ul>
-            <% } else if (usuario instanceof DTOrganizador) { %>
+            <% } else if (usuarioLoggeado instanceof DTOrganizador) { %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
             		<% List<DTEdicion> ediciones = (List<DTEdicion>) request.getAttribute("ediciones");

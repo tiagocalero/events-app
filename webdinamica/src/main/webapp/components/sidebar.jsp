@@ -21,12 +21,11 @@
         </div>
       </li>
       
-	  <% HttpSession userSession = request.getSession(false);
-	  	 DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
-	  	 boolean datosCargados = false;
+	  <% boolean datosCargados = false;
 	     if (getServletContext().getAttribute("datosCargados") != null)
 	      	datosCargados = (boolean) getServletContext().getAttribute("datosCargados");
 	     
+	     // Está bien que tire error -- usuarioLoggeado está definido en header.jsp, pero no se detecta
 	  	 if ((usuarioLoggeado != null && (usuarioLoggeado instanceof DTOrganizador)) || !datosCargados) { %>
       <li class="border-top my-3"></li>
       <li class="mb-1">
