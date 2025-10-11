@@ -342,7 +342,7 @@ public class ControladorEvento {
 		Edicion edicion = manejador.obtenerEdicion(nombreEdicion, evento);
 		edicion.rechazar();
 	}
-	
+
 	public List<DTEvento> listarDTEventosCategoria(String categoria){
 		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
 		Map<String, Evento> eventos = manejador.eventosCategoria(categoria);
