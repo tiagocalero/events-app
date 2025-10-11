@@ -113,7 +113,7 @@
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
            <% 
              String organizadorNicknameConsulta = (String) request.getAttribute("organizador");
-             String urlConsultaUsuario = "/webdinamica/consultaUsuario?nick=" + organizadorNicknameConsulta;
+             String urlConsultaUsuario = "/webdinamica/usuarios/consulta?nick=" + organizadorNicknameConsulta;
            %>
            <li>
              <%-- Enlace dinámico al organizador --%>
