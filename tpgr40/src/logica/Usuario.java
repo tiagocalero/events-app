@@ -33,6 +33,10 @@ public abstract class Usuario {
 	public String getCorreo() {
 		return correo;
 	}
+	
+	public String getImagen() {
+		return imagen;
+	}
 
 	public boolean chequearContrasena(String pass) {
 		ControladorUsuario cu = ControladorUsuario.getInstance();

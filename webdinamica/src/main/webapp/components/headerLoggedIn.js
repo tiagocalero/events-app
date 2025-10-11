@@ -1,4 +1,4 @@
-class Header extends HTMLElement {
+class HeaderLoggedIn extends HTMLElement {
   constructor() { super(); }
 
   connectedCallback() {
@@ -46,7 +46,7 @@ class Header extends HTMLElement {
               <ul class="dropdown-menu text-small">
                 <li><a class="dropdown-item" href="/webdinamica/usuarios">Mi Perfil</a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="sesionFinalizada.html">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item" href="/webdinamica/usuarios/fin_sesion">Cerrar Sesión</a></li>
               </ul>
             </div>
           </div>
@@ -56,4 +56,4 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define('header-component', Header);
+customElements.define('header-component-logeado', HeaderLoggedIn);

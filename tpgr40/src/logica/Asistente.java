@@ -40,8 +40,8 @@ public class Asistente extends Usuario {
 	@Override
 	public DTAsistente getDatos() {
 		DTAsistente res;
-		if (institucion != null) res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento, institucion.getNombre());
-		else res = new DTAsistente(getNickname(), getNombre(), getCorreo(), apellido, nacimiento);
+		if (institucion != null) res = new DTAsistente(getNickname(), getNombre(), getCorreo(), getImagen(), apellido, nacimiento, institucion.getNombre());
+		else res = new DTAsistente(getNickname(), getNombre(), getCorreo(), getImagen(), apellido, nacimiento);
 		return res;
 	}
 	

@@ -90,18 +90,28 @@ public class servletUsuario extends HttpServlet {
     	String link = request.getParameter("link");
     	String passwd = request.getParameter("pass");
     	
-    	Part imgPart = request.getPart("foto");
-    	String imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
+    	Part imgPart = null;
+        for (Part part : request.getParts()) {
+            if ("foto".equals(part.getName())) {
+                imgPart = part;
+                break;
+            }
+        }
+    	String imgName = null;
+    	String uniqueFileName = null;
+    	if (imgPart != null && imgPart.getSize() > 0) {
+    		imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
 
-        // Define where to store it (for example inside /uploads)
-        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) uploadDir.mkdir();
+    		// Define where to store it (for example inside /uploads)
+    		String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+    		File uploadDir = new File(uploadPath);
+    		if (!uploadDir.exists()) uploadDir.mkdir();
 
-        // Create unique filename to avoid conflicts
-        String uniqueFileName = System.currentTimeMillis() + "_" + imgName;
-        imgPart.write(uploadPath + File.separator + uniqueFileName);
-    	
+    		// Create unique filename to avoid conflicts
+    		uniqueFileName = System.currentTimeMillis() + "_" + imgName;
+    		imgPart.write(uploadPath + File.separator + uniqueFileName);
+    	}
+    		
     	boolean ok = false;
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	if (tipo == "Asistente") {
@@ -132,7 +142,7 @@ public class servletUsuario extends HttpServlet {
         	// Volver a AltaUsuario
     		altaUsuarioGET(request, response);
     	} else {
-    		request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion").forward(request, response);
+    		request.getRequestDispatcher("/webdinamica/").forward(request, response);
     	}
     }
 
@@ -207,6 +217,13 @@ public class servletUsuario extends HttpServlet {
 		        	consultaRegistroGET(request, response);
 		        }
 		        else {
+		        } else if (path.equals("/fin_sesion")) {
+		        	HttpSession session = request.getSession(false);
+		            if (session != null) {
+		                session.invalidate(); // destroys the session
+		            }
+		            response.sendRedirect("/webdinamica/");
+		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }

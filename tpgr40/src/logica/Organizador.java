@@ -22,7 +22,7 @@ public class Organizador extends Usuario {
 	
 	@Override
 	public DTOrganizador getDatos() {
-		DTOrganizador res = new DTOrganizador(getNickname(), getNombre(), getCorreo(), descripcion, link);
+		DTOrganizador res = new DTOrganizador(getNickname(), getNombre(), getCorreo(), getImagen(), descripcion, link);
 		return res;
 	}
 	

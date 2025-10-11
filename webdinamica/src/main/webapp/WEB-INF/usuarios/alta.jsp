@@ -22,7 +22,7 @@
     <div class="content">
       <h3><strong>Registrar un Usuario:</strong></h3><br/>
 
-          <form class="content-form-alta" onsubmit="return validarSeleccionAltaUsuario()" action="alta_usuario" method="post">
+          <form class="content-form-alta" onsubmit="return validarSeleccionAltaUsuario()" action="alta" method="post">
 
             <label for="tipoUsuario">Tipo de Usuario:</label>
             <button type="button" id="tipoUsuario" onclick="toggleTipoUsuario()"><%= request.getAttribute("tipoUsuario") != null ? request.getAttribute("tipoUsuario") : "Asistente" %></button><br/>
