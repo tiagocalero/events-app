@@ -34,15 +34,12 @@
     String urlConsultaOrganizador = "/webdinamica/registros/consultaRegistroOrg?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
 
     // --- LÓGICA DE VISIBILIDAD DE BOTONES (Organizador/Asistente) ---
-    HttpSession userSession = request.getSession(false);
-    Object usuario = (userSession != null) ? userSession.getAttribute("usuario") : null;
-    
     // Obtener datos del organizador de la edición
     String organizadorNickname = (String) request.getAttribute("organizador");
     
     // Chequeos de rol y registro
-    boolean esOrganizador = (usuario != null) && (usuario instanceof logica.DTOrganizador);
-    boolean esAsistente = (usuario != null) && (usuario instanceof logica.DTAsistente);
+    boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTOrganizador);
+    boolean esAsistente = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTAsistente);
     
     // NOTA: 'estaRegistrado' DEBE ser enviado por el Servlet (true/false)
     Boolean estaRegistrado = (Boolean) request.getAttribute("estaRegistrado");
@@ -52,7 +49,7 @@
     
     // Chequeo si el usuario logueado es el organizador de ESTA edición
     boolean esElOrganizadorDeEstaEdicion = esOrganizador && 
-                                           ((logica.DTOrganizador)usuario).getNickname().equals(organizadorNickname);
+                                           ((logica.DTOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
                                            
 	%>
 	
