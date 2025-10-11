@@ -355,4 +355,8 @@ public class ControladorEvento {
 		ed.rechazar();
 
 	}
+	public Map<String, Evento> listarEventosCategoria(String categoria){
+		ManejadorCategoria m = ManejadorCategoria.getInstance();
+		return m.eventosCategoria(categoria);
+	}
 }
