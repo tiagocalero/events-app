@@ -24,12 +24,11 @@
     <div class="content">
       <h3><strong>Ingrese los datos del nuevo tipo de registro:</strong></h3>
       
-      <form class = "content-form-alta "action="info_tipo_registro" method="post">
+      <form class = "content-form-alta "action="altaTipoRegistro" method="post">
       
-      	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-		<input type="hidden" name="idE" value="${evento.id}" />
-  		<input type="hidden" name="idEd" value="${edicion.id}" />
-  		
+		<input type="hidden" name="idE" value="${evento}" />
+  		<input type="hidden" name="idEd" value="${edicion}" />
+  		<label for= "Nombre">Nombre:</label>
         <input type = "text" id = "name" name = "name" required/><br/>
         <label for= "Descripción">Descripción:</label>
         <input type = "text" id = "Descripción" name = "Descripción"/><br/>
