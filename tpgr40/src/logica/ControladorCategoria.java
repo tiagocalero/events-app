@@ -1,5 +1,9 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import logica.Categoria;
 
 public class ControladorCategoria{
@@ -24,5 +28,17 @@ public class ControladorCategoria{
 			m.altaCategoria(nombreCategoria);
 		
 		return !existe;
+	}
+	
+	public List<String> categorias(){
+		ManejadorCategoria m = ManejadorCategoria.getInstance();
+		Map<String, Categoria> categorias = m.categorias();
+		
+		List<String> res = new ArrayList<>();
+		
+		for (String entry : categorias.keySet())
+			res.add(entry);
+		
+		return res;
 	}
 }

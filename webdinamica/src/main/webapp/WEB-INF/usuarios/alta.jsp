@@ -9,12 +9,11 @@
   <title>Eventos.uy - Registrarse</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
-  <script src="/webdinamica/components/header.js" type="text/javascript" defer></script>
   <script src="/webdinamica/js/altaUsuario.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
-  <header-component></header-component>
+  <%@ include file="/components/header.jsp" %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
@@ -22,10 +21,11 @@
     <div class="content">
       <h3><strong>Registrar un Usuario:</strong></h3><br/>
 
-          <form class="content-form-alta" onsubmit="return validarSeleccionAltaUsuario()" action="alta" method="post">
+          <form class="content-form-alta" onsubmit="return validarSeleccionAltaUsuario()" action="alta" method="post" enctype="multipart/form-data">
 
+			<input type="hidden" id="hiddenTipoUsuario" name="tipo" value="<%= request.getAttribute("tipo") != null ? request.getAttribute("tipo") : "Asistente" %>">
             <label for="tipoUsuario">Tipo de Usuario:</label>
-            <button type="button" id="tipoUsuario" onclick="toggleTipoUsuario()"><%= request.getAttribute("tipoUsuario") != null ? request.getAttribute("tipoUsuario") : "Asistente" %></button><br/>
+            <button type="button" id="tipoUsuario" name="tipoUsuario" onclick="updateHiddenField()"><%= request.getAttribute("tipo") != null ? request.getAttribute("tipoUsuario") : "Asistente" %></button><br/>
 
             <label for="nickname">Nickname:</label>
             <input type="text" id="nickname" name="nickname" 
@@ -39,7 +39,7 @@
               <input type="text" id="apellido" name="apellido" value="<%= request.getAttribute("apellido") != null ? request.getAttribute("apellido") : "" %>"/><br/>
 
               <label for="nacimiento">Fecha Nacimiento:</label>
-              <input type="date" id="nacimiento" name="nacimiento" value="<%= request.getAttribute("nacimiento") != null ? request.getAttribute("nacimiento") : "" %>"required/><br/>
+              <input type="date" id="nacimiento" name="nacimiento" value="<%= request.getAttribute("nacimiento") != null ? request.getAttribute("nacimiento") : "" %>"/><br/>
 
               <label for="institucion">Institución:</label>
               <select id="institucion" name="institucion">
@@ -81,6 +81,12 @@
               <input type="reset" value="Borrar"/>
               <input type="submit" value="Registrarse"/>
             </div>
+            
+			<!-- Mostrar mensaje de error si existe -->
+       		<% if (request.getAttribute("error") != null) { %>
+				<p style="color:red;" id="error_nombre_repetido"><%= request.getAttribute("error") %></p>
+			<% } %>
+			
           </form>
     </div>
 

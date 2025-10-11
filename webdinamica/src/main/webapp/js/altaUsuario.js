@@ -19,12 +19,12 @@ function toggleTipoUsuario() {
 
     if (btn.textContent == 'Organizador') {
         btn.textContent = 'Asistente'
-        datosAs.style.display = 'inline-block';
-        datosOrg.style.display = 'none';
+        inputAs.style.display = 'inline-block';
+        inputOrg.style.display = 'none';
     } else {
         btn.textContent = 'Organizador'
-        datosAs.style.display = 'none';
-        datosOrg.style.display = 'inline-block';
+        inputAs.style.display = 'none';
+        inputOrg.style.display = 'inline-block';
     }
 }
 
@@ -35,12 +35,19 @@ function validarSeleccionAltaUsuario() {
 		alert("Las contraseñas no coinciden.");
 		return false; // evita el submit
 	}
-
-	const select = document.getElementById("institucion");
-	console.log(select.value);
-	if (select.value == "none") {
-		alert("Debe seleccionar una institución.");
-		return false; // evita el submit
+	
+	const nac = document.getElementById("nacimiento");
+	const tipo = document.getElementById('tipoUsuario');
+	if (tipo.innerText == "Asistente" && nac.value == "") {
+		alert("Debes seleccionar una fecha de nacimiento");
+		return false;
 	}
+	
 	return true;
+}
+
+function updateHiddenField() {
+	toggleTipoUsuario();
+    var tipoUsuarioValue = document.getElementById('tipoUsuario').innerText;
+    document.getElementById('hiddenTipoUsuario').value = tipoUsuarioValue;
 }

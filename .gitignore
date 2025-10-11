@@ -3,9 +3,12 @@
 *.classpath
 *.project
 /Servers
-*tpgr40/.settings
-*tpgr40./classpath
-*tpgr40./classpath
+tpgr40/.settings
+tpgr40./classpath
+tpgr40./classpath
+webdinamica/.settings
+webdinamica./classpath
+webdinamica./classpath
 /bin/
 /.settings/
 /.classpath

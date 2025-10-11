@@ -18,6 +18,7 @@ import java.util.UUID;
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
+import logica.DTOrganizador;
 import logica.DTEdicion;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
@@ -95,12 +96,23 @@ public class Evento extends HttpServlet {
         ControladorEvento c = ControladorEvento.getInstance();
         
         // Cargar eventos
-        List<DTEvento> eventos = c.listarDTEventos();
+        
+    	String categoria = request.getParameter("categoria");
+        List<DTEvento> eventos;
+    	if (categoria != null && !categoria.trim().isEmpty()) {
+            eventos = c.listarDTEventosCategoria(categoria);
+        } else {
+            eventos = c.listarDTEventos();
+        }
+
         request.setAttribute("eventos", eventos);
+        request.setAttribute("categoriaSeleccionada", categoria); 
         
         // Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+		
     }
+    
 
     // GET /patrocinios/alta
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -161,7 +173,7 @@ public class Evento extends HttpServlet {
 		altaPatrocinioGET(request, response);
     }
     
- // GET /patrocinios
+    // GET /patrocinios
     // POST /patrocinios
     protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
@@ -192,6 +204,16 @@ public class Evento extends HttpServlet {
     protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
     	
+    	HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	
+	  	// No permitir que asistentes o visitantes accedan
+	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
+        	response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+     
+    	
     	List<String> categorias = c.listarCategorias();
         request.setAttribute("categorias", categorias);
     	
@@ -202,6 +224,15 @@ public class Evento extends HttpServlet {
     // POST /eventos/alta
     // Crea un evento con los parámetros pasados
     protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	
+	  	// No permitir que asistentes o visitantes accedan
+	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
+        	response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+    	
     	String nombre = request.getParameter("nombre");
     	String descripcion = request.getParameter("desc");
     	String sigla = request.getParameter("sigla");
@@ -541,10 +572,12 @@ public class Evento extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+	    listarCategorias(request, response);
+	    
 	    if (servletPath.equals("/eventos")) {
 		
 				String path = request.getPathInfo();
-		
+						
 		        if (path == null || path.equals("/")) {
 		            listarEventos(request, response);
 		        } else if (path.equals("/consulta")) {
@@ -616,11 +649,12 @@ public class Evento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+        listarCategorias(request,response);
         
 	    if (servletPath.equals("/eventos")) {
 		
 		    	String path = request.getPathInfo();
-	
+		    		
 		        if (path == null || path.equals("/")) {
 		            listarEventos(request, response);
 		        } else if (path.equals("/consulta")) {
@@ -670,6 +704,19 @@ public class Evento extends HttpServlet {
 		        response.getWriter().println("404 - Página no encontrada");
 		}
 	}
+	
+	//GET Categorias
+	protected void listarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ControladorCategoria c = ControladorCategoria.getInstance();
+        
+        // Cargar categorias
+        List<String> categorias = c.categorias();
+        request.setAttribute("categorias", categorias);
+        
+        
+        // Mostrar el HTML
+        request.getRequestDispatcher("/WEB-INF/eventos/index.jsp"); //.forward(request, response)		
+    }
 
 }
 

@@ -1,4 +1,5 @@
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,11 @@ import logica.DTEdicion;
  * Servlet implementation class Usuario
  */
 @WebServlet("/usuarios/*")
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024,     // 1 MB
+	    maxFileSize = 1024 * 1024 * 10,      // 10 MB
+	    maxRequestSize = 1024 * 1024 * 50    // 50 MB
+)
 public class servletUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,14 +52,13 @@ public class servletUsuario extends HttpServlet {
     	ControladorInstitucion c = ControladorInstitucion.getInstance();
     	
     	List<String> instituciones = c.listarInstituciones();
-        
         request.setAttribute("instituciones", instituciones);
-    	
+        
     	// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/usuarios/alta.jsp").forward(request, response);
     }
     
-    protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void perfilUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	ControladorInstitucion i = ControladorInstitucion.getInstance();
     	
@@ -73,30 +78,40 @@ public class servletUsuario extends HttpServlet {
     		request.setAttribute("ediciones", ediciones);
     	}
     	
-    	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    	request.getRequestDispatcher("/WEB-INF/usuarios/perfil.jsp").forward(request, response);
+    }
+    
+    protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorUsuario c = ControladorUsuario.getInstance();
+     	String nick = (String) request.getParameter("nick");
+    	if (nick != null) {
+    		DTUsuario usuario = c.obtenerUsuario(nick).getDatos();
+    		request.setAttribute("datos", usuario);
+        	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    	} else {
+    		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    		response.getWriter().println("404 - Página no encontrada");
+    	}
     }
     
 	// POST /usuarios/alta
     // Crea una usuario con los parámetros pasados
     protected void altaUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String tipo = request.getParameter("tipoUsuario");
+    	String tipo = request.getParameter("tipo");
     	String nombre = request.getParameter("name");
     	String nickname = request.getParameter("nickname");
     	String apellido = request.getParameter("apellido");
-    	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
+    	LocalDate nacimiento = null;
+    	if (!request.getParameter("nacimiento").equals("")) {
+    		nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
+    	}
     	String email = request.getParameter("correo");
     	String inst = request.getParameter("institucion");
     	String desc = request.getParameter("desc");
     	String link = request.getParameter("link");
     	String passwd = request.getParameter("pass");
     	
-    	Part imgPart = null;
-        for (Part part : request.getParts()) {
-            if ("foto".equals(part.getName())) {
-                imgPart = part;
-                break;
-            }
-        }
+    	Part imgPart = request.getPart("foto");
     	String imgName = null;
     	String uniqueFileName = null;
     	if (imgPart != null && imgPart.getSize() > 0) {
@@ -114,21 +129,21 @@ public class servletUsuario extends HttpServlet {
     		
     	boolean ok = false;
     	ControladorUsuario c = ControladorUsuario.getInstance();
-    	if (tipo == "Asistente") {
+    	if (tipo.equals("Asistente")) {
     		if (inst != "none") {
     			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
     		} else {
     			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
     		}
-    	} else if (tipo == "Organizador") {
+    	} else if (tipo.equals("Organizador")) {
     		ok = c.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
     	}
     				
     	if (!ok) {
     		// Se incluyen todos los atributos para que se vuelvan a cargar y que el
     		// usuario no tenga que llenarlos de vuelta
-    		request.setAttribute("tipoUsuario", tipo);
-    		request.setAttribute("nombre", nombre);
+    		request.setAttribute("tipo", tipo);
+    		request.setAttribute("name", nombre);
     		request.setAttribute("nickname", nickname);
     		request.setAttribute("apellido", apellido);
     		request.setAttribute("nacimiento", nacimiento);
@@ -142,7 +157,7 @@ public class servletUsuario extends HttpServlet {
         	// Volver a AltaUsuario
     		altaUsuarioGET(request, response);
     	} else {
-    		request.getRequestDispatcher("/webdinamica/").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
     	}
     }
 
@@ -208,9 +223,11 @@ public class servletUsuario extends HttpServlet {
 	    if (servletPath.equals("/usuarios")) {
 				String path = request.getPathInfo();
 		        if (path == null || path.equals("/")) {
-		            consultaUsuarioGET(request, response);
+		            perfilUsuarioGET(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioGET(request, response);
+		        } else if (path.equals("/consulta")) {
+		        	consultaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
 		        } else if (path.equals("/consultaRegistro")) {

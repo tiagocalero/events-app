@@ -355,8 +355,13 @@ public class ControladorEvento {
 		ed.rechazar();
 
 	}
-	public Map<String, Evento> listarEventosCategoria(String categoria){
+
+	public List<DTEvento> listarDTEventosCategoria(String categoria){
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
-		return m.eventosCategoria(categoria);
+		Map<String, Evento> eventos = m.eventosCategoria(categoria);
+
+		return eventos.values().stream().map(Evento::getDatos).collect(Collectors.toList());  
+		
 	}
+	
 }
