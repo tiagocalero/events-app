@@ -1,4 +1,4 @@
-class Header extends HTMLElement {
+class HeaderLoggedIn extends HTMLElement {
   constructor() { super(); }
 
   connectedCallback() {
@@ -56,4 +56,4 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define('header-component', Header);
+customElements.define('header-component-logeado', HeaderLoggedIn);
