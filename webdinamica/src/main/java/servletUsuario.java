@@ -61,17 +61,17 @@ public class servletUsuario extends HttpServlet {
         
         request.setAttribute("instituciones", instituciones);
     	
-    	//HttpSession user = request.getSession(false);
+    	HttpSession user = request.getSession(false);
+    	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+    	c.elegirUsuario(usuario.getNickname());
     	
-    	//DTUsuario u = c.elegirUsuario((String) user.getAttribute("nick"));
-    	
-    	/* if (u instanceof DTAsistente) {
+    	if (usuario instanceof DTAsistente) {
     		List<DTRegistro> registros = c.consultaAsistente();
     		request.setAttribute("registros", registros);
-    	} else if (u instanceof DTOrganizador) {
+    	} else if (usuario instanceof DTOrganizador) {
     		List<DTEdicion> ediciones = c.consultaOrganizador();
     		request.setAttribute("ediciones", ediciones);
-    	} */
+    	}
     	
     	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
     }
