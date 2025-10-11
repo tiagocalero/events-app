@@ -381,6 +381,9 @@ public class Evento extends HttpServlet {
 	   		    	
 	   		    	List<String> ediciones = datosEvento.getEdiciones();
 	   		    	request.setAttribute("ediciones", ediciones);
+	   		    	
+	   		    	String imagen = datosEvento.getImagen();
+	   		    	request.setAttribute("imagen", imagen);
 	   		    
 	   		    	// Mostrar el HTML
 	   				request.getRequestDispatcher("/WEB-INF/eventos/consultaEvento.jsp").forward(request, response);
