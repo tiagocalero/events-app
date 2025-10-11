@@ -227,11 +227,12 @@ public class Evento extends HttpServlet {
 		    	String edicion = request.getParameter("edicion");
 		    	LocalDate fechaAlta = LocalDate.now();
 		    	//Hay que agregar el nickname del organizador desde la sesion
+		    	String nicknameOrganizador = "mec";
 		    	
 		    	ControladorEvento c = ControladorEvento.getInstance();
-		    	//boolean ok = c.altaEdicion(altaEdicion(evento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais));
+		    	boolean ok = c.altaEdicion(evento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
 		    	
-		        /*if (!ok) {
+		        if (!ok) {
 		        	// Se incluyen todos los atributos para que se vuelvan a cargar y que el
 		        	// usuario no tenga que llenarlos de vuelta
 		        	request.setAttribute("name", nombre);
@@ -242,10 +243,10 @@ public class Evento extends HttpServlet {
 		        	request.setAttribute("fecha-fin", fechaFin);
 		        		
 		        	request.setAttribute("error", "Ya existe una edicion con ese nombre");
-		        }*/
+		        }
 		        
 		        // Volver a ConsultaEvento
-		    		//consultaEventoGET(request, response);
+		    	altaEventoGET(request, response);
 		      }
     	
      
@@ -263,6 +264,11 @@ public class Evento extends HttpServlet {
 		
 				    	String evento = request.getParameter("evento");
 				    	String edicion = request.getParameter("edicion");
+
+				    	if (!c.existeEdicionEvento(evento, edicion)) {
+				        	response.sendRedirect("/webdinamica");
+				    		return;
+				    	}
 				    	
 				    	DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
 				    	
@@ -292,11 +298,6 @@ public class Evento extends HttpServlet {
 				    	
 				    	List<String> instituciones = c.listarInstituciones(evento, edicion);
 				    	request.setAttribute("instituciones", instituciones);
-				    	
-				    	if (!c.existeEdicionEvento(evento, edicion)) {
-				        	response.sendRedirect("/webdinamica");
-				    		return;
-				    	}
 				    
 				    	// Mostrar el HTML
 						request.getRequestDispatcher("/WEB-INF/eventos/consultaEdicion.jsp").forward(request, response);
@@ -364,6 +365,11 @@ public class Evento extends HttpServlet {
 	   		    	ControladorEvento c = ControladorEvento.getInstance();
 	
 	   		    	String evento = request.getParameter("evento");
+
+			    	if (!c.listarEventos().contains(evento)) {
+			        	response.sendRedirect("/webdinamica");
+			    		return;
+			    	}
 	   		    	
 	   		    	DTEvento datosEvento = c.informacionEvento(evento);
 	   		    	
@@ -381,6 +387,9 @@ public class Evento extends HttpServlet {
 	   		    	
 	   		    	List<String> ediciones = datosEvento.getEdiciones();
 	   		    	request.setAttribute("ediciones", ediciones);
+	   		    	
+	   		    	String imagen = datosEvento.getImagen();
+	   		    	request.setAttribute("imagen", imagen);
 	   		    
 	   		    	// Mostrar el HTML
 	   				request.getRequestDispatcher("/WEB-INF/eventos/consultaEvento.jsp").forward(request, response);

@@ -4,6 +4,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Paths;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -58,17 +61,17 @@ public class servletUsuario extends HttpServlet {
         
         request.setAttribute("instituciones", instituciones);
     	
-    	//HttpSession user = request.getSession(false);
+    	HttpSession user = request.getSession(false);
+    	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+    	c.elegirUsuario(usuario.getNickname());
     	
-    	//DTUsuario u = c.elegirUsuario((String) user.getAttribute("nick"));
-    	
-    	/* if (u instanceof DTAsistente) {
+    	if (usuario instanceof DTAsistente) {
     		List<DTRegistro> registros = c.consultaAsistente();
     		request.setAttribute("registros", registros);
-    	} else if (u instanceof DTOrganizador) {
+    	} else if (usuario instanceof DTOrganizador) {
     		List<DTEdicion> ediciones = c.consultaOrganizador();
     		request.setAttribute("ediciones", ediciones);
-    	} */
+    	}
     	
     	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
     }
@@ -87,16 +90,28 @@ public class servletUsuario extends HttpServlet {
     	String link = request.getParameter("link");
     	String passwd = request.getParameter("pass");
     	
+    	Part imgPart = request.getPart("foto");
+    	String imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
+
+        // Define where to store it (for example inside /uploads)
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdir();
+
+        // Create unique filename to avoid conflicts
+        String uniqueFileName = System.currentTimeMillis() + "_" + imgName;
+        imgPart.write(uploadPath + File.separator + uniqueFileName);
+    	
     	boolean ok = false;
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	if (tipo == "Asistente") {
     		if (inst != "none") {
-    			ok = c.altaAsistente(nickname, nombre, email, passwd, apellido, nacimiento, inst);
+    			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
     		} else {
-    			ok = c.altaAsistente(nickname, nombre, email, passwd, apellido, nacimiento);
+    			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
     		}
     	} else if (tipo == "Organizador") {
-    		ok = c.altaOrganizador(nickname, nombre, email, passwd, desc, link);
+    		ok = c.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
     	}
     				
     	if (!ok) {
@@ -117,7 +132,7 @@ public class servletUsuario extends HttpServlet {
         	// Volver a AltaUsuario
     		altaUsuarioGET(request, response);
     	} else {
-    		request.getRequestDispatcher("/WEB-INF/eventos").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion").forward(request, response);
     	}
     }
 
@@ -135,14 +150,11 @@ public class servletUsuario extends HttpServlet {
     		HttpSession session = request.getSession(true);
     		DTUsuario dtu = u.getDatos();
     		session.setAttribute("usuario", dtu);
-    	    request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+        	response.sendRedirect("/webdinamica");
     	} else {
-    		request.setAttribute("error", "El usuario o contrasenia son incorrectos");
+    		request.setAttribute("error", "El usuario o contraseña son incorrectos");
     	    request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
-    	    return;
     	}
-    	
-    	
     }
     
     // ######  CONSULTA REGISTRO DOGET  ###### 

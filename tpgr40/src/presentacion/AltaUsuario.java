@@ -236,7 +236,7 @@ public class AltaUsuario extends JInternalFrame {
         }
                 
         ControladorUsuario c = ControladorUsuario.getInstance();
-        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
+        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -263,7 +263,7 @@ public class AltaUsuario extends JInternalFrame {
                 	break;
             };
         }
-        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, apellido, nacimiento)) {    
+        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento)) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -328,7 +328,7 @@ public class AltaUsuario extends JInternalFrame {
         // Si la operación genera un error, mostrárselo al usuario
         boolean ok;
         try {
-        	ok = c.altaOrganizador(nickname, nombre, correo, cont, desc, link);
+        	ok = c.altaOrganizador(nickname, nombre, correo, cont, null, desc, link);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;

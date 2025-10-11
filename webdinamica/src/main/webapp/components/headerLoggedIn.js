@@ -36,7 +36,7 @@ class Header extends HTMLElement {
                 aria-expanded="false"
               >
                 <img
-                  src=/webdinamica/assets/IMG-US01.jpg
+                  src=${imgPath}
                   alt="mdo"
                   width="40"
                   height="40"

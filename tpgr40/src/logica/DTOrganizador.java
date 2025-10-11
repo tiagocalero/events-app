@@ -9,6 +9,13 @@ public class DTOrganizador extends DTUsuario {
 		this.descripcion = desc;
 		this.link = link;
 	}
+	
+	public DTOrganizador(String nick, String nom, String c, String img, String desc, String link) {
+		super(nick, nom, c, img);
+		this.descripcion = desc;
+		this.link = link;
+	}
+	
 	public String getDescripcion() { return descripcion; }
 	public String getLink() { return link; }
 }

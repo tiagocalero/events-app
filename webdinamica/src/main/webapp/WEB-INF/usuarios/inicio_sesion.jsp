@@ -25,7 +25,7 @@
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto">
       <form action="/webdinamica/usuarios/inicio_sesion" method="post">
-        <a href="index.html"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
+        <a href="/webdinamica"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
         <h1 class="h3 mb-3 fw-normal">inicie sesión</h1>
         <div class="form-floating">
           <input
@@ -57,6 +57,10 @@
             Remember me
           </label>
         </div>
+        
+        <% if (request.getAttribute("error") != null) { %>
+		    <p style="color:red;"><%= request.getAttribute("error") %></p>
+		<% } %>
         <button class="btn_login" type="submit">
           iniciar sesión
         </button>
