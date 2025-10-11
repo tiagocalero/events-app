@@ -2,7 +2,9 @@ package logica;
 
 import logica.Categoria;
 import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ManejadorCategoria {
 	private Map<String, Categoria> categorias;
@@ -51,7 +53,8 @@ public class ManejadorCategoria {
 
 	// Devuelve una copia del map de categorías sobre el que se puede iterar
 	public Map<String, Categoria> categorias() {
-        return Map.copyOf(categorias);
+		return Map.copyOf(categorias);
+		
     }
 	
 	public Map<String, Evento> eventosCategoria(String categoria){
