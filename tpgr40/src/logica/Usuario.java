@@ -11,6 +11,7 @@ public abstract class Usuario {
 	private String nombre;
 	private String correo;
 	private String contrasena;
+	private String imagen;
 	
 	public Usuario(String nick, String nom, String c, String contrasena) {
 		ControladorUsuario cu = ControladorUsuario.getInstance();
@@ -18,6 +19,16 @@ public abstract class Usuario {
 		this.nombre = nom;
 		this.correo = c;
 		this.contrasena = cu.hashearContrasena(contrasena);
+		this.imagen = null;
+	}
+	
+	public Usuario(String nick, String nom, String c, String contrasena, String img) {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		this.nickname = nick;
+		this.nombre = nom;
+		this.correo = c;
+		this.contrasena = cu.hashearContrasena(contrasena);
+		this.imagen = img;
 	}
 	
 	public String getNickname() {
@@ -41,6 +52,10 @@ public abstract class Usuario {
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public void setImagen(String img) {
+		this.imagen = img;
 	}
 	
 	public abstract void modificar(DTUsuarioModificado datos);

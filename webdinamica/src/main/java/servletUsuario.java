@@ -4,6 +4,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Paths;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -87,16 +90,28 @@ public class servletUsuario extends HttpServlet {
     	String link = request.getParameter("link");
     	String passwd = request.getParameter("pass");
     	
+    	Part imgPart = request.getPart("foto");
+    	String imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
+
+        // Define where to store it (for example inside /uploads)
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdir();
+
+        // Create unique filename to avoid conflicts
+        String uniqueFileName = System.currentTimeMillis() + "_" + imgName;
+        imgPart.write(uploadPath + File.separator + uniqueFileName);
+    	
     	boolean ok = false;
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	if (tipo == "Asistente") {
     		if (inst != "none") {
-    			ok = c.altaAsistente(nickname, nombre, email, passwd, apellido, nacimiento, inst);
+    			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
     		} else {
-    			ok = c.altaAsistente(nickname, nombre, email, passwd, apellido, nacimiento);
+    			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
     		}
     	} else if (tipo == "Organizador") {
-    		ok = c.altaOrganizador(nickname, nombre, email, passwd, desc, link);
+    		ok = c.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
     	}
     				
     	if (!ok) {
@@ -117,7 +132,7 @@ public class servletUsuario extends HttpServlet {
         	// Volver a AltaUsuario
     		altaUsuarioGET(request, response);
     	} else {
-    		request.getRequestDispatcher("/WEB-INF/eventos").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion").forward(request, response);
     	}
     }
 

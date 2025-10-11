@@ -79,7 +79,7 @@ public class CargarDatos {
 		
 		//Cargar Organizaciones
 		ControladorUsuario u = ControladorUsuario.getInstance();
-		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "22miseventos", "Empresa de organización de eventos.", "https://miseventos.com");
+		boolean  org = u.altaOrganizador("miseventos", "MisEventos", "contacto@miseventos.com", "22miseventos", "IMG-US04.jpeg", "Empresa de organización de eventos.", "https://miseventos.com");
 		org = u.altaOrganizador("techcorp", "Corporación Tecnológica", "info@techcorp.com", "tech25corp", "Empresa líder en tecnologías de la información.", "");
 		org = u.altaOrganizador("imm", "Intendencia de Montevideo", "contacto@imm.gub.uy", "imm2025", "Gobierno departamental de Montevideo.", "https://montevideo.gub.uy");
 		org = u.altaOrganizador("udelar", "Universidad de la República", "contacto@udelar.edu.uy", "25udelar", "Universidad pública de Uruguay.", "https://udelar.edu.uy");
@@ -177,7 +177,7 @@ public class CargarDatos {
 		} catch (Exception e1) {}
 		
 		//Cargar Asistentes
-		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
+		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "IMG-US01.jpg", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
 		as = u.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
 		as = u.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "srod.abc1", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
 		as = u.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "valen11c", "Costa", LocalDate.parse("01/12/1992", fmt));

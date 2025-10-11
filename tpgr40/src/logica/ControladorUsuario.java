@@ -100,6 +100,22 @@ public class ControladorUsuario{
 		return m.crearOrganizador(nick, nom, c, cont, desc, link);
 	}
 	
+	// Con Imagenes.
+	public boolean altaAsistente(String nick, String nom, String c, String img, String cont, String ap, LocalDate nac, String ins) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, cont, img, ap, nac, ins);
+	}
+	
+	public boolean altaAsistente(String nick, String nom, String c, String img, String cont, String ap, LocalDate nac) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearAsistente(nick, nom, c, cont, img, ap, nac);
+	}
+
+	public boolean altaOrganizador(String nick, String nom, String c, String img, String cont, String desc, String link) {
+		ManejadorUsuario m = ManejadorUsuario.getInstance();
+		return m.crearOrganizador(nick, nom, c, cont, img, desc, link);
+	}
+	
 	//RECUERDA USUARIO CON MEMORIA
 	public List<DTEdicion> consultaOrganizador() {
 		assert usuario instanceof Organizador;

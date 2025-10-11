@@ -33,6 +33,22 @@ public class Asistente extends Usuario {
 		this.registros = new HashSet<>();
 	}
 	
+	public Asistente(String nick, String nom, String c, String contrasena, String img, String ap, LocalDate fecha) {
+		super(nick, nom, c, contrasena, img);
+		this.apellido = ap;
+		this.nacimiento = fecha;
+		this.registros = new HashSet<>();
+	}
+	
+	
+	public Asistente(String nick, String nom, String c, String contrasena, String img, String ap, LocalDate fecha, Institucion ins) {
+		super(nick, nom, c, contrasena, img);
+		this.apellido = ap;
+		this.nacimiento = fecha;
+		this.institucion = ins;
+		this.registros = new HashSet<>();
+	}
+	
 	public void agregarRegistro(Registro reg) {
 		registros.add(reg);
 	}
@@ -56,6 +72,8 @@ public class Asistente extends Usuario {
 		this.nacimiento = datosA.getNacimiento();
 		String ins = datosA.getInstitucion();
 		if (ins != null) this.institucion = c.obtenerInstitucion(ins);
+		String img = datosA.getImagen();
+		if (img != null) this.setImagen(img); 
 	}
 
 	//Retorna el registro con el nombre de la edicion

@@ -20,6 +20,13 @@ public class Organizador extends Usuario {
 		this.ediciones = new HashMap<String, Edicion>();
 	}
 	
+	public Organizador(String nick, String nom, String c, String contrasena, String img, String desc, String link) {
+		super(nick, nom, c, contrasena, img);
+		this.descripcion = desc;
+		this.link = link;
+		this.ediciones = new HashMap<String, Edicion>();
+	}
+	
 	@Override
 	public DTOrganizador getDatos() {
 		DTOrganizador res = new DTOrganizador(getNickname(), getNombre(), getCorreo(), descripcion, link);
@@ -33,6 +40,8 @@ public class Organizador extends Usuario {
 		this.setNombre(datosO.getNombre());
 		this.descripcion = datosO.getDescripcion();
 		this.link = datosO.getLink();
+		String img = datosO.getImagen();
+		if (img != null) this.setImagen(img); 
 	}
 
 	public List<DTEdicion> consulta() {
