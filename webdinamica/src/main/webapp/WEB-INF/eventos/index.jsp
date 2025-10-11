@@ -31,8 +31,13 @@
     <%@ include file="/components/sidebar.jsp" %>
   	<div class="container py-3">
 	  	<div class="row gy-3">
+		
+		<!-- Para todas las categorias -->
 		<%
-    	List<DTEvento> eventos = (List<DTEvento>) request.getAttribute("eventos");
+		String categoria = request.getParameter("categoria");
+		List<DTEvento> eventos = (List<DTEvento>) request.getAttribute("eventos");
+	    
+		
     	for (DTEvento e : eventos) { %>
 	      <div class="col-sm-6">
 		      <div class="card">
@@ -53,6 +58,10 @@
 		<%
     	}
 		%>
+		
+
+		
+	
 	    </div>
     </div>
   </main>

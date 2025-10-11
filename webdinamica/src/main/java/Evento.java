@@ -94,13 +94,28 @@ public class Evento extends HttpServlet {
     protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ControladorEvento c = ControladorEvento.getInstance();
         
+        /*
         // Cargar eventos
         List<DTEvento> eventos = c.listarDTEventos();
         request.setAttribute("eventos", eventos);
         
         // Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+		*/
+    	String categoria = request.getParameter("categoria");
+        List<DTEvento> eventos;
+    	if (categoria != null && !categoria.trim().isEmpty()) {
+            eventos = c.listarDTEventosCategoria(categoria);
+        } else {
+            eventos = c.listarDTEventos();
+        }
+
+        request.setAttribute("eventos", eventos);
+        request.setAttribute("categoriaSeleccionada", categoria); // optional, for JSP filter
+        request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+		
     }
+    
 
     // GET /patrocinios/alta
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

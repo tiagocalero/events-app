@@ -53,4 +53,9 @@ public class ManejadorCategoria {
 	public Map<String, Categoria> categorias() {
         return Map.copyOf(categorias);
     }
+	
+	public Map<String, Evento> eventosCategoria(String categoria){
+		Categoria cat = categorias.get(categoria);
+		return cat.eventosCategoria();
+	}
 }
