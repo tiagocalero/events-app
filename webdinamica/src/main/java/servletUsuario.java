@@ -219,6 +219,7 @@ public class servletUsuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Categoria.listarCategorias(request, response);
 		String servletPath = request.getServletPath();
 	    if (servletPath.equals("/usuarios")) {
 				String path = request.getPathInfo();

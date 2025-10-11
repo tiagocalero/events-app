@@ -31,7 +31,7 @@ public class Institucion extends HttpServlet {
 	
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    	
+    	Categoria.listarCategorias(request, response);
     	
     	request.getRequestDispatcher("/WEB-INF/instituciones/altaInstitucion.jsp").forward(request, response);
 	}
