@@ -710,12 +710,12 @@ public class Evento extends HttpServlet {
         ControladorCategoria c = ControladorCategoria.getInstance();
         
         // Cargar categorias
-        List<String> categorias = c.categorias();
-        request.setAttribute("categorias", categorias);
+        List<String> categoriasListado = c.categorias();
+        request.setAttribute("categoriasListado", categoriasListado);
         
         
         // Mostrar el HTML
-        request.getRequestDispatcher("/WEB-INF/eventos/index.jsp"); //.forward(request, response)		
+        request.getRequestDispatcher("/WEB-INF"); 		
     }
 
 }
