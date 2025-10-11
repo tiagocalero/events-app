@@ -34,7 +34,7 @@ public class AltaUsuario extends JInternalFrame {
 	
 	public AltaUsuario() {
 		setVisible(true); 
-        setSize(426, 512);
+        setSize(426, 526);
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -155,7 +155,7 @@ public class AltaUsuario extends JInternalFrame {
 		panel.add(textArea);
 		
 		JLabel lblContrasea = new JLabel("Contraseña:");
-		lblContrasea.setBounds(43, 132, 140, 16);
+		lblContrasea.setBounds(43, 137, 140, 16);
 		panel.add(lblContrasea);
 		
 		textField_5 = new JTextField();
@@ -164,7 +164,7 @@ public class AltaUsuario extends JInternalFrame {
 		panel.add(textField_5);
 		
 		JLabel lblConfirmarContrase = new JLabel("Confirmar Contraseña:");
-		lblConfirmarContrase.setBounds(43, 170, 140, 16);
+		lblConfirmarContrase.setBounds(43, 170, 140, 26);
 		panel.add(lblConfirmarContrase);
 		
 		textField_7 = new JTextField();
