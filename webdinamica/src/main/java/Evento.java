@@ -70,6 +70,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import logica.DTAsistente;
+
 /**
  * Servlet implementation class Evento
  */
@@ -572,7 +573,7 @@ public class Evento extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
-	    listarCategorias(request, response);
+	    Categoria.listarCategorias(request, response);
 	    
 	    if (servletPath.equals("/eventos")) {
 		
@@ -649,7 +650,6 @@ public class Evento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
-        listarCategorias(request,response);
         
 	    if (servletPath.equals("/eventos")) {
 		
@@ -705,18 +705,5 @@ public class Evento extends HttpServlet {
 		}
 	}
 	
-	//GET Categorias
-	protected void listarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ControladorCategoria c = ControladorCategoria.getInstance();
-        
-        // Cargar categorias
-        List<String> categoriasListado = c.categorias();
-        request.setAttribute("categoriasListado", categoriasListado);
-        
-        
-        // Mostrar el HTML
-        request.getRequestDispatcher("/WEB-INF"); 		
-    }
-
 }
 
