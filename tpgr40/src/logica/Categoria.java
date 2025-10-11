@@ -20,4 +20,8 @@ public class Categoria {
 	public void crearLink(Evento evento) {
 		eventos.put(evento.getNombre(), evento);
 	}
+	
+	public Map<String, Evento> eventosCategoria(){
+		return Map.copyOf(eventos);
+	}
 }

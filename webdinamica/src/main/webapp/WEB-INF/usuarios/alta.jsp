@@ -9,12 +9,11 @@
   <title>Eventos.uy - Registrarse</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
-  <script src="/webdinamica/components/header.js" type="text/javascript" defer></script>
   <script src="/webdinamica/js/altaUsuario.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
-  <header-component></header-component>
+  <%@ include file="/components/header.jsp" %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>

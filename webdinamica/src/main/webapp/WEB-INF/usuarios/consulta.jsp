@@ -21,14 +21,10 @@
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
+  <%@ include file="/components/header.jsp" %>
   <% DTUsuario usuario = (DTUsuario) request.getAttribute("datos");
   	 DTAsistente asistente = null;
-	 DTOrganizador organizador = null;
-  	 if (usuario.getImagen() != null) { %>
-  	 	<header-component-logeado imgPath="/webdinamica/uploads/<%= usuario.getImagen() %>"></header-component-logeado>
-  	 <% } else { %>
-  		<header-component-logeado imgPath="/webdinamica/assets/default_profile.jpg"></header-component-logeado>
-  	 <% } %>
+	 DTOrganizador organizador = null; %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>

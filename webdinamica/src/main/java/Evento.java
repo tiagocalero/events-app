@@ -18,6 +18,7 @@ import java.util.UUID;
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
+import logica.DTOrganizador;
 import logica.DTEdicion;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
@@ -94,13 +95,28 @@ public class Evento extends HttpServlet {
     protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ControladorEvento c = ControladorEvento.getInstance();
         
+        /*
         // Cargar eventos
         List<DTEvento> eventos = c.listarDTEventos();
         request.setAttribute("eventos", eventos);
         
         // Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+		*/
+    	String categoria = request.getParameter("categoria");
+        List<DTEvento> eventos;
+    	if (categoria != null && !categoria.trim().isEmpty()) {
+            eventos = c.listarDTEventosCategoria(categoria);
+        } else {
+            eventos = c.listarDTEventos();
+        }
+
+        request.setAttribute("eventos", eventos);
+        request.setAttribute("categoriaSeleccionada", categoria); // optional, for JSP filter
+        request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
+		
     }
+    
 
     // GET /patrocinios/alta
     protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -161,7 +177,7 @@ public class Evento extends HttpServlet {
 		altaPatrocinioGET(request, response);
     }
     
- // GET /patrocinios
+    // GET /patrocinios
     // POST /patrocinios
     protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
@@ -192,6 +208,16 @@ public class Evento extends HttpServlet {
     protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorEvento c = ControladorEvento.getInstance();
     	
+    	HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	
+	  	// No permitir que asistentes o visitantes accedan
+	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
+        	response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+     
+    	
     	List<String> categorias = c.listarCategorias();
         
         request.setAttribute("categorias", categorias);
@@ -203,6 +229,15 @@ public class Evento extends HttpServlet {
     // POST /eventos/alta
     // Crea un evento con los parámetros pasados
     protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	
+	  	// No permitir que asistentes o visitantes accedan
+	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
+        	response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+    	
     	String nombre = request.getParameter("nombre");
     	String descripcion = request.getParameter("desc");
     	String sigla = request.getParameter("sigla");
