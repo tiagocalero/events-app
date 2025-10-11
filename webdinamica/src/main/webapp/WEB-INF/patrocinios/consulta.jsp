@@ -60,8 +60,12 @@
           <li class="mb-1">
             Tipo de Registro
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-		        <li><a href="consultaTipoRegistroTR19.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= dtp.getTipoRegistro() %></a></li>
-            </ul>
+		        <li>
+					<a href="/webdinamica/TipoRegistro/consultaTipoRegistro?evento=<%= request.getParameter("evento") %>&edicion=<%= request.getParameter("edicion") %>&tipoRegistro=<%= dtp.getTipoRegistro() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+  						<%= dtp.getTipoRegistro() %>
+					</a>
+				</li>
+			</ul>
           </li>
         </ul>
     </div>
