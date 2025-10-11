@@ -53,7 +53,7 @@ public class servletUsuario extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/usuarios/alta.jsp").forward(request, response);
     }
     
-    protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void perfilUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	ControladorInstitucion i = ControladorInstitucion.getInstance();
     	
@@ -73,7 +73,20 @@ public class servletUsuario extends HttpServlet {
     		request.setAttribute("ediciones", ediciones);
     	}
     	
-    	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    	request.getRequestDispatcher("/WEB-INF/usuarios/perfil.jsp").forward(request, response);
+    }
+    
+    protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorUsuario c = ControladorUsuario.getInstance();
+     	String nick = (String) request.getParameter("nick");
+    	if (nick != null) {
+    		DTUsuario usuario = c.obtenerUsuario(nick).getDatos();
+    		request.setAttribute("datos", usuario);
+        	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    	} else {
+    		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    		response.getWriter().println("404 - Página no encontrada");
+    	}
     }
     
 	// POST /usuarios/alta
@@ -208,9 +221,11 @@ public class servletUsuario extends HttpServlet {
 	    if (servletPath.equals("/usuarios")) {
 				String path = request.getPathInfo();
 		        if (path == null || path.equals("/")) {
-		            consultaUsuarioGET(request, response);
+		            perfilUsuarioGET(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioGET(request, response);
+		        } else if (path.equals("/consulta")) {
+		        	consultaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
 		        } else if (path.equals("/consultaRegistro")) {
