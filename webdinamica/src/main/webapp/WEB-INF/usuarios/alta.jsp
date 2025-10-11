@@ -25,7 +25,7 @@
 
 			<input type="hidden" id="hiddenTipoUsuario" name="tipo" value="<%= request.getAttribute("tipo") != null ? request.getAttribute("tipo") : "Asistente" %>">
             <label for="tipoUsuario">Tipo de Usuario:</label>
-            <button type="button" id="tipoUsuario" name="tipoUsuario" onclick="updateHiddenField()"><%= request.getAttribute("tipo") != null ? request.getAttribute("tipoUsuario") : "Asistente" %></button><br/>
+            <button type="button" id="tipoUsuario" name="tipoUsuario" onclick="updateHiddenField()"><%= request.getAttribute("tipo") != null ? request.getAttribute("tipo") : "Asistente" %></button><br/>
 
             <label for="nickname">Nickname:</label>
             <input type="text" id="nickname" name="nickname" 
