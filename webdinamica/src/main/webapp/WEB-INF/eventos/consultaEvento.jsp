@@ -70,10 +70,7 @@
             Ediciones
             
             <% 
-              // 1. Lógica de Sesión y Usuario
-              HttpSession userSession = request.getSession(false);
-              Object usuario = (userSession != null) ? userSession.getAttribute("usuario") : null;
-              boolean esOrganizador = (usuario != null) && (usuario instanceof logica.DTOrganizador); 
+              boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTOrganizador); 
               
               // 2. Declaración de variables para enlaces (Con alcance para toda la sección)
               String nombreEvento = request.getParameter("evento");
