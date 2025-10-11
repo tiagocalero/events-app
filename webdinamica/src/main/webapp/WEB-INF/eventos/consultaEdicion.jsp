@@ -155,14 +155,18 @@
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
 	           <% 
 	               List<String> instituciones = (List<String>) request.getAttribute("instituciones");
-	               if (instituciones != null) {
+	               if (instituciones != null && !instituciones.isEmpty()) {
 	                   for (String institucion : instituciones) { 
 	           %>
 	                   <li><a href="/webdinamica/patrocinios?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>&institucion=<%= institucion %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= institucion %></a></li>
 	           <% 
 	                   }
-	               } 
-	           %>
+	               } else {
+               %>
+                     <li>No hay patrocinios disponibles.</li>
+               <%
+                 }
+               %>
 	       </ul>
 	     </li>
 	    </ul>

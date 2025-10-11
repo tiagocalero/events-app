@@ -45,9 +45,9 @@ public class ManejadorUsuario {
 	
 	// Con imagenes.
 	public boolean crearAsistente(String nick, String nom, String c, String cont, String img, String ap, LocalDate nac) {
-    	for(Usuario u: usuariosNick.values()) {
-    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
-    	}		
+		if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(c))
+    		return false;
+		
         Asistente a = new Asistente(nick, nom, c, cont, img, ap, nac);
         usuariosNick.put(nick, a);
         usuariosCorreo.put(c, a);
@@ -55,9 +55,9 @@ public class ManejadorUsuario {
     }
     
     public boolean crearAsistente(String nick, String nom, String c, String cont, String img, String ap, LocalDate nac, String ins) {
-    	for(Usuario u: usuariosNick.values()) {
-    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
-    	}
+    	if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(c))
+    		return false;
+    	
     	ControladorInstitucion ci = ControladorInstitucion.getInstance();
     	Institucion institucion = ci.obtenerInstitucion(ins);
         Asistente a = new Asistente(nick, nom, c, cont, img, ap, nac, institucion);
@@ -67,9 +67,9 @@ public class ManejadorUsuario {
     }
 
 	public boolean crearOrganizador(String nick, String nom, String c, String cont, String img, String desc, String link) {
-    	for(Usuario u: usuariosNick.values()) {
-    		if (nick.equals(u.getNickname()) || c.equals(u.getCorreo())) return false;
-    	}		
+    	if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(c))
+    		return false;
+				
         Organizador o = new Organizador(nick, nom, c, cont, img, desc, link);
         usuariosNick.put(nick, o);
         usuariosCorreo.put(c, o);
