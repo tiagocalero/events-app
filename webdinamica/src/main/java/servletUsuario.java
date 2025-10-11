@@ -215,8 +215,6 @@ public class servletUsuario extends HttpServlet {
 					inicio_sesionGET(request, response);
 		        } else if (path.equals("/consultaRegistro")) {
 		        	consultaRegistroGET(request, response);
-		        }
-		        else {
 		        } else if (path.equals("/fin_sesion")) {
 		        	HttpSession session = request.getSession(false);
 		            if (session != null) {
