@@ -21,12 +21,13 @@
         </div>
       </li>
       
-	  <% boolean datosCargados = false;
+	  <% HttpSession userSessionSidebar = request.getSession(false);
+	     DTUsuario usuarioLoggeadoSidebar = (DTUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
+	     boolean datosCargados = false;
 	     if (getServletContext().getAttribute("datosCargados") != null)
 	      	datosCargados = (boolean) getServletContext().getAttribute("datosCargados");
 	     
-	     // Está bien que tire error -- usuarioLoggeado está definido en header.jsp, pero no se detecta
-	  	 if ((usuarioLoggeado != null && (usuarioLoggeado instanceof DTOrganizador)) || !datosCargados) { %>
+	     if ((usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DTOrganizador)) || !datosCargados) { %>
       <li class="border-top my-3"></li>
       <li class="mb-1">
         <button
@@ -40,7 +41,7 @@
         <div class="collapse" id="account-collapse">
 
 		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-	  	  <% if (usuarioLoggeado != null && (usuarioLoggeado instanceof DTOrganizador)) { %>
+	  	  <% if (usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DTOrganizador)) { %>
 			  <li>
 			    <a
 			      href="/webdinamica/eventos/alta"
