@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="logica.DTUsuario" %> 
+<%@ page import="logica.DTOrganizador" %> 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -66,17 +70,29 @@
             Ediciones
             
             <% 
-              String nombreEvento = request.getParameter("evento");
+              // 1. Lógica de Sesión y Usuario
+              HttpSession userSession = request.getSession(false);
+              Object usuario = (userSession != null) ? userSession.getAttribute("usuario") : null;
+              boolean esOrganizador = (usuario != null) && (usuario instanceof logica.DTOrganizador); 
               
+              // 2. Declaración de variables para enlaces (Con alcance para toda la sección)
+              String nombreEvento = request.getParameter("evento");
               String urlAltaEdicion = "/webdinamica/ediciones/altaEdicion?evento=" + nombreEvento;
+              
+              // 3. Mostrar el botón SOLO si el usuario es un Organizador
+              if (esOrganizador) {
             %>
             
-            <%-- Enlace para alta de edición (estático) --%>
+            <%-- Enlace para alta de edición (Solo visible para Organizadores) --%>
             <a href="<%= urlAltaEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
                 </svg>
             </a>
+            
+            <%
+              } // Cierre del if (esOrganizador)
+            %>
             
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               <%-- Iteración de ediciones usando Scriptlet --%>

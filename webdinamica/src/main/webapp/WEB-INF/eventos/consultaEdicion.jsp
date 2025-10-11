@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="logica.DTOrganizador" %>
+<%@ page import="logica.DTAsistente" %> <%-- Nueva Importación --%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,12 +28,36 @@
     String nombreEvento = request.getParameter("evento");
     String nombreEdicion = request.getParameter("edicion"); 
     
-    // Construimos la URL de destino con los parámetros
-    String urlRegistro = "/webdinamica/ediciones/registroAEdicionEvento?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+    // URL base para el registro y consulta
+    String urlRegistroAsistente = "/webdinamica/ediciones/registroAEdicionEvento?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+    String urlConsultaAsistente = "/webdinamica/registros/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+    String urlConsultaOrganizador = "/webdinamica/registros/consultaRegistroOrg?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+
+    // --- LÓGICA DE VISIBILIDAD DE BOTONES (Organizador/Asistente) ---
+    HttpSession userSession = request.getSession(false);
+    Object usuario = (userSession != null) ? userSession.getAttribute("usuario") : null;
+    
+    // Obtener datos del organizador de la edición
+    String organizadorNickname = (String) request.getAttribute("organizador");
+    
+    // Chequeos de rol y registro
+    boolean esOrganizador = (usuario != null) && (usuario instanceof logica.DTOrganizador);
+    boolean esAsistente = (usuario != null) && (usuario instanceof logica.DTAsistente);
+    
+    // NOTA: 'estaRegistrado' DEBE ser enviado por el Servlet (true/false)
+    Boolean estaRegistrado = (Boolean) request.getAttribute("estaRegistrado");
+    if (estaRegistrado == null) {
+        estaRegistrado = false; // Valor por defecto seguro
+    }
+    
+    // Chequeo si el usuario logueado es el organizador de ESTA edición
+    boolean esElOrganizadorDeEstaEdicion = esOrganizador && 
+                                           ((logica.DTOrganizador)usuario).getNickname().equals(organizadorNickname);
+                                           
 	%>
 	
     <div class="content">
-      <form class="content-form-consulta", method="get", action="registroAEdicionDeEvento.html">
+      <form class="content-form-consulta" method="get" action="registroAEdicionDeEvento.html">
         <div class="edition-detail">
           
           <h2><%= request.getParameter("edicion") %></h2> 
@@ -42,9 +70,34 @@
           <p><strong>Fecha Fin:</strong> <%= ((LocalDate) request.getAttribute("fecha-fin")).toString() %></p>
           <p><strong>Fecha Alta:</strong> <%= ((LocalDate) request.getAttribute("fecha-alta")).toString() %></p>
           
-          <a href="<%= urlRegistro %>" class="btn btn-primary mt-3">
-              Registrarme a esta edición
-          </a>
+          <%-- Lógica de Botones Condicionales --%>
+          <% 
+            if (esElOrganizadorDeEstaEdicion) { 
+              // 1. Organizador de esta Edición: Ver listado de registros
+          %>
+            <a href="<%= urlConsultaOrganizador %>" class="btn btn-warning mt-3">
+              Ver Listado de Registros
+            </a>
+          <% 
+            } else if (esAsistente) {
+              if (estaRegistrado) { 
+                // 2. Asistente Registrado: Ver detalles de su registro
+          %>
+                <a href="<%= urlConsultaAsistente %>" class="btn btn-success mt-3">
+                  Ver Detalles de mi Registro
+                </a>
+          <% 
+              } else { 
+                // 3. Asistente NO Registrado: Botón para registrarse
+          %>
+                <a href="<%= urlRegistroAsistente %>" class="btn btn-primary mt-3">
+                  Registrarme a esta edición
+                </a>
+          <% 
+              }
+            } 
+            // Si es un Organizador que NO es el de esta edición, o no está logueado, no se muestra ningún botón.
+          %>
         
         </div>
 
@@ -58,7 +111,16 @@
          <li class="mb-1">
            Organizador
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-           <li><a href="consultaUsuarioOrg.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getAttribute("organizador") %></a></li>
+           <% 
+             String organizadorNicknameConsulta = (String) request.getAttribute("organizador");
+             String urlConsultaUsuario = "/webdinamica/consultaUsuario?nick=" + organizadorNicknameConsulta;
+           %>
+           <li>
+             <%-- Enlace dinámico al organizador --%>
+             <a href="<%= urlConsultaUsuario %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+               <%= organizadorNicknameConsulta %>
+             </a>
+           </li>
            </ul>
          </li>
        </ul>
@@ -85,11 +147,15 @@
        <ul class="list-unstyled ps-0">
          <li class="mb-1">
            Patrocinios
+           <%-- Bloque Condicional para el botón de Patrocinios (solo para el Organizador logueado) --%>
+           <% if (esOrganizador) { %>
            <a href="/webdinamica/patrocinios/alta?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
 		          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
 		   		</svg>
            </a>
+           <% } %>
+           
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
 	           <% 
 	               List<String> instituciones = (List<String>) request.getAttribute("instituciones");

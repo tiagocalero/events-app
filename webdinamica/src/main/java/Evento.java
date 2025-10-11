@@ -4,6 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.File;
@@ -20,8 +21,54 @@ import logica.DTEvento;
 import logica.DTEdicion;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
+import logica.DTUsuario;
 import logica.TipoNivelPatrocinio;
+import logica.DTAsistente;
+import java.time.LocalDate;
+import logica.DTEdicion;
+import logica.ManejadorUsuario;
+import logica.Asistente;
+import logica.Usuario;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import logica.DTAsistente;
+import java.time.LocalDate;
+import logica.DTEdicion;
+import logica.ManejadorUsuario;
+import logica.Asistente;
+import logica.Usuario;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import logica.DTAsistente;
+import java.time.LocalDate;
+import logica.DTEdicion;
+import logica.ManejadorUsuario;
+import logica.Asistente;
+import logica.Usuario;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import logica.DTAsistente;
 /**
  * Servlet implementation class Evento
  */
@@ -226,9 +273,12 @@ public class Evento extends HttpServlet {
 		    	String evento = request.getParameter("evento");
 		    	String edicion = request.getParameter("edicion");
 		    	LocalDate fechaAlta = LocalDate.now();
-		    	//Hay que agregar el nickname del organizador desde la sesion
-		    	String nicknameOrganizador = "mec";
 		    	
+		    	HttpSession user = request.getSession(false);
+		     	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+		     	
+		     	String nicknameOrganizador = usuario.getNickname();
+
 		    	ControladorEvento c = ControladorEvento.getInstance();
 		    	boolean ok = c.altaEdicion(evento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
 		    	
@@ -246,7 +296,7 @@ public class Evento extends HttpServlet {
 		        }
 		        
 		        // Volver a ConsultaEvento
-		    	altaEventoGET(request, response);
+		    	consultaEventoGET(request, response);
 		      }
     	
      
@@ -259,49 +309,68 @@ public class Evento extends HttpServlet {
 			 // GET /ediciones/consultaEdicion
 		     // Carga las categorías existentes en el formulario
 		     protected void consultaEdicionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-				    	ControladorEvento c = ControladorEvento.getInstance();
-		
-				    	String evento = request.getParameter("evento");
-				    	String edicion = request.getParameter("edicion");
+		    	    
+		    	    ControladorEvento c = ControladorEvento.getInstance();
 
-				    	if (!c.existeEdicionEvento(evento, edicion)) {
-				        	response.sendRedirect("/webdinamica");
-				    		return;
-				    	}
-				    	
-				    	DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
-				    	
-				    	String pais = datosEdicion.getPais();
-				    	request.setAttribute("pais", pais);
-				    	
-				    	String sigla = datosEdicion.getSigla();
-				    	request.setAttribute("sigla", sigla);
-				    	
-				    	String ciudad = datosEdicion.getCiudad();
-				    	request.setAttribute("ciudad", ciudad);
-				    	
-				    	LocalDate fechaIni = datosEdicion.getFechaInicio();
-				    	request.setAttribute("fecha-ini", fechaIni);
-				    	
-				    	LocalDate fechaFin = datosEdicion.getFechaFin();
-				    	request.setAttribute("fecha-fin", fechaFin);
-				    	
-				    	LocalDate fechaAlta = datosEdicion.getFechaAlta();
-				    	request.setAttribute("fecha-alta", fechaAlta);
-				    	
-				    	List<String> tiposRegistros = datosEdicion.getTipoRegistros();
-				    	request.setAttribute("tiposRegistros", tiposRegistros);
-				    	
-				    	String organizador = datosEdicion.getOrganizador();
-				    	request.setAttribute("organizador", organizador);
-				    	
-				    	List<String> instituciones = c.listarInstituciones(evento, edicion);
-				    	request.setAttribute("instituciones", instituciones);
-				    
-				    	// Mostrar el HTML
-						request.getRequestDispatcher("/WEB-INF/eventos/consultaEdicion.jsp").forward(request, response);
-				    }
+		    	    String evento = request.getParameter("evento");
+		    	    String edicion = request.getParameter("edicion");
+
+		    	    if (!c.existeEdicionEvento(evento, edicion)) {
+		    	        response.sendRedirect("/webdinamica");
+		    	        return;
+		    	    }
+		    	    
+		    	    DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+		    	    
+		    	    // 1. Obtener el usuario de la sesión
+		    	    HttpSession session = request.getSession(false);
+		    	    Object usuario = (session != null) ? session.getAttribute("usuario") : null;
+		    	    
+		    	    boolean estaRegistrado = false;
+		    	    
+		    	    // 2. Verificar si el usuario logueado es un Asistente y si está registrado
+		    	    if (usuario instanceof DTAsistente) {
+		    	        DTAsistente asistente = (DTAsistente) usuario;
+		    	        String nickname = asistente.getNickname();
+		    	        
+		    	        estaRegistrado = c.usuarioEnEdicion(edicion, nickname, evento);
+		    	      
+		    	    }
+		    	    
+		    	    request.setAttribute("estaRegistrado", estaRegistrado);
+		    	    
+		    	    
+		    	    // 5. Establecer los atributos de los datos de la edición
+		    	    String pais = datosEdicion.getPais();
+		    	    request.setAttribute("pais", pais);
+		    	    
+		    	    String sigla = datosEdicion.getSigla();
+		    	    request.setAttribute("sigla", sigla);
+		    	    
+		    	    String ciudad = datosEdicion.getCiudad();
+		    	    request.setAttribute("ciudad", ciudad);
+		    	    
+		    	    LocalDate fechaIni = datosEdicion.getFechaInicio();
+		    	    request.setAttribute("fecha-ini", fechaIni);
+		    	    
+		    	    LocalDate fechaFin = datosEdicion.getFechaFin();
+		    	    request.setAttribute("fecha-fin", fechaFin);
+		    	    
+		    	    LocalDate fechaAlta = datosEdicion.getFechaAlta();
+		    	    request.setAttribute("fecha-alta", fechaAlta);
+		    	    
+		    	    List<String> tiposRegistros = datosEdicion.getTipoRegistros();
+		    	    request.setAttribute("tiposRegistros", tiposRegistros);
+		    	    
+		    	    String organizador = datosEdicion.getOrganizador();
+		    	    request.setAttribute("organizador", organizador); // El nickname del organizador de ESTA Edición
+		    	    
+		    	    List<String> instituciones = c.listarInstituciones(evento, edicion);
+		    	    request.setAttribute("instituciones", instituciones);
+		    	    
+		    	    // Mostrar el HTML
+		    	    request.getRequestDispatcher("/WEB-INF/eventos/consultaEdicion.jsp").forward(request, response);
+		    	}
      
      
      

@@ -215,6 +215,11 @@ public class ControladorEvento {
 		return m.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen);	
 	}
 	
+	public boolean usuarioEnEdicion(String edicion, String usuario, String evento) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		return m.estaAsistenteEnEdicion(usuario, edicion, evento);
+	}
+	
 	public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		ManejadorEvento m = ManejadorEvento.getInstance();
 		ManejadorUsuario mu = ManejadorUsuario.getInstance();

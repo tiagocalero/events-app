@@ -163,24 +163,23 @@ public class servletUsuario extends HttpServlet {
  	        	
     		    	ControladorUsuario cu = ControladorUsuario.getInstance();
     		    	
-    		    	//ver como obtener el usuario. ¿se pasa solo? ¿obtener de la sesion?
-    		    	//segun chat es lo siguiente
-    		    	Usuario usuarioGenerico = (Usuario) request.getSession().getAttribute("usuario");
-    		    	
     		    	String evento = request.getParameter("evento");
     		    	String edicion = request.getParameter("edicion");
     		    	
-    		    	if (usuarioGenerico instanceof Organizador) {
+    		    	HttpSession user = request.getSession(false);
+    		     	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+    		     	 
+    		    	if (usuario instanceof DTOrganizador) {
     		    		
     		    		ControladorEvento ce = ControladorEvento.getInstance();
     		    		
-    		    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento)
+    		    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
     		    		request.setAttribute("registros", registros);
     		    		
     		    		request.getRequestDispatcher("/vistas/consultaRegistroOrg.jsp").forward(request, response);
     		    	
-    		    	} else if (usuarioGenerico instanceof Asistente) {
-    		    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuarioGenerico);
+    		    	} else if (usuario instanceof DTAsistente) {
+    		    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
     		    		request.setAttribute("registros", registro);
     		    		
     		    		request.getRequestDispatcher("/vistas/consultaRegistroAsis.jsp").forward(request, response);
