@@ -355,7 +355,7 @@ public class ControladorEvento {
 		ed.rechazar();
 
 	}
-	
+
 	public List<DTEvento> listarDTEventosCategoria(String categoria){
 		ManejadorCategoria m = ManejadorCategoria.getInstance();
 		Map<String, Evento> eventos = m.eventosCategoria(categoria);
@@ -363,6 +363,5 @@ public class ControladorEvento {
 		return eventos.values().stream().map(Evento::getDatos).collect(Collectors.toList());  
 		
 	}
-	
 	
 }

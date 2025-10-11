@@ -5,6 +5,7 @@
 <%@ page import="logica.DTOrganizador" %>
 <%@ page import="logica.DTAsistente" %> <%-- Nueva Importación --%>
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -124,14 +125,27 @@
        <ul class="list-unstyled ps-0">
          <li class="mb-1">
            Tipos de Registro
+           
+           <% if (esOrganizador) { %>
+           <a href="/webdinamica/TipoRegistro/altaTipoRegistro?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
+		          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
+		   		</svg>
+           </a>
+           <% } %>
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
 	           <% 
 	               List<String> tipos = (List<String>) request.getAttribute("tiposRegistros");
 	               if (tipos != null) {
 	                   for (String tipo : tipos) { 
 	           %>
-	                   <li><a href="consultaTipoRegistro.html" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= tipo %></a></li>
-	           <% 
+	           		<li>
+	           		
+						<a href="/webdinamica/TipoRegistro/consultaTipoRegistro?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>&tipoRegistro=<%= tipo %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+   						<%= tipo %>
+						</a>
+					</li>
+				<%
 	                   }
 	               } 
 	           %>

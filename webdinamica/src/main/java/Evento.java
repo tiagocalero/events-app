@@ -215,7 +215,6 @@ public class Evento extends HttpServlet {
      
     	
     	List<String> categorias = c.listarCategorias();
-        
         request.setAttribute("categorias", categorias);
     	
     	// Mostrar el HTML
@@ -406,7 +405,6 @@ public class Evento extends HttpServlet {
      
      
      
-     
      //######  REGISTRO A EDICION DE EVENTO  ######
      
 		     //GET
@@ -513,6 +511,7 @@ public class Evento extends HttpServlet {
     	}
     	
     	// Mostrar el HTML
+    	
 		request.getRequestDispatcher("/WEB-INF/eventos/altaTipoRegistro.jsp").forward(request, response);
     }
     
@@ -523,8 +522,7 @@ public class Evento extends HttpServlet {
     	String tregistro = request.getParameter("tipoRegistro");
     	
     	ControladorEvento c = ControladorEvento.getInstance();
-    	if (!c.existeEdicionEvento(evento, edicion) 
-    			|| !c.listarTipoRegistro(evento, edicion).contains(tregistro)) {
+    	if (!c.existeEdicionEvento(evento, edicion) || !c.listarTipoRegistro(evento, edicion).contains(tregistro)) {
     		response.sendRedirect("/webdinamica");
     		return;
 
@@ -532,7 +530,8 @@ public class Evento extends HttpServlet {
     	DTTRegistro dtr = c.mostrarTipoRegistro(evento, edicion, tregistro);
     	request.setAttribute("tipoRegistro", dtr);
     	
-		request.getRequestDispatcher("/WEB-INF/TipoRegistro/consulta.jsp").forward(request, response);
+    	
+		request.getRequestDispatcher("/WEB-INF/eventos/consultaTipoRegistro.jsp").forward(request, response);
    		
     }
     
@@ -628,9 +627,9 @@ public class Evento extends HttpServlet {
 		} else if (servletPath.equals("/TipoRegistro")) {
         		
 			String path = request.getPathInfo();
-		    if (path.equals("/alta")) {
+		    if (path.equals("/altaTipoRegistro")) {
 		    	altaTipoRegistroGET(request, response);
-		    } else if (path.equals("/consulta")){
+		    } else if (path.equals("/consultaTipoRegistro")){
 		    	consultaTipoRegistro(request, response);
 		           	
 		    } else {
@@ -698,7 +697,7 @@ public class Evento extends HttpServlet {
 				altaTipoRegistroPOST(request, response);
 			} else { 
 	            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-	            response.getWriter().println("414 - Página no encontrada");
+	            response.getWriter().println("404 - Página no encontrada");
 	        }
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
