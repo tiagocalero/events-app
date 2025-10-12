@@ -63,8 +63,9 @@
 
         	<label for="institucion"><strong>Institución:</strong></label>
         	<select id="institucion" name="institucion">
+        		<option value="none" <%= asistente.getInstitucion() == null ? "selected" : "" %>>Sin Institución</option>
           		<% List<String> instituciones = (List<String>) request.getAttribute("instituciones");
-    	    		for (String inst : instituciones) { %>
+    	    	   for (String inst : instituciones) { %>
           			<option value="<%= inst %>"
           		    <%= inst.equals(asistente.getInstitucion()) ? "selected" : "" %>>
 						<%= inst %>

@@ -300,13 +300,6 @@ public class servletUsuario extends HttpServlet {
     	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);
     }
 	
-	protected void listaPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorUsuario cu = ControladorUsuario.getInstance();
-		
-    	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
-    }
-	
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -360,8 +353,6 @@ public class servletUsuario extends HttpServlet {
 		        	modificarUsuarioPOST(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioPOST(request, response);
-		        } else if (path.equals("/lista")) {
-		        	listaPOST(request, response);
 		        } else if(path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
 				} else if (path.equals("/cambiar_contrasena")) {
