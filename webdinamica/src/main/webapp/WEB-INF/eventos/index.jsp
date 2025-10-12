@@ -25,7 +25,11 @@
 		String categoria = request.getParameter("categoria");
 		List<DTEvento> eventos = (List<DTEvento>) request.getAttribute("eventos");
 	    
-		
+		if (eventos.isEmpty()) { %>
+		<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+		  <h3 class="text-center"> No hay eventos <%= categoria != null ? "para esta categoría, intenta seleccionar otra" : "en el sistema" %>. </h3>
+		</div>
+     <% }
     	for (DTEvento e : eventos) { %>
 	      <div class="col-sm-6">
 		      <div class="card">
