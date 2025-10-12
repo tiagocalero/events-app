@@ -1,10 +1,6 @@
 package logica;
 
 import java.time.LocalDate;
-import logica.DTPatrocinio;
-import logica.Edicion;
-import logica.Institucion;
-import logica.TipoNivelPatrocinio;
 
 public class Patrocinio {
 	private String codigo;
@@ -15,25 +11,43 @@ public class Patrocinio {
 	
 	private Edicion edicion;
 	private Institucion institucion;
-	private TRegistro tp;
+	private TRegistro tipoRegistro;
 	
-	public Patrocinio(String codigo, float monto, TipoNivelPatrocinio tipo, LocalDate fecha, int cantRegistros, Edicion e, Institucion i, TRegistro tp) {
-		edicion = e;
-		institucion = i;
-		
+	public Patrocinio(
+	        String codigo,
+	        float monto,
+	        TipoNivelPatrocinio tipo,
+	        LocalDate fecha,
+	        int cantRegistros,
+	        Edicion edicion,
+	        Institucion institucion,
+	        TRegistro tipoRegistro
+	) {
 		this.codigo = codigo;
 		this.monto = monto;
 		this.tipo = tipo;
 		this.fecha = fecha;
 		this.cantRegistros = cantRegistros;
-		this.tp = tp;
+		this.tipoRegistro = tipoRegistro;
 
-		i.agregarPatrocinio(this);
-		e.agregarPatrocinio(this);
+		this.edicion = edicion;
+		this.institucion = institucion;
+		
+		institucion.agregarPatrocinio(this);
+		edicion.agregarPatrocinio(this);
 	}
 	
 	public DTPatrocinio getDatos() {
-		return new DTPatrocinio(codigo, tipo, monto, tp.getNombre(), cantRegistros, fecha, getNombreInstitucion(), institucion.getImagen());
+		return new DTPatrocinio(
+			codigo,
+			tipo,
+			monto,
+			tipoRegistro.getNombre(),
+			cantRegistros,
+			fecha,
+			getNombreInstitucion(),
+			institucion.getImagen()
+		);
 	}
 
 	public String getCodigo() {
@@ -44,7 +58,7 @@ public class Patrocinio {
 		return institucion.getNombre();
 	}
 	
-	public boolean buscarEdicion(Edicion e) {
-		return e == edicion;
+	public boolean buscarEdicion(Edicion edicionBuscada) {
+		return edicionBuscada == edicion;
 	}
 }

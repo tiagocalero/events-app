@@ -17,9 +17,9 @@ public class DTEdicion {
     private List<String> asistentes;
     private String organizador;
     private String evento;
+    private String imagen;
 
-    public DTEdicion(String evento, String pais, String ciudad, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String sigla, String nombre, List<String> institucionesPatrocinadoras, List<String> tRegistros, List<String> asistentes, String organizador) {
-
+    public DTEdicion(String evento, String pais, String ciudad, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String sigla, String nombre, List<String> institucionesPatrocinadoras, List<String> tRegistros, List<String> asistentes, String organizador, String imagen) {
     	this.pais = pais;
     	this.ciudad = ciudad;
         this.fechaInicio = fechaInicio;
@@ -32,6 +32,7 @@ public class DTEdicion {
         this.asistentes = asistentes;
         this.organizador = organizador;
         this.evento = evento;
+        this.imagen = imagen;
     }
 
     // solo getters, no setters si es solo de lectura
@@ -46,6 +47,6 @@ public class DTEdicion {
     public List<String> getAsistentes() { return asistentes; }
     public List<String> getInstitucionesPatrocinadoras() { return institucionesPatrocinadoras; }
     public List<String> getTipoRegistros() { return tRegistros; }
-    public String getEvento() {return evento; }
-    
+    public String getEvento() { return evento; }
+    public String getImagen() { return imagen; }    
 }

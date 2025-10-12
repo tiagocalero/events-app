@@ -1,12 +1,7 @@
 package logica;
 
-import logica.Registro;
-import logica.Edicion;
-import logica.Evento;
-import logica.DTEdicion;
-import logica.DTTRegistro;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TRegistro {
 	private String nombre; 
@@ -43,8 +38,8 @@ public class TRegistro {
 		return cupo - registro.size();
 	}
 
-    public void agregarRegistro(Registro r) {
-    	registro.add(r);
+    public void agregarRegistro(Registro nuevoRegistro) {
+    	registro.add(nuevoRegistro);
     }
 }
 

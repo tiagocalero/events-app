@@ -1,13 +1,9 @@
 package logica;
 
 import java.time.LocalDate;
-import java.util.stream.Stream;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import logica.Categoria;
-import logica.DTEvento;
-import logica.Evento;
+import java.util.Map;
 
 public class ManejadorEvento {
 	private Map<String, Evento> eventos;
@@ -41,16 +37,25 @@ public class ManejadorEvento {
 		if (existe(nombre))
 			return false;
 		
-		Evento e = new Evento(nombre, sigla, descripcion, fechaAlta, categorias, imagen);
-		eventos.put(nombre, e);
+		Evento evento = new Evento(
+			nombre,
+			sigla,
+			descripcion,
+			fechaAlta,
+			categorias,
+			imagen
+		);
+		eventos.put(nombre, evento);
 		
 		return true;
 	}
 	
-	public Edicion obtenerEdicion(String nombre, Evento ev) {
-		Map<String, Edicion> ed = ev.getEdiciones();
-		if(ed.isEmpty()) return null;
-		return ed.get(nombre);
+	public Edicion obtenerEdicion(String nombre, Evento evento) {
+		Map<String, Edicion> edicion = evento.getEdiciones();
+	
+		if (edicion.isEmpty()) return null;
+		
+		return edicion.get(nombre);
 	}
 	
 	// Devuelve si existe una edición en todo el sistema
@@ -60,26 +65,24 @@ public class ManejadorEvento {
                       .anyMatch(e -> e.existeEdicion(nombre));
 	}
 	
-	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nickEvento) {
-		
-		Evento ev = obtenerEvento(nickEvento);
-		Edicion ed = obtenerEdicion(nombreEdicion, ev);
-		for (Registro r :ed.getRegistros()) {
-			if (r.getNicknameAsistente() == nickAsistente) {
+	public boolean estaAsistenteEnEdicion(String nickAsistente, String nombreEdicion, String nombreEvento) {
+		Evento evento = obtenerEvento(nombreEvento);
+		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
+		for (Registro registro: edicion.getRegistros()) {
+			if (registro.getNicknameAsistente() == nickAsistente) {
 				return true;
 			}
 		}
 		return false;
-		
 	}
 	// Devuelve una copia del map de eventos sobre el que se puede iterar
 	public Map<String, Evento> eventos() {
         return Map.copyOf(eventos);
     }
 		
-	public TRegistro encontrarTRegistroDeEdicion(String nombreTRegistro, String nombreEdicion, String nickEvento) {
-		Evento ev = obtenerEvento(nickEvento);
-		Edicion ed = obtenerEdicion(nombreEdicion, ev);
-		return ed.getTipoRegistro(nombreTRegistro);
+	public TRegistro encontrarTRegistroDeEdicion(String nombreTRegistro, String nombreEdicion, String nombreEvento) {
+		Evento evento = obtenerEvento(nombreEvento);
+		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
+		return edicion.getTipoRegistro(nombreTRegistro);
 	}
 }

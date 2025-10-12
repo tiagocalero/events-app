@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,26 +12,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.io.File;
-import java.nio.file.Paths;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import logica.ControladorUsuario;
-import logica.Asistente;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
-import logica.Usuario;
-import logica.DTUsuario;
-import logica.Asistente;
+import logica.ControladorUsuario;
 import logica.DTAsistente;
-import logica.Organizador;
-import logica.DTOrganizador;
-import logica.DTRegistro;
+import logica.DTAsistenteModificado;
 import logica.DTEdicion;
+import logica.DTOrganizador;
+import logica.DTOrganizadorModificado;
+import logica.DTRegistro;
+import logica.DTUsuario;
+import logica.Usuario;
 
 /**
  * Servlet implementation class Usuario
@@ -68,7 +65,7 @@ public class servletUsuario extends HttpServlet {
     	
     	HttpSession user = request.getSession(false);
     	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
-    	c.elegirUsuario(usuario.getNickname());
+    	usuario = c.elegirUsuario(usuario.getNickname());
     	
     	if (usuario instanceof DTAsistente) {
     		List<DTRegistro> registros = c.consultaAsistente();
@@ -160,6 +157,52 @@ public class servletUsuario extends HttpServlet {
     		request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
     	}
     }
+    
+    protected void modificarUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorUsuario c = ControladorUsuario.getInstance();
+    	HttpSession session = request.getSession(false);
+    	DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
+    	String nick = dtu.getNickname();
+    	
+    	String nombre = request.getParameter("name");
+
+    	Part imgPart = request.getPart("imagenPerfil");
+    	String imgName = null;
+    	String uniqueFileName = null;
+    	if (imgPart != null && imgPart.getSize() > 0) {
+    		imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
+
+    		// Define where to store it (for example inside /uploads)
+    		String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+    		File uploadDir = new File(uploadPath);
+    		if (!uploadDir.exists()) uploadDir.mkdir();
+
+    		// Create unique filename to avoid conflicts
+    		uniqueFileName = System.currentTimeMillis() + "_" + imgName;
+    		imgPart.write(uploadPath + File.separator + uniqueFileName);
+    	}
+
+    	dtu = c.elegirUsuario(nick);
+    	
+    	if (dtu instanceof DTAsistente) {
+    		String apellido = request.getParameter("apellido");
+        	String inst = request.getParameter("institucion");
+        	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
+    		
+    		DTAsistenteModificado dtam = new DTAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
+    		c.modificarDatosUsuario(dtam);
+    	} else if (dtu instanceof DTOrganizador) {
+    		String desc = request.getParameter("desc");
+        	String link = request.getParameter("link");
+        	
+    		DTOrganizadorModificado dtom = new DTOrganizadorModificado(nombre, uniqueFileName, desc, link);
+    		c.modificarDatosUsuario(dtom);
+    	}
+    	
+		dtu = c.obtenerUsuario(nick).getDatos();
+		session.setAttribute("usuario", dtu);
+    	response.sendRedirect("/webdinamica/usuarios/");
+    }
 
     protected void inicio_sesionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
@@ -167,7 +210,7 @@ public class servletUsuario extends HttpServlet {
     
     protected void inicio_sesionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String nick_o_correo = request.getParameter("nick_o_correo");
-    	String passwd = request.getParameter("passwd");    	
+    	String passwd = request.getParameter("passwd");
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	Usuario u = c.obtenerUsuario(nick_o_correo);
     	
@@ -182,37 +225,73 @@ public class servletUsuario extends HttpServlet {
     	}
     }
     
+    protected void cambiarContraGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+    }
+    
+    protected void cambiarContraPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String actual = request.getParameter("pass");
+ 		String nueva = request.getParameter("newPass");
+ 		String confNueva = request.getParameter("confNewPass");
+ 		
+ 		ControladorUsuario cu = ControladorUsuario.getInstance();
+ 		HttpSession session = request.getSession(false);
+ 		DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
+ 		Usuario usuario = cu.obtenerUsuario(dtu.getNickname());
+ 		if (usuario.chequearContrasena(actual)) {
+ 			if (actual.equals(nueva)) {
+ 				request.setAttribute("error2", "La nueva contraseña no puede ser igual a la actual.");
+ 	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+ 			} else if (!nueva.equals(confNueva)) {
+ 				request.setAttribute("error3", "Las contraseñas no coniciden.");
+ 	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+ 			} else {
+ 				usuario.setContrasena(nueva);
+ 				response.sendRedirect("/webdinamica/usuarios/fin_sesion");
+ 			}
+ 		} else {
+ 			request.setAttribute("error", "Contraseña incorrecta.");
+    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+ 		}
+    }
+    
     // ######  CONSULTA REGISTRO DOGET  ###### 
 
- 	        protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 	        	
-    		    	ControladorUsuario cu = ControladorUsuario.getInstance();
+ 	protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 	       	
+ 		ControladorUsuario cu = ControladorUsuario.getInstance();
     		    	
-    		    	String evento = request.getParameter("evento");
-    		    	String edicion = request.getParameter("edicion");
+ 		String evento = request.getParameter("evento");
+ 		String edicion = request.getParameter("edicion");
     		    	
-    		    	HttpSession user = request.getSession(false);
-    		     	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+ 		HttpSession user = request.getSession(false);
+ 		DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
     		     	 
-    		    	if (usuario instanceof DTOrganizador) {
+ 		if (usuario instanceof DTOrganizador) {
     		    		
-    		    		ControladorEvento ce = ControladorEvento.getInstance();
+ 			ControladorEvento ce = ControladorEvento.getInstance();
+    	    		
+    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
+    		request.setAttribute("registros", registros);
+    		request.setAttribute("edicion", edicion);
+
     		    		
-    		    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
-    		    		request.setAttribute("registros", registros);
-    		    		
-    		    		request.getRequestDispatcher("/vistas/consultaRegistroOrg.jsp").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroOrg.jsp").forward(request, response);
     		    	
-    		    	} else if (usuario instanceof DTAsistente) {
-    		    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
-    		    		request.setAttribute("registros", registro);
+    	} else if (usuario instanceof DTAsistente) {
+    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
+    		
+    		request.setAttribute("costo", registro.getCosto());
+    		request.setAttribute("fecha", registro.getFecha());
+    		request.setAttribute("tipo", registro.getTipo());
+    		request.setAttribute("edicion", edicion);
     		    		
-    		    		request.getRequestDispatcher("/vistas/consultaRegistroAsis.jsp").forward(request, response);
-    		    	} else {
-    		    	    // Error: Usuario no logueado o tipo desconocido
-    		    	    response.sendRedirect("login.jsp");
-    		    	}	    	
-    		    }
+    		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
+    	} else {
+    		// Error: Usuario no logueado o tipo desconocido
+    		response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+    	}	    	
+    }
 
     
 	/**
@@ -231,12 +310,16 @@ public class servletUsuario extends HttpServlet {
 		        	consultaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
-		        } else if (path.equals("/consultaRegistro")) {
+		        } else if (path.equals("/cambiar_contrasena")) {
+		        	cambiarContraGET(request, response);
+		        } else if (path.equals("/consultaRegistroAsis")) {
+		        	consultaRegistroGET(request, response);
+		        } else if (path.equals("/consultaRegistroOrg")) {
 		        	consultaRegistroGET(request, response);
 		        } else if (path.equals("/fin_sesion")) {
 		        	HttpSession session = request.getSession(false);
 		            if (session != null) {
-		                session.invalidate(); // destroys the session
+		                session.invalidate();
 		            }
 		            response.sendRedirect("/webdinamica/");
 		        } else {
@@ -258,19 +341,21 @@ public class servletUsuario extends HttpServlet {
         
 	    if (servletPath.equals("/usuarios")) {
 		    	String path = request.getPathInfo();
-		        if (path == null || path.equals("/")) {
-		            response.getWriter().println("Página de consulta");
+		        if (path == null || path.equals("/modificar")) {
+		        	modificarUsuarioPOST(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioPOST(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
-				} else {
+				} else if (path.equals("/cambiar_contrasena")) {
+		        	cambiarContraPOST(request, response);
+		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		            response.getWriter().println("404 - 1 Página no encontrada");
+		            response.getWriter().println("404 - Página no encontrada");
 		        }
 		} else {
 		        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		        response.getWriter().println("404 - 2 Página no encontrada");
+		        response.getWriter().println("404 - Página no encontrada");
 		}
 
 	}

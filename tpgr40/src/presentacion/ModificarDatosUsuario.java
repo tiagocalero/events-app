@@ -243,14 +243,14 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	        }
 			DTAsistenteModificado am = null;
 			if (comboBoxInst.getSelectedItem() != "Sin Institución") {
-				am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
+				am = new DTAsistenteModificado(txtNom.getText(), null, txtAp.getText(), fecha, (String) comboBoxInst.getSelectedItem());
 			} else if (comboBoxInst.getSelectedItem() == "Sin Institución") {
-				am = new DTAsistenteModificado(txtNom.getText(), txtAp.getText(), fecha);
+				am = new DTAsistenteModificado(txtNom.getText(), null, txtAp.getText(), fecha);
 			}
 			um = am;
 		} else {
 			assert u instanceof DTOrganizador;
-			DTOrganizadorModificado om = new DTOrganizadorModificado(txtNom.getText(), Descripcion.getText(), txtLink.getText());
+			DTOrganizadorModificado om = new DTOrganizadorModificado(txtNom.getText(), null, Descripcion.getText(), txtLink.getText());
 			um = om;			
 		}
 		

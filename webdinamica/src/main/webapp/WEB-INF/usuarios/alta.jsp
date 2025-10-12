@@ -17,7 +17,7 @@
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
-
+	<% String dispnone = "display:none"; %>
     <div class="content">
       <h3><strong>Registrar un Usuario:</strong></h3><br/>
 
@@ -25,7 +25,7 @@
 
 			<input type="hidden" id="hiddenTipoUsuario" name="tipo" value="<%= request.getAttribute("tipo") != null ? request.getAttribute("tipo") : "Asistente" %>">
             <label for="tipoUsuario">Tipo de Usuario:</label>
-            <button type="button" id="tipoUsuario" name="tipoUsuario" onclick="updateHiddenField()"><%= request.getAttribute("tipo") != null ? request.getAttribute("tipoUsuario") : "Asistente" %></button><br/>
+            <button type="button" id="tipoUsuario" name="tipoUsuario" onclick="updateHiddenField()"><%= request.getAttribute("tipo") != null ? request.getAttribute("tipo") : "Asistente" %></button><br/>
 
             <label for="nickname">Nickname:</label>
             <input type="text" id="nickname" name="nickname" 
@@ -34,7 +34,7 @@
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" value="<%= request.getAttribute("name") != null ? request.getAttribute("name") : "" %>"/><br/>
 
-            <div id="datosAs">
+            <div id="datosAs" style="<%= request.getAttribute("tipo") != null ? (((String) request.getAttribute("tipo")).equals("Asistente") ? "" : dispnone) : "" %>">
               <label for="apellido">Apellido:</label>
               <input type="text" id="apellido" name="apellido" value="<%= request.getAttribute("apellido") != null ? request.getAttribute("apellido") : "" %>"/><br/>
 
@@ -45,9 +45,9 @@
               <select id="institucion" name="institucion">
               	<option value="none">Sin Institución</option>
               <% List<String> instituciones = (List<String>) request.getAttribute("instituciones");
+              	 String inst = (String) request.getAttribute("institucion");
     			 for (String i : instituciones) { %>
-                <option value=<%= i %>
-                		><%= i %></option>
+                <option value="<%= i %>" <%= i.equals(inst) ? "selected" : "" %>><%= i %></option>
               <% } %>
               </select><br/>
             </div>
@@ -57,7 +57,7 @@
               <input type="text" id="correo" name="correo" value="<%= request.getAttribute("correo") != null ? request.getAttribute("correo") : "" %>" required/><br/>
             </div>
 
-            <div id="datosOrg" style="display:none">
+            <div id="datosOrg" style="<%= request.getAttribute("tipo") != null ? (((String) request.getAttribute("tipo")).equals("Asistente") ? dispnone : "") : dispnone %>">
               <label for="link">Sitio Web:</label>
               <input type="text" id="link" name="link" value="<%= request.getAttribute("link") != null ? request.getAttribute("link") : "" %>"/><br/>
 

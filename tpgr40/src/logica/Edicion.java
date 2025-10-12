@@ -16,13 +16,25 @@ public class Edicion {
 	private String sigla;
     private String nombre;
     private TipoEstado estado;
-    private Map<String, Patrocinio> patrocinios;
+    private List<Patrocinio> patrocinios;
     private Map<String, TRegistro> tRegistros;
     private Organizador organizador;
     private Evento evento;
     private List<Registro> registros;
+    private String imagen;
 
-    public Edicion(Evento evento, Organizador organizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
+    public Edicion(
+			Evento evento,
+			Organizador organizador,
+			String nombre,
+			String sigla,
+			LocalDate fechaInicio,
+			LocalDate fechaFin,
+			LocalDate fechaAlta,
+			String ciudad,
+			String pais,
+			String imagen
+	) {
         this.evento = evento;
         this.organizador = organizador;
         this.nombre = nombre;
@@ -33,9 +45,10 @@ public class Edicion {
         this.fechaFinal = fechaFin;
         this.fechaAlta = fechaAlta;
         this.estado = TipoEstado.Ingresada;
-        this.patrocinios = new HashMap<String, Patrocinio>();
+        this.patrocinios = new ArrayList<Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
+        this.imagen = imagen;
         
         organizador.agregarEdicion(this);
         evento.agregarEdicion(this);
@@ -50,7 +63,7 @@ public class Edicion {
         		         .collect(Collectors.toList());
         
 
-		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname());
+		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname(), imagen);
 	}
 	
     public String getNombre() {
@@ -102,17 +115,20 @@ public class Edicion {
 	}
 	
     public void agregarPatrocinio(Patrocinio patrocinio) {
-    	patrocinios.put(patrocinio.getCodigo(), patrocinio);
+    	patrocinios.add(patrocinio);
     }
     
     public List<String> getCodigosPatrocinios() {
-    	return new ArrayList<>(patrocinios.keySet());
+    	return new ArrayList<>(
+    			patrocinios.stream()
+    					   .map(p -> p.getCodigo())
+    					   .collect(Collectors.toList())
+    		);
     }
     
     public List<String> getInstitucionesPatrocinios() {
     	return new ArrayList<>(
-			patrocinios.values()
-					   .stream()
+			patrocinios.stream()
 					   .map(p -> p.getNombreInstitucion())
 					   .collect(Collectors.toList())
 		);

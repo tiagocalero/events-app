@@ -11,7 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eventos.uy - Consulta de Usuario</title>
+  <title>Eventos.uy - Perfil</title>
   <link rel="stylesheet" href="/webdinamica/assets/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
@@ -29,36 +29,35 @@
        DTOrganizador organizador = null; %>
 
     <div class="content content-consulta">
-      <form id="modifyUserForm" class="content-form-modificar" action="alta_usuario" method="post">
+      <form id="modifyUserForm" class="content-form-modificar" action="modificar" method="post"  enctype="multipart/form-data">
 
         <div class="event-image">
           <img id="profile-pic" src="/webdinamica/uploads/<%= usuarioLoggeado.getImagen() %>"  onerror="this.onerror=null; this.src='/webdinamica/assets/default_profile.jpg';"
           	alt="Foto Perfil de <%= usuarioLoggeado.getNickname() %>">
-          <input id="file-input" type="file" accept="image/*" style="display: none"/>
+          <input id="file-input" type="file" name="imagenPerfil" accept="image/*" style="display: none"/>
         </div>
 
         <label for="nombre"><strong>Nombre:</strong></label>
-        <input type="text" id="nombre" value="<%= usuarioLoggeado.getNombre() != null ? usuarioLoggeado.getNombre() : "" %>"/><br/>
+        <input type="text" id="nombre" name="name" value="<%= usuarioLoggeado.getNombre() != null ? usuarioLoggeado.getNombre() : "" %>"/><br/>
 
 		<% if (usuarioLoggeado instanceof DTAsistente) { 
 			asistente = (DTAsistente) usuarioLoggeado; %>
         	<label for="apellido"><strong>Apellido:</strong></label>
-        	<input type="text" id="apellido" value="<%= asistente.getApellido() != null ? asistente.getApellido() : "" %>"/><br/>
+        	<input type="text" id="apellido" name="apellido" value="<%= asistente.getApellido() != null ? asistente.getApellido() : "" %>"/><br/>
         <% } %>
 
         <label for="nick"><strong>Nickname:</strong></label>
-        <input type="text" id="nick" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
+        <input type="text" id="nick" name="nick" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
 
         <label for="correo"><strong>Email:</strong></label>
-        <input type="text" id="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
+        <input type="text" id="correo" name="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
 
         <label for="pass"><strong>Contraseña:</strong></label>
-        <%-- <input type="password" id="pass" value="<%= user.getAttribute("pass") != null ? user.getAttribute("pass") : "" %>"/> --%>
-        <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye" style="vertical-align: center"></i></button><br/>
+        <a href="/webdinamica/usuarios/cambiar_contrasena" id="pass" >cambiar contraseña</a></br>
 
 		<% if (usuarioLoggeado instanceof DTAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
-        	<input type="date" id="nacimiento"  value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>"/><br/>
+        	<input type="date" id="nacimiento" name="nacimiento" value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>"/><br/>
 
         	<label for="institucion"><strong>Institución:</strong></label>
         	<select id="institucion" name="institucion">
@@ -71,12 +70,12 @@
           		<% } %>
         	</select><br/>
         <% } else if (usuarioLoggeado instanceof DTOrganizador) { 
-        	organizador = (DTOrganizador) organizador;%>
+        	organizador = (DTOrganizador) usuarioLoggeado;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
-        	<input type="text" id="link" value="https://miseventos.com" /><br/>
+        	<input type="text" id="link" name="link" value="<%= organizador.getLink() != null ? organizador.getLink() : "" %>" /><br/>
 
         	<label for="desc" class="lblDesc"><strong>Descripción:</strong></label>
-        	<textarea type="text" id="desc">Empresa de organizacion de eventos.</textarea><br/>
+        	<textarea type="text" name="desc" id="desc"><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
 
         <button id="modifyBtn" type="submit" class="btn_login" disabled>Modificar</button>

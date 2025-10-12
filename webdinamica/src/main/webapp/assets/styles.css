@@ -300,7 +300,8 @@ aside ul li a {
   vertical-align: top;
 }
 
-#passbtn {
+#passbtn,
+#passbtn2 {
   background: transparent;
   border: 0px;
 }
