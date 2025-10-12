@@ -23,8 +23,8 @@
   	<link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png">
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
-    <main class="form-signin w-100 m-auto">
-      <form action="/webdinamica/usuarios/inicio_sesion" method="post">
+    <main class="w-100 m-auto">
+      <form class="form-signin" action="/webdinamica/usuarios/inicio_sesion" method="post">
         <a href="/webdinamica"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
         <h1 class="h3 mb-3 fw-normal">Inicie sesión</h1>
         <div class="form-floating">
