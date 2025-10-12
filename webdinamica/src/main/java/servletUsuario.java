@@ -258,7 +258,6 @@ public class servletUsuario extends HttpServlet {
     // ######  CONSULTA REGISTRO DOGET  ###### 
 
  	protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 	       	
  		ControladorUsuario cu = ControladorUsuario.getInstance();
     		    	
  		String evento = request.getParameter("evento");
@@ -292,8 +291,22 @@ public class servletUsuario extends HttpServlet {
     		response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
     	}	    	
     }
-
-    
+ 	
+	protected void listaGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		List<String> usuarios = cu.listarUsuarios();
+		request.setAttribute("lista", usuarios);
+		
+    	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);
+    }
+	
+	protected void listaPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		
+    	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    }
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -308,7 +321,9 @@ public class servletUsuario extends HttpServlet {
 		        	altaUsuarioGET(request, response);
 		        } else if (path.equals("/consulta")) {
 		        	consultaUsuarioGET(request, response);
-		        } else if (path.equals("/inicio_sesion")) {
+		        } else if (path.equals("/lista")) {
+		        	listaGET(request, response);
+	    		} else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
 		        } else if (path.equals("/cambiar_contrasena")) {
 		        	cambiarContraGET(request, response);
@@ -332,7 +347,6 @@ public class servletUsuario extends HttpServlet {
         }
 	}
 	
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -345,7 +359,9 @@ public class servletUsuario extends HttpServlet {
 		        	modificarUsuarioPOST(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioPOST(request, response);
-		        } else if (path.equals("/inicio_sesion")) {
+		        } else if (path.equals("/lista")) {
+		        	listaPOST(request, response);
+		        } else if(path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
 				} else if (path.equals("/cambiar_contrasena")) {
 		        	cambiarContraPOST(request, response);
