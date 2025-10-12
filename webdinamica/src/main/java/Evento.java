@@ -595,9 +595,14 @@ public class Evento extends HttpServlet {
     	int cupo = Integer.parseInt(request.getParameter("cupo"));
 
     	ControladorEvento c = ControladorEvento.getInstance();
+    	
     	boolean ok = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
     	
     	if (!ok) {
+    		
+    		request.setAttribute("nombreEvento", nombreEvento);
+            request.setAttribute("nombreEdicion", nombreEdicion);
+
     		request.setAttribute("nombre", nombre);
     		request.setAttribute("descripcion", desc);
     		request.setAttribute("costo", costo);
