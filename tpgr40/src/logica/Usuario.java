@@ -1,11 +1,5 @@
 package logica;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import logica.DTUsuario;
-import logica.DTUsuarioModificado;
-
 public abstract class Usuario {
 	private String nickname;
 	private String nombre;
@@ -13,12 +7,12 @@ public abstract class Usuario {
 	private String contrasena;
 	private String imagen;
 	
-	public Usuario(String nick, String nom, String c, String contrasena, String img) {
-		ControladorUsuario cu = ControladorUsuario.getInstance();
+	public Usuario(String nick, String nom, String correo, String contrasena, String img) {
+		ControladorUsuario controlador = ControladorUsuario.getInstance();
 		this.nickname = nick;
 		this.nombre = nom;
-		this.correo = c;
-		this.contrasena = cu.hashearContrasena(contrasena);
+		this.correo = correo;
+		this.contrasena = controlador.hashearContrasena(contrasena);
 		this.imagen = img;
 	}
 	
@@ -39,8 +33,8 @@ public abstract class Usuario {
 	}
 
 	public boolean chequearContrasena(String pass) {
-		ControladorUsuario cu = ControladorUsuario.getInstance();
-		return contrasena.equals(cu.hashearContrasena(pass));
+		ControladorUsuario controlador = ControladorUsuario.getInstance();
+		return contrasena.equals(controlador.hashearContrasena(pass));
 	}
 	
 	public abstract DTUsuario getDatos();
@@ -54,8 +48,8 @@ public abstract class Usuario {
 	}
 	
 	public void setContrasena(String contrasena) {
-		ControladorUsuario cu = ControladorUsuario.getInstance();
-		this.contrasena = cu.hashearContrasena(contrasena);
+		ControladorUsuario controlador = ControladorUsuario.getInstance();
+		this.contrasena = controlador.hashearContrasena(contrasena);
 	}
 	
 	public abstract void modificar(DTUsuarioModificado datos);
