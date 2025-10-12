@@ -147,10 +147,11 @@ public class Edicion {
     }
     
     public void confirmar() {
-    	estado = TipoEstado.Confirmada;
+    	estado = TipoEstado.Aceptada;
     }
     
     public void rechazar() {
     	estado = TipoEstado.Rechazada;
     }
+    
 }

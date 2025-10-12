@@ -144,7 +144,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         });
         panel.add(btnRechazar);
         
-        JButton btnConfirmar = new JButton("Confirmar");
+        JButton btnConfirmar = new JButton("Aceptar");
         btnConfirmar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	String ev = (String) comboBoxEventos.getSelectedItem();

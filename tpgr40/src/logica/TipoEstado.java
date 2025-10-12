@@ -1,5 +1,5 @@
 package logica;
 
 public enum TipoEstado {
-	Ingresada, Confirmada, Rechazada
+	Ingresada, Aceptada, Rechazada
 }
