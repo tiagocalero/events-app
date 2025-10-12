@@ -38,19 +38,19 @@
         </div>
 
         <label for="nombre"><strong>Nombre:</strong></label>
-        <input type="text" id="nombre" value="<%= usuarioLoggeado.getNombre() != null ? usuarioLoggeado.getNombre() : "" %>"/><br/>
+        <input type="text" id="nombre" name="name" value="<%= usuarioLoggeado.getNombre() != null ? usuarioLoggeado.getNombre() : "" %>"/><br/>
 
 		<% if (usuarioLoggeado instanceof DTAsistente) { 
 			asistente = (DTAsistente) usuarioLoggeado; %>
         	<label for="apellido"><strong>Apellido:</strong></label>
-        	<input type="text" id="apellido" value="<%= asistente.getApellido() != null ? asistente.getApellido() : "" %>"/><br/>
+        	<input type="text" id="apellido" name="apellido" value="<%= asistente.getApellido() != null ? asistente.getApellido() : "" %>"/><br/>
         <% } %>
 
         <label for="nick"><strong>Nickname:</strong></label>
-        <input type="text" id="nick" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
+        <input type="text" id="nick" name="nickname" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
 
         <label for="correo"><strong>Email:</strong></label>
-        <input type="text" id="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
+        <input type="text" id="correo" name="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
 
         <label for="pass"><strong>Contraseña:</strong></label>
         <%-- <input type="password" id="pass" value="<%= user.getAttribute("pass") != null ? user.getAttribute("pass") : "" %>"/> --%>
@@ -58,7 +58,7 @@
 
 		<% if (usuarioLoggeado instanceof DTAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
-        	<input type="date" id="nacimiento"  value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>"/><br/>
+        	<input type="date" id="nacimiento" name="nacimiento" value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>"/><br/>
 
         	<label for="institucion"><strong>Institución:</strong></label>
         	<select id="institucion" name="institucion">
@@ -73,10 +73,10 @@
         <% } else if (usuarioLoggeado instanceof DTOrganizador) { 
         	organizador = (DTOrganizador) organizador;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
-        	<input type="text" id="link" value="<%= organizador.getLink() != null ? organizador.getLink() : "" %>" /><br/>
+        	<input type="text" id="link" name="link" value="<%= organizador.getLink() != null ? organizador.getLink() : "" %>" /><br/>
 
         	<label for="desc" class="lblDesc"><strong>Descripción:</strong></label>
-        	<textarea type="text" id="desc"><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
+        	<textarea type="text" name="desc" id="desc"><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
 
         <button id="modifyBtn" type="submit" class="btn_login" disabled>Modificar</button>

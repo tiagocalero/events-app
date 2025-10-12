@@ -168,10 +168,9 @@ public class servletUsuario extends HttpServlet {
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	HttpSession session = request.getSession(false);
     	DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
-    	String nickname = dtu.getNickname();
-		
+    	String nick = dtu.getNickname();
     	
-    	String nombre = request.getParameter("name") != null ? request.getParameter("name") : dtu.getNombre();
+    	String nombre = request.getParameter("name");
 
     	Part imgPart = request.getPart("imagenPerfil");
     	String imgName = null;
@@ -189,32 +188,24 @@ public class servletUsuario extends HttpServlet {
     		imgPart.write(uploadPath + File.separator + uniqueFileName);
     	}
 
-    	dtu = c.elegirUsuario(nickname);
+    	dtu = c.elegirUsuario(nick);
     	
     	if (dtu instanceof DTAsistente) {
-    		DTAsistente dta = (DTAsistente) dtu;
-
-    		String apellido = request.getParameter("apellido") != null ? request.getParameter("apellido") : dta.getApellido();
-        	String inst = request.getParameter("institucion") != null ? request.getParameter("institucion") : dta.getInstitucion();
-    		LocalDate nacimiento = null;
-        	String nac = request.getParameter("nacimiento");
-        	if (nac != null && !nac.equals("")) {
-        		nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
-        	} else {
-        		nacimiento = dta.getNacimiento();
-        	}
+    		String apellido = request.getParameter("apellido");
+        	String inst = request.getParameter("institucion");
+        	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
     		
     		DTAsistenteModificado dtam = new DTAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
     		c.modificarDatosUsuario(dtam);
     	} else if (dtu instanceof DTOrganizador) {
-    		DTOrganizador dto = (DTOrganizador) dtu;
-    		String desc = request.getParameter("desc") != null ? request.getParameter("desc") : dto.getDescripcion();
-        	String link = request.getParameter("link") != null ? request.getParameter("link") : dto.getLink();
+    		String desc = request.getParameter("desc");
+        	String link = request.getParameter("link");
+        	
     		DTOrganizadorModificado dtom = new DTOrganizadorModificado(nombre, uniqueFileName, desc, link);
     		c.modificarDatosUsuario(dtom);
     	}
     	
-		dtu = c.obtenerUsuario(nickname).getDatos();
+		dtu = c.obtenerUsuario(nick).getDatos();
 		session.setAttribute("usuario", dtu);
     	response.sendRedirect("/webdinamica/usuarios/");
     }
