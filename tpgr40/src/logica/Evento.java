@@ -45,6 +45,23 @@ public class Evento {
 		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
 	}
 	
+	public DTEvento getDatosAceptadas() {
+		List<String> nomCategorias = 
+			categorias.stream()
+				 	  .map(c -> c.getNombre()) // Convierte cada categoría en su nombre
+					  .collect(Collectors.toList()); // Junta los resultados en una lista
+
+		List<String> nomEdiciones = new ArrayList<>();
+		
+		for (Map.Entry<String, Edicion> entry : ediciones.entrySet()) {
+		    if (entry.getValue().getEstado() == TipoEstado.Aceptada) {
+		        nomEdiciones.add(entry.getKey());
+		    }
+		}
+		
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
+	}
+	
 	public boolean existeEdicion(String nombre) {
 		return ediciones.containsKey(nombre);
 	}
