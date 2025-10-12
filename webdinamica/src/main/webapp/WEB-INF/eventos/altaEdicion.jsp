@@ -38,7 +38,6 @@
          <p style="color: red; font-weight: bold;">¡Error! <%= errorMessage %></p>
       <% } %>
       
-          <%-- 🟢 Llamada a la función de validación antes de enviar --%>
           <form class="content-form-alta" onsubmit="return validarFechas()" action="altaEdicion" method="post">
     
             <input type="hidden" name="evento" value="<%= (nombreEvento != null ? nombreEvento : request.getAttribute("nombreEvento")) %>">

@@ -19,16 +19,15 @@
     <%@ include file="/components/sidebar.jsp" %>
 
     <div class="content">
-      <h3><strong>Ingrese los datos del nuevo patrocinio:</strong></h3><br/>
-      <form class="content-form-alta" action="alta" method="post">
-        <label for="evento">Evento:</label>
-      	<input name="evento" id="evento" value="<%= request.getParameter("evento") %>" readonly><br/>
-      	
-        <label for="edicion">Edición:</label>
-      	<input name="edicion" id="edicion" value="<%= request.getParameter("edicion") %>" readonly><br/>
+      <h3>Ingrese los datos del nuevo patrocinio para <strong><%= request.getParameter("edicion") %></strong>:</h3><br/>
+      <form class="content-form-alta" onsubmit="return validarSeleccionAltaPatrocinio()" action="alta" method="post">
+      	<!-- Incluir los parámetros evento, edición en inputs para que se manden al servidor
+      	     con el resto de los datos cuando se envíe el formulario -->
+        <input type="hidden" name="evento" id="evento" value="<%= request.getParameter("evento") %>">
+        <input type="hidden" name="edicion" id="edicion" value="<%= request.getParameter("edicion") %>">
         
         <label for="institucion">Institución:</label>
-        <select id="institucion" name="institucion">
+        <select id="institucion" name="institucion" required>
           	<% List<String> instituciones = (List<String>) request.getAttribute("instituciones");
     	       for (String institucion : instituciones) { %>
           		<option value="<%= institucion %>"
@@ -39,7 +38,7 @@
         </select><br/>
         
         <label for="nivel">Nivel patrocinio:</label>
-        <select id="nivel" name="nivel">
+        <select id="nivel" name="nivel" required>
           <option value="Platino" <%= request.getAttribute("nivel") == "Platino" ? "selected" : "" %>>Platino</option>
           <option value="Oro" <%= request.getAttribute("nivel") == "Oro" ? "selected" : "" %>>Oro</option>
           <option value="Plata" <%= request.getAttribute("nivel") == "Plata" ? "selected" : "" %>>Plata</option>
@@ -47,15 +46,17 @@
         </select><br/>
         
         <label for = "monto">Aporte económico:</label>
-        <input type = "number" id = "monto" name = "monto" min="0" step="0.01" class="no-spinner" required
+        <input type = "number" id = "monto" name = "monto" min="0" step="0.01" class="no-spinner"
         	   value="<%= request.getAttribute("monto")%>"/><br/>
+		<p style="color:red; display: none;" id="error_monto_vacio">No puede estar vacío.</p>
         
         <label for = "cantRegistros">Cantidad de Registros Gratuitos:</label>
-        <input type = "number" id = "cantRegistros" name = "cantRegistros" min="0" step="any" class="no-spinner" required
+        <input type = "number" id = "cantRegistros" name = "cantRegistros" min="0" step="1" class="no-spinner"
         	   value="<%= request.getAttribute("cantRegistros")%>"/><br/>
+		<p style="color:red; display: none;" id="error_cant_registros_vacio">No puede estar vacío.</p>
         
         <label for="tipoRegistro">Tipo de registro gratuito:</label>
-        <select id="tipoRegistro" name="tipoRegistro">
+        <select id="tipoRegistro" name="tipoRegistro" required>
           	<% List<String> tipoRegistros = (List<String>) request.getAttribute("tipoRegistros");
     	       for (String tipoRegistro : tipoRegistros) { %>
           		<option value="<%= tipoRegistro %>"
@@ -66,8 +67,9 @@
         </select><br/>
         
         <label for="codigo">Código:</label>
-        <input type="text" id = "codigo" name = "codigo" required
+        <input type="text" id = "codigo" name = "codigo"
         	   value="<%= request.getAttribute("codigo") == null ? "" : request.getAttribute("codigo") %>"/><br/>
+		<p style="color:red; display: none;" id="error_codigo_vacio">No puede estar vacío.</p>
         
         <% if (request.getAttribute("error") != null) { %>
 		    <p style="color:red;"><%= request.getAttribute("error") %></p>
