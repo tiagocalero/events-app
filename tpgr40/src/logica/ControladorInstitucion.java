@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ControladorInstitucion{
-	//private Institucion institucion;
-		
 	private static volatile ControladorInstitucion instance;
 	private ControladorInstitucion(){};
 	
@@ -20,12 +18,12 @@ public class ControladorInstitucion{
 		return instance;
 	}
 
-	// Crea insitución sin imagen
+	// Crea institución sin imagen
 	public boolean altaInstitucion(String nombre, String desc, String url) {
 		return altaInstitucion(nombre, desc, url, null);
 	}
 
-	// Crea insitución con imagen
+	// Crea institución con imagen
 	public boolean altaInstitucion(String nombre, String desc, String url, String imagen) {
 		ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
 		boolean res = manejador.existe(nombre);
