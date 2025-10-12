@@ -167,6 +167,8 @@ public class CargarDatos {
 		tp = e.crearTipoRegistro("Conferencia de Tecnología", "Web Summit 2026", "Full", "Acceso ilimitado + Cena de gala", 900, 30);
 		tp = e.crearTipoRegistro("Conferencia de Tecnología", "Web Summit 2026", "General", "Acceso general", 650, 5);
 		tp = e.crearTipoRegistro("Conferencia de Tecnología", "Web Summit 2026", "Estudiante", "Acceso para estudiantes", 300, 1);
+		tp = e.crearTipoRegistro("Montevideo Fashion Week", "Montevideo Fashion Week 2026", "Full", "Acceso a todos los eventos de la semana", 450, 50);
+		tp = e.crearTipoRegistro("Montevideo Fashion Week", "Montevideo Fashion Week 2026", "Visitante", "Acceso parcial a los eventos de la semana", 150, 25);
 		
 		//Cargar Patrocinios
 		// El try es necesario para que no tire que hay errores sin manejar
