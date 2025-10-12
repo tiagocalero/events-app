@@ -37,6 +37,13 @@ public class Organizador extends Usuario {
 	public List<DTEdicion> consulta() {
 		return ediciones.values().stream().map(ediciones -> ediciones.getDatos()).collect(Collectors.toList());
 	}
+	
+	public List<DTEdicion> consultaAceptadas() {
+		return ediciones.values().stream()
+				.filter(ediciones -> ediciones.getEstado().equals(TipoEstado.Aceptada))
+				.map(ediciones -> ediciones.getDatos())
+				.collect(Collectors.toList());
+	}
 
 	public Edicion obtenerEdicion(String nom) {
 		return ediciones.get(nom);
