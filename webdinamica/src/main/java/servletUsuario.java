@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,29 +12,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.io.File;
-import java.nio.file.Paths;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import logica.ControladorUsuario;
-import logica.Asistente;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
-import logica.Usuario;
-import logica.DTUsuario;
-import logica.DTUsuarioModificado;
-import logica.Asistente;
+import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTAsistenteModificado;
-import logica.Organizador;
+import logica.DTEdicion;
 import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
 import logica.DTRegistro;
-import logica.DTEdicion;
+import logica.DTUsuario;
+import logica.Usuario;
 
 /**
  * Servlet implementation class Usuario
@@ -295,7 +289,7 @@ public class servletUsuario extends HttpServlet {
     		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
     	} else {
     		// Error: Usuario no logueado o tipo desconocido
-    		response.sendRedirect("login.jsp");
+    		response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
     	}	    	
     }
 

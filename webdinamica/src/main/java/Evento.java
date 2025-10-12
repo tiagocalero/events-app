@@ -1,3 +1,14 @@
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import excepciones.PatrocinioSuperaMontoException;
+import excepciones.YaExistePatrocinioException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,76 +17,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import javax.swing.JOptionPane;
-
-import excepciones.PatrocinioSuperaMontoException;
-import excepciones.YaExistePatrocinioException;
 import logica.ControladorEvento;
-import logica.ControladorCategoria;
+import logica.DTAsistente;
+import logica.DTEdicion;
 import logica.DTEvento;
 import logica.DTOrganizador;
-import logica.DTEdicion;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.DTUsuario;
 import logica.TipoNivelPatrocinio;
-import logica.DTAsistente;
-import java.time.LocalDate;
-import logica.DTEdicion;
-import logica.ManejadorUsuario;
-import logica.Asistente;
-import logica.Usuario;
-import presentacion.AltaPatrocinio;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
-import logica.DTAsistente;
-import java.time.LocalDate;
-import logica.DTEdicion;
-import logica.ManejadorUsuario;
-import logica.Asistente;
-import logica.Usuario;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
-import logica.DTAsistente;
-import java.time.LocalDate;
-import logica.DTEdicion;
-import logica.ManejadorUsuario;
-import logica.Asistente;
-import logica.Usuario;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
-import logica.DTAsistente;
 
 /**
  * Servlet implementation class Evento
@@ -117,7 +67,6 @@ public class Evento extends HttpServlet {
         
         // Mostrar el HTML
         request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
-		
     }
     
 
@@ -134,11 +83,26 @@ public class Evento extends HttpServlet {
         	response.sendRedirect("/webdinamica");
     		return;
     	}
-
-    	List<String> instituciones = c.listarInstituciones()
-    								  .stream()
-					                  .filter(e -> !c.listarInstituciones(evento, edicion).contains(e))
-					                  .collect(Collectors.toList());
+	    
+	    DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+	    HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+	  	
+	  	// No permitir que asistentes o visitantes accedan, ni organizadores
+	  	// de una edición distinta a la actual.
+	  	if (usuarioLoggeado == null) {
+        	response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+	  		return;
+	  	} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DTOrganizador)) {
+	  		response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+	    
+    	List<String> instituciones = 
+    			c.listarInstituciones()
+    			 .stream()
+                 .filter(e -> !c.listarInstituciones(evento, edicion).contains(e))
+                 .collect(Collectors.toList());
         request.setAttribute("instituciones", instituciones);
         
         // Redirigir a ConsultaEdición si la edición ya
@@ -159,6 +123,8 @@ public class Evento extends HttpServlet {
     // POST /patrocinios/alta
     // Crea un patrocinio con los parámetros pasados
     protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ControladorEvento c = ControladorEvento.getInstance();
+
     	String evento = request.getParameter("evento");
     	String edicion = request.getParameter("edicion");
     	String institucion = request.getParameter("institucion");
@@ -168,9 +134,29 @@ public class Evento extends HttpServlet {
     	String tipoRegistro = request.getParameter("tipoRegistro");
     	String codigo = request.getParameter("codigo");
     	
+    	DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+	    HttpSession userSession = request.getSession(false);
+	  	DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+	  	
+	  	// Si el evento/edición seleccionados no existen o la edición
+    	// no existe para ese evento, redirigir a página principal
+    	if (!c.existeEdicionEvento(evento, edicion)) {
+        	response.sendRedirect("/webdinamica");
+    		return;
+    	}
+    	
+	  	// No permitir que asistentes o visitantes accedan, ni organizadores
+	  	// de una edición distinta a la actual.
+	  	if (usuarioLoggeado == null) {
+        	response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+	  		return;
+	  	} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DTOrganizador)) {
+	  		response.sendRedirect("/webdinamica");
+	  		return;
+	  	}
+    	
     	DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion, null);
     	
-    	ControladorEvento c = ControladorEvento.getInstance();
     	try {
     		c.crearPatrocinio(dtp, edicion, institucion, evento);
     	} catch(PatrocinioSuperaMontoException
@@ -224,14 +210,16 @@ public class Evento extends HttpServlet {
     	ControladorEvento c = ControladorEvento.getInstance();
     	
     	HttpSession userSession = request.getSession(false);
-	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 	  	
 	  	// No permitir que asistentes o visitantes accedan
-	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
-        	response.sendRedirect("/webdinamica");
+	  	if (usuarioLoggeado == null) {
+        	response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+	  		return;
+	  	} else if (!(usuarioLoggeado instanceof DTOrganizador)) {
+	  		response.sendRedirect("/webdinamica");
 	  		return;
 	  	}
-     
     	
     	List<String> categorias = c.listarCategorias();
         request.setAttribute("categorias", categorias);
@@ -244,11 +232,14 @@ public class Evento extends HttpServlet {
     // Crea un evento con los parámetros pasados
     protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession userSession = request.getSession(false);
-	  	DTUsuario usuarioLoggeado = (DTUsuario) userSession.getAttribute("usuario");
+	  	DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 	  	
 	  	// No permitir que asistentes o visitantes accedan
-	  	if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DTOrganizador)) {
-        	response.sendRedirect("/webdinamica");
+	  	if (usuarioLoggeado == null) {
+        	response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+	  		return;
+	  	} else if (!(usuarioLoggeado instanceof DTOrganizador)) {
+	  		response.sendRedirect("/webdinamica");
 	  		return;
 	  	}
     	
