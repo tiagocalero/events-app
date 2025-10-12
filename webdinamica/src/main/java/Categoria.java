@@ -32,7 +32,7 @@ public class Categoria extends HttpServlet {
         request.setAttribute("categoriasListado", categoriasListado);
 
         
-        request.getRequestDispatcher("/WEB-INF/components/sidebar.jsp");//.forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/components/sidebar.jsp");
     }
 
     protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

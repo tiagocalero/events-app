@@ -50,6 +50,21 @@ public class ControladorEvento {
 		return res;	
 	}
 	
+	public List<String> listarEdicionesAceptadas(String nombreEvento) {
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		Evento eventoBuscado = manejador.obtenerEvento(nombreEvento);
+		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
+		List<String> res = new ArrayList<>();
+		
+		for (Map.Entry<String, Edicion> entry : ediciones.entrySet()) {
+		    if (entry.getValue().getEstado() == TipoEstado.Aceptada) {
+		        res.add(entry.getKey());
+		    }
+		}
+		
+		return res;	
+	}
+	
 	public List<String> listarEventos(){
 		ManejadorEvento manejador = ManejadorEvento.getInstance();
 		
