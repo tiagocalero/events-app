@@ -21,8 +21,20 @@ public class Edicion {
     private Organizador organizador;
     private Evento evento;
     private List<Registro> registros;
+    private String imagen;
 
-    public Edicion(Evento evento, Organizador organizador, String nombre, String sigla, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
+    public Edicion(
+			Evento evento,
+			Organizador organizador,
+			String nombre,
+			String sigla,
+			LocalDate fechaInicio,
+			LocalDate fechaFin,
+			LocalDate fechaAlta,
+			String ciudad,
+			String pais,
+			String imagen
+	) {
         this.evento = evento;
         this.organizador = organizador;
         this.nombre = nombre;
@@ -36,6 +48,7 @@ public class Edicion {
         this.patrocinios = new ArrayList<Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
+        this.imagen = imagen;
         
         organizador.agregarEdicion(this);
         evento.agregarEdicion(this);
@@ -50,7 +63,7 @@ public class Edicion {
         		         .collect(Collectors.toList());
         
 
-		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname());
+		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname(), imagen);
 	}
 	
     public String getNombre() {

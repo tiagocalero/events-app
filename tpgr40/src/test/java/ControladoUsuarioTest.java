@@ -183,8 +183,8 @@ class ControladorUsuarioTest {
 		ce.ingresarDatosEvento("Evento test", "descripcion1", "e1", f, List.of("c1", "c2", "c3"));
 		assertEquals(true, ce.altaEdicion("Evento test", "org", "Edición test 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
 		assertEquals(true, ce.altaEdicion("Evento test", "org", "Edición test 2", "ed2", f, f, f, "Salto", "Uruguay"));
-		DTEdicion dte1 = new DTEdicion("Evento test", "Uruguay", "Montevideo", f, f, f, "ed1", "Edición test 1", List.of(), List.of(), List.of(), "org");
-		DTEdicion dte2 = new DTEdicion("Evento test", "Uruguay", "Salto", f, f, f, "ed2", "Edición test 2", List.of(), List.of(), List.of(), "org");
+		DTEdicion dte1 = new DTEdicion("Evento test", "Uruguay", "Montevideo", f, f, f, "ed1", "Edición test 1", List.of(), List.of(), List.of(), "org", null);
+		DTEdicion dte2 = new DTEdicion("Evento test", "Uruguay", "Salto", f, f, f, "ed2", "Edición test 2", List.of(), List.of(), List.of(), "org", null);
 		
 		ce.crearTipoRegistro("Evento test", "Edición test 1", "tp5", "desc5", 101, 12);
 		ce.crearTipoRegistro("Evento test", "Edición test 2", "tp5", "desc5", 101, 12);

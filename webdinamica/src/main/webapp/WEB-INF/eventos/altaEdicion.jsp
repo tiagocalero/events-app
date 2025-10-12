@@ -38,7 +38,7 @@
          <p style="color: red; font-weight: bold;">¡Error! <%= errorMessage %></p>
       <% } %>
       
-          <form class="content-form-alta" onsubmit="return validarFechas()" action="altaEdicion" method="post">
+          <form class="content-form-alta" onsubmit="return validarFechas()" action="altaEdicion" method="post" enctype="multipart/form-data">
     
             <input type="hidden" name="evento" value="<%= (nombreEvento != null ? nombreEvento : request.getAttribute("nombreEvento")) %>">
             
@@ -60,8 +60,8 @@
             <label for="fecha-fin">Selecciona una fecha de fin:</label>
             <input type="date" id="fecha-fin" name="fecha-fin" value="${requestScope['fecha-fin']}" required><br/>
 
-            <label for="foto">Selecciona una foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*"><br/>
+            <label for="imagen">Selecciona una foto:</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*"><br/>
 
             <input type="reset" value = "Borrar"/>
             <input type="submit" value = "Crear"/>

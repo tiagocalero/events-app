@@ -289,61 +289,79 @@ public class Evento extends HttpServlet {
     
      //######  ALTA EDICION  ######
     
-			 // GET /ediciones/altaEdicion
-			 // Llama a la ventana de altaEdicion
-			 protected void altaEdicionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				String nombreEvento = request.getParameter("evento");
-				 
-				request.setAttribute("nombreEvento", nombreEvento);
-				 
-				 // Mostrar el HTML
-				request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
-			 }
-			 
-			 
-		     // POST /ediciones/altaEdicion
-		     // Crea una edicion con los parámetros pasados
-			// POST /ediciones/altaEdicion
-			 protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			     
-			     String nombre = request.getParameter("name");
-			     String ciudad = request.getParameter("ciudad");
-			     String sigla = request.getParameter("sigla");
-			     String pais = request.getParameter("pais");
-			     LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
-			     LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
-			     String nombreEvento = request.getParameter("evento"); // 🟢 Usar nombre más claro
+	 // GET /ediciones/altaEdicion
+	 // Llama a la ventana de altaEdicion
+	 protected void altaEdicionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nombreEvento = request.getParameter("evento");
+		 
+		request.setAttribute("nombreEvento", nombreEvento);
+		 
+		 // Mostrar el HTML
+		request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
+	 }
+	 
+	 
+     // POST /ediciones/altaEdicion
+     // Crea una edicion con los parámetros pasados
+	 protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	     
+	     String nombre = request.getParameter("name");
+	     String ciudad = request.getParameter("ciudad");
+	     String sigla = request.getParameter("sigla");
+	     String pais = request.getParameter("pais");
+	     LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
+	     LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
+	     String nombreEvento = request.getParameter("evento");
 
-			     String edicion = request.getParameter("edicion"); 
-			     
-			     LocalDate fechaAlta = LocalDate.now();
-			     
-			     HttpSession user = request.getSession(false);
-			     DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
-			     String nicknameOrganizador = usuario.getNickname();
+	     String edicion = request.getParameter("edicion"); 
+	     
+	     LocalDate fechaAlta = LocalDate.now();
+	     
+	     HttpSession user = request.getSession(false);
+	     DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+	     String nicknameOrganizador = usuario.getNickname();
+	     
+	     // Obtener imagen
+         Part filePart = request.getPart("imagen");
+    	 boolean subioImagen = filePart != null && filePart.getSize() > 0;
 
-			     ControladorEvento c = ControladorEvento.getInstance();
-			     boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-			     
-			     if (!ok) {
-			         
-			         request.setAttribute("name", nombre);
-			         request.setAttribute("ciudad", ciudad);
-			         request.setAttribute("sigla", sigla);
-			         request.setAttribute("pais", pais);
-			         request.setAttribute("fecha-inicio", fechaInicio);
-			         request.setAttribute("fecha-fin", fechaFin);
-			         
-			         request.setAttribute("nombreEvento", nombreEvento); 
-			         
-			         request.setAttribute("error", "El nombre de la edición '" + nombre + "' ya existe.");
-			         
-			         request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
-			         
-			     } else {
-			         consultaEventoGET(request, response);
-			     }
-			 }
+    	 String fileName = null;
+    	
+    	 if (subioImagen) {
+	         // Generar un nombre aleatorio para la imagen,
+	         // guardarla en una carpeta temporal
+	         fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
+	         String uploadPath = getServletContext().getRealPath("/uploads");
+	         File uploadDir = new File(uploadPath);
+	        
+	         if (!uploadDir.exists()) uploadDir.mkdir();
+	
+	         filePart.write(uploadPath + File.separator + fileName);
+    	 }
+	    	
+
+	     ControladorEvento c = ControladorEvento.getInstance();
+	     boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName);
+	     
+	     if (!ok) {
+	         
+	         request.setAttribute("name", nombre);
+	         request.setAttribute("ciudad", ciudad);
+	         request.setAttribute("sigla", sigla);
+	         request.setAttribute("pais", pais);
+	         request.setAttribute("fecha-inicio", fechaInicio);
+	         request.setAttribute("fecha-fin", fechaFin);
+	         
+	         request.setAttribute("nombreEvento", nombreEvento); 
+	         
+	         request.setAttribute("error", "El nombre de la edición '" + nombre + "' ya existe.");
+	         
+	         request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
+	         
+	     } else {
+	         consultaEventoGET(request, response);
+	     }
+	 }
     	
      
      
@@ -410,6 +428,9 @@ public class Evento extends HttpServlet {
 		    	    
 		    	    String organizador = datosEdicion.getOrganizador();
 		    	    request.setAttribute("organizador", organizador); // El nickname del organizador de ESTA Edición
+
+		    	    String imagen = datosEdicion.getImagen();
+		    	    request.setAttribute("imagen", imagen);
 		    	    
 		    	    List<String> instituciones = c.listarInstituciones(evento, edicion);
 		    	    request.setAttribute("instituciones", instituciones);
