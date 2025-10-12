@@ -71,7 +71,7 @@ public class servletUsuario extends HttpServlet {
     	
     	HttpSession user = request.getSession(false);
     	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
-    	c.elegirUsuario(usuario.getNickname());
+    	usuario = c.elegirUsuario(usuario.getNickname());
     	
     	if (usuario instanceof DTAsistente) {
     		List<DTRegistro> registros = c.consultaAsistente();
