@@ -26,16 +26,16 @@
       
       <form class = "content-form-alta "action="altaTipoRegistro" method="post">
       
-		<input type="hidden" name="idE" value="${evento}" />
-  		<input type="hidden" name="idEd" value="${edicion}" />
+		<input type="hidden" name="nombreEvento" value="${evento}" />
+  		<input type="hidden" name="nombreEdicion" value="${edicion}" />
   		<label for= "Nombre">Nombre:</label>
-        <input type = "text" id = "name" name = "name" required/><br/>
+        <input type = "text" id = "name" name = "nombre" required/><br/>
         <label for= "Descripción">Descripción:</label>
-        <input type = "text" id = "Descripción" name = "Descripción"/><br/>
+        <input type = "text" id = "Descripción" name = "descripción"/><br/>
         <label for= "c">Costo:</label>
-        <input type = "number" id = "c" name = "c" min="0" class="no-spinner" required/><br/>
+        <input type = "number" id = "c" name = "costo" min="0" class="no-spinner" required/><br/>
         <label for= "Cupo">Cupo:</label>
-        <input type = "number" id = "Cupo" name = "Cupo" min="0" class="no-spinner" required/><br/><br/>
+        <input type = "number" id = "Cupo" name = "cupo" min="0" class="no-spinner" required/><br/><br/>
         <input type="reset" value = "Borrar"/>
         <input type="submit" value = "Crear"/>
 
