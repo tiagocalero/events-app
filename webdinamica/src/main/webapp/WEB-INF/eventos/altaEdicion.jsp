@@ -21,7 +21,7 @@
       <%-- TÍTULO DINÁMICO: Muestra el nombre del evento --%>
       <h3><strong>Ingrese los datos de la nueva edición para el evento: ${nombreEvento}</strong></h3><br/>
       
-          <form class="content-form-alta" action="altaEdicion" method="post">
+          <form class="content-form-alta" action="altaEdicion" onsubmit="" method="post">
     
             <%-- CAMPO OCULTO: Envía el nombre del evento en el POST --%>
             <input type="hidden" name="evento" value="${nombreEvento}">

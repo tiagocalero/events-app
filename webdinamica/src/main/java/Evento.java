@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
@@ -129,8 +130,19 @@ public class Evento extends HttpServlet {
     		return;
     	}
 
-    	List<String> instituciones = c.listarInstituciones();
+    	List<String> instituciones = c.listarInstituciones()
+    								  .stream()
+					                  .filter(e -> !c.listarInstituciones(evento, edicion).contains(e))
+					                  .collect(Collectors.toList());
         request.setAttribute("instituciones", instituciones);
+        
+        // Redirigir a ConsultaEdición si la edición ya
+	    // está patrocinada por todas las instituciones
+	    if (instituciones.equals(List.of())) {
+	        request.setAttribute("error", "La edición ya está patrocinada por todas las instituciones en el sistema.");
+        	consultaEdicionGET(request, response);
+    		return;
+	    }
         
         List<String> tipoRegistros = c.listarTipoRegistro(evento, edicion);
         request.setAttribute("tipoRegistros", tipoRegistros);
@@ -167,7 +179,6 @@ public class Evento extends HttpServlet {
     		request.setAttribute("cantRegistros", cantRegistros);
     		request.setAttribute("tipoRegistro", tipoRegistro);
     		request.setAttribute("codigo", codigo);
-    		altaPatrocinioGET(request, response);
     	}
     	
     	// Volver a AltaPatrocinio
@@ -398,6 +409,11 @@ public class Evento extends HttpServlet {
 		    	    
 		    	    List<String> instituciones = c.listarInstituciones(evento, edicion);
 		    	    request.setAttribute("instituciones", instituciones);
+		    	    
+		    	    // No se muestra el botón de crear patrocinio si la edición ya
+		    	    // está patrocinada por todas las instituciones
+		    	    boolean tieneTodasLasInstituciones = new HashSet<>(c.listarInstituciones()).equals(new HashSet<>(instituciones));
+		    	    request.setAttribute("tieneTodasLasInstituciones", tieneTodasLasInstituciones);
 		    	    
 		    	    // Mostrar el HTML
 		    	    request.getRequestDispatcher("/WEB-INF/eventos/consultaEdicion.jsp").forward(request, response);

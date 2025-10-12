@@ -95,6 +95,13 @@
             } 
             // Si es un Organizador que NO es el de esta edición, o no está logueado, no se muestra ningún botón.
           %>
+          
+        <!-- Mensaje de error cuando se intenta acceder a AltaPatrocinio incorrectamente -->
+       	<% if (request.getAttribute("error") != null) { %>
+       		<br/>
+       		<br/>
+		    <p style="color:red;" id="error_nombre_repetido"><%= request.getAttribute("error") %></p>
+		<% } %>
         
         </div>
 
@@ -157,8 +164,11 @@
        <ul class="list-unstyled ps-0">
          <li class="mb-1">
            Patrocinios
-           <%-- Bloque Condicional para el botón de Patrocinios (solo para el Organizador logueado) --%>
-           <% if (esOrganizador && esElOrganizadorDeEstaEdicion) { %>
+           <%-- Bloque Condicional para el botón de Patrocinios (solo para el Organizador de la edición) --%>
+           <% // No se muestra el botón de crear patrocinio si la edición ya
+		   	  // está patrocinada por todas las instituciones
+		   	  boolean tieneTodasLasInstituciones = (boolean) request.getAttribute("tieneTodasLasInstituciones");
+              if (esOrganizador && esElOrganizadorDeEstaEdicion && !tieneTodasLasInstituciones) { %>
            <a href="/webdinamica/patrocinios/alta?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
 		          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>

@@ -160,15 +160,15 @@ public class ControladorEvento {
 	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento) throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
 		//Obtengo la Institucion
 		ManejadorInstitucion manejadorInst = ManejadorInstitucion.getInstance();		
-		Institucion instInstitucion = manejadorInst.obtener(nombreInstitucion);
+		Institucion institucion = manejadorInst.obtener(nombreInstitucion);
 		
 		//Obtengo la Edicion
 		ManejadorEvento manejadorEv = ManejadorEvento.getInstance();
-		Evento instEvento = manejadorEv.obtenerEvento(nombreEvento);
-		Edicion instEdicion = manejadorEv.obtenerEdicion(nombreEdicion, instEvento);
+		Evento evento = manejadorEv.obtenerEvento(nombreEvento);
+		Edicion edicion = manejadorEv.obtenerEdicion(nombreEdicion, evento);
 		
 		// Obtengo el TipoRegistro y la fecha
-		TRegistro tipoRegistro = instEdicion.getTipoRegistro(dtp.getTipoRegistro());
+		TRegistro tipoRegistro = edicion.getTipoRegistro(dtp.getTipoRegistro());
 
 		float costo = tipoRegistro.getCosto();
 		int cantRegistros = dtp.getCantRegistros();
@@ -183,12 +183,19 @@ public class ControladorEvento {
 		if (costo * cantRegistros > 0.2 * monto) 
 			throw new PatrocinioSuperaMontoException("El costo de los registros supera el 20% del aporte económico.");
 		// No puede existir un patrocinio para la institución
-		if (instInstitucion.existePatrocinio(instEdicion)) 
-			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + instInstitucion.getNombre() + " para la edición " + instEdicion.getNombre());
+		if (institucion.existePatrocinio(edicion)) 
+			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + institucion.getNombre() + " para la edición " + edicion.getNombre());
 		
-		Patrocinio patrocinio = new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(), instEdicion, instInstitucion, tipoRegistro);
-		instInstitucion.agregarPatrocinio(patrocinio);
-		instEdicion.agregarPatrocinio(patrocinio);
+		Patrocinio patrocinio = new Patrocinio(
+				dtp.getCodigo(),
+				dtp.getMonto(),
+				dtp.getTipo(),
+				dtp.getFechaAlta(),
+				dtp.getCantRegistros(),
+				edicion,
+				institucion,
+				tipoRegistro
+		);
 	}
 	
 	// Crea un evento sin imagen (imagen = null)
