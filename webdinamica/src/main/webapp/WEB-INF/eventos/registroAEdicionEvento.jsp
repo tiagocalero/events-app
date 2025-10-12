@@ -13,7 +13,7 @@
   <link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png"> 
   </head>
 <body>
-  <header-component></header-component>
+  <%@ include file="/components/header.jsp" %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
@@ -25,13 +25,9 @@
             <strong>${nombreEdicion}</strong> del evento <strong>${nombreEvento}</strong>
         </h3><br/>
 
-        <%-- 
-          NOTA: Se ha quitado el formulario anidado que no es válido en HTML.
-          La acción "info_tipo_registro" es la acción que manejará el POST final.
-        --%>
-        <form class="content-form-alta" onsubmit="return validarSeleccionRegistroEdicion()" action="info_tipo_registro" method="post">
+        <%-- NOTA: Asumimos que validarSeleccionRegistroEdicion() ya está implementada en tu headerLoggedIn.js --%>
+        <form class="content-form-alta" onsubmit="return validarSeleccionRegistroEdicion()" action="registroAEdicionEvento" method="post">
 
-            <%-- Campos ocultos CRUCIALES para enviar Evento y Edición en el POST final --%>
             <input type="hidden" name="evento" value="${nombreEvento}">
             <input type="hidden" name="edicion" value="${nombreEdicion}">
             
@@ -54,18 +50,18 @@
               <h5>Seleccione la forma de registro:</h5>
 
               <label>
-                <input type="radio" name="tipoRegistro" value="general" required>
+                <input type="radio" name="tipoRegistro" value="general" required onclick="toggleCodigoPatrocinio()">
                 General
               </label><br>
 
               <label>
-                <input type="radio" name="tipoRegistro" value="patrocinio" required>
+                <input type="radio" name="tipoRegistro" value="patrocinio" required onclick="toggleCodigoPatrocinio()">
                 Con código de patrocinio
               </label><br><br>
 
               <div id="campoCodigo" style="display:none;">
                 <label>Código de patrocinio:
-                  <input type="text" name="codigoPatrocinio">
+                  <input type="text" id="codigoPatrocinio" name="codigoPatrocinio">
                 </label>
               </div>
 
@@ -75,6 +71,30 @@
     </div>
 
   </main>
+
+  <script>
+    
+    function toggleCodigoPatrocinio() {
+        const campoCodigoDiv = document.getElementById('campoCodigo');
+        const codigoInput = document.getElementById('codigoPatrocinio');
+        
+        // Obtener el valor del radio button seleccionado
+        const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked');
+        
+        if (tipoRegistro && tipoRegistro.value === 'patrocinio') {
+            // Si es patrocinio, mostrar el campo y hacerlo requerido
+            campoCodigoDiv.style.display = 'block';
+            codigoInput.required = true;
+        } else {
+            // Si es general (o ninguno), ocultar el campo y no requerirlo
+            campoCodigoDiv.style.display = 'none';
+            codigoInput.required = false;
+            codigoInput.value = ''; // Opcional: limpiar el valor si se cambia a General
+        }
+    }
+
+    
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

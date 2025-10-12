@@ -16,7 +16,7 @@ public class Edicion {
 	private String sigla;
     private String nombre;
     private TipoEstado estado;
-    private Map<String, Patrocinio> patrocinios;
+    private List<Patrocinio> patrocinios;
     private Map<String, TRegistro> tRegistros;
     private Organizador organizador;
     private Evento evento;
@@ -33,7 +33,7 @@ public class Edicion {
         this.fechaFinal = fechaFin;
         this.fechaAlta = fechaAlta;
         this.estado = TipoEstado.Ingresada;
-        this.patrocinios = new HashMap<String, Patrocinio>();
+        this.patrocinios = new ArrayList<Patrocinio>();
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
         
@@ -102,17 +102,20 @@ public class Edicion {
 	}
 	
     public void agregarPatrocinio(Patrocinio patrocinio) {
-    	patrocinios.put(patrocinio.getCodigo(), patrocinio);
+    	patrocinios.add(patrocinio);
     }
     
     public List<String> getCodigosPatrocinios() {
-    	return new ArrayList<>(patrocinios.keySet());
+    	return new ArrayList<>(
+    			patrocinios.stream()
+    					   .map(p -> p.getCodigo())
+    					   .collect(Collectors.toList())
+    		);
     }
     
     public List<String> getInstitucionesPatrocinios() {
     	return new ArrayList<>(
-			patrocinios.values()
-					   .stream()
+			patrocinios.stream()
 					   .map(p -> p.getNombreInstitucion())
 					   .collect(Collectors.toList())
 		);
