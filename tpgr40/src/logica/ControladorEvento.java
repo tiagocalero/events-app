@@ -50,21 +50,6 @@ public class ControladorEvento {
 		return res;	
 	}
 	
-	public List<String> listarEdicionesAceptadas(String nombreEvento) {
-		ManejadorEvento manejador = ManejadorEvento.getInstance();
-		Evento eventoBuscado = manejador.obtenerEvento(nombreEvento);
-		Map<String, Edicion> ediciones = eventoBuscado.getEdiciones();
-		List<String> res = new ArrayList<>();
-		
-		for (Map.Entry<String, Edicion> entry : ediciones.entrySet()) {
-		    if (entry.getValue().getEstado() == TipoEstado.Aceptada) {
-		        res.add(entry.getKey());
-		    }
-		}
-		
-		return res;	
-	}
-	
 	public List<String> listarEventos(){
 		ManejadorEvento manejador = ManejadorEvento.getInstance();
 		
@@ -333,6 +318,48 @@ public class ControladorEvento {
 		
 		return false;
 	}
+	
+	public boolean darDeAltaRegistroCodigo(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, LocalDate fechaAlta, String codigo) {
+		
+		//Obtengo la institución del asistente
+		ControladorUsuario controladorUsr = ControladorUsuario.getInstance();
+		Usuario usuario = controladorUsr.obtenerUsuario(nickAsistente);
+		assert usuario instanceof Asistente; 
+		Asistente asistente = (Asistente) usuario;
+		String institucionAsistente = asistente.getInstitucion().getNombre();
+		
+		//Obtengo Evento y edicion
+		ManejadorEvento manejadorEv = ManejadorEvento.getInstance();
+		Evento evento = manejadorEv.obtenerEvento(nickEvento);
+		Edicion edicion = manejadorEv.obtenerEdicion(nombreEdicion, evento);
+
+		
+		//Chequeo que el asistente no esté registrado ya y obtengo el TRegistro
+		boolean estaAsistente = manejadorEv.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
+		TRegistro tregistro = manejadorEv.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
+		
+		
+		//Chequeo que el codigo sea valido
+		boolean esPatrocinadora  = manejadorEv.obtenerEdicion(nombreEdicion, evento).getInstitucionesPatrocinios().contains(institucionAsistente) ;
+		
+		ControladorInstitucion controladorInst = ControladorInstitucion.getInstance();
+		boolean codigoCorrecto = false;
+		if (esPatrocinadora) {
+			codigoCorrecto = controladorInst.verificarCodigoCupos(edicion, institucionAsistente, codigo);
+		}
+
+		if (tregistro.getCuposLibres() == 0 || estaAsistente || !esPatrocinadora || !codigoCorrecto)
+			return true;
+	
+				
+		Registro nuevoRegistro = new Registro(0, fechaAlta, asistente, edicion, tregistro);
+		edicion.agregarRegistro(nuevoRegistro);
+		asistente.agregarRegistro(nuevoRegistro);
+		controladorInst.aumentarUsados(edicion, institucionAsistente);
+		
+		return false;
+	}
+	
 	
 	// Retorna true si existe el evento y la edición para ese evento
 	public boolean existeEdicionEvento(String eventoS, String edicionS) {

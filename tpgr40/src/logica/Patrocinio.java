@@ -8,6 +8,7 @@ public class Patrocinio {
 	private TipoNivelPatrocinio tipo;
 	private LocalDate fecha;
 	private int cantRegistros;
+	private int cantRegistrosUsados;
 	
 	private Edicion edicion;
 	private Institucion institucion;
@@ -32,6 +33,7 @@ public class Patrocinio {
 
 		this.edicion = edicion;
 		this.institucion = institucion;
+		this.cantRegistrosUsados = 0;
 		
 		institucion.agregarPatrocinio(this);
 		edicion.agregarPatrocinio(this);
@@ -60,5 +62,16 @@ public class Patrocinio {
 	
 	public boolean buscarEdicion(Edicion edicionBuscada) {
 		return edicionBuscada == edicion;
+	}
+	
+	public int getCantRegistros() {
+		return cantRegistrosUsados;
+	}
+	
+	public int getCantRegistrosUsados() {
+		return cantRegistrosUsados;
+	}
+	public void aumentarCantRegistrosUsados() {
+		cantRegistrosUsados = cantRegistrosUsados + 1;
 	}
 }

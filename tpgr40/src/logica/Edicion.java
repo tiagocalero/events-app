@@ -146,6 +146,7 @@ public class Edicion {
     	registros.add(registro);
     }
     
+      
     public void confirmar() {
     	estado = TipoEstado.Aceptada;
     }

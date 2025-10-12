@@ -13,3 +13,4 @@ webdinamica./classpath
 /.settings/
 /.classpath
 /.project
+/webdinamica/src/main/webapp/WEB-INF/lib/logica.jar

@@ -49,4 +49,21 @@ public class ControladorInstitucion{
 		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
 		return m.obtener(nombre);
 	}
+	
+	public boolean verificarCodigoCupos(Edicion edicion, String nombreInstitucion, String codigo) {
+		Institucion institucion = this.obtenerInstitucion(nombreInstitucion);
+		Patrocinio patrocinio = institucion.obtenerPatrocinio(edicion);
+		if (patrocinio.getCodigo().equals(codigo) && (patrocinio.getCantRegistros() > patrocinio.getCantRegistrosUsados())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void aumentarUsados(Edicion edicion, String nombreInstitucion) {
+		Institucion institucion = this.obtenerInstitucion(nombreInstitucion);
+		Patrocinio patrocinio = institucion.obtenerPatrocinio(edicion);
+		patrocinio.aumentarCantRegistrosUsados();
+	}
 }

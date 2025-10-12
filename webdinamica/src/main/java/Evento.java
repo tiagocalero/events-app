@@ -474,6 +474,7 @@ public class Evento extends HttpServlet {
 		    	String nombreEdicion = request.getParameter("edicion");
 		     	String nombreTRegistro = request.getParameter("tiposRegistro");
 		     	String evento = request.getParameter("evento");
+		     	String codigo = request.getParameter("codigoPatrocinio");
 		     	LocalDate fechaAlta = LocalDate.now();
 		     	
 		     	
@@ -483,8 +484,14 @@ public class Evento extends HttpServlet {
 		    	String nickname = usuario.getNickname();
 		     	
 		     	ControladorEvento c = ControladorEvento.getInstance();
-		    	 
-		    	boolean ok = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta);
+		    	boolean ok = false;		     	
+		     	
+		     	if (codigo != null && !codigo.isEmpty()) {
+		     		ok = c.darDeAltaRegistroCodigo(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, codigo);
+		     	}
+		     	else {
+		     		ok = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta);
+		     	}
 		    	
 		     	/*if (!ok) {
 		    	
