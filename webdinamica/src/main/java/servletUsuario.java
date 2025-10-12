@@ -231,6 +231,36 @@ public class servletUsuario extends HttpServlet {
     	}
     }
     
+    protected void cambiarContraGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+    }
+    
+    protected void cambiarContraPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String actual = request.getParameter("pass");
+ 		String nueva = request.getParameter("newPass");
+ 		String confNueva = request.getParameter("confNewPass");
+ 		
+ 		ControladorUsuario cu = ControladorUsuario.getInstance();
+ 		HttpSession session = request.getSession(false);
+ 		DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
+ 		Usuario usuario = cu.obtenerUsuario(dtu.getNickname());
+ 		if (usuario.chequearContrasena(actual)) {
+ 			if (actual.equals(nueva)) {
+ 				request.setAttribute("error2", "La nueva contraseña no puede ser igual a la actual.");
+ 	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+ 			} else if (!nueva.equals(confNueva)) {
+ 				request.setAttribute("error3", "Las contraseñas no coniciden.");
+ 	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+ 			} else {
+ 				usuario.setContrasena(nueva);
+ 				response.sendRedirect("/webdinamica/usuarios/fin_sesion");
+ 			}
+ 		} else {
+ 			request.setAttribute("error", "Contraseña incorrecta.");
+    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+ 		}
+    }
+    
     // ######  CONSULTA REGISTRO DOGET  ###### 
 
  	protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -249,14 +279,20 @@ public class servletUsuario extends HttpServlet {
     	    		
     		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
     		request.setAttribute("registros", registros);
+    		request.setAttribute("edicion", edicion);
+
     		    		
-    		request.getRequestDispatcher("/vistas/consultaRegistroOrg.jsp").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroOrg.jsp").forward(request, response);
     		    	
     	} else if (usuario instanceof DTAsistente) {
     		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
-    		request.setAttribute("registros", registro);
+    		
+    		request.setAttribute("costo", registro.getCosto());
+    		request.setAttribute("fecha", registro.getFecha());
+    		request.setAttribute("tipo", registro.getTipo());
+    		request.setAttribute("edicion", edicion);
     		    		
-    		request.getRequestDispatcher("/vistas/consultaRegistroAsis.jsp").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
     	} else {
     		// Error: Usuario no logueado o tipo desconocido
     		response.sendRedirect("login.jsp");
@@ -280,7 +316,11 @@ public class servletUsuario extends HttpServlet {
 		        	consultaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
-		        } else if (path.equals("/consultaRegistro")) {
+		        } else if (path.equals("/cambiar_contrasena")) {
+		        	cambiarContraGET(request, response);
+		        } else if (path.equals("/consultaRegistroAsis")) {
+		        	consultaRegistroGET(request, response);
+		        } else if (path.equals("/consultaRegistroOrg")) {
 		        	consultaRegistroGET(request, response);
 		        } else if (path.equals("/fin_sesion")) {
 		        	HttpSession session = request.getSession(false);
@@ -313,7 +353,9 @@ public class servletUsuario extends HttpServlet {
 		        	altaUsuarioPOST(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
-				} else {
+				} else if (path.equals("/cambiar_contrasena")) {
+		        	cambiarContraPOST(request, response);
+		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }

@@ -11,7 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eventos.uy - Consulta de Usuario</title>
+  <title>Eventos.uy - Perfil</title>
   <link rel="stylesheet" href="/webdinamica/assets/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
@@ -53,8 +53,7 @@
         <input type="text" id="correo" name="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
 
         <label for="pass"><strong>Contraseña:</strong></label>
-        <%-- <input type="password" id="pass" value="<%= user.getAttribute("pass") != null ? user.getAttribute("pass") : "" %>"/> --%>
-        <a href="#" >cambiar</a></br>
+        <a href="/webdinamica/usuarios/cambiar_contrasena" id="pass" >cambiar contraseña</a></br>
 
 		<% if (usuarioLoggeado instanceof DTAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>

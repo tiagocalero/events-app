@@ -53,5 +53,10 @@ public abstract class Usuario {
 		this.imagen = img;
 	}
 	
+	public void setContrasena(String contrasena) {
+		ControladorUsuario cu = ControladorUsuario.getInstance();
+		this.contrasena = cu.hashearContrasena(contrasena);
+	}
+	
 	public abstract void modificar(DTUsuarioModificado datos);
 }
