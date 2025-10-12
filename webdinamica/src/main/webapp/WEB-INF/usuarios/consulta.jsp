@@ -74,8 +74,8 @@
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-          	<% if (usuarioLoggeado instanceof DTOrganizador) { 
-          		Organizador org = (Organizador) cu.obtenerUsuario(usuarioLoggeado.getNickname()); %>
+          	<% if (usuario instanceof DTOrganizador) { 
+          		Organizador org = (Organizador) cu.obtenerUsuario(usuario.getNickname()); %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
             		<% List<DTEdicion> edicionesAceptadas = org.consultaAceptadas();;
