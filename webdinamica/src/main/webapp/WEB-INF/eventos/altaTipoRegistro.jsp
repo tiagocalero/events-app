@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,6 +18,8 @@
 	<%@ include file="/components/header.jsp" %>
 	
   <main>
+  	<% String errorMessage = (String) request.getAttribute("error"); %>
+  	
     <%@ include file="/components/sidebar.jsp" %>
 
 
@@ -29,21 +32,33 @@
 		<input type="hidden" name="nombreEvento" value="${param.evento}" />
   		<input type="hidden" name="nombreEdicion" value="${param.edicion}" />
   		<label for= "Nombre">Nombre:</label>
-        <input type = "text" id = "name" name = "nombre" required/><br/>
+        <input type = "text" id = "name" name = "nombre" value="${nombre}" required/><br/>
         <label for= "Descripción">Descripción:</label>
-        <input type = "text" id = "Descripción" name = "descripcion"/><br/>
+        <input type = "text" id = "Descripción" name = "descripcion" value="${descripcion}"/><br/>
         <label for= "c">Costo:</label>
-        <input type = "number" id = "c" name = "costo" min="0" class="no-spinner" required/><br/>
+        <input type = "number" id = "c" name = "costo" min="0" class="no-spinner" value="${costo}" required/><br/>
         <label for= "Cupo">Cupo:</label>
-        <input type = "number" id = "Cupo" name = "cupo" min="0" class="no-spinner" required/><br/><br/>
+        <input type = "number" id = "Cupo" name = "cupo" min="0" class="no-spinner" value="${cupo}" required/><br/><br/>
         <input type="reset" value = "Borrar"/>
         <input type="submit" value = "Crear"/>
+        
 
       </form>
       
     </div>
 
   </main>
+    <% if (errorMessage != null) { %>
+  <script>
+    const errorMsg = "<%= errorMessage %>";
+    
+    const confirmar = confirm(errorMsg + "\n\n¿Desea modificar el nombre o cancelar la creación de la edición?");
+
+    if (!confirmar) {
+        window.location.href = "<%= request.getContextPath() + "/eventos"  %>"; 
+    }
+  </script>
+  <% } %>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>

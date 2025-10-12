@@ -604,6 +604,8 @@ public class Evento extends HttpServlet {
     		request.setAttribute("cupo", cupo);
     		
     		request.setAttribute("error", "Ya existe un tipo registro con ese nombre");
+    		request.getRequestDispatcher("/WEB-INF/eventos/altaTipoRegistro.jsp").forward(request, response);
+    	    return;
     	}
     	
     	altaTipoRegistroGET(request, response);
