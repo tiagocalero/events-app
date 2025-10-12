@@ -249,14 +249,20 @@ public class servletUsuario extends HttpServlet {
     	    		
     		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
     		request.setAttribute("registros", registros);
+    		request.setAttribute("edicion", edicion);
+
     		    		
-    		request.getRequestDispatcher("/vistas/consultaRegistroOrg.jsp").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroOrg.jsp").forward(request, response);
     		    	
     	} else if (usuario instanceof DTAsistente) {
     		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
-    		request.setAttribute("registros", registro);
+    		
+    		request.setAttribute("costo", registro.getCosto());
+    		request.setAttribute("fecha", registro.getFecha());
+    		request.setAttribute("tipo", registro.getTipo());
+    		request.setAttribute("edicion", edicion);
     		    		
-    		request.getRequestDispatcher("/vistas/consultaRegistroAsis.jsp").forward(request, response);
+    		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
     	} else {
     		// Error: Usuario no logueado o tipo desconocido
     		response.sendRedirect("login.jsp");
@@ -280,9 +286,12 @@ public class servletUsuario extends HttpServlet {
 		        	consultaUsuarioGET(request, response);
 		        } else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
-		        } else if (path.equals("/consultaRegistro")) {
+		        } else if (path.equals("/consultaRegistroAsis")) {
 		        	consultaRegistroGET(request, response);
-		        } else if (path.equals("/fin_sesion")) {
+		        } else if (path.equals("/consultaRegistroOrg")) {
+		        	consultaRegistroGET(request, response);
+		        }
+		        else if (path.equals("/fin_sesion")) {
 		        	HttpSession session = request.getSession(false);
 		            if (session != null) {
 		                session.invalidate();

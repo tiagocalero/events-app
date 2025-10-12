@@ -294,41 +294,47 @@ public class Evento extends HttpServlet {
 			 
 		     // POST /ediciones/altaEdicion
 		     // Crea una edicion con los parámetros pasados
-		     protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    	String nombre = request.getParameter("name");
-		    	String ciudad = request.getParameter("ciudad");
-		    	String sigla = request.getParameter("sigla");
-		    	String pais = request.getParameter("pais");
-		    	LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
-		    	LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
-		    	String evento = request.getParameter("evento");
-		    	String edicion = request.getParameter("edicion");
-		    	LocalDate fechaAlta = LocalDate.now();
-		    	
-		    	HttpSession user = request.getSession(false);
-		     	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
-		     	
-		     	String nicknameOrganizador = usuario.getNickname();
+			// POST /ediciones/altaEdicion
+			 protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			     
+			     String nombre = request.getParameter("name");
+			     String ciudad = request.getParameter("ciudad");
+			     String sigla = request.getParameter("sigla");
+			     String pais = request.getParameter("pais");
+			     LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
+			     LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
+			     String nombreEvento = request.getParameter("evento"); // 🟢 Usar nombre más claro
 
-		    	ControladorEvento c = ControladorEvento.getInstance();
-		    	boolean ok = c.altaEdicion(evento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-		    	
-		        if (!ok) {
-		        	// Se incluyen todos los atributos para que se vuelvan a cargar y que el
-		        	// usuario no tenga que llenarlos de vuelta
-		        	request.setAttribute("name", nombre);
-		        	request.setAttribute("ciudad", ciudad);
-		        	request.setAttribute("sigla", sigla);
-		        	request.setAttribute("pais", pais);
-		        	request.setAttribute("fecha-inicio", fechaInicio);
-		        	request.setAttribute("fecha-fin", fechaFin);
-		        		
-		        	request.setAttribute("error", "Ya existe una edicion con ese nombre");
-		        }
-		        
-		        // Volver a ConsultaEvento
-		    	consultaEventoGET(request, response);
-		      }
+			     String edicion = request.getParameter("edicion"); 
+			     
+			     LocalDate fechaAlta = LocalDate.now();
+			     
+			     HttpSession user = request.getSession(false);
+			     DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+			     String nicknameOrganizador = usuario.getNickname();
+
+			     ControladorEvento c = ControladorEvento.getInstance();
+			     boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
+			     
+			     if (!ok) {
+			         
+			         request.setAttribute("name", nombre);
+			         request.setAttribute("ciudad", ciudad);
+			         request.setAttribute("sigla", sigla);
+			         request.setAttribute("pais", pais);
+			         request.setAttribute("fecha-inicio", fechaInicio);
+			         request.setAttribute("fecha-fin", fechaFin);
+			         
+			         request.setAttribute("nombreEvento", nombreEvento); 
+			         
+			         request.setAttribute("error", "El nombre de la edición '" + nombre + "' ya existe.");
+			         
+			         request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
+			         
+			     } else {
+			         consultaEventoGET(request, response);
+			     }
+			 }
     	
      
      
@@ -431,25 +437,28 @@ public class Evento extends HttpServlet {
 		     //crea el registro al evento
 		     protected void registroAEdicionEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    	String nombreEdicion = request.getParameter("edicion");
-		     	String nombreTRegistro = request.getParameter("nombreTRegistro");
+		     	String nombreTRegistro = request.getParameter("tiposRegistro");
 		     	String evento = request.getParameter("evento");
 		     	LocalDate fechaAlta = LocalDate.now();
-		     	//Hay que agregar el nickname del asistente desde la sesion
+		     	
+		     	
+		     	HttpSession user = request.getSession(false);
+		    	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+		    	
+		    	String nickname = usuario.getNickname();
 		     	
 		     	ControladorEvento c = ControladorEvento.getInstance();
 		    	 
-		    	//boolean ok = c.darDeAltaRegistro(nickAsistente, nombreEdicion, String nombreTRegistro, String nickEvento, LocalDate fechaAlta)
+		    	boolean ok = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta);
 		    	
 		     	/*if (!ok) {
-		    	// Se incluyen todos los atributos para que se vuelvan a cargar y que el
-		    	// usuario no tenga que llenarlos de vuelta
-		    		request.setAttribute("tiposRegistro", tiposRegistro);
+		    	
+		    		req.getAttribute("tiposRegistro", tiposRegistro);
 		    		
 		    	request.setAttribute("error", "Ya existe una edicion con ese nombre");
-		    }*/
+		     	}*/
 		    
-		    // Volver a ConsultaEdicion
-				//consultaEdicionGET(request, response); 
+				consultaEdicionGET(request, response); 
 		  	 }
      
      

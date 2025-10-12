@@ -10,12 +10,11 @@
   <link rel="stylesheet" href="/webdinamica/assets/styles.css"> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   
-  <script src="/webdinamica/components/headerLoggedIn.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png"> 
+</head>
 <body>
 
-<body>
-  <header-component></header-component>
+  <%@ include file="/components/header.jsp" %>
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
@@ -24,30 +23,41 @@
       
       <form id="modifyUserForm" class="content-form-modificar" action="#" method="post">
         
-        <h3><strong>Detalles de su Registro en: ${requestScope.nombreEdicion}</strong></h3><br/>
-
-        <c:set var="reg" value="${requestScope.registro}"/>
+        <h3><strong>Detalles de su Registro en: ${requestScope.edicion}</strong></h3><br/> 
+        
 
         <label for="fecha-registro"><strong>Fecha de Registro:</strong></label>
-        <input type="text" id="fecha-registro" value="${reg.fecha}" readonly/><br/>
+        <input type="text" id="fecha-registro" value="${requestScope.fecha}" readonly/><br/> 
 
         <label for="tipo-registro"><strong>Tipo de Registro:</strong></label>
-        <input type="text" id="tipo-registro" value="${reg.tipo}" readonly/><br/>
+        <input type="text" id="tipo-registro" value="${requestScope.tipo}" readonly/><br/>
 
         <label for="costo-registro"><strong>Costo del Registro:</strong></label>
-        <input type="text" id="costo-registro" value="\$${reg.costo}" readonly/><br/>
+        <input type="text" id="costo-registro" value="\$${requestScope.costo}" readonly/><br/>
         
-        </form>
+      </form>
       
     </div>
 
-    
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-            Registros
+            Edición
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-              </ul>
+              
+              <% 
+                String nombreEdicion = (String) request.getAttribute("edicion");
+                String nombreEvento = request.getParameter("evento");
+                String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+              %>
+              
+              <li>
+                 <a href="<%= urlConsultaEdicion %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                    <%= nombreEdicion %>
+                 </a>
+              </li>
+              
+            </ul>
           </li>
         </ul>
     </div>

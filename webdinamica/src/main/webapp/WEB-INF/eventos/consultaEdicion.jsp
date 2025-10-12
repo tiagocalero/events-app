@@ -30,8 +30,8 @@
     
     // URL base para el registro y consulta
     String urlRegistroAsistente = "/webdinamica/ediciones/registroAEdicionEvento?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
-    String urlConsultaAsistente = "/webdinamica/registros/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
-    String urlConsultaOrganizador = "/webdinamica/registros/consultaRegistroOrg?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+    String urlConsultaAsistente = "/webdinamica/usuarios/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+    String urlConsultaOrganizador = "/webdinamica/usuarios/consultaRegistroOrg?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
 
     // --- LÓGICA DE VISIBILIDAD DE BOTONES (Organizador/Asistente) ---
     // Obtener datos del organizador de la edición
