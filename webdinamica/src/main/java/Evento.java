@@ -514,7 +514,8 @@ public class Evento extends HttpServlet {
 			    		return;
 			    	}
 	   		    	
-	   		    	DTEvento datosEvento = c.informacionEvento(evento);
+	   		    	//DTEvento datosEvento = c.informacionEvento(evento);
+			    	DTEvento datosEvento = c.informacionEventoEdAceptadas(evento);
 	   		    	
 	   		    	String descripcion = datosEvento.getDescripcion();
 	   		    	request.setAttribute("descripcion", descripcion);
