@@ -23,7 +23,9 @@
   		String nombreEvento = (String) request.getAttribute("nombreEvento");
 		String nombreEdicion = (String) request.getAttribute("nombreEdicion");
 		String nombre = (String) request.getAttribute("nombre");
+		if (nombre == null) nombre = "";
 	    String descripcion = (String) request.getAttribute("descripcion");
+	    if (descripcion == null) descripcion = "";
 	    Float costo = (Float) request.getAttribute("costo");
 	    Integer cupo = (Integer) request.getAttribute("cupo");
 	    
@@ -49,9 +51,9 @@
 		<input type="hidden" name="nombreEvento" value="<%= nombreEvento != null ? nombreEvento : request.getParameter("evento") %>" />
   		<input type="hidden" name="nombreEdicion" value="<%= nombreEdicion != null ? nombreEdicion : request.getParameter("edicion") %>" />
   		<label for= "nombre">Nombre:</label>
-        <input type = "text" id = "nombre" name = "nombre" value="<%= nombre != null ? nombre : "" %>" required/><br/>
+        <input type = "text" id = "nombre" name = "nombre" value="<%= nombre %>" required/><br/>
         <label for= "descripción">Descripción:</label>
-        <input type = "text" id = "descripcion" name = "descripcion" value="<%= descripcion != null ? descripcion : "" %>"/><br/>
+        <input type = "text" id = "descripcion" name = "descripcion" value="<%= descripcion %>"/><br/>
         <label for= "c">Costo:</label>
         <input type = "number" id = "c" name = "costo" min="0" class="no-spinner" value="<%= costo != null ? costo : "" %>" required/><br/>
         <label for= "Cupo">Cupo:</label>
