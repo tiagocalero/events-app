@@ -1,8 +1,13 @@
 package datos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import excepciones.PatrocinioSuperaMontoException;
+import excepciones.YaExistePatrocinioException;
 import logica.ControladorCategoria;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
@@ -10,38 +15,31 @@ import logica.ControladorUsuario;
 import logica.DTPatrocinio;
 import logica.TipoNivelPatrocinio;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 public class CargarDatos {
-	public static void cargaDatos() {
+	public static void cargaDatos() throws PatrocinioSuperaMontoException, YaExistePatrocinioException, IllegalArgumentException {
 		
 		//Cargar Categorias
 		ControladorCategoria c = ControladorCategoria.getInstance();
-		boolean cat = c.altaCategoria("Tecnología");
-		cat = c.altaCategoria("Innovación");
-		cat = c.altaCategoria("Literatura");
-		cat = c.altaCategoria("Cultura");
-		cat = c.altaCategoria("Música");
-		cat = c.altaCategoria("Deporte");
-		cat = c.altaCategoria("Salud");
-		cat = c.altaCategoria("Entretenimiento");
-		cat = c.altaCategoria("Agro");
-		cat = c.altaCategoria("Negocios");
-		cat = c.altaCategoria("Moda");
-		cat = c.altaCategoria("Investigación");
+		c.altaCategoria("Tecnología");
+		c.altaCategoria("Innovación");
+		c.altaCategoria("Literatura");
+		c.altaCategoria("Cultura");
+		c.altaCategoria("Música");
+		c.altaCategoria("Deporte");
+		c.altaCategoria("Salud");
+		c.altaCategoria("Entretenimiento");
+		c.altaCategoria("Agro");
+		c.altaCategoria("Negocios");
+		c.altaCategoria("Moda");
+		c.altaCategoria("Investigación");
 		
 		//Cargar Instituciones
 		ControladorInstitucion i = ControladorInstitucion.getInstance();
-		boolean inst = i.altaInstitucion("Agencia Nacional de Investigación e Innovación (ANII)", "Fomenta la investigación y la innovación en Uruguay", "https://anii.org.uy");
-		inst = i.altaInstitucion("Facultad de Ingeniería", "Facultad de Ingeniería de la Universidad de la República", "https://www.fing.edu.uy");
-		inst = i.altaInstitucion("ORT Uruguay", "Universidad privada enfocada en tecnología y gestión", "https://ort.edu.uy");
-		inst = i.altaInstitucion("Universidad Católica del Uruguay", "Institución de educación superior privada", "https://ucu.edu.uy");
-		inst = i.altaInstitucion("Antel", "Empresa estatal de telecomunicaciones", "https://antel.com.uy");
+		i.altaInstitucion("Agencia Nacional de Investigación e Innovación (ANII)", "Fomenta la investigación y la innovación en Uruguay", "https://anii.org.uy");
+		i.altaInstitucion("Facultad de Ingeniería", "Facultad de Ingeniería de la Universidad de la República", "https://www.fing.edu.uy");
+		i.altaInstitucion("ORT Uruguay", "Universidad privada enfocada en tecnología y gestión", "https://ort.edu.uy");
+		i.altaInstitucion("Universidad Católica del Uruguay", "Institución de educación superior privada", "https://ucu.edu.uy");
+		i.altaInstitucion("Antel", "Empresa estatal de telecomunicaciones", "https://antel.com.uy");
 		
 		//Cargar Eventos
 		ControladorEvento e = ControladorEvento.getInstance();
@@ -90,56 +88,67 @@ public class CargarDatos {
         LocalDate fechaFin = LocalDate.parse("22/11/2025", fmt);
         fechaAlta = LocalDate.parse("12/03/2025", fmt);
 		boolean  ed = e.altaEdicion("Montevideo Rock", "imm", "Montevideo Rock 2025", "MONROCK25", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV01.jpeg");
+		e.confirmarEdicion("Montevideo Rock", "Montevideo Rock 2025");
 		
 		fechaInicio = LocalDate.parse("14/09/2025", fmt);
         fechaFin = LocalDate.parse("14/09/2025", fmt);
         fechaAlta = LocalDate.parse("05/02/2025", fmt);
 		ed = e.altaEdicion("Maratón de Montevideo", "imm", "Maratón de Montevideo 2025", "MARATON25", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV02.png");
+		e.confirmarEdicion("Maratón de Montevideo", "Maratón de Montevideo 2025");
 		
 		fechaInicio = LocalDate.parse("14/09/2024", fmt);
         fechaFin = LocalDate.parse("14/09/2024", fmt);
         fechaAlta = LocalDate.parse("21/04/2024", fmt);
         ed = e.altaEdicion("Maratón de Montevideo", "imm", "Maratón de Montevideo 2024", "MARATON24", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV03.jpeg");
-		
+        e.confirmarEdicion("Maratón de Montevideo", "Maratón de Montevideo 2024");
+        
 		fechaInicio = LocalDate.parse("14/09/2022", fmt);
         fechaFin = LocalDate.parse("14/09/2022", fmt);
         fechaAlta = LocalDate.parse("21/05/2022", fmt);
         ed = e.altaEdicion("Maratón de Montevideo", "imm", "Maratón de Montevideo 2022", "MARATON22", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV04.jpeg");
-		
+        e.confirmarEdicion("Maratón de Montevideo", "Maratón de Montevideo 2022");
+        
 		fechaInicio = LocalDate.parse("18/07/2024", fmt);
         fechaFin = LocalDate.parse("21/07/2024", fmt);
         fechaAlta = LocalDate.parse("20/06/2024", fmt);
 		ed = e.altaEdicion("Montevideo Comics", "miseventos", "Montevideo Comics 2024", "COMICS24", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV05.jpeg");
+		e.confirmarEdicion("Montevideo Comics", "Montevideo Comics 2024");		
 		
         fechaInicio = LocalDate.parse("04/08/2025", fmt);
         fechaFin = LocalDate.parse("06/08/2025", fmt);
         fechaAlta = LocalDate.parse("04/07/2025", fmt);
 		ed = e.altaEdicion("Montevideo Comics", "miseventos", "Montevideo Comics 2025", "COMICS25", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV06.jpeg");
+		e.confirmarEdicion("Montevideo Comics", "Montevideo Comics 2025");
 		
 		fechaInicio = LocalDate.parse("11/09/2025", fmt);
         fechaFin = LocalDate.parse("17/09/2025", fmt);
         fechaAlta = LocalDate.parse("01/02/2025", fmt);
 		ed = e.altaEdicion("Expointer Uruguay", "miseventos", "Expointer Uruguay 2025", "EXPOAGRO25", fechaInicio, fechaFin, fechaAlta, "Durazno", "Uruguay", "IMG-EDEV07.jpeg");
+		e.confirmarEdicion("Expointer Uruguay", "Expointer Uruguay 2025");
 		
 		fechaInicio = LocalDate.parse("06/04/2026", fmt);
         fechaFin = LocalDate.parse("10/04/2026", fmt);
         fechaAlta = LocalDate.parse("01/08/2025", fmt);
 		ed = e.altaEdicion("Conferencia de Tecnología", "udelar", "Tecnología Punta del Este 2026", "CONFTECH26", fechaInicio, fechaFin, fechaAlta, "Punta del Este", "Uruguay", "IMG-EDEV08.jpeg");
+		e.confirmarEdicion("Conferencia de Tecnología", "Tecnología Punta del Este 2026");
 		
 		fechaInicio = LocalDate.parse("12/12/2025", fmt);
         fechaFin = LocalDate.parse("15/12/2025", fmt);
         fechaAlta = LocalDate.parse("21/08/2025", fmt);
 		ed = e.altaEdicion("Conferencia de Tecnología", "techcorp", "Mobile World Congress 2025", "MWC", fechaInicio, fechaFin, fechaAlta, "Barcelona", "España");
+		e.confirmarEdicion("Conferencia de Tecnología", "Mobile World Congress 2025");
 		
 		fechaInicio = LocalDate.parse("13/01/2026", fmt);
         fechaFin = LocalDate.parse("01/02/2026", fmt);
         fechaAlta = LocalDate.parse("04/06/2025", fmt);
 		ed = e.altaEdicion("Conferencia de Tecnología", "techcorp", "Web Summit 2026", "WS26", fechaInicio, fechaFin, fechaAlta, "Lisboa", "Portugal");
+		e.confirmarEdicion("Conferencia de Tecnología", "Web Summit 2026");
 
 		fechaInicio = LocalDate.parse("16/02/2026", fmt);
         fechaFin = LocalDate.parse("20/02/2026", fmt);
         fechaAlta = LocalDate.parse("02/10/2025", fmt);
 		ed = e.altaEdicion("Montevideo Fashion Week", "mec", "Montevideo Fashion Week 2026", "MFW26", fechaInicio, fechaFin, fechaAlta, "Nueva York", "Estados Unidos", "IMG-EDEV11.jpeg");
+		e.confirmarEdicion("Montevideo Fashion Week", "Montevideo Fashion Week 2026");
 		
 		//Cargar Tipo Registro
 		boolean tp = e.crearTipoRegistro("Montevideo Rock", "Montevideo Rock 2025", "General", "Acceso general a Montevideo Rock (2 días)", 1500, 2000);
@@ -171,17 +180,14 @@ public class CargarDatos {
 		tp = e.crearTipoRegistro("Montevideo Fashion Week", "Montevideo Fashion Week 2026", "Visitante", "Acceso parcial a los eventos de la semana", 150, 25);
 		
 		//Cargar Patrocinios
-		// El try es necesario para que no tire que hay errores sin manejar
-		try {
-			DTPatrocinio dtp1 = new DTPatrocinio("TECHFING", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt), "Facultad de Ingeniería", null);
-			e.crearPatrocinio(dtp1, "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");
-			DTPatrocinio dtp2 = new DTPatrocinio("TECHANII", TipoNivelPatrocinio.Plata, 10000, "General", 1, LocalDate.parse("20/08/2025", fmt), "Agencia Nacional de Investigación e Innovación (ANII)", null);
-			e.crearPatrocinio(dtp2, "Tecnología Punta del Este 2026", "Agencia Nacional de Investigación e Innovación (ANII)", "Conferencia de Tecnología");
-			DTPatrocinio dtp3 = new DTPatrocinio("CORREANTEL", TipoNivelPatrocinio.Platino, 25000, "Corredor 10K", 10, LocalDate.parse("04/03/2025", fmt), "Antel", null);
-			e.crearPatrocinio(dtp3, "Maratón de Montevideo 2025", "Antel", "Maratón de Montevideo");
-			DTPatrocinio dtp4 = new DTPatrocinio("EXPOCAT", TipoNivelPatrocinio.Bronce, 15000, "General", 10, LocalDate.parse("05/05/2025", fmt), "Universidad Católica del Uruguay", null);
-			e.crearPatrocinio(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
-		} catch (Exception e1) {}
+		DTPatrocinio dtp1 = new DTPatrocinio("TECHFING", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt), "Facultad de Ingeniería", null);
+		e.crearPatrocinio(dtp1, "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");
+		DTPatrocinio dtp2 = new DTPatrocinio("TECHANII", TipoNivelPatrocinio.Plata, 10000, "General", 1, LocalDate.parse("20/08/2025", fmt), "Agencia Nacional de Investigación e Innovación (ANII)", null);
+		e.crearPatrocinio(dtp2, "Tecnología Punta del Este 2026", "Agencia Nacional de Investigación e Innovación (ANII)", "Conferencia de Tecnología");
+		DTPatrocinio dtp3 = new DTPatrocinio("CORREANTEL", TipoNivelPatrocinio.Platino, 25000, "Corredor 10K", 10, LocalDate.parse("04/03/2025", fmt), "Antel", null);
+		e.crearPatrocinio(dtp3, "Maratón de Montevideo 2025", "Antel", "Maratón de Montevideo");
+		DTPatrocinio dtp4 = new DTPatrocinio("EXPOCAT", TipoNivelPatrocinio.Bronce, 15000, "General", 10, LocalDate.parse("05/05/2025", fmt), "Universidad Católica del Uruguay", null);
+		e.crearPatrocinio(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
 		
 		//Cargar Asistentes
 		boolean as = u.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "IMG-US01.jpg", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");

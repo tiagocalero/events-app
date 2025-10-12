@@ -1,11 +1,8 @@
 package logica;
 
-import logica.Usuario;
-import logica.Edicion;
-import logica.DTOrganizador;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Organizador extends Usuario {
@@ -13,8 +10,8 @@ public class Organizador extends Usuario {
 	private String link;
 	private Map<String, Edicion> ediciones;
 	
-	public Organizador(String nick, String nom, String c, String contrasena, String img, String desc, String link) {
-		super(nick, nom, c, contrasena, img);
+	public Organizador(String nick, String nom, String correo, String contrasena, String img, String desc, String link) {
+		super(nick, nom, correo, contrasena, img);
 		this.descripcion = desc;
 		this.link = link;
 		this.ediciones = new HashMap<String, Edicion>();
@@ -38,14 +35,14 @@ public class Organizador extends Usuario {
 	}
 
 	public List<DTEdicion> consulta() {
-		return ediciones.values().stream().map(ediciones->ediciones.getDatos()).collect(Collectors.toList());
+		return ediciones.values().stream().map(ediciones -> ediciones.getDatos()).collect(Collectors.toList());
 	}
 
 	public Edicion obtenerEdicion(String nom) {
 		return ediciones.get(nom);
 	}
 	
-	public void agregarEdicion(Edicion e) {
-		ediciones.put(e.getNombre(), e);
+	public void agregarEdicion(Edicion edicion) {
+		ediciones.put(edicion.getNombre(), edicion);
 	}
 }

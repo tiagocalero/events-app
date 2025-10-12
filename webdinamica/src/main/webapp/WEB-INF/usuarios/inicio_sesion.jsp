@@ -12,7 +12,7 @@
       content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Astro v5.13.2" />
-    <title>Signin Template · Bootstrap v5.3</title>
+    <title>Eventos.uy - Inicio de Sesión</title>
     <link
       rel="canonical"
       href="https://getbootstrap.com/docs/5.3/examples/sign-in/"
@@ -23,10 +23,10 @@
   	<link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png">
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
-    <main class="form-signin w-100 m-auto">
-      <form action="/webdinamica/usuarios/inicio_sesion" method="post">
+    <main class="w-100 m-auto">
+      <form class="form-signin" action="/webdinamica/usuarios/inicio_sesion" method="post">
         <a href="/webdinamica"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
-        <h1 class="h3 mb-3 fw-normal">inicie sesión</h1>
+        <h1 class="h3 mb-3 fw-normal">Inicie sesión</h1>
         <div class="form-floating">
           <input
             class="form-control"
@@ -62,9 +62,9 @@
 		    <p style="color:red;"><%= request.getAttribute("error") %></p>
 		<% } %>
         <button class="btn_login" type="submit">
-          iniciar sesión
+          Iniciar sesión
         </button>
-        <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2025</p>
+        
       </form>
     </main>
     <script
