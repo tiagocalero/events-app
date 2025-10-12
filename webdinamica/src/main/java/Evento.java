@@ -593,10 +593,7 @@ public class Evento extends HttpServlet {
     	String desc = request.getParameter("descripcion");
     	float costo = Float.parseFloat(request.getParameter("costo"));
     	int cupo = Integer.parseInt(request.getParameter("cupo"));
-    	
-    	System.out.println("Evento recibido: " + nombreEvento);
-    	System.out.println("Edición recibida: " + nombreEdicion);
-    	
+
     	ControladorEvento c = ControladorEvento.getInstance();
     	boolean ok = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
     	
