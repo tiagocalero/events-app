@@ -1,11 +1,10 @@
-
+import java.io.IOException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Servlet implementation class CargaDatos
@@ -29,7 +28,10 @@ public class CargarDatos extends HttpServlet {
     	
     	// No cargar los datos dos veces
     	if (!datosCargados) {
-	    	datos.CargarDatos.cargaDatos();
+	    	try {
+		    	datos.CargarDatos.cargaDatos();
+    		} catch (Exception ex) {}
+	    	
 	    	// Guardar que los datos fueron cargados
 	    	getServletContext().setAttribute("datosCargados", true);
     	}

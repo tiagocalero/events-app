@@ -1,11 +1,10 @@
 package logica;
 
-import java.util.stream.Collectors;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import logica.Usuario;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ManejadorUsuario {
 	private Map<String, Usuario> usuariosNick;
@@ -28,51 +27,61 @@ public class ManejadorUsuario {
         return instance;
     }
 
-
-    public Usuario obtener(String nick_o_correo) {
-        Usuario n = usuariosNick.get(nick_o_correo);
-        if (n != null) return n;
-        return usuariosCorreo.get(nick_o_correo);
+    public Usuario obtener(String nickOCorreo) {
+        Usuario usuario = usuariosNick.get(nickOCorreo);
+        
+        if (usuario != null)
+        	return usuario;
+        
+        return usuariosCorreo.get(nickOCorreo);
     }
 
     public List<String> organizadores() {
-        return this.usuariosNick.values().stream().filter(usuario -> usuario instanceof Organizador).map(usuario->usuario.getNickname()).collect(Collectors.toList());
+        return this.usuariosNick
+        		   .values()
+        		   .stream()
+        		   .filter(usuario -> usuario instanceof Organizador)
+        		   .map(usuario -> usuario.getNickname()).collect(Collectors.toList());
     }
 
     public List<String> asistentes() {
-        return this.usuariosNick.values().stream().filter(usuario -> usuario instanceof Asistente).map(usuario->usuario.getNickname()).collect(Collectors.toList());
+        return this.usuariosNick
+        		   .values()
+        		   .stream()
+        		   .filter(usuario -> usuario instanceof Asistente)
+        		   .map(usuario -> usuario.getNickname()).collect(Collectors.toList());
     }
 	
 	// Con imagenes.
-	public boolean crearAsistente(String nick, String nom, String c, String cont, String img, String ap, LocalDate nac) {
-		if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(c))
+	public boolean crearAsistente(String nick, String nom, String correo, String contrasena, String img, String apellido, LocalDate fechaNacimiento) {
+		if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(correo))
     		return false;
 		
-        Asistente a = new Asistente(nick, nom, c, cont, img, ap, nac);
-        usuariosNick.put(nick, a);
-        usuariosCorreo.put(c, a);
+        Asistente asistente = new Asistente(nick, nom, correo, contrasena, img, apellido, fechaNacimiento);
+        usuariosNick.put(nick, asistente);
+        usuariosCorreo.put(correo, asistente);
         return true;
     }
     
-    public boolean crearAsistente(String nick, String nom, String c, String cont, String img, String ap, LocalDate nac, String ins) {
-    	if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(c))
+    public boolean crearAsistente(String nickname, String nombre, String correo, String contasena, String img, String apellido, LocalDate fechaNacimiento, String nombreInstitucion) {
+    	if (usuariosNick.containsKey(nickname) || usuariosCorreo.containsKey(correo))
     		return false;
     	
-    	ControladorInstitucion ci = ControladorInstitucion.getInstance();
-    	Institucion institucion = ci.obtenerInstitucion(ins);
-        Asistente a = new Asistente(nick, nom, c, cont, img, ap, nac, institucion);
-        usuariosNick.put(nick, a);
-        usuariosCorreo.put(c, a);
+    	ControladorInstitucion controlador = ControladorInstitucion.getInstance();
+    	Institucion institucion = controlador.obtenerInstitucion(nombreInstitucion);
+        Asistente asistente = new Asistente(nickname, nombre, correo, contasena, img, apellido, fechaNacimiento, institucion);
+        usuariosNick.put(nickname, asistente);
+        usuariosCorreo.put(correo, asistente);
         return true;
     }
 
-	public boolean crearOrganizador(String nick, String nom, String c, String cont, String img, String desc, String link) {
-    	if (usuariosNick.containsKey(nick) || usuariosCorreo.containsKey(c))
+	public boolean crearOrganizador(String nickname, String nombre, String correo, String contrasena, String img, String desc, String link) {
+    	if (usuariosNick.containsKey(nickname) || usuariosCorreo.containsKey(correo))
     		return false;
 				
-        Organizador o = new Organizador(nick, nom, c, cont, img, desc, link);
-        usuariosNick.put(nick, o);
-        usuariosCorreo.put(c, o);
+        Organizador organizador = new Organizador(nickname, nombre, correo, contrasena, img, desc, link);
+        usuariosNick.put(nickname, organizador);
+        usuariosCorreo.put(correo, organizador);
         return true;
     }
 

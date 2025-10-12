@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="logica.DTRegistro" %> <%-- ¡Asegúrate de importar tu clase DTRegistro! --%>
+<%@ page import="logica.DTRegistro" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,8 +16,6 @@
   <link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png"> 
 </head>
 <body>
-
-  <%-- 🟢 Inclusión del Header --%>
   <%@ include file="/components/header.jsp" %>
 
   <main>
@@ -73,7 +73,7 @@
               <% 
            
                 String nombreEvento = request.getParameter("evento");
-                String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+                String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
               %>
               
               <li>

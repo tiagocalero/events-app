@@ -1,4 +1,6 @@
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="logica.DTEvento" %>
 <%@ page import="logica.DTUsuario" %>
 <!DOCTYPE html>
@@ -43,17 +45,13 @@
 		        <div class="card-body">
 		          <h5 class="card-title"><%= e.getNombre() %></h5>
 		          <p class="card-text"><%= e.getDescripcion() %></p>
-		          <a href="eventos/consultaEvento?evento=<%= e.getNombre() %>" class="btn btn-primary">Más información</a>
+		          <a href="eventos/consultaEvento?evento=<%= URLEncoder.encode(e.getNombre(), StandardCharsets.UTF_8) %>" class="btn btn-primary">Más información</a>
 		        </div>
 		      </div>
 		  </div>
 		<%
     	}
 		%>
-		
-
-		
-	
 	    </div>
     </div>
   </main>

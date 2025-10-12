@@ -48,5 +48,5 @@ public class DTEdicion {
     public List<String> getInstitucionesPatrocinadoras() { return institucionesPatrocinadoras; }
     public List<String> getTipoRegistros() { return tRegistros; }
     public String getEvento() { return evento; }
-    public String getImagen() { return imagen; }    
+    public String getImagen() { return imagen; }
 }

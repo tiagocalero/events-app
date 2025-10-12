@@ -28,9 +28,9 @@ public class ControladorCategoria{
 		return !existe;
 	}
 	
-	public List<String> categorias(){
-		ManejadorCategoria m = ManejadorCategoria.getInstance();
-		Map<String, Categoria> categorias = m.categorias();
+	public List<String> categorias() {
+		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
+		Map<String, Categoria> categorias = manejador.categorias();
 		
 		List<String> res = new ArrayList<>();
 		

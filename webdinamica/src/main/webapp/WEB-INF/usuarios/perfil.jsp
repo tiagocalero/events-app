@@ -6,6 +6,8 @@
 <%@ page import="logica.DTEdicion" %>
 <%@ page import="logica.DTRegistro" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -61,8 +63,9 @@
 
         	<label for="institucion"><strong>Institución:</strong></label>
         	<select id="institucion" name="institucion">
+        		<option value="none" <%= asistente.getInstitucion() == null ? "selected" : "" %>>Sin Institución</option>
           		<% List<String> instituciones = (List<String>) request.getAttribute("instituciones");
-    	    		for (String inst : instituciones) { %>
+    	    	   for (String inst : instituciones) { %>
           			<option value="<%= inst %>"
           		    <%= inst.equals(asistente.getInstitucion()) ? "selected" : "" %>>
 						<%= inst %>
@@ -90,7 +93,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
     	      			for (DTRegistro reg : registros) { %>
-              			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= reg.getEdicion() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
               		<% } %>
            		</ul>
             <% } else if (usuarioLoggeado instanceof DTOrganizador) { %>
@@ -98,7 +101,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
             		<% List<DTEdicion> ediciones = (List<DTEdicion>) request.getAttribute("ediciones");
     	      			for (DTEdicion ed : ediciones) { %>
-            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= ed.getEvento() %>&edicion=<%= ed.getNombre() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
+            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>
             	</ul>
             <% } %>

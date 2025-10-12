@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="logica.DTPatrocinio" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,7 +47,7 @@
           <li class="mb-1">
             Evento
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-		        <li><a href="/webdinamica/eventos/consultaEvento?evento=<%= request.getParameter("evento") %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("evento") %></a></li>
+		        <li><a href="/webdinamica/eventos/consultaEvento?evento=<%= URLEncoder.encode(request.getParameter("evento"), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("evento") %></a></li>
 		    </ul>
           </li>
         </ul>
@@ -52,7 +55,7 @@
           <li class="mb-1">
             Edición
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-		        <li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= request.getParameter("evento") %>&edicion=<%= request.getParameter("edicion") %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("edicion") %></a></li>
+		        <li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(request.getParameter("evento"), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(request.getParameter("edicion"), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= request.getParameter("edicion") %></a></li>
             </ul>
           </li>
         </ul>
@@ -61,7 +64,7 @@
             Tipo de Registro
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
 		        <li>
-					<a href="/webdinamica/TipoRegistro/consultaTipoRegistro?evento=<%= request.getParameter("evento") %>&edicion=<%= request.getParameter("edicion") %>&tipoRegistro=<%= dtp.getTipoRegistro() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+					<a href="/webdinamica/TipoRegistro/consultaTipoRegistro?evento=<%= URLEncoder.encode(request.getParameter("evento"), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(request.getParameter("edicion"), StandardCharsets.UTF_8) %>&tipoRegistro=<%= URLEncoder.encode(dtp.getTipoRegistro(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
   						<%= dtp.getTipoRegistro() %>
 					</a>
 				</li>

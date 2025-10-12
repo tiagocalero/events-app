@@ -1,12 +1,9 @@
 package logica;
 
-import logica.Institucion;
-import java.util.stream.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControladorInstitucion{
-	//private Institucion institucion;
-		
 	private static volatile ControladorInstitucion instance;
 	private ControladorInstitucion(){};
 	
@@ -21,32 +18,32 @@ public class ControladorInstitucion{
 		return instance;
 	}
 
-	// Crea insitución sin imagen
+	// Crea institución sin imagen
 	public boolean altaInstitucion(String nombre, String desc, String url) {
 		return altaInstitucion(nombre, desc, url, null);
 	}
 
-	// Crea insitución con imagen
+	// Crea institución con imagen
 	public boolean altaInstitucion(String nombre, String desc, String url, String imagen) {
-		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
-		boolean res = m.existe(nombre);
-		if (!res) {
-			m.altaInstitucion(nombre, desc, url, imagen);
-		}
+		ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
+		boolean res = manejador.existe(nombre);
+		if (!res)
+			manejador.altaInstitucion(nombre, desc, url, imagen);
+
 		return !res;
 	}
 	
 	public List<String> listarInstituciones() {
-		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
-		return m.instituciones()
-				.values()
-				.stream()
-				.map(inst -> inst.getNombre())
-				.collect(Collectors.toList());
+		ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
+		return manejador.instituciones()
+						.values()
+						.stream()
+						.map(inst -> inst.getNombre())
+						.collect(Collectors.toList());
 	}
 	
 	public Institucion obtenerInstitucion(String nombre) {
-		ManejadorInstitucion m = ManejadorInstitucion.getInstance();
-		return m.obtener(nombre);
+		ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
+		return manejador.obtener(nombre);
 	}
 }

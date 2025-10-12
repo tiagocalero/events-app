@@ -3,8 +3,9 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="logica.DTOrganizador" %>
-<%@ page import="logica.DTAsistente" %> <%-- Nueva Importación --%>
-
+<%@ page import="logica.DTAsistente" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -29,9 +30,9 @@
     String nombreEdicion = request.getParameter("edicion"); 
     
     // URL base para el registro y consulta
-    String urlRegistroAsistente = "/webdinamica/ediciones/registroAEdicionEvento?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
-    String urlConsultaAsistente = "/webdinamica/usuarios/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
-    String urlConsultaOrganizador = "/webdinamica/usuarios/consultaRegistroOrg?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
+    String urlRegistroAsistente = "/webdinamica/ediciones/registroAEdicionEvento?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
+    String urlConsultaAsistente = "/webdinamica/usuarios/consultaRegistroAsis?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
+    String urlConsultaOrganizador = "/webdinamica/usuarios/consultaRegistroOrg?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
 
     // --- LÓGICA DE VISIBILIDAD DE BOTONES (Organizador/Asistente) ---
     // Obtener datos del organizador de la edición
@@ -141,7 +142,7 @@
            Tipos de Registro
            
            <% if (esOrganizador && esElOrganizadorDeEstaEdicion) { %>
-           <a href="/webdinamica/TipoRegistro/altaTipoRegistro?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
+           <a href="/webdinamica/TipoRegistro/altaTipoRegistro?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
 		          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
 		   		</svg>
@@ -155,7 +156,7 @@
 	           %>
 	           		<li>
 	           		
-						<a href="/webdinamica/TipoRegistro/consultaTipoRegistro?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>&tipoRegistro=<%= tipo %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+						<a href="/webdinamica/TipoRegistro/consultaTipoRegistro?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>&tipoRegistro=<%= URLEncoder.encode(tipo, StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
    						<%= tipo %>
 						</a>
 					</li>
@@ -180,7 +181,7 @@
 		   	  // está patrocinada por todas las instituciones
 		   	  boolean tieneTodasLasInstituciones = (boolean) request.getAttribute("tieneTodasLasInstituciones");
               if (esOrganizador && esElOrganizadorDeEstaEdicion && !tieneTodasLasInstituciones) { %>
-           <a href="/webdinamica/patrocinios/alta?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
+           <a href="/webdinamica/patrocinios/alta?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
 		          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
 		   		</svg>
@@ -193,7 +194,7 @@
 	               if (instituciones != null && !instituciones.isEmpty()) {
 	                   for (String institucion : instituciones) { 
 	           %>
-	                   <li><a href="/webdinamica/patrocinios?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>&institucion=<%= institucion %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= institucion %></a></li>
+	                   <li><a href="/webdinamica/patrocinios?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>&institucion=<%= URLEncoder.encode(institucion, StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= institucion %></a></li>
 	           <% 
 	                   }
 	               } else {

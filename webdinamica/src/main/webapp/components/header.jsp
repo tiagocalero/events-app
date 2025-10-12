@@ -38,7 +38,8 @@
 			  			? "/webdinamica/uploads/" + usuarioLoggeado.getImagen()
 						: "/webdinamica/assets/default_profile.jpg"
 					%>
-              alt="mdo"
+              alt="foto de perfil"
+              style="object-fit: cover;"
               width="40"
               height="40"
               class="rounded-circle"

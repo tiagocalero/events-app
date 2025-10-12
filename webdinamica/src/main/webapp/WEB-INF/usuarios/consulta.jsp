@@ -3,9 +3,13 @@
 <%@ page import="logica.DTUsuario" %>
 <%@ page import="logica.DTAsistente" %>
 <%@ page import="logica.DTOrganizador" %>
+<%@ page import="logica.Organizador" %>
 <%@ page import="logica.DTEdicion" %>
 <%@ page import="logica.DTRegistro" %>
+<%@ page import="logica.ControladorUsuario" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,7 +26,8 @@
 </head>
 <body>
   <%@ include file="/components/header.jsp" %>
-  <% DTUsuario usuario = (DTUsuario) request.getAttribute("datos");
+  <% ControladorUsuario cu = ControladorUsuario.getInstance();
+  	 DTUsuario usuario = (DTUsuario) request.getAttribute("datos");
   	 DTAsistente asistente = null;
 	 DTOrganizador organizador = null; %>
 
@@ -67,6 +72,30 @@
         	<textarea type="text" id="desc" disabled><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
       </form>
+    </div>
+    <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
+        <ul class="list-unstyled ps-0">
+          <li class="mb-1">
+          	<% if (usuario instanceof DTOrganizador) { 
+          		Organizador org = (Organizador) cu.obtenerUsuario(usuario.getNickname()); %>
+            	Ediciones
+            	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
+            		<% List<DTEdicion> edicionesAceptadas = org.consultaAceptadas();;
+    	      			for (DTEdicion ed : edicionesAceptadas) { %>
+            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
+            		<% } %>
+            	</ul>
+            <% } else if (usuario instanceof DTAsistente) { %>
+            	Registros
+            	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
+              		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
+    	      			for (DTRegistro reg : registros) { %>
+              			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              		<% } %>
+           		</ul>
+            <% } %>
+          </li>
+        </ul>
     </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

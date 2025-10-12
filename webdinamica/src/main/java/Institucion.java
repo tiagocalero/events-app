@@ -45,7 +45,8 @@ public class Institucion extends HttpServlet {
 	 */
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		Categoria.listarCategorias(request, response);
+	    	
 		//request.setCharacterEncoding("UTF-8");
 
         // Get form fields
