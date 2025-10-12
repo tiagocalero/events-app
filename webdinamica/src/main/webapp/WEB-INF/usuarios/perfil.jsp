@@ -29,12 +29,12 @@
        DTOrganizador organizador = null; %>
 
     <div class="content content-consulta">
-      <form id="modifyUserForm" class="content-form-modificar" action="alta_usuario" method="post">
+      <form id="modifyUserForm" class="content-form-modificar" action="modificar" method="post"  enctype="multipart/form-data">
 
         <div class="event-image">
           <img id="profile-pic" src="/webdinamica/uploads/<%= usuarioLoggeado.getImagen() %>"  onerror="this.onerror=null; this.src='/webdinamica/assets/default_profile.jpg';"
           	alt="Foto Perfil de <%= usuarioLoggeado.getNickname() %>">
-          <input id="file-input" type="file" accept="image/*" style="display: none"/>
+          <input id="file-input" type="file" name="imagenPerfil" accept="image/*" style="display: none"/>
         </div>
 
         <label for="nombre"><strong>Nombre:</strong></label>
@@ -54,7 +54,7 @@
 
         <label for="pass"><strong>Contraseña:</strong></label>
         <%-- <input type="password" id="pass" value="<%= user.getAttribute("pass") != null ? user.getAttribute("pass") : "" %>"/> --%>
-        <button type="button" id="passbtn" onclick="togglePassword()"><i class="nf nf-cod-eye" style="vertical-align: center"></i></button><br/>
+        <a href="#" >cambiar</a></br>
 
 		<% if (usuarioLoggeado instanceof DTAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
@@ -73,10 +73,10 @@
         <% } else if (usuarioLoggeado instanceof DTOrganizador) { 
         	organizador = (DTOrganizador) organizador;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
-        	<input type="text" id="link" value="https://miseventos.com" /><br/>
+        	<input type="text" id="link" value="<%= organizador.getLink() != null ? organizador.getLink() : "" %>" /><br/>
 
         	<label for="desc" class="lblDesc"><strong>Descripción:</strong></label>
-        	<textarea type="text" id="desc">Empresa de organizacion de eventos.</textarea><br/>
+        	<textarea type="text" id="desc"><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
 
         <button id="modifyBtn" type="submit" class="btn_login" disabled>Modificar</button>
