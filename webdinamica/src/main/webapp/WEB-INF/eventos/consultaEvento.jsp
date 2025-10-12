@@ -4,6 +4,8 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="logica.DTUsuario" %> 
 <%@ page import="logica.DTOrganizador" %> 
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -73,7 +75,7 @@
               
               // 2. Declaración de variables para enlaces (Con alcance para toda la sección)
               String nombreEvento = request.getParameter("evento");
-              String urlAltaEdicion = "/webdinamica/ediciones/altaEdicion?evento=" + nombreEvento;
+              String urlAltaEdicion = "/webdinamica/ediciones/altaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8);
               
               // 3. Mostrar el botón SOLO si el usuario es un Organizador
               if (esOrganizador) {
@@ -100,7 +102,7 @@
                         // Generamos el enlace dinámico para consultar la edición
               %>
                       <li>
-                        <a href="/webdinamica/ediciones/consultaEdicion?evento=<%= nombreEvento %>&edicion=<%= nombreEdicion %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                        <a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
                           <%= nombreEdicion %>
                         </a>
                       </li>

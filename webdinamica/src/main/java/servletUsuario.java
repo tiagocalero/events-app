@@ -352,7 +352,8 @@ public class servletUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String servletPath = request.getServletPath();
-        
+		Categoria.listarCategorias(request, response);
+	    
 	    if (servletPath.equals("/usuarios")) {
 		    	String path = request.getPathInfo();
 		        if (path == null || path.equals("/modificar")) {

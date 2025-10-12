@@ -26,13 +26,9 @@ public class Categoria extends HttpServlet {
 
     protected static void listarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ControladorCategoria c = ControladorCategoria.getInstance();
-
         
         List<String> categoriasListado = c.categorias();
         request.setAttribute("categoriasListado", categoriasListado);
-
-        
-        request.getRequestDispatcher("/WEB-INF/components/sidebar.jsp");
     }
 
     protected  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

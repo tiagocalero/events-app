@@ -4,6 +4,8 @@
 <%@ page import="logica.DTAsistente" %>
 <%@ page import="logica.DTOrganizador" %>
 <%@ page import="logica.ControladorUsuario" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,14 +25,14 @@
   	<div class="container py-3">
 	  	<div class="row gy-3">
 		
-			<div class="list-group">
+			<div class="list-group m-3 w-50">
 				<% ControladorUsuario cu = ControladorUsuario.getInstance();
 				   List<String> lista = (List<String>) request.getAttribute("lista");
 				   for (String us : lista) {
 					   DTUsuario dtus = cu.obtenerUsuario(us).getDatos();
 					   boolean esEl = usuarioLoggeado != null ? dtus.getNickname().equals(usuarioLoggeado.getNickname()) : false;
 				   %>
-				   <a href="/webdinamica/usuarios/<%= esEl ? "" : "consulta" %>?nick=<%= dtus.getNickname() %>"
+				   <a href="/webdinamica/usuarios/<%= esEl ? "" : "consulta" %>?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>"
 				   	  class="list-group-item list-group-item-action <%= esEl ? "active" : "" %>"><%= dtus.getNombre() %> 
 				   	  <%= dtus instanceof DTAsistente ? ((DTAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
 				   </a>
