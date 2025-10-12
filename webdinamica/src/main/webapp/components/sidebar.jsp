@@ -20,7 +20,7 @@
                 		for (String entry : categoriasListado) {
         			%>
                     		<li>
-                        		<a href="/webdinamica/eventos?categoria=<%= entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                        		<a href="/webdinamica/eventos<%= entry.equals(request.getParameter("categoria")) ? "" : "?categoria=" + entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded <%= entry.equals(request.getParameter("categoria")) ? "active bg-warning text-black" : "" %>">
                             		<%= entry %>
                         		</a>
                     		</li>

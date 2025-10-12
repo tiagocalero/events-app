@@ -150,7 +150,7 @@
            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
 	           <% 
 	               List<String> tipos = (List<String>) request.getAttribute("tiposRegistros");
-	               if (tipos != null) {
+	               if (tipos != null && !tipos.isEmpty()) {
 	                   for (String tipo : tipos) { 
 	           %>
 	           		<li>
@@ -161,8 +161,12 @@
 					</li>
 				<%
 	                   }
-	               } 
-	           %>
+	               } else {
+                %>
+                      <li>No hay tipos de registro disponibles.</li>
+                <%
+                  }
+                %>
 	       </ul>
 	     </li>
 	    </ul>
