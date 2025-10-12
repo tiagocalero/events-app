@@ -8,6 +8,8 @@
 <%@ page import="logica.DTRegistro" %>
 <%@ page import="logica.ControladorUsuario" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -80,9 +82,17 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
             		<% List<DTEdicion> edicionesAceptadas = org.consultaAceptadas();;
     	      			for (DTEdicion ed : edicionesAceptadas) { %>
-            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= ed.getEvento() %>&edicion=<%= ed.getNombre() %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
+            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>
             	</ul>
+            <% } else if (usuario instanceof DTAsistente) { %>
+            	Registros
+            	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
+              		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
+    	      			for (DTRegistro reg : registros) { %>
+              			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              		<% } %>
+           		</ul>
             <% } %>
           </li>
         </ul>

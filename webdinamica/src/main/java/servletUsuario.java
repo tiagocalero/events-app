@@ -82,7 +82,13 @@ public class servletUsuario extends HttpServlet {
     	ControladorUsuario c = ControladorUsuario.getInstance();
      	String nick = (String) request.getParameter("nick");
     	if (nick != null) {
-    		DTUsuario usuario = c.obtenerUsuario(nick).getDatos();
+    		DTUsuario usuario = c.elegirUsuario(nick);
+        	
+        	if (usuario instanceof DTAsistente) {
+        		List<DTRegistro> registros = c.consultaAsistente();
+        		request.setAttribute("registros", registros);
+        	}
+        	
     		request.setAttribute("datos", usuario);
         	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
     	} else {
