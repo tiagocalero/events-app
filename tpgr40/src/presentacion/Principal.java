@@ -68,7 +68,11 @@ public class Principal extends JFrame {
         menuCargarDatos.addActionListener(new ActionListener() {
         	@Override
             public void actionPerformed(ActionEvent e) {
-                CargarDatos.cargaDatos();
+        		try {
+        			CargarDatos.cargaDatos();
+        		} catch (Exception ex) {
+                	JOptionPane.showMessageDialog(Principal.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 JOptionPane.showMessageDialog(frmPrincipal, "Datos cargados correctamente.");
                 menuCargarDatos.setEnabled(false);
         	}
