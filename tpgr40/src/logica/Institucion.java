@@ -1,8 +1,7 @@
 package logica;
 
-import logica.Patrocinio;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Institucion {
 	private String nombre;
@@ -19,30 +18,38 @@ public class Institucion {
 		patrocinios = new ArrayList<>();
 	}
 	
-	public boolean existePatrocinio(Edicion e) {
-		for (Patrocinio p: patrocinios) {
-			if (p.buscarEdicion(e))
+	public boolean existePatrocinio(Edicion edicion) {
+		for (Patrocinio patrocinio: patrocinios) {
+			if (patrocinio.buscarEdicion(edicion))
 				return true;
 		}
 		
 		return false;	
 	}
 	
-	public Patrocinio obtenerPatrocinio(Edicion e) {
-		for (Patrocinio p: patrocinios) {
-			if (p.buscarEdicion(e))
-				return p;
+	public Patrocinio obtenerPatrocinio(Edicion edicion) {
+		for (Patrocinio patrocinio: patrocinios) {
+			if (patrocinio.buscarEdicion(edicion))
+				return patrocinio;
 		}
 		
 		return null;
 	}
 	
-    public void agregarPatrocinio(Patrocinio p) {
-    	patrocinios.add(p);
+    public void agregarPatrocinio(Patrocinio patrocinio) {
+    	patrocinios.add(patrocinio);
     }
 	
 	public String getNombre() {
 		return nombre;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 	
 	public String getImagen() {

@@ -130,7 +130,7 @@ class ControladorUsuarioTest {
 	@Test @Order(3)
 	void testModificarDatosUsuario() {
 		// chequeo asistente
-		DTAsistenteModificado dtam = new DTAsistenteModificado("Asistente Modificado", "apm", LocalDate.parse("01/01/2000", fmt), "Institución 2");
+		DTAsistenteModificado dtam = new DTAsistenteModificado("Asistente Modificado", null, "apm", LocalDate.parse("01/01/2000", fmt), "Institución 2");
 		c.elegirUsuario("as");
 		c.modificarDatosUsuario(dtam);
 		DTAsistente dta = (DTAsistente) c.elegirUsuario("as");
@@ -142,7 +142,7 @@ class ControladorUsuarioTest {
 		assertEquals("Institución 2", dta.getInstitucion());
 		
 		// chequeo organizador
-		DTOrganizadorModificado dtom = new DTOrganizadorModificado("Organizador Modificado", "organiza modificado", "http:// modificado");
+		DTOrganizadorModificado dtom = new DTOrganizadorModificado("Organizador Modificado", null, "organiza modificado", "http:// modificado");
 		c.elegirUsuario("org");
 		c.modificarDatosUsuario(dtom);
 		DTOrganizador dto = (DTOrganizador) c.elegirUsuario("org");

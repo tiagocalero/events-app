@@ -186,7 +186,7 @@ public class ControladorEvento {
 		if (institucion.existePatrocinio(edicion)) 
 			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + institucion.getNombre() + " para la edición " + edicion.getNombre());
 		
-		Patrocinio patrocinio = new Patrocinio(
+		new Patrocinio(
 				dtp.getCodigo(),
 				dtp.getMonto(),
 				dtp.getTipo(),

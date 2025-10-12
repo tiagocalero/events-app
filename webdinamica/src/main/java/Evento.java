@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
+import excepciones.PatrocinioSuperaMontoException;
+import excepciones.YaExistePatrocinioException;
 import logica.ControladorEvento;
 import logica.ControladorCategoria;
 import logica.DTEvento;
@@ -31,6 +35,7 @@ import logica.DTEdicion;
 import logica.ManejadorUsuario;
 import logica.Asistente;
 import logica.Usuario;
+import presentacion.AltaPatrocinio;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -168,7 +173,9 @@ public class Evento extends HttpServlet {
     	ControladorEvento c = ControladorEvento.getInstance();
     	try {
     		c.crearPatrocinio(dtp, edicion, institucion, evento);
-    	} catch (Exception ex) {
+    	} catch(PatrocinioSuperaMontoException
+    			| YaExistePatrocinioException
+    			| IllegalArgumentException ex) {
     		request.setAttribute("error", ex.getMessage());
     		
     		// Se incluyen todos los atributos para que se vuelvan a cargar y
