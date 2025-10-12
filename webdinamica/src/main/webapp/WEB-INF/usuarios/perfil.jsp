@@ -47,7 +47,7 @@
         <% } %>
 
         <label for="nick"><strong>Nickname:</strong></label>
-        <input type="text" id="nick" name="nickname" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
+        <input type="text" id="nick" name="nick" value="<%= usuarioLoggeado.getNickname() != null ? usuarioLoggeado.getNickname() : "" %>" disabled /><br/>
 
         <label for="correo"><strong>Email:</strong></label>
         <input type="text" id="correo" name="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
@@ -71,7 +71,7 @@
           		<% } %>
         	</select><br/>
         <% } else if (usuarioLoggeado instanceof DTOrganizador) { 
-        	organizador = (DTOrganizador) organizador;%>
+        	organizador = (DTOrganizador) usuarioLoggeado;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
         	<input type="text" id="link" name="link" value="<%= organizador.getLink() != null ? organizador.getLink() : "" %>" /><br/>
 
