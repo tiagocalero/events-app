@@ -238,6 +238,8 @@ public class servletUsuario extends HttpServlet {
         	response.sendRedirect("/webdinamica");
     	} else {
     		request.setAttribute("error", "El usuario o contraseña son incorrectos");
+    		request.setAttribute("nick_o_correo", nick_o_correo);
+    		request.setAttribute("passwd", passwd);
     	    request.getRequestDispatcher("/WEB-INF/usuarios/inicio_sesion.jsp").forward(request, response);
     	}
     }

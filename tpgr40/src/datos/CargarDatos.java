@@ -195,7 +195,7 @@ public class CargarDatos {
 		as = u.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "garcia.22l", "IMG-US08.jpeg", "García", LocalDate.parse("09/11/1993", fmt));
 		as = u.altaAsistente("andrearod", "Andrea", "andrea.rod@mail.com", "rod77and", "IMG-US09.jpeg", "Rodríguez", LocalDate.parse("10/06/2000", fmt), "Agencia Nacional de Investigación e Innovación (ANII)");
 		as = u.altaAsistente("AnaG", "Ana", "ana.gomez@hotmail.com", "gomez88a", "IMG-US12.png", "Gómez", LocalDate.parse("15/03/1998", fmt));
-		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "jl99lopez", "IMG-US13.png", "López", LocalDate.parse("22/07/1995", fmt));
+		as = u.altaAsistente("JaviL", "Javier", "javier.lopez@outlook.com", "jl99lopez", "IMG-US13.jpeg", "López", LocalDate.parse("22/07/1995", fmt));
 		as = u.altaAsistente("MariR", "María", "maria.rodriguez@gmail.com", "maria55r", "IMG-US14.jpeg", "Rodríguez", LocalDate.parse("10/11/2000", fmt));
 		as = u.altaAsistente("SofiM", "Sofía", "sofia.martinez@yahoo.com", "smarti99z", "IMG-US15.jpeg", "Martínez", LocalDate.parse("05/02/1997", fmt));
 	
