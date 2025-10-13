@@ -1,6 +1,5 @@
 package logica;
 
-import logica.Evento;
 import java.util.Map;
 import java.util.HashMap;
 

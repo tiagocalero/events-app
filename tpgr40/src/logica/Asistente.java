@@ -1,15 +1,9 @@
 package logica;
-import logica.Usuario;
 import java.time.LocalDate;
-import logica.DTAsistente;
-import logica.Institucion;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import logica.Registro;
 
 public class Asistente extends Usuario {
 	private String apellido;
@@ -17,17 +11,17 @@ public class Asistente extends Usuario {
 	private Institucion institucion;
 	private Set<Registro> registros;
 	
-	public Asistente(String nick, String nom, String c, String contrasena, String img, String ap, LocalDate fecha) {
-		super(nick, nom, c, contrasena, img);
-		this.apellido = ap;
+	public Asistente(String nick, String nombre, String correo, String contrasena, String img, String apellido, LocalDate fecha) {
+		super(nick, nombre, correo, contrasena, img);
+		this.apellido = apellido;
 		this.nacimiento = fecha;
 		this.registros = new HashSet<>();
 	}
 	
 	
-	public Asistente(String nick, String nom, String c, String contrasena, String img, String ap, LocalDate fecha, Institucion ins) {
-		super(nick, nom, c, contrasena, img);
-		this.apellido = ap;
+	public Asistente(String nick, String nombre, String correo, String contrasena, String img, String apellido, LocalDate fecha, Institucion ins) {
+		super(nick, nombre, correo, contrasena, img);
+		this.apellido = apellido;
 		this.nacimiento = fecha;
 		this.institucion = ins;
 		this.registros = new HashSet<>();
@@ -47,7 +41,7 @@ public class Asistente extends Usuario {
 	
 	@Override
 	public void modificar(DTUsuarioModificado datos) {
-		ControladorInstitucion c = ControladorInstitucion.getInstance();
+		ControladorInstitucion controlador = ControladorInstitucion.getInstance();
 		
 		assert datos instanceof DTAsistenteModificado;
 		DTAsistenteModificado datosA = (DTAsistenteModificado) datos;
@@ -55,7 +49,7 @@ public class Asistente extends Usuario {
 		this.apellido = datosA.getApellido();
 		this.nacimiento = datosA.getNacimiento();
 		String ins = datosA.getInstitucion();
-		if (ins != null) this.institucion = c.obtenerInstitucion(ins);
+		if (ins != null) this.institucion = controlador.obtenerInstitucion(ins);
 		String img = datosA.getImagen();
 		if (img != null) this.setImagen(img); 
 	}

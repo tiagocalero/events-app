@@ -6,16 +6,16 @@ public class DTAsistente extends DTUsuario {
 	private LocalDate nacimiento;
 	private String institucion;
 
-	public DTAsistente(String nick, String nom, String c, String img, String ap, LocalDate fecha) {
-		super(nick, nom, c, img);
-		this.apellido = ap;
+	public DTAsistente(String nick, String nombre, String correo, String img, String apellido, LocalDate fecha) {
+		super(nick, nombre, correo, img);
+		this.apellido = apellido;
 		this.nacimiento = fecha;
 		this.institucion = null;
 	}
 	
-	public DTAsistente(String nick, String nom, String c, String img, String ap, LocalDate fecha, String institucion) {
-		super(nick, nom, c, img);
-		this.apellido = ap;
+	public DTAsistente(String nick, String nombre, String correo, String img, String apellido, LocalDate fecha, String institucion) {
+		super(nick, nombre, correo, img);
+		this.apellido = apellido;
 		this.nacimiento = fecha;
 		this.institucion = institucion;
 	}
