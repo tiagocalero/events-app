@@ -50,7 +50,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consulta Edicion de Evento");
+		setTitle("Aceptar/Rechazar Edicion de Evento");
 		setBounds(30, 30, 700, 600);
 		getContentPane().setLayout(null);
 		setSize(851, 201);
