@@ -228,9 +228,11 @@ public class CargarDatos {
 		contE.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta, false);
 		//
 		fechaAlta = LocalDate.parse("01/10/2025", fmt);
+		contE.patrocinioEdicion("TECHUDELAR", "Tecnología Punta del Este 2026", "Conferencia de Tecnología", "Estudiante", "Facultad de Ingeniería");
 		contE.darDeAltaRegistro("msilva", "Tecnología Punta del Este 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta, true);
 		
 		fechaAlta = LocalDate.parse("06/10/2025", fmt);
+		contE.patrocinioEdicion("TECHANII", "Tecnología Punta del Este 2026", "Conferencia de Tecnología", "General", "Agencia Nacional de Investigación e Innovación (ANII)");
 		contE.darDeAltaRegistro("andrearod", "Tecnología Punta del Este 2026", "General", "Conferencia de Tecnología", fechaAlta, true);
 		
 		fechaAlta = LocalDate.parse("10/10/2025", fmt);
