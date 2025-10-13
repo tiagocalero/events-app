@@ -28,11 +28,10 @@ import logica.DTEdicion;
 import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
-import logica.Edicion;
 import logica.ManejadorCategoria;
+import logica.ManejadorEvento;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
-import logica.ManejadorEvento;
 import logica.TipoNivelPatrocinio;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

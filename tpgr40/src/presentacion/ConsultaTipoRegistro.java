@@ -2,21 +2,17 @@ package presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
 import logica.DTTRegistro;
-import logica.DTEvento;
-import javax.swing.JPanel;
 
 public class ConsultaTipoRegistro extends JInternalFrame {
 	private JInternalFrame frmConsultaEventos;

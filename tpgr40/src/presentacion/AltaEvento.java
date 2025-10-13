@@ -1,22 +1,27 @@
 package presentacion;
 
 import java.awt.BorderLayout;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
-import logica.ControladorEvento;
-
-import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
+import logica.ControladorEvento;
+
 public class AltaEvento extends JInternalFrame {
+	private static final long serialVersionUID = -4530410801228997402L;
 	private JTextField textNombre;
 	private JTextField textDesc;
 	private JTextField textSigla;
@@ -70,9 +75,9 @@ public class AltaEvento extends JInternalFrame {
 		lblSigla.setBounds(43, 124, 140, 16);
 		panel.add(lblSigla);
 		
-		ControladorEvento m = ControladorEvento.getInstance();
+		ControladorEvento controlador = ControladorEvento.getInstance();
 		
-		listaCategorias = new JList<String>(m.listarCategorias().toArray(new String[0]));
+		listaCategorias = new JList<String>(controlador.listarCategorias().toArray(new String[0]));
 		
         JScrollPane scrollPane = new JScrollPane(listaCategorias);
 		scrollPane.setBounds(193, 220, 140, 112);
@@ -97,19 +102,19 @@ public class AltaEvento extends JInternalFrame {
 		
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { crearEvento(e); }
+            public void actionPerformed(ActionEvent event) { crearEvento(event); }
         });
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { dispose(); }
+            public void actionPerformed(ActionEvent event) { dispose(); }
         });
 		
 		panel_1.add(btnCancelar);
 		panel_1.add(btnCrear);
 	}
 	
-	private void crearEvento(ActionEvent e) {
+	private void crearEvento(ActionEvent event) {
         String nombre = sacarEspacios(textNombre.getText());
         String desc = sacarEspacios(textDesc.getText());
         String sigla = sacarEspacios(textSigla.getText());
@@ -124,7 +129,7 @@ public class AltaEvento extends JInternalFrame {
         	return;
         }
         
-        ControladorEvento m = ControladorEvento.getInstance();
+        ControladorEvento controlador = ControladorEvento.getInstance();
         // Chequear que exista el nombre
         if (nombre.isEmpty()) {
         	JOptionPane.showMessageDialog(AltaEvento.this, "El evento debe tener un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -137,14 +142,14 @@ public class AltaEvento extends JInternalFrame {
         }
 
         // Si la operación genera un error, mostrárselo al usuario
-        boolean ok;
+        boolean exito;
         try {
-        	ok = m.ingresarDatosEvento(nombre, desc, sigla, fechaAlta, categorias);
+        	exito = controlador.ingresarDatosEvento(nombre, desc, sigla, fechaAlta, categorias);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;
 	    }
-        if (ok) {
+        if (exito) {
         	// Si se creó, dar la opción de agregar más eventos o cerrar la ventana
             Object[] opciones = {"Agregar más eventos", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -180,7 +185,7 @@ public class AltaEvento extends JInternalFrame {
     }
 	
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
-	private static String sacarEspacios(String s) {
-	    return s == null ? "" : s.trim();
+	private static String sacarEspacios(String str) {
+	    return str == null ? "" : str.trim();
 	}
 }

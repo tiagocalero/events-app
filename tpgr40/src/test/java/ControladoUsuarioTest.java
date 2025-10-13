@@ -1,20 +1,19 @@
 package test.java;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Order;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import logica.Asistente;
 import logica.ControladorCategoria;
@@ -24,25 +23,13 @@ import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTAsistenteModificado;
 import logica.DTEdicion;
-import logica.DTEvento;
 import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
-import logica.DTUsuario;
 import logica.DTRegistro;
 import logica.ManejadorCategoria;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
 import logica.Organizador;
-
-import org.junit.jupiter.api.MethodOrderer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {

@@ -1,22 +1,25 @@
 package presentacion;
 
 import java.awt.BorderLayout;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
-import logica.ControladorEvento;
-
-import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import logica.ControladorEvento;
+
 public class AltaEdicionEvento extends JInternalFrame {
+	private static final long serialVersionUID = 7318556931431081324L;
 	private JTextField textNombre;
 	private JTextField textSigla;
 	private JTextField textCiudad;
@@ -27,8 +30,8 @@ public class AltaEdicionEvento extends JInternalFrame {
 	private JTextField textPais;
 	private JTextField textFechaIni;
 	private JTextField textFechaFin;
-	private JComboBox comboBoxEventos;
-	private JComboBox comboBoxOrganizadores;
+	private JComboBox<String> comboBoxEventos;
+	private JComboBox<String> comboBoxOrganizadores;
 	private JButton btnCancelar;
 	private JTextField textFechaAlta;
 	private JLabel libFechaAlta;
@@ -88,13 +91,13 @@ public class AltaEdicionEvento extends JInternalFrame {
 		lblEvento.setBounds(46, 49, 140, 16);
 		panel.add(lblEvento);
 		
-		ControladorEvento c = ControladorEvento.getInstance();
+		ControladorEvento controlador = ControladorEvento.getInstance();
 		
-		comboBoxEventos = new JComboBox();
+		comboBoxEventos = new JComboBox<String>();
 		comboBoxEventos.setBounds(46, 90, 238, 27);
 		comboBoxEventos.addItem("Selecciona un Evento");
-        for (String e: c.listarEventos()) {
-        	comboBoxEventos.addItem(e);
+        for (String evento: controlador.listarEventos()) {
+        	comboBoxEventos.addItem(evento);
         }
 		panel.add(comboBoxEventos);
 		
@@ -102,11 +105,11 @@ public class AltaEdicionEvento extends JInternalFrame {
 		lblOrganizador.setBounds(46, 144, 140, 16);
 		panel.add(lblOrganizador);
 		
-		comboBoxOrganizadores = new JComboBox();
+		comboBoxOrganizadores = new JComboBox<String>();
 		comboBoxOrganizadores.setBounds(46, 185, 238, 27);
 		comboBoxOrganizadores.addItem("Selecciona un Organizador");
-        for (String o: c.listarOrganizadores()) {
-        	comboBoxOrganizadores.addItem(o);
+        for (String org: controlador.listarOrganizadores()) {
+        	comboBoxOrganizadores.addItem(org);
         }
 		panel.add(comboBoxOrganizadores);
 		
@@ -150,12 +153,12 @@ public class AltaEdicionEvento extends JInternalFrame {
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { crearEdicion(e); }
+            public void actionPerformed(ActionEvent event) { crearEdicion(event); }
         });
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	setVisible(false);
             	dispose();
             }
@@ -164,7 +167,7 @@ public class AltaEdicionEvento extends JInternalFrame {
 		panel_1.add(btnNewButton);
 	}
 	
-	protected void crearEdicion(ActionEvent e) {
+	protected void crearEdicion(ActionEvent event) {
         String nombre = sacarEspacios(textNombre.getText());
         String sigla = sacarEspacios(textSigla.getText());
         String ciudad = sacarEspacios(textCiudad.getText());
@@ -205,16 +208,16 @@ public class AltaEdicionEvento extends JInternalFrame {
         	return;
         } 
 
-        ControladorEvento m = ControladorEvento.getInstance();
+        ControladorEvento controlador = ControladorEvento.getInstance();
         // Si la operación genera un error, mostrárselo al usuario
-        boolean ok;
+        boolean exito;
         try {
-        	ok = m.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-        } catch (Exception ex) {
-        	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	exito = controlador.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
+        } catch (Exception exc) {
+        	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;
         }
-    	if (ok) {
+    	if (exito) {
         	// Si se creó, dar la opción de agregar más ediciones o cerrar la ventana
             Object[] opciones = {"Agregar más ediciones", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -254,7 +257,7 @@ public class AltaEdicionEvento extends JInternalFrame {
     }
 
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
-	private static String sacarEspacios(String s) {
-	    return s == null ? "" : s.trim();
+	private static String sacarEspacios(String str) {
+	    return str == null ? "" : str.trim();
 	}
 }
