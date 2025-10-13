@@ -1,19 +1,10 @@
 package logica;
-import logica.DTAsistente;
 import java.time.LocalDate;
-import logica.DTEdicion;
-import logica.ManejadorUsuario;
-import logica.Asistente;
-import logica.Usuario;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
 
 public class ControladorUsuario{
 	private Usuario usuario;
@@ -113,7 +104,8 @@ public class ControladorUsuario{
 	}
 	
 	//Devuelve el Datatype del registro con nombreEdicion del usuario 
-	public DTRegistro datosRegistroUsuario (String nombreEdicion, String usuario) {
+	public DTRegistro datosRegistroUsuario(String nombreEdicion, String usuario) {
+		
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();	
 		
 		Usuario user = manejador.obtener(usuario);

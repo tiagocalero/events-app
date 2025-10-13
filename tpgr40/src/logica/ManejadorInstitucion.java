@@ -1,6 +1,5 @@
 package logica;
 
-import logica.Institucion;
 import java.util.Map;
 import java.util.HashMap;
 
