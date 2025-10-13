@@ -286,7 +286,7 @@ public class servletUsuario extends HttpServlet {
     	} else if (usuario instanceof DTAsistente) {
     		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
     		
-    		request.setAttribute("costo", registro.getCosto());
+    		request.setAttribute("costo", registro.getPatrocinio());
     		request.setAttribute("fecha", registro.getFecha());
     		request.setAttribute("tipo", registro.getTipo());
     		request.setAttribute("edicion", edicion);

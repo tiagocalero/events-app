@@ -310,7 +310,7 @@ public class ControladorEvento {
 	}
 	
 	//PRE:: asumo que seleccionara un nickTRegistro valido
-	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, LocalDate fechaAlta) {
+	public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro, String nickEvento, LocalDate fechaAlta, Boolean patrocinio) {
 		ManejadorEvento manejadorEv = ManejadorEvento.getInstance();
 		boolean estaAsistente = manejadorEv.estaAsistenteEnEdicion(nickAsistente, nombreEdicion, nickEvento);
 		TRegistro tregistro = manejadorEv.encontrarTRegistroDeEdicion(nombreTRegistro, nombreEdicion, nickEvento);
@@ -327,7 +327,11 @@ public class ControladorEvento {
 		Edicion edicion = manejadorEv.obtenerEdicion(nombreEdicion, evento);
 				
 		float costo = tregistro.getCosto();
-		Registro nuevoRegistro = new Registro(costo, fechaAlta, asistente, edicion, tregistro);
+		
+		if (patrocinio) {
+			costo = 0;
+		}
+		Registro nuevoRegistro = new Registro(costo, fechaAlta, asistente, edicion, tregistro, patrocinio);
 		edicion.agregarRegistro(nuevoRegistro);
 		asistente.agregarRegistro(nuevoRegistro);
 		
@@ -382,5 +386,25 @@ public class ControladorEvento {
 		Map<String, Evento> eventos = manejador.eventosCategoria(categoria);
 
 		return eventos.values().stream().map(Evento::getDatos).collect(Collectors.toList());  
+	}
+	
+	public boolean patrocinioEdicion(String codigoPatrocinio, String edicion, String evento, String nombreTRegistroSeleccionado) {
+	    ManejadorEvento m = ManejadorEvento.getInstance();
+	    Evento ev = m.obtenerEvento(evento);
+	    Edicion edi = m.obtenerEdicion(edicion, ev);
+	    
+	    if (edi == null) {
+	        return false; // Edición no existe
+	    }
+
+	    Patrocinio patr = edi.getPatrocinio(codigoPatrocinio);
+	    
+	    if (patr == null) {
+	        return false;
+	    }
+	    
+	    boolean tipoRegistroCoincide = patr.getTRegistro().equalsIgnoreCase(nombreTRegistroSeleccionado);
+	    
+	    return tipoRegistroCoincide;
 	}
 }

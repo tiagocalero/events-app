@@ -203,23 +203,23 @@ public class CargarDatos {
 	
 		//Cargar Registros
         fechaAlta = LocalDate.parse("14/05/2025", fmt);
-		e.darDeAltaRegistro("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", fechaAlta);
+		e.darDeAltaRegistro("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", fechaAlta, false);
         fechaAlta = LocalDate.parse("30/07/2024", fmt);
-		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", fechaAlta);
+		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", fechaAlta, false);
         fechaAlta = LocalDate.parse("21/08/2025", fmt);
-		e.darDeAltaRegistro("andrearod", "Web Summit 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta);
+		e.darDeAltaRegistro("andrearod", "Web Summit 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta, false);
         fechaAlta = LocalDate.parse("03/03/2025", fmt);
-		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2025", "Corredor 42K", "Maratón de Montevideo", fechaAlta);
+		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2025", "Corredor 42K", "Maratón de Montevideo", fechaAlta, false);
         fechaAlta = LocalDate.parse("22/08/2025", fmt);
-		e.darDeAltaRegistro("vale23", "Mobile World Congress 2025", "Full", "Conferencia de Tecnología", fechaAlta);
+		e.darDeAltaRegistro("vale23", "Mobile World Congress 2025", "Full", "Conferencia de Tecnología", fechaAlta, false);
         fechaAlta = LocalDate.parse("09/04/2025", fmt);
-		e.darDeAltaRegistro("AnaG", "Maratón de Montevideo 2025", "Corredor 10K", "Maratón de Montevideo", fechaAlta);
+		e.darDeAltaRegistro("AnaG", "Maratón de Montevideo 2025", "Corredor 10K", "Maratón de Montevideo", fechaAlta, false);
         fechaAlta = LocalDate.parse("10/04/2025", fmt);
-		e.darDeAltaRegistro("JaviL", "Maratón de Montevideo 2025", "Corredor 21K", "Maratón de Montevideo", fechaAlta);
+		e.darDeAltaRegistro("JaviL", "Maratón de Montevideo 2025", "Corredor 21K", "Maratón de Montevideo", fechaAlta, false);
         fechaAlta = LocalDate.parse("03/08/2025", fmt);
-		e.darDeAltaRegistro("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", fechaAlta);
+		e.darDeAltaRegistro("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", fechaAlta, false);
         fechaAlta = LocalDate.parse("16/07/2024", fmt);
-		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta);
+		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta, false);
 		
 	}
 }

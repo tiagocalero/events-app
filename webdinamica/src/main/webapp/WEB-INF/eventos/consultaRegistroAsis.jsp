@@ -34,7 +34,7 @@
         <label for="tipo-registro"><strong>Tipo de Registro:</strong></label>
         <input type="text" id="tipo-registro" value="${requestScope.tipo}" readonly/><br/>
 
-        <label for="costo-registro"><strong>Costo del Registro:</strong></label>
+        <label for="costo-registro"><strong>Uso patrocinio:</strong></label>
         <input type="text" id="costo-registro" value="\$${requestScope.costo}" readonly/><br/>
         
       </form>

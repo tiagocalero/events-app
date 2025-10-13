@@ -470,31 +470,71 @@ public class Evento extends HttpServlet {
 		     
 		     //POST
 		     //crea el registro al evento
+		  // POST
 		     protected void registroAEdicionEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    	String nombreEdicion = request.getParameter("edicion");
-		     	String nombreTRegistro = request.getParameter("tiposRegistro");
-		     	String evento = request.getParameter("evento");
-		     	LocalDate fechaAlta = LocalDate.now();
-		     	
-		     	
-		     	HttpSession user = request.getSession(false);
-		    	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
-		    	
-		    	String nickname = usuario.getNickname();
-		     	
-		     	ControladorEvento c = ControladorEvento.getInstance();
-		    	 
-		    	boolean ok = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta);
-		    	
-		     	/*if (!ok) {
-		    	
-		    		req.getAttribute("tiposRegistro", tiposRegistro);
-		    		
-		    	request.setAttribute("error", "Ya existe una edicion con ese nombre");
-		     	}*/
-		    
-				consultaEdicionGET(request, response); 
-		  	 }
+		         String nombreEdicion = request.getParameter("edicion");
+		         String nombreTRegistro = request.getParameter("tiposRegistro");
+		         String evento = request.getParameter("evento");
+		         LocalDate fechaAlta = LocalDate.now();
+		         String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
+		         
+		         HttpSession user = request.getSession(false);
+		         DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+		         
+		         String nickname = usuario.getNickname();
+		         
+		         ControladorEvento c = ControladorEvento.getInstance();
+		         
+		         boolean conPatrocinio = false;
+		         String mensajeError = null;
+
+		         // A) Lógica de Validación de Patrocinio
+		         if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
+		             
+		             Boolean errorValidacion = c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro);
+		             
+		             if (errorValidacion == false) {
+		                 // Falla la validación del código (patrocinio inválido)
+		                 mensajeError = "El código de patrocinio no es válido";
+		             } else {
+		                 // Patrocinio es válido
+		                 conPatrocinio = true;
+		             }
+		         }
+
+		         // B) Si no hubo error en el patrocinio (o si no se usó) -> Proceder al alta
+		         if (mensajeError == null) {
+		             // La función darDeAltaRegistro debe devolver un String (mensaje de error)
+		             // o null (si es exitoso), como discutimos anteriormente.
+		             Boolean resultadoAlta = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio);		           
+		         }
+		         
+		         // C) Manejo de Resultados
+		         if (mensajeError != null) {
+		             // Si hay error (validación de patrocinio O cupo/ya registrado):
+		             
+		             // 1. Guardar el mensaje de error en la solicitud (Request Scope)
+		             request.setAttribute("errorRegistro", mensajeError);
+		             
+		             // 2. Guardar datos para que el usuario pueda reintentar sin perderlos
+		             request.setAttribute("nombreEdicion", nombreEdicion);
+		             request.setAttribute("evento", evento);
+		             List<String> tiposRegistro = c.listarTipoRegistro(evento, nombreEdicion);
+		             request.setAttribute("tiposRegistro", tiposRegistro);
+		             // 3. Redirigir a una página de error o a la misma página de registro para mostrar el mensaje
+		             // Lo más limpio es redirigir a una página de *feedback*
+		             registroAEdicionEventoGET(request, response);
+		             
+		         } else {
+		             // Si fue exitoso:
+		        	 request.setAttribute("nombreEdicion", nombreEdicion);
+		             request.setAttribute("evento", evento);
+		             
+		             
+		             // Redirigir al perfil del usuario o a una página de confirmación de registro
+		        	 consultaEdicionGET(request, response);
+		         }
+		     }
      
      
      

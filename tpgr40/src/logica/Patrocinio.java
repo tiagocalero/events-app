@@ -61,4 +61,8 @@ public class Patrocinio {
 	public boolean buscarEdicion(Edicion edicionBuscada) {
 		return edicionBuscada == edicion;
 	}
+	
+	public String getTRegistro() {
+		return this.tipoRegistro.getNombre();
+	}
 }
