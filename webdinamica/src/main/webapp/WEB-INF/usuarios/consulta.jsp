@@ -61,7 +61,7 @@
         	<input type="date" id="nacimiento"  value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>" disabled/><br/>
 
         	<label for="institucion"><strong>Institución:</strong></label>
-        	<input type="text" id="institucion" name="institucion" value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "Sin Institucion" %>" disabled/><br/>
+        	<input type="text" id="institucion" name="institucion" value="<%= asistente.getInstitucion() != null ? asistente.getInstitucion() : "Sin Institucion" %>" disabled/><br/>
         <% } else if (usuario instanceof DTOrganizador) { 
         	organizador = (DTOrganizador) usuario;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
