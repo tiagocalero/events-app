@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -479,9 +480,10 @@ public class Evento extends HttpServlet {
 		         String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
 		         
 		         HttpSession user = request.getSession(false);
-		         DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+		         DTAsistente usuario = (DTAsistente) user.getAttribute("usuario");
 		         
 		         String nickname = usuario.getNickname();
+		         String nombreInstitucion = usuario.getInstitucion();
 		         
 		         ControladorEvento c = ControladorEvento.getInstance();
 		         
@@ -491,12 +493,17 @@ public class Evento extends HttpServlet {
 		         // A) Lógica de Validación de Patrocinio
 		         if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
 		             
-		             Boolean errorValidacion = c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro);
+		             try {
+		            	 c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
+		             } catch (IllegalArgumentException exc) {
+		            	 mensajeError = exc.getMessage();
+		             } catch (NoSuchElementException exc) {
+		            	 mensajeError = exc.getMessage();
+		             } catch (IllegalStateException exc) {
+		            	 mensajeError = exc.getMessage();
+		             }
 		             
-		             if (errorValidacion == false) {
-		                 // Falla la validación del código (patrocinio inválido)
-		                 mensajeError = "El código de patrocinio no es válido";
-		             } else {
+		             if (mensajeError != null) {
 		                 // Patrocinio es válido
 		                 conPatrocinio = true;
 		             }
@@ -506,7 +513,7 @@ public class Evento extends HttpServlet {
 		         if (mensajeError == null) {
 		             // La función darDeAltaRegistro debe devolver un String (mensaje de error)
 		             // o null (si es exitoso), como discutimos anteriormente.
-		             Boolean resultadoAlta = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio);		           
+		             boolean resultadoAlta = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio);		           
 		         }
 		         
 		         // C) Manejo de Resultados
