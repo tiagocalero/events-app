@@ -188,10 +188,10 @@ class ControladorUsuarioTest {
 		
 		ce.crearTipoRegistro("Evento test", "Edición test 1", "tp5", "desc5", 101, 12);
 		ce.crearTipoRegistro("Evento test", "Edición test 2", "tp5", "desc5", 101, 12);
-		ce.darDeAltaRegistro("as", "Edición test 1", "tp5", "Evento test", f);
-		ce.darDeAltaRegistro("as", "Edición test 2", "tp5", "Evento test", f);
-		DTRegistro dtr1 = new DTRegistro(101, f, "Edición test 1", "tp5", "as");
-		DTRegistro dtr2 = new DTRegistro(101, f, "Edición test 2", "tp5", "as");
+		ce.darDeAltaRegistro("as", "Edición test 1", "tp5", "Evento test", f, false);
+		ce.darDeAltaRegistro("as", "Edición test 2", "tp5", "Evento test", f, false);
+		DTRegistro dtr1 = new DTRegistro(101, f, "Edición test 1", "tp5", "as", false);
+		DTRegistro dtr2 = new DTRegistro(101, f, "Edición test 2", "tp5", "as", false);
 		
 		Asistente a = (Asistente) c.obtenerUsuario("as");
 		// chequeo asistente
