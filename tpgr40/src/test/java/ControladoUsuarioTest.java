@@ -35,12 +35,14 @@ import logica.Usuario;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {
 	private static ControladorUsuario c;
+	private static ManejadorUsuario m;
 	private static DateTimeFormatter fmt;
 	
 	// Se ejecuta antes que todos los tests
 	@BeforeAll
 	static void setup() {
 		c = ControladorUsuario.getInstance();
+		m = ManejadorUsuario.getInstance();
         fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 
@@ -114,12 +116,11 @@ class ControladorUsuarioTest {
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dtu.getNacimiento());
 		assertEquals(null, dtu.getInstitucion());
 		
-		Usuario u = c.obtenerUsuario("as");
-		assertEquals(true, u.chequearContrasena("cont"));
-		assertEquals(false, u.chequearContrasena("contr"));
-		u.setContrasena("contr");
-		assertEquals(false, u.chequearContrasena("cont"));
-		assertEquals(true, u.chequearContrasena("contr"));
+		assertEquals(true, c.chequearContrasena("as", "cont"));
+		assertEquals(false, c.chequearContrasena("as", "contr"));
+		c.setContrasena("as", "contr");
+		assertEquals(false, c.chequearContrasena("as", "cont"));
+		assertEquals(true, c.chequearContrasena("as", "contr"));
 	}
 	
 	@Test @Order(3)
@@ -188,7 +189,7 @@ class ControladorUsuarioTest {
 		DTRegistro dtr1 = new DTRegistro(101, f, "Edición test 1", "tp5", "as", false);
 		DTRegistro dtr2 = new DTRegistro(101, f, "Edición test 2", "tp5", "as", false);
 		
-		Asistente a = (Asistente) c.obtenerUsuario("as");
+		Asistente a = (Asistente) m.obtener("as");
 		// chequeo asistente
 		DTRegistro aget0 = a.consulta().get(0);
 		DTRegistro aget1 = a.consulta().get(1);
@@ -211,7 +212,7 @@ class ControladorUsuarioTest {
 			compararDTRegistros(aget1, cona0);
 		}
 		
-		Organizador o = (Organizador) c.obtenerUsuario("org");
+		Organizador o = (Organizador) m.obtener("org");
 		// chequeo organizador
 		
 		DTEdicion oget0 = o.consulta().get(0);
