@@ -77,10 +77,10 @@
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
           	<% if (usuario instanceof DTOrganizador) { 
-          		Organizador org = (Organizador) cu.obtenerUsuario(usuario.getNickname()); %>
+          		cu.elegirUsuario(usuario.getNickname()); %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-            		<% List<DTEdicion> edicionesAceptadas = org.consultaAceptadas();;
+            		<% List<DTEdicion> edicionesAceptadas = cu.consultaOrganizador();;
     	      			for (DTEdicion ed : edicionesAceptadas) { %>
             			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>

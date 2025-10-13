@@ -63,11 +63,6 @@ public class ControladorUsuario{
         }
 		return hashedcont;
 	}
-	
-	public Usuario obtenerUsuario(String nick) {
-		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
-		return manejador.obtener(nick);
-	}
 
 	public void modificarDatosUsuario(DTUsuarioModificado datos) {
 		usuario.modificar(datos);
@@ -113,5 +108,19 @@ public class ControladorUsuario{
 		Registro registro = asistente.getRegistro(nombreEdicion);
 		
 		return registro.getDatos();
+	}
+	
+	public boolean chequearContrasena(String nickOCorreo, String cont) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();	
+		
+		Usuario usuario = manejador.obtener(nickOCorreo);
+		return usuario.chequearContrasena(cont);
+	}
+	
+	public void setContrasena(String nickOCorreo, String nueva) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();	
+		
+		Usuario usuario = manejador.obtener(nickOCorreo);
+		usuario.setContrasena(nueva);
 	}
 }

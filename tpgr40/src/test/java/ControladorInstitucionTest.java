@@ -57,7 +57,6 @@ class ControladorInstitucionTest {
 		Institucion i = ci.obtener("Institucion 1");
 		assertEquals("inst", i.getDesc());
 		assertEquals("http://", i.getUrl());
-		
 	}
 		
 }

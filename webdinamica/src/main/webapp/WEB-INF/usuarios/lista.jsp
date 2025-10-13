@@ -29,7 +29,7 @@
 				<% ControladorUsuario cu = ControladorUsuario.getInstance();
 				   List<String> lista = (List<String>) request.getAttribute("lista");
 				   for (String us : lista) {
-					   DTUsuario dtus = cu.obtenerUsuario(us).getDatos();
+					   DTUsuario dtus = cu.elegirUsuario(us);
 					   boolean esEl = usuarioLoggeado != null ? dtus.getNickname().equals(usuarioLoggeado.getNickname()) : false;
 				   %>
 				   <a href="/webdinamica/usuarios/<%= esEl ? "" : "consulta" %>?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>"
