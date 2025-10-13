@@ -58,6 +58,7 @@ class ControladorEventoTest {
 		// Crear institución de prueba
 		ControladorInstitucion ci = ControladorInstitucion.getInstance();
 		ci.altaInstitucion("Institución 1", "inst", "http://");
+		ci.altaInstitucion("Institución 2", "inst", "http://");
 		
 		// Guardar la fecha actual
 		fActual = LocalDate.now();
@@ -83,19 +84,29 @@ class ControladorEventoTest {
 		assertEquals("descripcion1", dte.getDescripcion());
 		assertEquals("e1", dte.getSigla());
 		assertEquals(Set.of("c1", "c2", "c3"), new HashSet<>(dte.getCategorias()));
+		
+		assertEquals(Set.of("Evento 1"), c.listarDTEventosCategoria("c1")
+											.stream()
+										    .map(DTEvento::getNombre)
+										    .collect(Collectors.toSet()));
 	}
 
 	// Probar crear eventos con categorías que no existen
 	@Test @Order(2)
 	void testCrearEventoConCategoriaNoExistente() {
-		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", fActual, List.of("c4")));
+		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", fActual, List.of("c2", "c4")));
 		
 		DTEvento dte = c.informacionEvento("Evento 2");
 		assertEquals("Evento 2", dte.getNombre());
 		assertEquals("descripcion2", dte.getDescripcion());
 		assertEquals("e2", dte.getSigla());
 		// Chequear que se cree la categoría
-		assertEquals(List.of("c4"), dte.getCategorias());
+		assertEquals(List.of("c2", "c4"), dte.getCategorias());
+
+		assertEquals(Set.of("Evento 1", "Evento 2"), c.listarDTEventosCategoria("c2")
+											.stream()
+										    .map(DTEvento::getNombre)
+										    .collect(Collectors.toSet()));
 	}
 
 	// Probar crear un evento con un nombre que ya existe
@@ -126,6 +137,21 @@ class ControladorEventoTest {
 		assertEquals(List.of("Edición 1"), c.listarEdiciones("Evento 1"));
 		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 2", "ed2", f, f, f, "Salto", "Uruguay"));
 		assertEquals(Set.of("Edición 1", "Edición 2"), new HashSet<>(c.listarEdiciones("Evento 1")));
+	}
+	
+	@Test @Order(6)
+	void testListarConfirmarEdiciones() {
+		assertEquals(Set.of("Edición 1", "Edición 2"), new HashSet<>(c.listarEdicionesIngresadas("Evento 1")));
+		assertEquals(Set.of(), new HashSet<>(c.listarEdicionesAceptadas("Evento 1")));
+		c.confirmarEdicion("Evento 1", "Edición 1");
+		assertEquals(Set.of("Edición 2"), new HashSet<>(c.listarEdicionesIngresadas("Evento 1")));
+		assertEquals(Set.of("Edición 1"), new HashSet<>(c.listarEdicionesAceptadas("Evento 1")));
+		c.rechazarEdicion("Evento 1", "Edición 2");
+		assertEquals(Set.of(), new HashSet<>(c.listarEdicionesIngresadas("Evento 1")));
+		assertEquals(Set.of("Edición 1"), new HashSet<>(c.listarEdicionesAceptadas("Evento 1")));
+		c.confirmarEdicion("Evento 1", "Edición 2");
+		assertEquals(Set.of(), new HashSet<>(c.listarEdicionesIngresadas("Evento 1")));
+		assertEquals(Set.of("Edición 1", "Edición 2"), new HashSet<>(c.listarEdicionesAceptadas("Evento 1")));
 	}
 
 	// Probar crear ediciones con un mismo nombre para un evento
@@ -254,7 +280,6 @@ class ControladorEventoTest {
 		});
 		
 		assertDoesNotThrow(() -> {
-			// Caso borde: El costo de los registros no supera el 20% del monto (por poco)
 			DTPatrocinio dtp = new DTPatrocinio(
 				"pat1",
 				TipoNivelPatrocinio.Plata,
@@ -266,6 +291,22 @@ class ControladorEventoTest {
 				null
 			);
 			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
+	    });
+		
+		assertEquals(List.of("Institución 1"), c.listarInstituciones("Evento 1", "Edición 1"));
+		
+		assertDoesNotThrow(() -> {
+			DTPatrocinio dtp = new DTPatrocinio(
+				"pat2",
+				TipoNivelPatrocinio.Plata,
+				1 * tp.getCosto() * 10f,
+				"tp1",
+				1,
+				LocalDate.now(),
+				"Institución 2",
+				null
+			);
+			c.crearPatrocinio(dtp, "Edición 1", "Institución 2", "Evento 1");
 	    });
 		
 		assertThrows(YaExistePatrocinioException.class, () -> {
@@ -311,7 +352,7 @@ class ControladorEventoTest {
 	}
 	@Test @Order(11)
 	void testListarPatrocinios() {
-		assertEquals(List.of("pat1"), c.listarPatrocinios("Evento 1", "Edición 1"));
+		assertEquals(Set.of("pat1", "pat2"), new HashSet<>(c.listarPatrocinios("Evento 1", "Edición 1")));
 	}
 
 	@Test @Order(12)
@@ -339,6 +380,32 @@ class ControladorEventoTest {
 		// Se supera el cupo
 		assertEquals(true, c.darDeAltaRegistro("asistente3", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt), false));
 	}
+	
+	@Test @Order(17)
+	void testCrearRegistroConPatrocinio() {
+		c = ControladorEvento.getInstance();
+		cu = ControladorUsuario.getInstance();
+		
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+		// Código incorrecto
+		assertThrows(IllegalArgumentException.class, () -> {
+			c.patrocinioEdicion("pat", "Edición 1", "Evento 1", "tp1", "Institución 2");
+		});
+		// Tipo registro incorrecto
+		assertThrows(IllegalArgumentException.class, () -> {
+			c.patrocinioEdicion("pat2", "Edición 1", "Evento 1", "tp2", "Institución 2");
+		});
+		// Correcto
+		assertDoesNotThrow(() -> {
+			c.patrocinioEdicion("pat2", "Edición 1", "Evento 1", "tp1", "Institución 2");
+		});
+		// Se supera el cupo
+		assertThrows(IllegalStateException.class, () -> {
+			c.patrocinioEdicion("pat2", "Edición 1", "Evento 1", "tp1", "Institución 2");
+		});
+	}
+	
 	@Test @Order(17)
 	void testListarTipoRegistro() {
 		List<String> resultadoEsperado = c.listarTipoRegistro("Evento 1", "Edición 1");
