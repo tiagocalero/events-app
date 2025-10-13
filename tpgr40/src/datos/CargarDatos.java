@@ -228,10 +228,10 @@ public class CargarDatos {
 		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta, false);
 		//
 		fechaAlta = LocalDate.parse("01/10/2025", fmt);
-		e.darDeAltaRegistro("msilva", "Tecnología Punta del Este 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta, false);
+		e.darDeAltaRegistro("msilva", "Tecnología Punta del Este 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta, true);
 		
 		fechaAlta = LocalDate.parse("06/10/2025", fmt);
-		e.darDeAltaRegistro("andrearod", "Tecnología Punta del Este 2026", "General", "Conferencia de Tecnología", fechaAlta, false);
+		e.darDeAltaRegistro("andrearod", "Tecnología Punta del Este 2026", "General", "Conferencia de Tecnología", fechaAlta, true);
 		
 		fechaAlta = LocalDate.parse("10/10/2025", fmt);
 		e.darDeAltaRegistro("MariR", "Tecnología Punta del Este 2026", "General", "Conferencia de Tecnología", fechaAlta, false);
