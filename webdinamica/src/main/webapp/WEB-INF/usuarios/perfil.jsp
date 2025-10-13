@@ -92,7 +92,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
     	      			for (DTRegistro reg : registros) { %>
-              			<li><a href="/webdinamica/registros/consultaRegistro?registro=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
               		<% } %>
            		</ul>
             <% } else if (usuarioLoggeado instanceof DTOrganizador) { %>

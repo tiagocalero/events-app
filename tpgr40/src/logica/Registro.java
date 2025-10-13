@@ -27,7 +27,7 @@ public class Registro{
     public Asistente getAsistente() { return asistente; }
 
     public DTRegistro getDatos(){
-        return new DTRegistro(costo, fecha, edicion.getNombre(), tipo.getNombre(), asistente.getNickname(), patrocinio);
+        return new DTRegistro(costo, fecha, edicion.getEvento(), edicion.getNombre(), tipo.getNombre(), asistente.getNickname(), patrocinio);
     }
     
     public Edicion getEdicion( ) {
