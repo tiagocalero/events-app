@@ -3,6 +3,7 @@ package test.java;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import logica.ManejadorCategoria;
@@ -44,5 +45,6 @@ class ControladorCategoriaTest {
 		c.altaCategoria("Categoría 4");
 		c.altaCategoria("Categoría 5");
 		assertEquals(Set.of("Categoría 1", "Categoría 2", "Categoría 3", "Categoría 4", "Categoría 5"), m.categorias().keySet());
+		assertEquals(Set.of("Categoría 1", "Categoría 2", "Categoría 3", "Categoría 4", "Categoría 5"), new HashSet<>(c.categorias()));
 	}
 }

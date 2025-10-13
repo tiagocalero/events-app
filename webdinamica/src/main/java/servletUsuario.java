@@ -205,7 +205,7 @@ public class servletUsuario extends HttpServlet {
     		c.modificarDatosUsuario(dtom);
     	}
     	
-		dtu = c.obtenerUsuario(nick).getDatos();
+		dtu = c.elegirUsuario(nick);
 		session.setAttribute("usuario", dtu);
     	response.sendRedirect("/webdinamica/usuarios/");
     }
@@ -218,12 +218,11 @@ public class servletUsuario extends HttpServlet {
     	String nick_o_correo = request.getParameter("nick_o_correo");
     	String passwd = request.getParameter("passwd");
     	ControladorUsuario c = ControladorUsuario.getInstance();
-    	Usuario u = c.obtenerUsuario(nick_o_correo);
+    	DTUsuario u = c.elegirUsuario(nick_o_correo);
     	
-    	if (u != null && u.chequearContrasena(passwd)) {
+    	if (u != null && c.chequearContrasena(nick_o_correo, passwd)) {
     		HttpSession session = request.getSession(true);
-    		DTUsuario dtu = u.getDatos();
-    		session.setAttribute("usuario", dtu);
+    		session.setAttribute("usuario", u);
         	response.sendRedirect("/webdinamica");
     	} else {
     		request.setAttribute("error", "El usuario o contraseña son incorrectos");
@@ -245,8 +244,7 @@ public class servletUsuario extends HttpServlet {
  		ControladorUsuario cu = ControladorUsuario.getInstance();
  		HttpSession session = request.getSession(false);
  		DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
- 		Usuario usuario = cu.obtenerUsuario(dtu.getNickname());
- 		if (usuario.chequearContrasena(actual)) {
+ 		if (cu.chequearContrasena(dtu.getNickname(), actual)) {
  			if (actual.equals(nueva)) {
  				request.setAttribute("error2", "La nueva contraseña no puede ser igual a la actual.");
  	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
@@ -254,7 +252,7 @@ public class servletUsuario extends HttpServlet {
  				request.setAttribute("error3", "Las contraseñas no coniciden.");
  	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
  			} else {
- 				usuario.setContrasena(nueva);
+ 				cu.setContrasena(dtu.getNickname(), nueva);
  				response.sendRedirect("/webdinamica/usuarios/fin_sesion");
  			}
  		} else {

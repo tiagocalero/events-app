@@ -261,10 +261,12 @@ public class ConsultaUsuario extends JInternalFrame {
     //Abre la ventana para consultar la Edicion
     public void llamarVentanaEdicion(ActionEvent e) {           	
 		ControladorUsuario cu = ControladorUsuario.getInstance();
-		Organizador org = (Organizador) cu.obtenerUsuario(u.getNickname());
 		String edicionSeleccionada = (String) comboBoxEdicion.getSelectedItem();
 		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
-			DTEdicion ed = org.obtenerEdicion(edicionSeleccionada).getDatos();
+			DTEdicion ed = cu.consultaOrganizador().stream()
+				    .filter(edicion -> edicion.getNombre().equals(edicionSeleccionada))
+				    .findFirst()
+				    .orElse(null);;
 			String evento = (ed.getEvento());
 			JInternalFrame c = new ConsultaEdicionDeEvento(desktopPane, evento, edicionSeleccionada);
 			desktopPane.add(c);

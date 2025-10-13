@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ControladorCategoria{
+public class ControladorCategoria {
 	private static volatile ControladorCategoria instance;
 	private ControladorCategoria(){};
 	

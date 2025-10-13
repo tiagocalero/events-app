@@ -41,9 +41,4 @@ public class ControladorInstitucion{
 						.map(inst -> inst.getNombre())
 						.collect(Collectors.toList());
 	}
-	
-	public Institucion obtenerInstitucion(String nombre) {
-		ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
-		return manejador.obtener(nombre);
-	}
 }
