@@ -85,6 +85,12 @@ public class ControladorUsuario{
 		return manejador.crearOrganizador(nick, nombre, correo, cont, img, desc, link);
 	}
 	
+	public List<DTEdicion> consultaOrganizadorAceptadas(String nickname) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		Organizador organizador = (Organizador) manejador.obtener(nickname);
+		return organizador.consultaAceptadas();
+	}
+	
 	//RECUERDA USUARIO CON MEMORIA
 	public List<DTEdicion> consultaOrganizador() {
 		assert usuario instanceof Organizador;

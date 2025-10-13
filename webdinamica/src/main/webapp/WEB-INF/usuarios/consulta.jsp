@@ -19,7 +19,6 @@
   <link rel="stylesheet" href="/webdinamica/assets/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
-  <script src="/webdinamica/components/headerLoggedIn.js" type="text/javascript" defer></script>
   <script src="/webdinamica/js/consultaUsuario.js" type="text/javascript" defer></script>
   <script src="/webdinamica/js/altaUsuario.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="assets/logoChico.png">
@@ -76,11 +75,10 @@
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-          	<% if (usuario instanceof DTOrganizador) { 
-          		cu.elegirUsuario(usuario.getNickname()); %>
+          	<% if (usuario instanceof DTOrganizador) { %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-            		<% List<DTEdicion> edicionesAceptadas = cu.consultaOrganizador();;
+            		<% List<DTEdicion> edicionesAceptadas = cu.consultaOrganizadorAceptadas(usuario.getNickname());
     	      			for (DTEdicion ed : edicionesAceptadas) { %>
             			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>

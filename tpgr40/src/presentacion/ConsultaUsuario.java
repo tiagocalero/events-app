@@ -266,7 +266,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			DTEdicion ed = cu.consultaOrganizador().stream()
 				    .filter(edicion -> edicion.getNombre().equals(edicionSeleccionada))
 				    .findFirst()
-				    .orElse(null);;
+				    .orElse(null);
 			String evento = (ed.getEvento());
 			JInternalFrame c = new ConsultaEdicionDeEvento(desktopPane, evento, edicionSeleccionada);
 			desktopPane.add(c);

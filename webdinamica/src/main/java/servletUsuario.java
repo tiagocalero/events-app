@@ -22,7 +22,6 @@ import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
 import logica.DTRegistro;
 import logica.DTUsuario;
-import logica.Usuario;
 
 /**
  * Servlet implementation class Usuario
@@ -62,9 +61,15 @@ public class servletUsuario extends HttpServlet {
     	List<String> instituciones = i.listarInstituciones();
         
         request.setAttribute("instituciones", instituciones);
-    	
-    	HttpSession user = request.getSession(false);
-    	DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+        HttpSession userSession = request.getSession(false);
+		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que visitantes accedan
+		if (usuario == null) {
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			return;
+		}
+		
     	usuario = c.elegirUsuario(usuario.getNickname());
     	
     	if (usuario instanceof DTAsistente) {
@@ -166,8 +171,15 @@ public class servletUsuario extends HttpServlet {
     
     protected void modificarUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorUsuario c = ControladorUsuario.getInstance();
-    	HttpSession session = request.getSession(false);
-    	DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
+    	HttpSession userSession = request.getSession(false);
+		DTUsuario dtu = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que visitantes accedan
+		if (dtu == null) {
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			return;
+		}
+		
     	String nick = dtu.getNickname();
     	
     	String nombre = request.getParameter("name");
@@ -206,7 +218,7 @@ public class servletUsuario extends HttpServlet {
     	}
     	
 		dtu = c.elegirUsuario(nick);
-		session.setAttribute("usuario", dtu);
+		userSession.setAttribute("usuario", dtu);
     	response.sendRedirect("/webdinamica/usuarios/");
     }
 
@@ -231,7 +243,16 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void cambiarContraGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
+    	HttpSession userSession = request.getSession(false);
+		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que visitantes accedan
+		if (usuario == null) {
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			return;
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
     }
     
     protected void cambiarContraPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -239,9 +260,15 @@ public class servletUsuario extends HttpServlet {
  		String nueva = request.getParameter("newPass");
  		String confNueva = request.getParameter("confNewPass");
  		
- 		ControladorUsuario cu = ControladorUsuario.getInstance();
- 		HttpSession session = request.getSession(false);
- 		DTUsuario dtu = (DTUsuario) session.getAttribute("usuario");
+ 		ControladorUsuario cu = ControladorUsuario.getInstance();HttpSession userSession = request.getSession(false);
+		DTUsuario dtu = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que visitantes accedan
+		if (dtu == null) {
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			return;
+		}
+		
  		if (cu.chequearContrasena(dtu.getNickname(), actual)) {
  			if (actual.equals(nueva)) {
  				request.setAttribute("error2", "La nueva contraseña no puede ser igual a la actual.");
