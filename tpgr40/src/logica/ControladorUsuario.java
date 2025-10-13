@@ -43,7 +43,7 @@ public class ControladorUsuario{
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
 		Usuario usu = manejador.obtener(nickname);
 		usuario = usu;
-		return usu.getDatos();
+		return usu == null ? null : usu.getDatos();
 	}
 	
 	public String hashearContrasena(String contrasena) {
@@ -83,6 +83,12 @@ public class ControladorUsuario{
 	public boolean altaOrganizador(String nick, String nombre, String correo, String cont, String img, String desc, String link) {
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
 		return manejador.crearOrganizador(nick, nombre, correo, cont, img, desc, link);
+	}
+	
+	public List<DTEdicion> consultaOrganizadorAceptadas(String nickname) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		Organizador organizador = (Organizador) manejador.obtener(nickname);
+		return organizador.consultaAceptadas();
 	}
 	
 	//RECUERDA USUARIO CON MEMORIA

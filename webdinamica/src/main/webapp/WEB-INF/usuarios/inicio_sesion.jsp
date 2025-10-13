@@ -27,36 +27,26 @@
       <form class="form-signin" action="/webdinamica/usuarios/inicio_sesion" method="post">
         <a href="/webdinamica"><img class="logo" src="/webdinamica/assets/logoNegro.png"> </a>
         <h1 class="h3 mb-3 fw-normal">Inicie sesión</h1>
-        <div class="form-floating">
-          <input
-            class="form-control"
-            id="floatingInput"
-            name="nick_o_correo"
-            placeholder="name@example.com"
-          />
-          <label for="floatingInput">nickname / mail </label>
-        </div>
-        <div class="form-floating">
-          <input
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            name="passwd"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">contraseña</label>
-        </div>
-        <div class="form-check text-start my-3">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value="remember-me"
-            id="checkDefault"
-          />
-          <label class="form-check-label" for="checkDefault">
-            Remember me
-          </label>
-        </div>
+
+          
+        <div class="form-floating mb-3">
+			  <input type="text" class="form-control" name="nick_o_correo" id="nick_o_correo"
+			         value="${nick_o_correo != null ? nick_o_correo : ''}" placeholder="Usuario o correo">
+			  <label for="nick_o_correo">Usuario o correo</label>
+		</div>
+
+		<div class="form-floating mb-3">
+			  <input type="password" class="form-control" name="passwd" id="passwd"
+			         placeholder="Contraseña">
+			  <label for="passwd">Contraseña</label>
+		</div>
+
+		<div class="form-check text-start my-3">
+			  <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
+			  <label class="form-check-label" for="checkDefault">Recordarme</label>
+		</div>
+		 
+        
         
         <% if (request.getAttribute("error") != null) { %>
 		    <p style="color:red;"><%= request.getAttribute("error") %></p>

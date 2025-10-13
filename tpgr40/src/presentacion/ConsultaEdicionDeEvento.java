@@ -1,13 +1,10 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
-
-import logica.ControladorEvento;
-import logica.DTPatrocinio;
-import logica.DTTRegistro;
-import logica.TipoNivelPatrocinio;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -16,29 +13,20 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
 import logica.DTEdicion;
-import logica.DTPatrocinio;
-import logica.Edicion;
-import logica.TipoNivelPatrocinio;
-
-import java.awt.Dimension;
-import java.awt.Font;
 
 public class ConsultaEdicionDeEvento extends JInternalFrame {
-
-	private JInternalFrame frmConsultaEventos;
+	private static final long serialVersionUID = -5008014210806948016L;
 	private JLabel lblEventos;
-	private JComboBox comboBoxEventos;
-	private JComboBox comboBoxEdiciones;
-	private JComboBox comboBoxAsistentes;
-	private JComboBox comboBoxPatrocinios;
-	private JComboBox comboBoxTipoRegistros;
+	private JComboBox<String> comboBoxEventos;
+	private JComboBox<String> comboBoxEdiciones;
+	private JComboBox<String> comboBoxAsistentes;
+	private JComboBox<String> comboBoxPatrocinios;
+	private JComboBox<String> comboBoxTipoRegistros;
 	private JLabel lblPais;
 	private final JTextField txtPais = new JTextField();
 	private JLabel lblCiudad;
@@ -88,13 +76,13 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
-        comboBoxEventos = new JComboBox();
+        comboBoxEventos = new JComboBox<String>();
         comboBoxEventos.addItem("Seleccione un Evento");
         comboBoxEventos.setBounds(135, 49, 226, 43);
         
-        ControladorEvento c = ControladorEvento.getInstance();
+        ControladorEvento controlador = ControladorEvento.getInstance();
         
-        for (String e: c.listarEventos()) {
+        for (String e: controlador.listarEventos()) {
         	comboBoxEventos.addItem(e);
         }
         getContentPane().add(comboBoxEventos);
@@ -109,7 +97,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         getContentPane().add(txtPais);
         txtPais.setColumns(10);
         
-        comboBoxEdiciones = new JComboBox();
+        comboBoxEdiciones = new JComboBox<String>();
         comboBoxEdiciones.setBounds(539, 49, 226, 43);
         getContentPane().add(comboBoxEdiciones);
         
@@ -162,11 +150,11 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         txtOrganizador.setBounds(115, 348, 255, 37);
         getContentPane().add(txtOrganizador);
         
-        comboBoxAsistentes = new JComboBox();
+        comboBoxAsistentes = new JComboBox<String>();
         comboBoxAsistentes.setBounds(115, 395, 255, 43);
         getContentPane().add(comboBoxAsistentes);
         
-        comboBoxPatrocinios = new JComboBox();
+        comboBoxPatrocinios = new JComboBox<String>();
         comboBoxPatrocinios.setBounds(554, 333, 255, 36);
         getContentPane().add(comboBoxPatrocinios);
         
@@ -203,7 +191,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         txtFechaAlta.setBounds(554, 250, 255, 37);
         getContentPane().add(txtFechaAlta);
         
-        comboBoxTipoRegistros = new JComboBox();
+        comboBoxTipoRegistros = new JComboBox<String>();
         comboBoxTipoRegistros.setBounds(554, 414, 255, 36);
         getContentPane().add(comboBoxTipoRegistros);
         
@@ -237,7 +225,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.setBounds(353, 489, 139, 29);
         btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	setVisible(false);
             	dispose();
             }
@@ -247,7 +235,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
         
         comboBoxEventos.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	borrarCamposEvento();
                 // Obtener el evento seleccionado
                 String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();

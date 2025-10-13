@@ -69,30 +69,7 @@ public class Edicion {
     public String getNombre() {
         return this.nombre;
     }
-
-    public String getSigla() {
-        return this.sigla;
-    }
-
-    public LocalDate getFechaAlta() {
-        return this.fechaAlta;
-    }
     
-    public LocalDate getFechaFinal() {
-        return this.fechaFinal;
-    }
-
-    public LocalDate getFechaInicio() {
-        return this.fechaInicio;
-    }
-    
-    public String getPais() {
-        return this.pais;
-    }
-
-    public String getCiudad() {
-        return this.ciudad;
-    }
     public String getEvento() {
         String nombreEv = evento.getNombre();
         return nombreEv;
