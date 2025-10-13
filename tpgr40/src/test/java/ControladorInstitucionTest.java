@@ -1,23 +1,20 @@
 package test.java;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.Arrays;
-import java.util.List;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import logica.ControladorInstitucion;
+import logica.Institucion;
 import logica.ManejadorInstitucion;
-
-
-import excepciones.PatrocinioSuperaMontoException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorInstitucionTest {
@@ -56,8 +53,11 @@ class ControladorInstitucionTest {
 	//Probar obtener una institucion
 	@Test @Order(3)
 	void testObtenerInstitucion() {
-		ControladorInstitucion ci = ControladorInstitucion.getInstance();
-		assertEquals(ci.obtenerInstitucion("Institucion 1"), ci.obtenerInstitucion("Institucion 1"));
+		ManejadorInstitucion ci = ManejadorInstitucion.getInstance();
+		Institucion i = ci.obtener("Institucion 1");
+		assertEquals("inst", i.getDesc());
+		assertEquals("http://", i.getUrl());
+		
 	}
 		
 }

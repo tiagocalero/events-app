@@ -41,7 +41,7 @@ public class Asistente extends Usuario {
 	
 	@Override
 	public void modificar(DTUsuarioModificado datos) {
-		ControladorInstitucion controlador = ControladorInstitucion.getInstance();
+		ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
 		
 		assert datos instanceof DTAsistenteModificado;
 		DTAsistenteModificado datosA = (DTAsistenteModificado) datos;
@@ -49,7 +49,7 @@ public class Asistente extends Usuario {
 		this.apellido = datosA.getApellido();
 		this.nacimiento = datosA.getNacimiento();
 		String ins = datosA.getInstitucion();
-		if (ins != null) this.institucion = controlador.obtenerInstitucion(ins);
+		if (ins != null) this.institucion = manejador.obtener(ins);
 		String img = datosA.getImagen();
 		if (img != null) this.setImagen(img); 
 	}

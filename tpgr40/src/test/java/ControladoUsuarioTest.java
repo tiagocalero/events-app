@@ -30,6 +30,7 @@ import logica.ManejadorCategoria;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
 import logica.Organizador;
+import logica.Usuario;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {
@@ -112,6 +113,13 @@ class ControladorUsuarioTest {
 		assertEquals("prueba", dtu.getApellido());
 		assertEquals(LocalDate.parse("12/12/2012", fmt), dtu.getNacimiento());
 		assertEquals(null, dtu.getInstitucion());
+		
+		Usuario u = c.obtenerUsuario("as");
+		assertEquals(true, u.chequearContrasena("cont"));
+		assertEquals(false, u.chequearContrasena("contr"));
+		u.setContrasena("contr");
+		assertEquals(false, u.chequearContrasena("cont"));
+		assertEquals(true, u.chequearContrasena("contr"));
 	}
 	
 	@Test @Order(3)
