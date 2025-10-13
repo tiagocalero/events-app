@@ -51,7 +51,7 @@ public class CargarDatos {
 		boolean ev = e.ingresarDatosEvento("Conferencia de Tecnología", "Evento sobre innovación tecnológica", "CONFTEC", fechaAlta, cats1);
 
         fechaAlta = LocalDate.parse("01/02/2025", fmt);
-		List<String> cats2 = new ArrayList<>(Arrays.asList("Innovación", "Literatura"));
+		List<String> cats2 = new ArrayList<>(Arrays.asList("Cultura", "Literatura"));
 		ev = e.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2, "IMG-EV02.jpeg");
 
         fechaAlta = LocalDate.parse("15/03/2023", fmt);
@@ -106,7 +106,7 @@ public class CargarDatos {
         fechaFin = LocalDate.parse("14/09/2022", fmt);
         fechaAlta = LocalDate.parse("21/05/2022", fmt);
         ed = e.altaEdicion("Maratón de Montevideo", "imm", "Maratón de Montevideo 2022", "MARATON22", fechaInicio, fechaFin, fechaAlta, "Montevideo", "Uruguay", "IMG-EDEV04.jpeg");
-        e.confirmarEdicion("Maratón de Montevideo", "Maratón de Montevideo 2022");
+        e.rechazarEdicion("Maratón de Montevideo", "Maratón de Montevideo 2022");
         
 		fechaInicio = LocalDate.parse("18/07/2024", fmt);
         fechaFin = LocalDate.parse("21/07/2024", fmt);
@@ -124,8 +124,7 @@ public class CargarDatos {
         fechaFin = LocalDate.parse("17/09/2025", fmt);
         fechaAlta = LocalDate.parse("01/02/2025", fmt);
 		ed = e.altaEdicion("Expointer Uruguay", "miseventos", "Expointer Uruguay 2025", "EXPOAGRO25", fechaInicio, fechaFin, fechaAlta, "Durazno", "Uruguay", "IMG-EDEV07.jpeg");
-		e.confirmarEdicion("Expointer Uruguay", "Expointer Uruguay 2025");
-		
+				
 		fechaInicio = LocalDate.parse("06/04/2026", fmt);
         fechaFin = LocalDate.parse("10/04/2026", fmt);
         fechaAlta = LocalDate.parse("01/08/2025", fmt);
@@ -148,7 +147,6 @@ public class CargarDatos {
         fechaFin = LocalDate.parse("20/02/2026", fmt);
         fechaAlta = LocalDate.parse("02/10/2025", fmt);
 		ed = e.altaEdicion("Montevideo Fashion Week", "mec", "Montevideo Fashion Week 2026", "MFW26", fechaInicio, fechaFin, fechaAlta, "Nueva York", "Estados Unidos", "IMG-EDEV11.jpeg");
-		e.confirmarEdicion("Montevideo Fashion Week", "Montevideo Fashion Week 2026");
 		
 		//Cargar Tipo Registro
 		boolean tp = e.crearTipoRegistro("Montevideo Rock", "Montevideo Rock 2025", "General", "Acceso general a Montevideo Rock (2 días)", 1500, 2000);
@@ -180,7 +178,7 @@ public class CargarDatos {
 		tp = e.crearTipoRegistro("Montevideo Fashion Week", "Montevideo Fashion Week 2026", "Visitante", "Acceso parcial a los eventos de la semana", 150, 25);
 		
 		//Cargar Patrocinios
-		DTPatrocinio dtp1 = new DTPatrocinio("TECHFING", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt), "Facultad de Ingeniería", null);
+		DTPatrocinio dtp1 = new DTPatrocinio("TECHUDELAR", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt), "Facultad de Ingeniería", null);
 		e.crearPatrocinio(dtp1, "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");
 		DTPatrocinio dtp2 = new DTPatrocinio("TECHANII", TipoNivelPatrocinio.Plata, 10000, "General", 1, LocalDate.parse("20/08/2025", fmt), "Agencia Nacional de Investigación e Innovación (ANII)", null);
 		e.crearPatrocinio(dtp2, "Tecnología Punta del Este 2026", "Agencia Nacional de Investigación e Innovación (ANII)", "Conferencia de Tecnología");
@@ -204,22 +202,39 @@ public class CargarDatos {
 		//Cargar Registros
         fechaAlta = LocalDate.parse("14/05/2025", fmt);
 		e.darDeAltaRegistro("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("30/07/2024", fmt);
 		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("21/08/2025", fmt);
 		e.darDeAltaRegistro("andrearod", "Web Summit 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("03/03/2025", fmt);
 		e.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2025", "Corredor 42K", "Maratón de Montevideo", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("22/08/2025", fmt);
 		e.darDeAltaRegistro("vale23", "Mobile World Congress 2025", "Full", "Conferencia de Tecnología", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("09/04/2025", fmt);
 		e.darDeAltaRegistro("AnaG", "Maratón de Montevideo 2025", "Corredor 10K", "Maratón de Montevideo", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("10/04/2025", fmt);
 		e.darDeAltaRegistro("JaviL", "Maratón de Montevideo 2025", "Corredor 21K", "Maratón de Montevideo", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("03/08/2025", fmt);
 		e.darDeAltaRegistro("MariR", "Montevideo Comics 2025", "Cosplayer", "Montevideo Comics", fechaAlta, false);
+		
         fechaAlta = LocalDate.parse("16/07/2024", fmt);
 		e.darDeAltaRegistro("SofiM", "Montevideo Comics 2024", "General", "Montevideo Comics", fechaAlta, false);
+		//
+		fechaAlta = LocalDate.parse("01/10/2025", fmt);
+		e.darDeAltaRegistro("msilva", "Tecnología Punta del Este 2026", "Estudiante", "Conferencia de Tecnología", fechaAlta, false);
+		
+		fechaAlta = LocalDate.parse("06/10/2025", fmt);
+		e.darDeAltaRegistro("andrearod", "Tecnología Punta del Este 2026", "General", "Conferencia de Tecnología", fechaAlta, false);
+		
+		fechaAlta = LocalDate.parse("10/10/2025", fmt);
+		e.darDeAltaRegistro("MariR", "Tecnología Punta del Este 2026", "General", "Conferencia de Tecnología", fechaAlta, false);
 		
 	}
 }
