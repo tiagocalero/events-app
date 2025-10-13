@@ -84,7 +84,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
             	String nom = (String) comboBoxUsuario.getSelectedItem();
             	if (nom != null) {
             		u = c.elegirUsuario(nom);
-            		if(u instanceof DTAsistente) {
+            		if (u instanceof DTAsistente) {
             			panelOrg.setVisible(false);
             			DTAsistente a = (DTAsistente) u;
             			consultaAsistente(e, a);

@@ -8,46 +8,32 @@ public class Patrocinio {
 	private TipoNivelPatrocinio tipo;
 	private LocalDate fecha;
 	private int cantRegistros;
-	
+	private int cantRegistrosUsados;
+
 	private Edicion edicion;
 	private Institucion institucion;
 	private TRegistro tipoRegistro;
-	
-	public Patrocinio(
-	        String codigo,
-	        float monto,
-	        TipoNivelPatrocinio tipo,
-	        LocalDate fecha,
-	        int cantRegistros,
-	        Edicion edicion,
-	        Institucion institucion,
-	        TRegistro tipoRegistro
-	) {
+
+	public Patrocinio(String codigo, float monto, TipoNivelPatrocinio tipo, LocalDate fecha, int cantRegistros,
+			Edicion edicion, Institucion institucion, TRegistro tipoRegistro) {
 		this.codigo = codigo;
 		this.monto = monto;
 		this.tipo = tipo;
 		this.fecha = fecha;
 		this.cantRegistros = cantRegistros;
+		this.cantRegistrosUsados = 0;
 		this.tipoRegistro = tipoRegistro;
 
 		this.edicion = edicion;
 		this.institucion = institucion;
-		
+
 		institucion.agregarPatrocinio(this);
 		edicion.agregarPatrocinio(this);
 	}
-	
+
 	public DTPatrocinio getDatos() {
-		return new DTPatrocinio(
-			codigo,
-			tipo,
-			monto,
-			tipoRegistro.getNombre(),
-			cantRegistros,
-			fecha,
-			getNombreInstitucion(),
-			institucion.getImagen()
-		);
+		return new DTPatrocinio(codigo, tipo, monto, tipoRegistro.getNombre(), cantRegistros, fecha,
+				getNombreInstitucion(), institucion.getImagen());
 	}
 
 	public String getCodigo() {
@@ -57,12 +43,22 @@ public class Patrocinio {
 	public String getNombreInstitucion() {
 		return institucion.getNombre();
 	}
-	
+
 	public boolean buscarEdicion(Edicion edicionBuscada) {
 		return edicionBuscada == edicion;
 	}
-	
+
 	public String getTRegistro() {
 		return this.tipoRegistro.getNombre();
+	}
+
+	// Intenta usar un registro del patrocinio
+	// Si ya se usaron todos devuelve false, si no true.
+	public boolean usarCodigo() {
+		if (cantRegistros <= cantRegistrosUsados)
+			return false;
+
+		cantRegistrosUsados++;
+		return true;
 	}
 }

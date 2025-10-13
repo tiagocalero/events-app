@@ -1,10 +1,20 @@
 package presentacion;
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import excepciones.PatrocinioSuperaMontoException;
@@ -12,28 +22,13 @@ import excepciones.YaExistePatrocinioException;
 import logica.ControladorEvento;
 import logica.ControladorInstitucion;
 import logica.DTPatrocinio;
-import logica.DTTRegistro;
-import logica.Patrocinio;
 import logica.TipoNivelPatrocinio;
 
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.GridLayout;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-
 public class AltaPatrocinio extends JInternalFrame{
-	
+	private static final long serialVersionUID = -1428879017218292598L;
 	private final JTextField txtAporte = new JTextField();
 	private JComboBox<String> comboBoxEdiciones;
-	private JComboBox comboBoxInstituciones;
+	private JComboBox<String> comboBoxInstituciones;
 	private JComboBox<String> comboBoxEventos;
 	private JButton botonCancelar;
 	private JButton botonCrear;
@@ -41,11 +36,10 @@ public class AltaPatrocinio extends JInternalFrame{
 	private JLabel labelCantRegistros;
 	private JLabel labelTipoRegistros;
 	private JLabel labelPatrocinio;
-	private JComboBox comboBoxNivelPatrocinio;
+	private JComboBox<String> comboBoxNivelPatrocinio;
 	private JComboBox<String> comboBoxTipoRegistro;
 	private JLabel labelAporte;
 	private JLabel labelDatosDelUsuario;
-	private JTextField textField;
 	private JLabel labelCodigo;
 	private JTextField textCodigo;
 	private JTextField textFecha;
@@ -75,11 +69,11 @@ public class AltaPatrocinio extends JInternalFrame{
         comboBoxEventos.setBounds(27, 92, 226, 43);
         getContentPane().add(comboBoxEventos);       
 
-        comboBoxInstituciones = new JComboBox();
+        comboBoxInstituciones = new JComboBox<String>();
         comboBoxInstituciones.setBounds(27, 221, 226, 43);
         getContentPane().add(comboBoxInstituciones);
         
-        comboBoxEdiciones = new JComboBox();
+        comboBoxEdiciones = new JComboBox<String>();
         comboBoxEdiciones.setBounds(27, 155, 226, 43);
         getContentPane().add(comboBoxEdiciones);
 		
@@ -95,12 +89,12 @@ public class AltaPatrocinio extends JInternalFrame{
         getContentPane().add(txtAporte);
         txtAporte.setColumns(10);
                            
-        comboBoxTipoRegistro = new JComboBox();
+        comboBoxTipoRegistro = new JComboBox<String>();
         comboBoxTipoRegistro.setBounds(536, 172, 226, 43);
         getContentPane().add(comboBoxTipoRegistro);
         
-        comboBoxNivelPatrocinio = new JComboBox();
-        comboBoxNivelPatrocinio.setModel(new DefaultComboBoxModel(new String[] {"Platino", "Oro", "Plata", "Bronce"}));
+        comboBoxNivelPatrocinio = new JComboBox<String>();
+        comboBoxNivelPatrocinio.setModel(new DefaultComboBoxModel<String>(new String[] {"Platino", "Oro", "Plata", "Bronce"}));
         comboBoxNivelPatrocinio.setBounds(536, 22, 226, 43);
         getContentPane().add(comboBoxNivelPatrocinio);
         
@@ -158,7 +152,7 @@ public class AltaPatrocinio extends JInternalFrame{
         
         comboBoxEventos.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
                 // Obtener el evento seleccionado
                 String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
                 
@@ -168,8 +162,8 @@ public class AltaPatrocinio extends JInternalFrame{
                 	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
                     edicionesModel.addElement("Seleccione una Edición");
                     
-                    ControladorEvento m = ControladorEvento.getInstance();
-                    m.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
+                    ControladorEvento manejador = ControladorEvento.getInstance();
+                    manejador.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
                     comboBoxEdiciones.setModel(edicionesModel);
                 } else {
                 	// Si seleccionó "Seleccione un Evento", no mostrar ediciones
@@ -181,7 +175,7 @@ public class AltaPatrocinio extends JInternalFrame{
         
         comboBoxEdiciones.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
                 // Obtener la edicion seleccionada
                 String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
                 String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
@@ -192,10 +186,10 @@ public class AltaPatrocinio extends JInternalFrame{
                     DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<String>();
                     tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
                     
-                    ControladorEvento c = ControladorEvento.getInstance();
-                    List<String> dts = c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada);
-                    for (String dt: dts)
-                        tipoRegistrosModel.addElement(dt);
+                    ControladorEvento controlador = ControladorEvento.getInstance();
+                    List<String> tipoRegistros = controlador.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada);
+                    for (String tipoRegistro: tipoRegistros)
+                        tipoRegistrosModel.addElement(tipoRegistro);
                     
                     comboBoxTipoRegistro.setModel(tipoRegistrosModel);
                 }
@@ -205,12 +199,12 @@ public class AltaPatrocinio extends JInternalFrame{
         
         botonCancelar.addActionListener(new ActionListener( ) {
         	@Override
-            public void actionPerformed(ActionEvent e) { dispose(); }
+            public void actionPerformed(ActionEvent event) { dispose(); }
         });
         
         botonCrear.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { crearPatrocinio(); }
+            public void actionPerformed(ActionEvent event) { crearPatrocinio(); }
         });
  
 	}
@@ -219,23 +213,24 @@ public class AltaPatrocinio extends JInternalFrame{
         DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<String>();
         eventosModel.addElement("Seleccione un Evento");
         
-        ControladorEvento m = ControladorEvento.getInstance();
-        m.listarEventos().forEach(eventosModel::addElement);
+        ControladorEvento controlador = ControladorEvento.getInstance();
+        controlador.listarEventos().forEach(eventosModel::addElement);
         comboBoxEventos.setModel(eventosModel);
         
         // Llamar al método que carga las instituciones
     	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
         institucionesModel.addElement("Seleccione una Institución");
 
-        ControladorInstitucion mi = ControladorInstitucion.getInstance();
-        mi.listarInstituciones().forEach(institucionesModel::addElement);
+        ControladorInstitucion controladorInst = ControladorInstitucion.getInstance();
+        controladorInst.listarInstituciones()
+                       .forEach(institucionesModel::addElement);
         comboBoxInstituciones.setModel(institucionesModel);
 
         // Tipo Registro
-        comboBoxTipoRegistro.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un Tipo de Registro"}));
+        comboBoxTipoRegistro.setModel(new DefaultComboBoxModel<String>(new String[] {"Selecciona un Tipo de Registro"}));
         
         // Ediciones
-        comboBoxEdiciones.setModel(new DefaultComboBoxModel());
+        comboBoxEdiciones.setModel(new DefaultComboBoxModel<String>());
     }
 	
 	private void crearPatrocinio() {
@@ -304,23 +299,19 @@ public class AltaPatrocinio extends JInternalFrame{
         DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, fechaAlta, institucionSeleccionada, null);
         
         // Crear el Patrocinio
-        ControladorEvento me = ControladorEvento.getInstance();
+        ControladorEvento controlador = ControladorEvento.getInstance();
         try {
-        	me.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
-        } catch(PatrocinioSuperaMontoException ex) {
-        	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	controlador.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
+        } catch (PatrocinioSuperaMontoException exc) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;
-        } catch(YaExistePatrocinioException ex) {
-        	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (YaExistePatrocinioException exc) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;
-        } catch(IllegalArgumentException ex) {
-        	JOptionPane.showMessageDialog(AltaPatrocinio.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException exc) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;
-        } catch (Exception ex) {
-            // Si la operación genera un error, mostrárselo al usuario
-	    	JOptionPane.showMessageDialog(AltaPatrocinio.this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-	    	return;
-	    }
+        }
         
     	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
         Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
@@ -355,7 +346,7 @@ public class AltaPatrocinio extends JInternalFrame{
 	}
 
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
-	private static String sacarEspacios(String s) {
-	    return s == null ? "" : s.trim();
+	private static String sacarEspacios(String str) {
+	    return str == null ? "" : str.trim();
 	}
 }

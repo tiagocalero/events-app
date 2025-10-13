@@ -179,7 +179,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
             // Si la operación genera un error, mostrárselo al usuario
             boolean error;
             try {
-            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta);
+            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta, false);
 	        } catch (Exception ex) {
 		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		    	return;

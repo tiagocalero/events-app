@@ -37,7 +37,7 @@ public class ConsultaRegistro extends JInternalFrame {
 	private JComboBox comboBoxRegistros;
 	private JButton btnCerrar;
 
-	private String RegEdicion;
+	private String regEdicion;
 	private String RegTipo;
 	private String RegFecha;
 	private float RegCosto;

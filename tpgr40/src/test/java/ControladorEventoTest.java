@@ -28,11 +28,10 @@ import logica.DTEdicion;
 import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
-import logica.Edicion;
 import logica.ManejadorCategoria;
+import logica.ManejadorEvento;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
-import logica.ManejadorEvento;
 import logica.TipoNivelPatrocinio;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -334,11 +333,11 @@ class ControladorEventoTest {
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
 		assertEquals(true, cu.altaAsistente("as", "Asistente 2", "dsa", "cont", null, "prueba", LocalDate.parse("12/12/2012", fmt)));
-		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt)));
+		assertEquals(false, c.darDeAltaRegistro("as", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt), false));
 		assertEquals(true, cu.altaAsistente("asistente3", "Asistente 3", "dsada", "cont", null, "ff", LocalDate.parse("12/12/2012", fmt)));
 		
 		// Se supera el cupo
-		assertEquals(true, c.darDeAltaRegistro("asistente3", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt)));
+		assertEquals(true, c.darDeAltaRegistro("asistente3", "Edición 1", "tp1", "Evento 1", LocalDate.parse("12/12/2025", fmt), false));
 	}
 	@Test @Order(17)
 	void testListarTipoRegistro() {

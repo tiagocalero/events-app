@@ -29,14 +29,22 @@
         
 
         <label for="fecha-registro"><strong>Fecha de Registro:</strong></label>
-        <input type="text" id="fecha-registro" value="${requestScope.fecha}" readonly/><br/> 
+        <input type="text" id="fecha-registro" value="${requestScope.fecha}" disabled/><br/> 
 
         <label for="tipo-registro"><strong>Tipo de Registro:</strong></label>
-        <input type="text" id="tipo-registro" value="${requestScope.tipo}" readonly/><br/>
-
-        <label for="costo-registro"><strong>Uso patrocinio:</strong></label>
-        <input type="text" id="costo-registro" value="\$${requestScope.costo}" readonly/><br/>
+        <input type="text" id="tipo-registro" value="${requestScope.tipo}" disabled/><br/>
         
+	 <% if ((boolean) request.getAttribute("patrocinio")) { %>
+        <label for="patrocinio"><strong>Usó patrocinio:</strong></label>
+        <input type="text" id="patrocinio" value="Sí" disabled/><br/>
+        <label for="costo-registro"><strong>Costo:</strong></label>
+        <input type="text" id="costo-registro" value="$0" disabled/><br/>
+     <% } else { %>
+        <label for="patrocinio"><strong>Usó patrocinio:</strong></label>
+        <input type="text" id="patrocinio" value="No" disabled/><br/>
+        <label for="costo-registro"><strong>Costo:</strong></label>
+        <input type="text" id="costo-registro" value="\$${requestScope.costo}" disabled/><br/>
+     <% } %>
       </form>
       
     </div>

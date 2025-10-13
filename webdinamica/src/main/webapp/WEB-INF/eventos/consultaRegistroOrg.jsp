@@ -37,7 +37,6 @@
         <select id="usuarioSelect" name="asistente" onchange="mostrarDetalles(this.value)">
           <option value="">Seleccione un Asistente</option>
           
-          <%-- 🟢 Cargar opciones del Select con Scriptlets --%>
           <%
             if (registros != null) {
                 for (DTRegistro registro : registros) {

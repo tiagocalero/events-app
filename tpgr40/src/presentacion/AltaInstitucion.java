@@ -1,24 +1,20 @@
 package presentacion;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import java.awt.Font;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import logica.ControladorEvento;
 import logica.ControladorInstitucion;
-
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
 
 public class AltaInstitucion extends JInternalFrame{
 	private JTextField textNombre;
@@ -77,7 +73,7 @@ public class AltaInstitucion extends JInternalFrame{
 
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	textNombre.setText("");
             	textWeb.setText("");
             	textDesc.setText(""); 
@@ -87,7 +83,7 @@ public class AltaInstitucion extends JInternalFrame{
 		
 		JButton btnNewButton_2 = new JButton("Cancelar");
 		btnNewButton_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	setVisible(false);
             	dispose();
             }
@@ -96,12 +92,12 @@ public class AltaInstitucion extends JInternalFrame{
 
 		JButton btnNewButton_1 = new JButton("Crear");
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { crearInstitucion(e); }
+			public void actionPerformed(ActionEvent event) { crearInstitucion(event); }
 		});
 		panel_1.add(btnNewButton_1);
 	}
 	
-	protected void crearInstitucion(ActionEvent e) {
+	protected void crearInstitucion(ActionEvent event) {
         String nombre = sacarEspacios(textNombre.getText());
         String url = sacarEspacios(textWeb.getText());
         String desc= sacarEspacios(textDesc.getText());
@@ -111,13 +107,13 @@ public class AltaInstitucion extends JInternalFrame{
         	return;
         }
                 
-        ControladorInstitucion c = ControladorInstitucion.getInstance();
+        ControladorInstitucion controlador = ControladorInstitucion.getInstance();
         // Si la operación genera un error, mostrárselo al usuario
         boolean exito;
         try {
-        	exito = c.altaInstitucion(nombre, desc, url);
-		} catch (Exception ex) {
-	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	exito = controlador.altaInstitucion(nombre, desc, url);
+		} catch (Exception exc) {
+	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;
 	    }
         if (!exito) {
@@ -155,7 +151,7 @@ public class AltaInstitucion extends JInternalFrame{
 	}
 
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
-	private static String sacarEspacios(String s) {
-	    return s == null ? "" : s.trim();
+	private static String sacarEspacios(String str) {
+	    return str == null ? "" : str.trim();
 	}
 }

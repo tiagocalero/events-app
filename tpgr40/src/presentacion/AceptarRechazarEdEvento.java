@@ -1,13 +1,9 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.format.DateTimeFormatter;
-
-import logica.ControladorEvento;
-import logica.DTPatrocinio;
-import logica.DTTRegistro;
-import logica.TipoNivelPatrocinio;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -17,26 +13,17 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
-import logica.DTEdicion;
-import logica.DTPatrocinio;
-import logica.Edicion;
-import logica.TipoNivelPatrocinio;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JPanel;
 
 public class AceptarRechazarEdEvento extends JInternalFrame {
-
+	private static final long serialVersionUID = 980497871741952339L;
 	private JInternalFrame frmConsultaEventos;
 	private JLabel lblEventos;
-	private JComboBox comboBoxEventos;
-	private JComboBox comboBoxEdiciones;
+	private JComboBox<String> comboBoxEventos;
+	private JComboBox<String> comboBoxEdiciones;
 	private JLabel lblSeleccioneUnEvento;
 	private JDesktopPane desktopPane;
 	private JPanel panel;
@@ -73,18 +60,18 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
-        comboBoxEventos = new JComboBox();
+        comboBoxEventos = new JComboBox<String>();
         comboBoxEventos.addItem("Seleccione un Evento");
         comboBoxEventos.setBounds(135, 49, 226, 43);
         
-        ControladorEvento c = ControladorEvento.getInstance();
+        ControladorEvento controlador = ControladorEvento.getInstance();
         
-        for (String e: c.listarEventos()) {
-        	comboBoxEventos.addItem(e);
+        for (String evento: controlador.listarEventos()) {
+        	comboBoxEventos.addItem(evento);
         }
         getContentPane().add(comboBoxEventos);
         
-        comboBoxEdiciones = new JComboBox();
+        comboBoxEdiciones = new JComboBox<String>();
         comboBoxEdiciones.setBounds(539, 49, 226, 43);
         getContentPane().add(comboBoxEdiciones);
         
@@ -105,7 +92,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	setVisible(false);
             	dispose();
             }
@@ -114,29 +101,29 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         
         JButton btnAmpliarDetalles = new JButton("Ampliar Detalles");
         btnAmpliarDetalles.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String si = (String) comboBoxEdiciones.getSelectedItem();
-        		if ( si != null ) llamarVentanaEdicion(e);
+        	public void actionPerformed(ActionEvent event) {
+        		String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+        		if ( edicionSeleccionada != null ) llamarVentanaEdicion(event);
         	};
         });
         panel.add(btnAmpliarDetalles);
         
         JButton btnRechazar = new JButton("Rechazar");
         btnRechazar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	String ev = (String) comboBoxEventos.getSelectedItem();
-            	String ed = (String) comboBoxEdiciones.getSelectedItem();
-            	ControladorEvento c = ControladorEvento.getInstance();
+            public void actionPerformed(ActionEvent event) {
+            	String evento = (String) comboBoxEventos.getSelectedItem();
+            	String eddicion = (String) comboBoxEdiciones.getSelectedItem();
+            	ControladorEvento controlador = ControladorEvento.getInstance();
 
-            	if (ev != null && !ev.equals("Seleccione un Evento")
-            		&& ed != null && !ed.equals("Seleccione una Edicion")) {
-                	c.rechazarEdicion(ev, ed);
+            	if (evento != null && !evento.equals("Seleccione un Evento")
+            		&& eddicion != null && !eddicion.equals("Seleccione una Edicion")) {
+                	controlador.rechazarEdicion(evento, eddicion);
                    	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
                     edicionesModel.addElement("Seleccione una Edicion");
                     
-                    c.listarEdicionesIngresadas(ev).forEach(edicionesModel::addElement);
+                    controlador.listarEdicionesIngresadas(evento).forEach(edicionesModel::addElement);
                     comboBoxEdiciones.setModel(edicionesModel);
-                	JOptionPane.showMessageDialog(frmConsultaEventos, ed + " ha sido Rechazada correctamente.");
+                	JOptionPane.showMessageDialog(frmConsultaEventos, eddicion + " ha sido Rechazada correctamente.");
                 } else {
                 	JOptionPane.showMessageDialog(AceptarRechazarEdEvento.this, "Debe seleccionar una edición y un evento", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -146,20 +133,20 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         
         JButton btnConfirmar = new JButton("Aceptar");
         btnConfirmar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	String ev = (String) comboBoxEventos.getSelectedItem();
-            	String ed = (String) comboBoxEdiciones.getSelectedItem();
-            	ControladorEvento c = ControladorEvento.getInstance();
+            public void actionPerformed(ActionEvent event) {
+            	String evento = (String) comboBoxEventos.getSelectedItem();
+            	String edicion = (String) comboBoxEdiciones.getSelectedItem();
+            	ControladorEvento controlador = ControladorEvento.getInstance();
             	
-            	if (ev != null && !ev.equals("Seleccione un Evento")
-            		&& ed != null && !ed.equals("Seleccione una Edicion")) {
-                	c.confirmarEdicion(ev, ed);
+            	if (evento != null && !evento.equals("Seleccione un Evento")
+            		&& edicion != null && !edicion.equals("Seleccione una Edicion")) {
+                	controlador.confirmarEdicion(evento, edicion);
                    	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
                     edicionesModel.addElement("Seleccione una Edicion");
                     
-                    c.listarEdicionesIngresadas(ev).forEach(edicionesModel::addElement);
+                    controlador.listarEdicionesIngresadas(evento).forEach(edicionesModel::addElement);
                     comboBoxEdiciones.setModel(edicionesModel);
-                    JOptionPane.showMessageDialog(frmConsultaEventos, ed + " ha sido Confirmada correctamente.");
+                    JOptionPane.showMessageDialog(frmConsultaEventos, edicion + " ha sido Confirmada correctamente.");
                 } else {
                 	JOptionPane.showMessageDialog(AceptarRechazarEdEvento.this, "Debe seleccionar una edición y un evento", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -171,7 +158,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         
         comboBoxEventos.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	// Obtener el evento seleccionado
                 String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
                 
@@ -181,8 +168,8 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
                 	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
                     edicionesModel.addElement("Seleccione una Edicion");
                     
-                    ControladorEvento m = ControladorEvento.getInstance();
-                    m.listarEdicionesIngresadas(eventoSeleccionado).forEach(edicionesModel::addElement);
+                    ControladorEvento controlador = ControladorEvento.getInstance();
+                    controlador.listarEdicionesIngresadas(eventoSeleccionado).forEach(edicionesModel::addElement);
                     comboBoxEdiciones.setModel(edicionesModel);
                 } else {
                 	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
@@ -196,7 +183,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         
         comboBoxEdiciones.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	            	
                 // Obtener los datos seleccionados
             	String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
@@ -205,8 +192,8 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
             	if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion")) {
            		
             		// Obtener la edicion
-            		ControladorEvento c = ControladorEvento.getInstance();
-            		DTEdicion DTedicion = c.obtenerEdicion(edicionSeleccionada, eventoSeleccionado);           		
+            		ControladorEvento controlador = ControladorEvento.getInstance();
+            		controlador.obtenerEdicion(edicionSeleccionada, eventoSeleccionado);           		
             		            		        			
             	}
            }
@@ -222,17 +209,17 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         }
     }
 	
-	public void llamarVentanaEdicion(ActionEvent e) {           	
+	public void llamarVentanaEdicion(ActionEvent event) {           	
 		String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
 		String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
 		if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edicion") 
 				&& eventoSeleccionado != null && !edicionSeleccionada.equals("Seleccione un Evento")) {
 			
-			JInternalFrame c = new ConsultaEdicionDeEvento(desktopPane, eventoSeleccionado, edicionSeleccionada);
-			desktopPane.add(c);
-	        centerInternalFrame(c);
-	        c.setVisible(true);
-	        c.toFront();
+			JInternalFrame frame = new ConsultaEdicionDeEvento(desktopPane, eventoSeleccionado, edicionSeleccionada);
+			desktopPane.add(frame);
+	        centerInternalFrame(frame);
+	        frame.setVisible(true);
+	        frame.toFront();
 		} else {
         	JOptionPane.showMessageDialog(AceptarRechazarEdEvento.this, "Debe seleccionar una edición y un evento", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -245,9 +232,9 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
             Dimension desktopSize = desktopPane.getSize();
             Dimension frameSize = frame.getSize();
             if (frameSize.getWidth() > 0 && frameSize.getHeight() > 0) {
-                int x = (desktopSize.width - frameSize.width) / 2;
-                int y = (desktopSize.height - frameSize.height) / 2;
-                frame.setLocation(x, y);
+                int xPos = (desktopSize.width - frameSize.width) / 2;
+                int yPos = (desktopSize.height - frameSize.height) / 2;
+                frame.setLocation(xPos, yPos);
             }
         }
     }

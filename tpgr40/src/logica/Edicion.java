@@ -153,23 +153,4 @@ public class Edicion {
     public void rechazar() {
     	estado = TipoEstado.Rechazada;
     }
-    
-    public Patrocinio getPatrocinio(String codigoPatrocinio) {
-        if (codigoPatrocinio == null || codigoPatrocinio.trim().isEmpty()) {
-            return null;
-        }
-
-        // Obtener la lista de patrocinios (asumo que es accesible)
-        for (Patrocinio p : this.patrocinios) {
-            // Utilizamos equalsIgnoreCase para una búsqueda más flexible (no sensible a mayúsculas/minúsculas)
-            // Si el código debe ser sensible a mayúsculas/minúsculas, usa p.getCodigo().equals(codigoPatrocinio.trim())
-            if (p.getCodigo().equalsIgnoreCase(codigoPatrocinio.trim())) {
-                return p; // Encontramos el patrocinio, lo devolvemos inmediatamente
-            }
-        }
-        
-        // Si el bucle termina sin encontrar el patrocinio
-        return null; 
-    }
-    
 }
