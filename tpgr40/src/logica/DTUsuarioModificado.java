@@ -1,6 +1,6 @@
 package logica;
 
-public abstract class DTUsuarioModificado {
+public class DTUsuarioModificado {
 	private String nombre;
 	private String imagen;
 	

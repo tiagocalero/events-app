@@ -6,10 +6,10 @@ public class DTUsuario {
 	private String correo;
 	private String imagen;
 	
-	public DTUsuario(String nick, String nom, String c, String img) {
+	public DTUsuario(String nick, String nombre, String correo, String img) {
 		this.nickname = nick;
-		this.nombre = nom;
-		this.correo = c;
+		this.nombre = nombre;
+		this.correo = correo;
 		this.imagen = img;
 	}
 	

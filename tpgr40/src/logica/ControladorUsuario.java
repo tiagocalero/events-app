@@ -33,33 +33,33 @@ public class ControladorUsuario{
 	}
 	
 	public List<String> listarAsistentes() {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-        return m.asistentes();
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+        return manejador.asistentes();
  
 	}
 
     public List<String> listarOrganizadores() {
-        ManejadorUsuario m = ManejadorUsuario.getInstance();
-        return m.organizadores();
+        ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+        return manejador.organizadores();
     }
 
 	public List<String> listarUsuarios() {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-        return new ArrayList<>(m.usuarios().keySet());
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+        return new ArrayList<>(manejador.usuarios().keySet());
 	}
 
 	public DTUsuario elegirUsuario(String nickname) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		Usuario u = m.obtener(nickname);
-		usuario = u;
-		return u.getDatos();
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		Usuario usu = manejador.obtener(nickname);
+		usuario = usu;
+		return usu.getDatos();
 	}
 	
 	public String hashearContrasena(String contrasena) {
 		String hashedcont;
 		try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(contrasena.getBytes());
+            MessageDigest mensaje = MessageDigest.getInstance("SHA-256");
+            byte[] hash = mensaje.digest(contrasena.getBytes());
             
             // Convert bytes to hex
             StringBuilder hexString = new StringBuilder();
@@ -74,8 +74,8 @@ public class ControladorUsuario{
 	}
 	
 	public Usuario obtenerUsuario(String nick) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.obtener(nick);
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		return manejador.obtener(nick);
 	}
 
 	public void modificarDatosUsuario(DTUsuarioModificado datos) {
@@ -84,39 +84,39 @@ public class ControladorUsuario{
 	}
 	
 	// Con Imagenes.
-	public boolean altaAsistente(String nick, String nom, String c, String cont, String img, String ap, LocalDate nac, String ins) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearAsistente(nick, nom, c, cont, img, ap, nac, ins);
+	public boolean altaAsistente(String nick, String nombre, String correo, String cont, String img, String apellido, LocalDate nac, String ins) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		return manejador.crearAsistente(nick, nombre, correo, cont, img, apellido, nac, ins);
 	}
 	
-	public boolean altaAsistente(String nick, String nom, String c, String cont, String img, String ap, LocalDate nac) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearAsistente(nick, nom, c, cont, img, ap, nac);
+	public boolean altaAsistente(String nick, String nombre, String correo, String cont, String img, String apellido, LocalDate nac) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		return manejador.crearAsistente(nick, nombre, correo, cont, img, apellido, nac);
 	}
 
-	public boolean altaOrganizador(String nick, String nom, String c, String cont, String img, String desc, String link) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();
-		return m.crearOrganizador(nick, nom, c, cont, img, desc, link);
+	public boolean altaOrganizador(String nick, String nombre, String correo, String cont, String img, String desc, String link) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		return manejador.crearOrganizador(nick, nombre, correo, cont, img, desc, link);
 	}
 	
 	//RECUERDA USUARIO CON MEMORIA
 	public List<DTEdicion> consultaOrganizador() {
 		assert usuario instanceof Organizador;
-		Organizador o = (Organizador) usuario;
-		return o.consulta();
+		Organizador organiza = (Organizador) usuario;
+		return organiza.consulta();
 	}
 	
 	public List<DTRegistro> consultaAsistente() {
 		assert usuario instanceof Asistente;
-		Asistente a = (Asistente) usuario;
-		return a.consulta();
+		Asistente asis = (Asistente) usuario;
+		return asis.consulta();
 	}
 	
 	//Devuelve el Datatype del registro con nombreEdicion del usuario 
 	public DTRegistro datosRegistroUsuario (String nombreEdicion, String usuario) {
-		ManejadorUsuario m = ManejadorUsuario.getInstance();	
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();	
 		
-		Usuario user = m.obtener(usuario);
+		Usuario user = manejador.obtener(usuario);
 		Asistente asistente = (Asistente) user;
 		Registro registro = asistente.getRegistro(nombreEdicion);
 		
