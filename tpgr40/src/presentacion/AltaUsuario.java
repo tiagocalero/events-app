@@ -1,23 +1,26 @@
 package presentacion;
 
-import java.awt.BorderLayout;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import logica.ControladorInstitucion;
 import logica.ControladorUsuario;
 
-import java.awt.GridLayout;
-import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class AltaUsuario extends JInternalFrame {
+	private static final long serialVersionUID = -4170447710687835161L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -28,7 +31,7 @@ public class AltaUsuario extends JInternalFrame {
 	private JTextField textField_4;
 	private JTextField textField_6;
 	private JTextArea textArea;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private JTextField textField_5;
 	private JTextField textField_7;
 	
@@ -116,11 +119,11 @@ public class AltaUsuario extends JInternalFrame {
 		lblInstitiucion.setBounds(12, 88, 140, 17);
 		panel_2.add(lblInstitiucion);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setBounds(161, 88, 140, 26);
-		ControladorInstitucion c = ControladorInstitucion.getInstance();
+		ControladorInstitucion controladorI = ControladorInstitucion.getInstance();
 		comboBox.addItem("Sin Institución");
-		for(String i: c.listarInstituciones()) {
+		for(String i: controladorI.listarInstituciones()) {
 			comboBox.addItem(i);
 		}
 		panel_2.add(comboBox);
@@ -132,7 +135,7 @@ public class AltaUsuario extends JInternalFrame {
 		rdbtnAsistente.setBounds(41, 220, 130, 25);
 		rdbtnAsistente.setSelected(true);
 		rdbtnAsistente.addActionListener(new ActionListener( ) {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				rdbtnAsistente.setSelected(true);
 				rdbtnOrganizador.setSelected(false);
 				panel_2.setVisible(true);
@@ -140,7 +143,7 @@ public class AltaUsuario extends JInternalFrame {
 		});
 		panel.add(rdbtnAsistente);
 		rdbtnOrganizador.addActionListener(new ActionListener( ) {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				rdbtnAsistente.setSelected(false);
 				rdbtnOrganizador.setSelected(true);
 				panel_2.setVisible(false);
@@ -178,18 +181,18 @@ public class AltaUsuario extends JInternalFrame {
 		
 		JButton btnNewButton = new JButton("Crear");
 		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
         		if(rdbtnAsistente.isSelected()) {
-                    cmdCrearAsistenteActionPerformed(e);
+                    cmdCrearAsistenteActionPerformed(event);
         		} else if(rdbtnOrganizador.isSelected()) {
-        			cmdCrearOrganizadorActionPerformed(e);
+        			cmdCrearOrganizadorActionPerformed(event);
             	}
             }
         });
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	setVisible(false);
             	dispose();
             }
@@ -198,7 +201,7 @@ public class AltaUsuario extends JInternalFrame {
 		panel_1.add(btnNewButton);
 	}
 	
-	protected void cmdCrearAsistenteActionPerformed(ActionEvent e) {
+	protected void cmdCrearAsistenteActionPerformed(ActionEvent event) {
         String nickname = sacarEspacios(textField.getText());
         String nombre = sacarEspacios(textField_1.getText());
         String correo = sacarEspacios(textField_2.getText());
@@ -235,8 +238,8 @@ public class AltaUsuario extends JInternalFrame {
         	return;
         }
                 
-        ControladorUsuario c = ControladorUsuario.getInstance();
-        if (comboBox.getSelectedItem() != "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
+        ControladorUsuario controlador = ControladorUsuario.getInstance();
+        if (comboBox.getSelectedItem() != "Sin Institución" && controlador.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento, (String) comboBox.getSelectedItem())) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -263,7 +266,7 @@ public class AltaUsuario extends JInternalFrame {
                 	break;
             };
         }
-        else if (comboBox.getSelectedItem() == "Sin Institución" && c.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento)) {    
+        else if (comboBox.getSelectedItem() == "Sin Institución" && controlador.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento)) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -294,7 +297,7 @@ public class AltaUsuario extends JInternalFrame {
         	JOptionPane.showMessageDialog(AltaUsuario.this, "Ya existe un usuario con el mismo nickname o correo electrónico", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-	protected void cmdCrearOrganizadorActionPerformed(ActionEvent e) {
+	protected void cmdCrearOrganizadorActionPerformed(ActionEvent event) {
         String nickname = sacarEspacios(textField.getText());
         String nombre = sacarEspacios(textField_1.getText());
         String correo = sacarEspacios(textField_2.getText());
@@ -324,16 +327,16 @@ public class AltaUsuario extends JInternalFrame {
         }
         
                
-        ControladorUsuario c = ControladorUsuario.getInstance();
+        ControladorUsuario controlador = ControladorUsuario.getInstance();
         // Si la operación genera un error, mostrárselo al usuario
-        boolean ok;
+        boolean exito;
         try {
-        	ok = c.altaOrganizador(nickname, nombre, correo, cont, null, desc, link);
+        	exito = controlador.altaOrganizador(nickname, nombre, correo, cont, null, desc, link);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;
 	    }
-        if(ok) {    
+        if(exito) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana
             Object[] opciones = {"Agregar más usuarios", "Cerrar"};
             int resultado = JOptionPane.showOptionDialog(
@@ -377,7 +380,7 @@ public class AltaUsuario extends JInternalFrame {
 	}
 
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
-	private static String sacarEspacios(String s) {
-	    return s == null ? "" : s.trim();
+	private static String sacarEspacios(String sts) {
+	    return sts == null ? "" : sts.trim();
 	}
 }

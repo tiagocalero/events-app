@@ -10,26 +10,21 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JOptionPane;
 
 import logica.ControladorEvento;
 import logica.ControladorUsuario;
-import logica.DTTRegistro;
-import logica.DTEvento;
-import logica.DTAsistente;
-import javax.swing.JPanel;
 
 public class RegistroAEdicionDeEvento extends JInternalFrame {
-	private JInternalFrame frmConsultaEventos;
+	private static final long serialVersionUID = 808677131110106348L;
 	private JLabel lblEventos;
 	private JLabel lblEdiciones;
 	private JLabel lblTipoRegistro;
 	private JLabel lblAsistentes;
-	private JComboBox comboBoxEventos;
-	private JComboBox comboBoxEdiciones;
+	private JComboBox<String> comboBoxEventos;
+	private JComboBox<String> comboBoxEdiciones;
 	//private JComboBox comboBoxTipoRegistro;
 	private JComboBox<String> comboBoxTipoRegistro;
 	private JComboBox<String> comboBoxAsistentes;
@@ -55,12 +50,12 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblEventos);
 
-        comboBoxEventos = new JComboBox();
+        comboBoxEventos = new JComboBox<String>();
         comboBoxEventos.setBounds(22, 75, 309, 46);
         
-        ControladorEvento c = ControladorEvento.getInstance();
+        ControladorEvento controlador = ControladorEvento.getInstance();
         
-        for (String e: c.listarEventos()) {
+        for (String e: controlador.listarEventos()) {
         	comboBoxEventos.addItem(e);
         }
         getContentPane().add(comboBoxEventos);
@@ -71,7 +66,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         lblEdiciones.setBounds(22, 152, 309, 36);
         getContentPane().add(lblEdiciones);
         
-        comboBoxEdiciones = new JComboBox();
+        comboBoxEdiciones = new JComboBox<String>();
         comboBoxEdiciones.setBounds(22, 188, 309, 46);
         getContentPane().add(comboBoxEdiciones);
         
@@ -83,7 +78,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		    String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
 
 		    // Listamos las ediciones de ese evento y agregamos al combo
-		    for (String ed : c.listarEdiciones(eventoSeleccionado)) {
+		    for (String ed : controlador.listarEdiciones(eventoSeleccionado)) {
 		        comboBoxEdiciones.addItem(ed);
 		    }
         });
@@ -110,7 +105,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
 		    
 		    if (eventoSeleccionado != null && edicionSeleccionada != null) {
 		    	// Listamos las ediciones de ese evento y agregamos al combo
-		    	for (String dtr : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
+		    	for (String dtr : controlador.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
 		    		comboBoxTipoRegistro.addItem(dtr);
 		    	}
 		    }
@@ -125,9 +120,9 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         comboBoxAsistentes.setBounds(343, 188, 309, 46);
         getContentPane().add(comboBoxAsistentes);
         
-        ControladorUsuario cu = ControladorUsuario.getInstance();
+        ControladorUsuario controladorUsuario = ControladorUsuario.getInstance();
         
-        for (String asistente : cu.listarAsistentes()) {
+        for (String asistente : controladorUsuario.listarAsistentes()) {
         	comboBoxAsistentes.addItem(asistente);
         }
         JButton btnRegistrar = new JButton("Registrar");
@@ -179,7 +174,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
             // Si la operación genera un error, mostrárselo al usuario
             boolean error;
             try {
-            	error = c.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta, false);
+            	error = controlador.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta, false);
 	        } catch (Exception ex) {
 		    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		    	return;
@@ -212,7 +207,7 @@ public class RegistroAEdicionDeEvento extends JInternalFrame {
         lblFecha.setBounds(199, 292, 132, 16);
         getContentPane().add(lblFecha);
         btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
             	setVisible(false);
             	dispose();
             }

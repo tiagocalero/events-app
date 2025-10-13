@@ -1,32 +1,32 @@
 package presentacion;
 
 import java.awt.BorderLayout;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import logica.ControladorEvento;
 
-import java.awt.GridLayout;
-import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class AltaTipoRegistro extends JInternalFrame {
+	private static final long serialVersionUID = -5815021613805971585L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JLabel lblNewLabel;
 	private JLabel lblDescripcin;
 	private JLabel lblSigla;
-	private JLabel lblEvento;
 	private JTextField textField_3;
-	private JComboBox comboBox;
-	private JComboBox comboBox_1;
+	private JComboBox<String> comboBox;
+	private JComboBox<String> comboBox_1;
 	private JButton btnCancelar;
 	
 	public AltaTipoRegistro() {
@@ -80,15 +80,15 @@ public class AltaTipoRegistro extends JInternalFrame {
 		lblCategoras.setBounds(340, 196, 140, 16);
 		panel.add(lblCategoras);
 		
-		ControladorEvento c = ControladorEvento.getInstance();
+		ControladorEvento controlador = ControladorEvento.getInstance();
 		
 		JLabel lblEvento = new JLabel("Evento:");
 		lblEvento.setBounds(46, 62, 140, 16);
 		panel.add(lblEvento);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setBounds(46, 89, 238, 27);
-        for (String e: c.listarEventos()) {
+        for (String e: controlador.listarEventos()) {
         	comboBox.addItem(e);
         }
 		panel.add(comboBox);
@@ -97,7 +97,7 @@ public class AltaTipoRegistro extends JInternalFrame {
 		lblEdicion.setBounds(46, 144, 140, 16);
 		panel.add(lblEdicion);
 		
-		comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox<String>();
 		comboBox_1.setBounds(46, 185, 238, 27);
 		panel.add(comboBox_1);
 		
@@ -110,7 +110,7 @@ public class AltaTipoRegistro extends JInternalFrame {
 		    String eventoSeleccionado = (String) comboBox.getSelectedItem();
 
 		    // Listamos las ediciones de ese evento y agregamos al combo
-		    for (String ed : c.listarEdiciones(eventoSeleccionado)) {
+		    for (String ed : controlador.listarEdiciones(eventoSeleccionado)) {
 		        comboBox_1.addItem(ed);
 		    }
 		});
@@ -127,12 +127,12 @@ public class AltaTipoRegistro extends JInternalFrame {
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { dispose(); }
+            public void actionPerformed(ActionEvent event) { dispose(); }
         });
 		panel_1.add(btnCancelar);
 		
 		JButton btnNewButton = new JButton("Crear");
-		btnNewButton.addActionListener(e -> {
+		btnNewButton.addActionListener(event -> {
 		    // Obtenemos los datos de los campos de texto
 			String nombreEvento = (String) comboBox.getSelectedItem();
 			String nombreEdicion = (String) comboBox_1.getSelectedItem();
@@ -169,7 +169,7 @@ public class AltaTipoRegistro extends JInternalFrame {
             // Si la operación genera un error, mostrárselo al usuario
 		    boolean exito;
 		    try {
-		    	exito = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
+		    	exito = controlador.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, descripcion, costo, cupo);
 			} catch(IllegalArgumentException ex) {
 	        	JOptionPane.showMessageDialog(AltaTipoRegistro.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	        	return;
@@ -219,8 +219,8 @@ public class AltaTipoRegistro extends JInternalFrame {
 
 
 	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
-	private static String sacarEspacios(String s) {
-	    return s == null ? "" : s.trim();
+	private static String sacarEspacios(String str) {
+	    return str == null ? "" : str.trim();
 	}
     
 }

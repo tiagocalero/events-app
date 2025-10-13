@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import logica.ControladorInstitucion;
 
 public class AltaInstitucion extends JInternalFrame{
+	private static final long serialVersionUID = -8173060715607020830L;
 	private JTextField textNombre;
 	private JTextField textWeb;
 	private JTextArea textDesc;
