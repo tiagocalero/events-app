@@ -412,5 +412,9 @@ class ControladorEventoTest {
 		assertEquals(List.of("tp1"), resultadoEsperado);
 	}
 	
-	
+
+	@Test @Order(18)
+	void testListarInstituciones() {
+		assertEquals(Set.of("Institución 1", "Institución 2"), new HashSet<>(c.listarInstituciones()));
+	}
 }

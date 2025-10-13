@@ -67,8 +67,8 @@ public class ManejadorUsuario {
     	if (usuariosNick.containsKey(nickname) || usuariosCorreo.containsKey(correo))
     		return false;
     	
-    	ControladorInstitucion controlador = ControladorInstitucion.getInstance();
-    	Institucion institucion = controlador.obtenerInstitucion(nombreInstitucion);
+    	ManejadorInstitucion manejador = ManejadorInstitucion.getInstance();
+    	Institucion institucion = manejador.obtener(nombreInstitucion);
         Asistente asistente = new Asistente(nickname, nombre, correo, contasena, img, apellido, fechaNacimiento, institucion);
         usuariosNick.put(nickname, asistente);
         usuariosCorreo.put(correo, asistente);
