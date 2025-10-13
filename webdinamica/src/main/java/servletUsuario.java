@@ -86,7 +86,7 @@ public class servletUsuario extends HttpServlet {
     protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ControladorUsuario c = ControladorUsuario.getInstance();
      	String nick = (String) request.getParameter("nick");
-    	if (nick != null) {
+    	if (nick != null && c.elegirUsuario(nick) != null) {
     		DTUsuario usuario = c.elegirUsuario(nick);
         	
         	if (usuario instanceof DTAsistente) {
@@ -231,7 +231,7 @@ public class servletUsuario extends HttpServlet {
     	String passwd = request.getParameter("passwd");
     	ControladorUsuario c = ControladorUsuario.getInstance();
     	DTUsuario u = c.elegirUsuario(nick_o_correo);
-    	
+
     	if (u != null && c.chequearContrasena(nick_o_correo, passwd)) {
     		HttpSession session = request.getSession(true);
     		session.setAttribute("usuario", u);

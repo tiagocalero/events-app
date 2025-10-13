@@ -43,7 +43,7 @@ public class ControladorUsuario{
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
 		Usuario usu = manejador.obtener(nickname);
 		usuario = usu;
-		return usu.getDatos();
+		return usu == null ? null : usu.getDatos();
 	}
 	
 	public String hashearContrasena(String contrasena) {
