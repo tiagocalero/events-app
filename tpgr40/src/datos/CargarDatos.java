@@ -188,8 +188,8 @@ public class CargarDatos {
 		contE.crearPatrocinio(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
 		
 		//Cargar Asistentes
-		contU.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "IMG-US01.jpg", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingenierı́a");
-		contU.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", null, "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingenierı́a");
+		contU.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "IMG-US01.jpg", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingeniería");
+		contU.altaAsistente("msilva", "Martin", "martin.silva@fing.edu.uy", "msilva2025", null, "Silva", LocalDate.parse("21/08/1987", fmt), "Facultad de Ingeniería");
 		contU.altaAsistente("sofirod", "Sofia", "srodriguez@outlook.com", "srod.abc1", "IMG-US03.jpeg", "Rodriguez", LocalDate.parse("03/02/1995", fmt), "Universidad Católica del Uruguay");
 		contU.altaAsistente("vale23", "Valentina", "valentina.costa@mail.com", "valen11c", "IMG-US07.jpeg", "Costa", LocalDate.parse("01/12/1992", fmt));
 		contU.altaAsistente("luciag", "Lucía", "lucia.garcia@mail.com", "garcia.22l", "IMG-US08.jpeg", "García", LocalDate.parse("09/11/1993", fmt));

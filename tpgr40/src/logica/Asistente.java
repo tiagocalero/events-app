@@ -15,6 +15,7 @@ public class Asistente extends Usuario {
 		super(nick, nombre, correo, contrasena, img);
 		this.apellido = apellido;
 		this.nacimiento = fecha;
+		this.institucion = null;
 		this.registros = new HashSet<>();
 	}
 	
