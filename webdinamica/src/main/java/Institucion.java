@@ -71,8 +71,17 @@ public class Institucion extends HttpServlet {
         ControladorInstitucion controlador = ControladorInstitucion.getInstance();
 
         try {
-            controlador.altaInstitucion(nombre, descripcion, sitioWeb, fileName);
-        	request.setAttribute("mensaje", "Institución creada correctamente.");
+        	boolean creada = controlador.altaInstitucion(nombre, descripcion, sitioWeb, fileName);
+
+            if (creada) {
+                request.setAttribute("mensaje", "Institución creada correctamente.");
+            } else {
+                request.setAttribute("error", "Ya existe una institución con ese nombre.");
+                
+                request.setAttribute("nombre", nombre);
+                request.setAttribute("desc", descripcion);
+                request.setAttribute("sitioweb", sitioWeb);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("mensaje", "Error al crear la institución: " + e.getMessage());

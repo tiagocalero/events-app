@@ -24,7 +24,7 @@
       <form class="content-form-alta" action="instituciones/altaInstitucion" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre*:</label>
         <input type = "text" id = "nombre" name = "nombre" required
-        	value=" <%= request.getAttribute("nombre") != null ? request.getAttribute("nombre") : "" %>"/><br/>
+        	value="<%= request.getAttribute("nombre") != null ? request.getAttribute("nombre") : "" %>"/><br/>
         
         <!-- Mostrar mensaje de error si existe -->
         <% if (request.getAttribute("error") != null) { %>
@@ -33,13 +33,14 @@
 		<p style="color:red; display: none;" id="error_nombre_vacio">No puede estar vacío.</p>
         
         <label for="descripcion">Descripción*:</label>
-        <textarea id="desc" name="desc" rows="4">
-    <%= request.getAttribute("desc") != null ? request.getAttribute("desc") : "" %>
-</textarea><br/>
+        <textarea id="desc" name="desc" rows="4"><%=
+        	request.getAttribute("desc") != null ? request.getAttribute("desc") : ""
+        %></textarea><br/>
         
         <label for="url">Sitio Web*:</label>
-        <input type = "text" id = "sitioweb" name = "sitioweb"
+        <input type="text" id="sitioweb" name="sitioweb"
         	value="<%= request.getAttribute("sitioweb") != null ? request.getAttribute("sitioweb") : "" %>"/><br/>
+
         
         <label for="foto">Seleccione una Imágen:</label>
         <input type="file" id="foto" name="foto" accept="image/*"><br/>
