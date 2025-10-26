@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -38,15 +41,13 @@
                 <%-- Opciones de Reintentar o Cancelar --%>
                 <hr>
                 <p class="mb-0">
-                    Puedes corregir el error y **reintentar**, o **cancelar** la operación.
+                    Puedes corregir el error y reintentar, o cancelar la operación.
                 </p>
                 
-                <%-- Botón de Cancelar: Vuelve a la consulta de la edición (como solicitaste) --%>
-                <%-- Usamos las expresiones EL (${...}) ya que tu JSP las usa para nombreEdicion/nombreEvento --%>
-                <a href="consultaEdicion?edicion=${nombreEdicion}&evento=${nombreEvento}" class="btn btn-secondary mt-2">
+                <%-- Botón de Cancelar: Vuelve a la consulta de la edición --%>
+                <a href="/webdinamica/ediciones/consultaEdicion?edicion=<%= URLEncoder.encode((String) request.getAttribute("nombreEdicion"), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode((String) request.getAttribute("nombreEvento"), StandardCharsets.UTF_8)%>" class="btn btn-secondary mt-2">
                     Cancelar y Volver a la Edición
                 </a>
-                
             </div>
         <%
             }
@@ -61,14 +62,14 @@
             <label for="tiposRegistro" style="vertical-align: top ">Seleccione un tipo de Registro:</label>
             <%-- Quitamos el 'multiple size="3"' para forzar la selección única --%>
             <select id="tiposRegistro" name="tiposRegistro" required style="margin-bottom: 20px;">
-                <option value="" disabled selected>-- Seleccione un tipo --</option>
+                <option value="" disabled <%= request.getAttribute("nombreTRegistro") == null ? "selected" : ""%>>-- Seleccione un tipo --</option>
                 <%-- Itera dinámicamente sobre la lista de tiposRegistro pasada por el Servlet --%>
                 <% 
                     List<String> tipos = (List<String>) request.getAttribute("tiposRegistro");
                     if (tipos != null) {
                         for (String tipo : tipos) { 
                 %>
-                        <option value="<%= tipo %>"><%= tipo %></option>
+                        <option value="<%= tipo %>" <%= request.getAttribute("nombreTRegistro") == tipo ? "selected" : "" %>><%= tipo %></option>
                 <% 
                         }
                     } 

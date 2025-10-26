@@ -70,7 +70,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
 	}
 
-
 	// GET /patrocinios/alta
 	protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ControladorEvento c = ControladorEvento.getInstance();
@@ -204,7 +203,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/patrocinios/consulta.jsp").forward(request, response);
 	}
 
-
 	// GET /eventos/alta
 	// Carga las categorías existentes en el formulario
 	protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -301,11 +299,9 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
 	}
 
-
 	// POST /ediciones/altaEdicion
 	// Crea una edicion con los parámetros pasados
 	protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String nombre = request.getParameter("name");
 		String ciudad = request.getParameter("ciudad");
 		String sigla = request.getParameter("sigla");
@@ -313,8 +309,6 @@ public class Evento extends HttpServlet {
 		LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
 		LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
 		String nombreEvento = request.getParameter("evento");
-
-		String edicion = request.getParameter("edicion"); 
 
 		LocalDate fechaAlta = LocalDate.now();
 
@@ -340,12 +334,10 @@ public class Evento extends HttpServlet {
 			filePart.write(uploadPath + File.separator + fileName);
 		}
 
-
 		ControladorEvento c = ControladorEvento.getInstance();
 		boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName);
 
 		if (!ok) {
-
 			request.setAttribute("name", nombre);
 			request.setAttribute("ciudad", ciudad);
 			request.setAttribute("sigla", sigla);
@@ -358,16 +350,10 @@ public class Evento extends HttpServlet {
 			request.setAttribute("error", "El nombre de la edición '" + nombre + "' ya existe.");
 
 			request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
-
 		} else {
 			consultaEventoGET(request, response);
 		}
 	}
-
-
-
-
-
 
 	//######  CONSULTA EDICION  ######
 
@@ -399,11 +385,9 @@ public class Evento extends HttpServlet {
 			String nickname = asistente.getNickname();
 
 			estaRegistrado = c.usuarioEnEdicion(edicion, nickname, evento);
-
 		}
 
 		request.setAttribute("estaRegistrado", estaRegistrado);
-
 
 		// 5. Establecer los atributos de los datos de la edición
 		String pais = datosEdicion.getPais();
@@ -445,9 +429,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaEdicion.jsp").forward(request, response);
 	}
 
-
-
-
 	//######  REGISTRO A EDICION DE EVENTO  ######
 
 	//GET
@@ -457,6 +438,23 @@ public class Evento extends HttpServlet {
 		String nombreEvento = request.getParameter("evento");
 
 		ControladorEvento c = ControladorEvento.getInstance();
+		
+		HttpSession userSession = request.getSession(false);
+		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que organizadores o visitantes accedan
+		if (usuario == null) {
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			return;
+		} else if (!(usuario instanceof DTAsistente)) {
+			response.sendRedirect("/webdinamica");
+			return;
+		}
+
+		if (!c.existeEdicionEvento(nombreEvento, nombreEdicion)) {
+			response.sendRedirect("/webdinamica");
+			return;
+		}
 
 		List<String> tiposRegistro = c.listarTipoRegistro(nombreEvento, nombreEdicion);
 		request.setAttribute("tiposRegistro", tiposRegistro);
@@ -468,8 +466,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/registroAEdicionEvento.jsp").forward(request, response);
 	}
 
-
-	//POST
 	//crea el registro al evento
 	// POST
 	protected void registroAEdicionEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -479,8 +475,19 @@ public class Evento extends HttpServlet {
 		LocalDate fechaAlta = LocalDate.now();
 		String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
 
-		HttpSession user = request.getSession(false);
-		DTAsistente usuario = (DTAsistente) user.getAttribute("usuario");
+		HttpSession userSession = request.getSession(false);
+		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que organizadores o visitantes accedan
+		if (usuarioLoggeado == null) {
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			return;
+		} else if (!(usuarioLoggeado instanceof DTAsistente)) {
+			response.sendRedirect("/webdinamica");
+			return;
+		}
+		
+		DTAsistente usuario = (DTAsistente) usuarioLoggeado;
 
 		String nickname = usuario.getNickname();
 		String nombreInstitucion = usuario.getInstitucion();
@@ -492,28 +499,20 @@ public class Evento extends HttpServlet {
 
 		// A) Lógica de Validación de Patrocinio
 		if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
-
 			try {
-				c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
-			} catch (IllegalArgumentException exc) {
-				mensajeError = exc.getMessage();
-			} catch (NoSuchElementException exc) {
-				mensajeError = exc.getMessage();
-			} catch (IllegalStateException exc) {
-				mensajeError = exc.getMessage();
+			    c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
+			} catch (IllegalArgumentException | NoSuchElementException | IllegalStateException exc) {
+			    mensajeError = exc.getMessage();
 			}
-
-			if (mensajeError == null) {
-				// Patrocinio es válido
-				conPatrocinio = true;
-			}
+			
+			conPatrocinio = true;
 		}
 
 		// B) Si no hubo error en el patrocinio (o si no se usó) -> Proceder al alta
 		if (mensajeError == null) {
-			// La función darDeAltaRegistro debe devolver un String (mensaje de error)
-			// o null (si es exitoso), como discutimos anteriormente.
-			boolean resultadoAlta = c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio);		           
+			if (c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio)) {
+				mensajeError = "No hay cupos para el registro " + nombreTRegistro;
+			}
 		}
 
 		// C) Manejo de Resultados
@@ -528,6 +527,7 @@ public class Evento extends HttpServlet {
 			request.setAttribute("evento", evento);
 			List<String> tiposRegistro = c.listarTipoRegistro(evento, nombreEdicion);
 			request.setAttribute("tiposRegistro", tiposRegistro);
+			request.setAttribute("nombreTRegistro", nombreTRegistro);
 			// 3. Redirigir a una página de error o a la misma página de registro para mostrar el mensaje
 			// Lo más limpio es redirigir a una página de *feedback*
 			registroAEdicionEventoGET(request, response);
@@ -536,7 +536,6 @@ public class Evento extends HttpServlet {
 			// Si fue exitoso:
 			request.setAttribute("nombreEdicion", nombreEdicion);
 			request.setAttribute("evento", evento);
-
 
 			// Redirigir al perfil del usuario o a una página de confirmación de registro
 			consultaEdicionGET(request, response);
@@ -586,10 +585,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaEvento.jsp").forward(request, response);
 	}
 
-
-
-
-
 	protected void altaTipoRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ControladorEvento c = ControladorEvento.getInstance();
 
@@ -623,18 +618,12 @@ public class Evento extends HttpServlet {
 		DTTRegistro dtr = c.mostrarTipoRegistro(evento, edicion, tregistro);
 		request.setAttribute("tipoRegistro", dtr);
 
-
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaTipoRegistro.jsp").forward(request, response);
-
 	}
 
 	// POST /edicion/alta
 	// Crea una edicion con los parámetros pasados
-
-
-
 	protected void altaTipoRegistroPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String nombreEvento = request.getParameter("nombreEvento");
 		String nombreEdicion = request.getParameter("nombreEdicion");
 		String nombre = request.getParameter("nombre");
@@ -647,7 +636,6 @@ public class Evento extends HttpServlet {
 		boolean ok = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
 
 		if (!ok) {
-
 			request.setAttribute("nombreEvento", nombreEvento);
 			request.setAttribute("nombreEdicion", nombreEdicion);
 
@@ -662,8 +650,6 @@ public class Evento extends HttpServlet {
 		}
 
 		altaTipoRegistroGET(request, response);
-
-
 	}
 
 	/**

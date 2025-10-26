@@ -25,63 +25,45 @@
       String ciudad = (String) request.getAttribute("ciudad");
       String pais = (String) request.getAttribute("pais");
       String nombreEvento = (String) request.getAttribute("nombreEvento");
-      
-      
-      String contextPath = request.getContextPath();
-      String cancelURL = contextPath + "/eventos"; 
     %>
 
     <div class="content">
-      <h3><strong>Ingrese los datos de la nueva edición para el evento: <%= (nombreEvento != null ? nombreEvento : request.getAttribute("nombreEvento")) %></strong></h3><br/>
+     	<h3><strong>Ingrese los datos de la nueva edición para el evento: <%= (nombreEvento != null ? nombreEvento : request.getAttribute("nombreEvento")) %></strong></h3><br/>
       
-      <% if (errorMessage != null) { %>
-         <p style="color: red; font-weight: bold;">¡Error! <%= errorMessage %></p>
-      <% } %>
-      
-          <form class="content-form-alta" onsubmit="return validarFechas()" action="altaEdicion" method="post" enctype="multipart/form-data">
-    
-            <input type="hidden" name="evento" value="<%= (nombreEvento != null ? nombreEvento : request.getAttribute("nombreEvento")) %>">
-            
-            <label for= "name">Nombre:</label>
-            <input type = "text" id = "name" name = "name" value="${requestScope.name}" required/><br/>
-            
-            <label for= "sigla">Sigla:</label>
-            <input type = "text" id = "sigla" name = "sigla" value="${requestScope.sigla}"/><br/>
-            
-            <label for= "ciudad">Ciudad:</label>
-            <input type = "text" id = "ciudad" name = "ciudad" value="${requestScope.ciudad}"/><br/>
-
-            <label for= "pais">Pais:</label>
-            <input type = "text" id = "pais" name = "pais" value="${requestScope.pais}"/><br/>
-            
-            <label for="fecha-inicio">Selecciona una fecha de inicio:</label>
-            <input type="date" id="fecha-inicio" name="fecha-inicio" value="${requestScope['fecha-inicio']}" required><br/>
-
-            <label for="fecha-fin">Selecciona una fecha de fin:</label>
-            <input type="date" id="fecha-fin" name="fecha-fin" value="${requestScope['fecha-fin']}" required><br/>
-
-            <label for="imagen">Selecciona una foto:</label>
-            <input type="file" id="imagen" name="imagen" accept="image/*"><br/>
-
-            <input type="reset" value = "Borrar"/>
-            <input type="submit" value = "Crear"/>
-          </form>
+		<form class="content-form-alta" onsubmit="return validarFechas()" action="altaEdicion" method="post" enctype="multipart/form-data">
+		
+		  <input type="hidden" name="evento" value="<%= (nombreEvento != null ? nombreEvento : request.getAttribute("nombreEvento")) %>">
+		  
+		  <label for= "name">Nombre:</label>
+		  <input type = "text" id = "name" name = "name" value="${requestScope.name}" required/><br/>
+	      <% if (errorMessage != null) { %>
+	         <p style="color: red;"><%= errorMessage %></p>
+	      <% } %>
+		  
+		  <label for= "sigla">Sigla:</label>
+		  <input type = "text" id = "sigla" name = "sigla" value="${requestScope.sigla}"/><br/>
+		  
+		  <label for= "ciudad">Ciudad:</label>
+		  <input type = "text" id = "ciudad" name = "ciudad" value="${requestScope.ciudad}"/><br/>
+		
+		  <label for= "pais">Pais:</label>
+		  <input type = "text" id = "pais" name = "pais" value="${requestScope.pais}"/><br/>
+		  
+		  <label for="fecha-inicio">Selecciona una fecha de inicio:</label>
+		  <input type="date" id="fecha-inicio" name="fecha-inicio" value="${requestScope['fecha-inicio']}" required><br/>
+		
+		  <label for="fecha-fin">Selecciona una fecha de fin:</label>
+		  <input type="date" id="fecha-fin" name="fecha-fin" value="${requestScope['fecha-fin']}" required><br/>
+		
+		  <label for="imagen">Selecciona una foto:</label>
+		  <input type="file" id="imagen" name="imagen" accept="image/*"><br/>
+		
+		  <input type="reset" value = "Borrar"/>
+		  <input type="submit" value = "Crear"/>
+		</form>
     </div>
 
   </main>
-  
-  
-  <% if (errorMessage != null) { %>
-  <script>
-    const errorMsg = "<%= errorMessage %>";
-    
-    const confirmar = confirm(errorMsg + "\n\n¿Desea modificar el nombre o cancelar la creación de la edición?");
-
-    if (!confirmar) {
-        window.location.href = "<%= cancelURL %>"; 
-    }
-  </script>
-  <% } %>
   
   <script>
     function validarFechas() {
