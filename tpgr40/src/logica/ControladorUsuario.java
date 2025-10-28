@@ -129,4 +129,11 @@ public class ControladorUsuario{
 		Usuario usuario = manejador.obtener(nickOCorreo);
 		usuario.setContrasena(nueva);
 	}
+	
+	public void registrarAsistencia(String asistente, String edicion) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		assert usuario instanceof Asistente;
+		Asistente usuario = (Asistente) manejador.obtener(asistente);
+		usuario.registrarAsistencia(edicion);
+	}
 }

@@ -9,6 +9,7 @@ public class Registro{
     private Edicion edicion;
     private TRegistro tipo;
     private Boolean patrocinio;
+    private Boolean asistencia;
 
     public Registro(float costo, LocalDate fecha, Asistente asistente, Edicion edicion, TRegistro tipo, Boolean patrocinio) {
         this.costo = costo;
@@ -18,6 +19,7 @@ public class Registro{
         this.tipo = tipo;
         tipo.agregarRegistro(this);
         this.patrocinio = patrocinio;
+        this.asistencia = false;
     };
 
     public String getNicknameAsistente(){
@@ -27,7 +29,7 @@ public class Registro{
     public Asistente getAsistente() { return asistente; }
 
     public DTRegistro getDatos(){
-        return new DTRegistro(costo, fecha, edicion.getEvento(), edicion.getNombre(), tipo.getNombre(), asistente.getNickname(), patrocinio);
+        return new DTRegistro(costo, fecha, edicion.getEvento(), edicion.getNombre(), tipo.getNombre(), asistente.getNickname(), patrocinio, asistencia);
     }
     
     public Edicion getEdicion( ) {
@@ -37,4 +39,10 @@ public class Registro{
     public boolean getPatrocinio() {
     	return patrocinio;
     }
+    
+    public void registrarAsistencia() {
+    	this.asistencia = true;
+    }
+    
+    
 }
