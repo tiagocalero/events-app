@@ -220,107 +220,107 @@ class ControladorEventoTest {
 		
 		assertThrows(PatrocinioSuperaMontoException.class, () -> {
 			// Caso borde: El costo de los registros supera el 20% del monto
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat2",
 				TipoNivelPatrocinio.Plata,
-				cantRegistrosOtorgados * tp.getCosto() * 4.9f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
+				cantRegistrosOtorgados * tp.getCosto() * 4.9f,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 1",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			// Caso borde: costo negativo
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat2",
 				TipoNivelPatrocinio.Plata,
-				-1,
 				"tp1",
 				0,
+				-1,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 1",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			// Caso borde: cantRegistros negativo
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat2",
 				TipoNivelPatrocinio.Plata,
-				100000,
 				"tp1",
 				-1,
+				1000000,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 1",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			// Caso borde: cantRegistros y cupos negativos
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat2",
 				TipoNivelPatrocinio.Plata,
-				-100000000,
 				"tp1",
 				-1,
+				-10000000,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 1",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
 		
 		assertDoesNotThrow(() -> {
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat1",
 				TipoNivelPatrocinio.Plata,
-				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
+				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 1",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 	    });
 		
 		assertEquals(List.of("Institución 1"), c.listarInstituciones("Evento 1", "Edición 1"));
 		
 		assertDoesNotThrow(() -> {
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat2",
 				TipoNivelPatrocinio.Plata,
-				1 * tp.getCosto() * 10f,
 				"tp1",
 				1,
+				1 * tp.getCosto() * 10f,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 2",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 2", "Evento 1");
 	    });
 		
 		assertThrows(YaExistePatrocinioException.class, () -> {
 			// Caso borde: Ya existe patrocinio para la institución
-			DTPatrocinio dtp = new DTPatrocinio(
+			c.crearPatrocinio(
 				"pat2",
 				TipoNivelPatrocinio.Plata,
-				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 				"tp1",
 				(int) cantRegistrosOtorgados,
+				cantRegistrosOtorgados * tp.getCosto() * 5.1f,
 				LocalDate.now(),
+				"Edición 1",
 				"Institución 1",
-				null
+				"Evento 1"
 			);
-			c.crearPatrocinio(dtp, "Edición 1", "Institución 1", "Evento 1");
 		});
 	}
 	

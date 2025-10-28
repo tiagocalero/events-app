@@ -1,5 +1,9 @@
 package logica;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTOrganizador extends DTUsuario {
 	private String descripcion;
 	private String link;
