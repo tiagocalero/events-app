@@ -48,18 +48,18 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public List<String> listarEdicionesIngresadas(String nombreEvento) {
-    	return contEvento.listarEdicionesIngresadas(nombreEvento);
+    public ArrayList<String> listarEdicionesIngresadas(String nombreEvento) {
+    	return new ArrayList<>(contEvento.listarEdicionesIngresadas(nombreEvento));
     }
     
     @WebMethod
-    public List<String> listarEdicionesAceptadas(String nombreEvento) {
-    	return contEvento.listarEdicionesAceptadas(nombreEvento);
+    public ArrayList<String> listarEdicionesAceptadas(String nombreEvento) {
+    	return new ArrayList<>(contEvento.listarEdicionesAceptadas(nombreEvento));
     }
 
     @WebMethod
-    public List<String> listarEventos() {
-		return contEvento.listarEventos();
+    public ArrayList<String> listarEventos() {
+		return new ArrayList<>(contEvento.listarEventos());
 	}
     
     @WebMethod
@@ -68,28 +68,28 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
-    	return contEvento.listarPatrocinios(nomEvento, nomEdicion);
+    public ArrayList<String> listarPatrocinios(String nomEvento, String nomEdicion) {
+    	return new ArrayList<>(contEvento.listarPatrocinios(nomEvento, nomEdicion));
     }
     
     @WebMethod
-    public List<String> listarInstituciones(String nomEvento, String nomEdicion) {
-    	return contEvento.listarInstituciones(nomEvento, nomEdicion);
+    public ArrayList<String> listarInstituciones(String nomEvento, String nomEdicion) {
+    	return new ArrayList<>(contEvento.listarInstituciones(nomEvento, nomEdicion));
     }
     
     @WebMethod
-    public List<String> listarInstituciones() {
-    	return contEvento.listarInstituciones();
+    public ArrayList<String> listarInstituciones() {
+    	return new ArrayList<>(contEvento.listarInstituciones());
     }
     
     @WebMethod
-    public List<String> listarOrganizadores() {
-    	return contEvento.listarOrganizadores();
+    public ArrayList<String> listarOrganizadores() {
+    	return new ArrayList<>(contEvento.listarOrganizadores());
     }
     
     @WebMethod
-    public List<String> listarCategorias() {
-    	return contEvento.listarCategorias();
+    public ArrayList<String> listarCategorias() {
+    	return new ArrayList<>(contEvento.listarCategorias());
     }
     
     @WebMethod
@@ -119,19 +119,19 @@ public class PublicadorEvento {
     
     @WebMethod
     public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento)
-			throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
+		throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
 		contEvento.crearPatrocinio(dtp, nombreEdicion, nombreInstitucion, nombreEvento);
 	}
     
     @WebMethod
     public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
-			List<String> categorias) {
+			ArrayList<String> categorias) {
     	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias);
     }
     
     @WebMethod
     public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
-			List<String> categorias, String imagen) {
+			ArrayList<String> categorias, String imagen) {
     	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen);
     }
     
@@ -142,19 +142,19 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-			LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
+		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
 		return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
 	}
     
     @WebMethod
     public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-			LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen) {
+		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen) {
     	return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, imagen);
     }
     
     @WebMethod
-    public List<String> listarTipoRegistro(String nombreEvento, String nombreEdicion) {
-    	return contEvento.listarTipoRegistro(nombreEvento, nombreEdicion);
+    public ArrayList<String> listarTipoRegistro(String nombreEvento, String nombreEdicion) {
+    	return new ArrayList<>(contEvento.listarTipoRegistro(nombreEvento, nombreEdicion));
     }
     
     @WebMethod
@@ -170,7 +170,7 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro,
-			String nickEvento, LocalDate fechaAlta, Boolean patrocinio) {
+		String nickEvento, LocalDate fechaAlta, Boolean patrocinio) {
     	return contEvento.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta, patrocinio);
     }
     
@@ -192,7 +192,7 @@ public class PublicadorEvento {
     @WebMethod
     public void rechazarEdicion(String nombreEvento, String nombreEdicion) {
 		contEvento.rechazarEdicion(nombreEvento, nombreEdicion);
-    }
+	}
     
     @WebMethod
     public List<DTEvento> listarDTEventosCategoria(String categoria) {
@@ -201,10 +201,9 @@ public class PublicadorEvento {
     
     @WebMethod
     public void patrocinioEdicion(String codigoPatrocinio, String nombreEdicion, String nombreEvento,
-			String nombreTRegistroSeleccionado, String nombreInstitucion)
+		String nombreTRegistroSeleccionado, String nombreInstitucion)
 			throws NoSuchElementException, IllegalArgumentException {
     	contEvento.patrocinioEdicion(codigoPatrocinio, nombreEdicion, nombreEvento, nombreTRegistroSeleccionado, nombreInstitucion);
     }
     
 }
-

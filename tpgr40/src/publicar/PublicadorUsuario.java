@@ -39,18 +39,18 @@ public class PublicadorUsuario {
     }
 
     @WebMethod
-    public List<String> listarAsistentes() {
+    public ArrayList<String> listarAsistentes() {
     	return new ArrayList<>(contUsuario.listarAsistentes());
     }
 
     @WebMethod
-    public List<String> listarOrganizadores() {
-    	return contUsuario.listarOrganizadores();
+    public ArrayList<String> listarOrganizadores() {
+    	return new ArrayList<>(contUsuario.listarOrganizadores());
     }
     
     @WebMethod
-    public List<String> listarUsuarios() {
-    	return contUsuario.listarUsuarios();
+    public ArrayList<String> listarUsuarios() {
+    	return new ArrayList<>(contUsuario.listarUsuarios());
     }
     
     @WebMethod
@@ -114,4 +114,3 @@ public class PublicadorUsuario {
     }
     
 }
-
