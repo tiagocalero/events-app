@@ -34,16 +34,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DttRegistro }
-     * 
-     * @return
-     *     the new instance of {@link DttRegistro }
-     */
-    public DttRegistro createDttRegistro() {
-        return new DttRegistro();
-    }
-
-    /**
      * Create an instance of {@link LocalDate }
      * 
      * @return
@@ -71,6 +61,16 @@ public class ObjectFactory {
      */
     public PatrocinioSuperaMontoException createPatrocinioSuperaMontoException() {
         return new PatrocinioSuperaMontoException();
+    }
+
+    /**
+     * Create an instance of {@link DttRegistro }
+     * 
+     * @return
+     *     the new instance of {@link DttRegistro }
+     */
+    public DttRegistro createDttRegistro() {
+        return new DttRegistro();
     }
 
     /**

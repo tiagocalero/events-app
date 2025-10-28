@@ -191,7 +191,8 @@ public class Evento extends HttpServlet {
 	// GET /patrocinios
 	// POST /patrocinios
 	protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -200,13 +201,13 @@ public class Evento extends HttpServlet {
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, o la institución no existe
 		// para la edición, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)
-				|| !c.listarInstituciones(evento, edicion).contains(institucion)) {
+		if (!port.existeEdicionEvento(evento, edicion)
+				|| !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(institucion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		DTPatrocinio dtp = c.consultaPatrocinioInstitucion(evento, edicion, institucion);
+		DtPatrocinio dtp = port.consultaPatrocinioInstitucion(evento, edicion, institucion);
 		request.setAttribute("dtp", dtp);
 
 		// Mostrar el HTML
