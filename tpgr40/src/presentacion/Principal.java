@@ -108,6 +108,18 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConEventos);
+        
+        JMenuItem menuConEventos = new JMenuItem("Eventos más Visitados");
+        menuConEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	JInternalFrame c = new EventosMasVisitados(desktopPane);
+                desktopPane.add(c);
+                centerInternalFrame(c);
+                c.setVisible(true);
+            }
+        });
+        menuEventos.add(menuConEventos);
 
         JMenu menuEdiciones = new JMenu("Ediciones");
         menuBar.add(menuEdiciones);
