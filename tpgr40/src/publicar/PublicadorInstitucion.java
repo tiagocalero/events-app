@@ -1,5 +1,6 @@
 package publicar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.jws.WebMethod;
@@ -38,9 +39,8 @@ public class PublicadorInstitucion {
 	}
     
     @WebMethod
-	public List<String> categorias() {
-		return contCategoria.categorias();
+	public ArrayList<String> categorias() {
+		return new ArrayList<>(contCategoria.categorias());
 	}
     
 }
-
