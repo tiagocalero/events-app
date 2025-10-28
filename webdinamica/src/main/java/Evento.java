@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.DTUsuario;
 import logica.TipoNivelPatrocinio;
+import publicar.DtEvento;
 
 /**
  * Servlet implementation class Evento
@@ -51,16 +53,16 @@ public class Evento extends HttpServlet {
 
 	// GET /eventos
 	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
-
 		// Cargar eventos
+        publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String categoria = request.getParameter("categoria");
-		List<DTEvento> eventos;
+		List<DtEvento> eventos;
 		if (categoria != null && !categoria.trim().isEmpty()) {
-			eventos = c.listarDTEventosCategoria(categoria);
+			eventos = port.listarDTEventosCategoria(categoria).getItem();
 		} else {
-			eventos = c.listarDTEventos();
+			eventos = port.listarDTEventos().getItem();
 		}
 
 		request.setAttribute("eventos", eventos);
@@ -554,7 +556,7 @@ public class Evento extends HttpServlet {
 		ControladorEvento c = ControladorEvento.getInstance();
 
 		String evento = request.getParameter("evento");
-
+		
 		if (!c.listarEventos().contains(evento)) {
 			response.sendRedirect("/webdinamica");
 			return;

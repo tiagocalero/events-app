@@ -23,6 +23,7 @@ public class CargarDatos extends HttpServlet {
     
     protected void cargaDatos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	boolean datosCargados = false;
+    	
     	if (getServletContext().getAttribute("datosCargados") != null)
     		datosCargados = (boolean) getServletContext().getAttribute("datosCargados");
     	
