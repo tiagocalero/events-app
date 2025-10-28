@@ -217,7 +217,6 @@ class ControladorEventoTest {
 	void testCrearPatrocinio() {
 		DTTRegistro tp = c.seleccionarTipoRegistro("tp1", "Evento 1", "Edición 1");
 		float cantRegistrosOtorgados = 10;
-		float costo = tp.getCosto();
 		
 		assertThrows(PatrocinioSuperaMontoException.class, () -> {
 			// Caso borde: El costo de los registros supera el 20% del monto
@@ -385,8 +384,6 @@ class ControladorEventoTest {
 	void testCrearRegistroConPatrocinio() {
 		c = ControladorEvento.getInstance();
 		cu = ControladorUsuario.getInstance();
-		
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
 		// Código incorrecto
 		assertThrows(IllegalArgumentException.class, () -> {

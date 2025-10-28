@@ -18,7 +18,6 @@ import logica.ManejadorInstitucion;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorInstitucionTest {
-	private static ControladorInstitucion ci;
 	
 	// Se ejecuta antes que todos los tests
 	@BeforeAll
