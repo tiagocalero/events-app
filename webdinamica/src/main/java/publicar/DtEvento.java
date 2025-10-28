@@ -26,6 +26,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="categorias" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         <element name="ediciones" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         <element name="imagen" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="visitas" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -42,7 +43,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "fechaAlta",
     "categorias",
     "ediciones",
-    "imagen"
+    "imagen",
+    "visitas"
 })
 public class DtEvento {
 
@@ -55,6 +57,7 @@ public class DtEvento {
     @XmlElement(nillable = true)
     protected List<String> ediciones;
     protected String imagen;
+    protected int visitas;
 
     /**
      * Gets the value of the nombre property.
@@ -236,6 +239,22 @@ public class DtEvento {
      */
     public void setImagen(String value) {
         this.imagen = value;
+    }
+
+    /**
+     * Gets the value of the visitas property.
+     * 
+     */
+    public int getVisitas() {
+        return visitas;
+    }
+
+    /**
+     * Sets the value of the visitas property.
+     * 
+     */
+    public void setVisitas(int value) {
+        this.visitas = value;
     }
 
 }

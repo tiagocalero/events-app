@@ -177,7 +177,7 @@ public class ControladorEvento {
 		return manejador.obtenerEdicion(nombreEdicion, evento).getDatos();
 	}
 
-	public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento)
+	public void crearPatrocinio(String codigo, TipoNivelPatrocinio tipo, String nombreTipoRegistro, int cantRegistros, float monto, LocalDate fechaAlta, String nombreEdicion, String nombreInstitucion, String nombreEvento)
 			throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
 		// Obtengo la Institucion
 		ManejadorInstitucion manejadorInst = ManejadorInstitucion.getInstance();
@@ -189,13 +189,12 @@ public class ControladorEvento {
 		Edicion edicion = manejadorEv.obtenerEdicion(nombreEdicion, evento);
 
 		// Obtengo el TipoRegistro y la fecha
-		TRegistro tipoRegistro = edicion.getTipoRegistro(dtp.getTipoRegistro());
+		TRegistro tipoRegistro = edicion.getTipoRegistro(nombreTipoRegistro);
 
-		float costo = tipoRegistro.getCosto();
-		int cantRegistros = dtp.getCantRegistros();
-		float monto = dtp.getMonto();
 		// Chequear valores:
 		// cantRegistros y montos no pueden ser negativos
+		float costo = tipoRegistro.getCosto();
+
 		if (cantRegistros < 0)
 			throw new IllegalArgumentException("El cantidad de registros no puede ser negativa");
 		if (monto < 0)
@@ -208,7 +207,7 @@ public class ControladorEvento {
 			throw new YaExistePatrocinioException("Ya existe un patrocinio de la institución " + institucion.getNombre()
 					+ " para la edición " + edicion.getNombre());
 
-		new Patrocinio(dtp.getCodigo(), dtp.getMonto(), dtp.getTipo(), dtp.getFechaAlta(), dtp.getCantRegistros(),
+		new Patrocinio(codigo, monto, tipo, fechaAlta, cantRegistros,
 				edicion, institucion, tipoRegistro);
 	}
 

@@ -19,14 +19,14 @@ public class PatrocinioSuperaMontoException_Exception
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private PatrocinioSuperaMontoException faultInfo;
+    private Object faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public PatrocinioSuperaMontoException_Exception(String message, PatrocinioSuperaMontoException faultInfo) {
+    public PatrocinioSuperaMontoException_Exception(String message, Object faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class PatrocinioSuperaMontoException_Exception
      * @param faultInfo
      * @param message
      */
-    public PatrocinioSuperaMontoException_Exception(String message, PatrocinioSuperaMontoException faultInfo, Throwable cause) {
+    public PatrocinioSuperaMontoException_Exception(String message, Object faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class PatrocinioSuperaMontoException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: publicar.PatrocinioSuperaMontoException
+     *     returns fault bean: java.lang.Object
      */
-    public PatrocinioSuperaMontoException getFaultInfo() {
+    public Object getFaultInfo() {
         return faultInfo;
     }
 

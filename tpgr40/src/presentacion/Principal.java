@@ -108,7 +108,7 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConEventos);
-        
+        /*
         JMenuItem menuConEventos = new JMenuItem("Eventos más Visitados");
         menuConEventos.addActionListener(new ActionListener() {
             @Override
@@ -120,7 +120,7 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConEventos);
-
+*/
         JMenu menuEdiciones = new JMenu("Ediciones");
         menuBar.add(menuEdiciones);
         JMenuItem menuAltaEdicion = new JMenuItem("Alta de Edición de Evento");

@@ -25,7 +25,6 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 public class ObjectFactory {
 
     private final static QName _PatrocinioSuperaMontoException_QNAME = new QName("http://publicar/", "PatrocinioSuperaMontoException");
-    private final static QName _YaExistePatrocinioException_QNAME = new QName("http://publicar/", "YaExistePatrocinioException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: publicar
@@ -35,13 +34,23 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PatrocinioSuperaMontoException }
+     * Create an instance of {@link DttRegistro }
      * 
      * @return
-     *     the new instance of {@link PatrocinioSuperaMontoException }
+     *     the new instance of {@link DttRegistro }
      */
-    public PatrocinioSuperaMontoException createPatrocinioSuperaMontoException() {
-        return new PatrocinioSuperaMontoException();
+    public DttRegistro createDttRegistro() {
+        return new DttRegistro();
+    }
+
+    /**
+     * Create an instance of {@link LocalDate }
+     * 
+     * @return
+     *     the new instance of {@link LocalDate }
+     */
+    public LocalDate createLocalDate() {
+        return new LocalDate();
     }
 
     /**
@@ -55,13 +64,33 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DttRegistro }
+     * Create an instance of {@link PatrocinioSuperaMontoException }
      * 
      * @return
-     *     the new instance of {@link DttRegistro }
+     *     the new instance of {@link PatrocinioSuperaMontoException }
      */
-    public DttRegistro createDttRegistro() {
-        return new DttRegistro();
+    public PatrocinioSuperaMontoException createPatrocinioSuperaMontoException() {
+        return new PatrocinioSuperaMontoException();
+    }
+
+    /**
+     * Create an instance of {@link DtEvento }
+     * 
+     * @return
+     *     the new instance of {@link DtEvento }
+     */
+    public DtEvento createDtEvento() {
+        return new DtEvento();
+    }
+
+    /**
+     * Create an instance of {@link DtEdicion }
+     * 
+     * @return
+     *     the new instance of {@link DtEdicion }
+     */
+    public DtEdicion createDtEdicion() {
+        return new DtEdicion();
     }
 
     /**
@@ -85,33 +114,13 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtEvento }
+     * Create an instance of {@link DtRegistro }
      * 
      * @return
-     *     the new instance of {@link DtEvento }
+     *     the new instance of {@link DtRegistro }
      */
-    public DtEvento createDtEvento() {
-        return new DtEvento();
-    }
-
-    /**
-     * Create an instance of {@link LocalDate }
-     * 
-     * @return
-     *     the new instance of {@link LocalDate }
-     */
-    public LocalDate createLocalDate() {
-        return new LocalDate();
-    }
-
-    /**
-     * Create an instance of {@link DtEdicion }
-     * 
-     * @return
-     *     the new instance of {@link DtEdicion }
-     */
-    public DtEdicion createDtEdicion() {
-        return new DtEdicion();
+    public DtRegistro createDtRegistro() {
+        return new DtRegistro();
     }
 
     /**
@@ -125,29 +134,26 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PatrocinioSuperaMontoException }{@code >}
+     * Create an instance of {@link DtRegistroArray }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PatrocinioSuperaMontoException }{@code >}
+     *     the new instance of {@link DtRegistroArray }
      */
-    @XmlElementDecl(namespace = "http://publicar/", name = "PatrocinioSuperaMontoException")
-    public JAXBElement<PatrocinioSuperaMontoException> createPatrocinioSuperaMontoException(PatrocinioSuperaMontoException value) {
-        return new JAXBElement<>(_PatrocinioSuperaMontoException_QNAME, PatrocinioSuperaMontoException.class, null, value);
+    public DtRegistroArray createDtRegistroArray() {
+        return new DtRegistroArray();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link YaExistePatrocinioException }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link YaExistePatrocinioException }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
      */
-    @XmlElementDecl(namespace = "http://publicar/", name = "YaExistePatrocinioException")
-    public JAXBElement<YaExistePatrocinioException> createYaExistePatrocinioException(YaExistePatrocinioException value) {
-        return new JAXBElement<>(_YaExistePatrocinioException_QNAME, YaExistePatrocinioException.class, null, value);
+    @XmlElementDecl(namespace = "http://publicar/", name = "PatrocinioSuperaMontoException")
+    public JAXBElement<Object> createPatrocinioSuperaMontoException(Object value) {
+        return new JAXBElement<>(_PatrocinioSuperaMontoException_QNAME, Object.class, null, value);
     }
 
 }

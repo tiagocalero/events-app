@@ -295,13 +295,10 @@ public class AltaPatrocinio extends JInternalFrame{
 	        return;
         }
         
-        // Crear el DTPatrocinio
-        DTPatrocinio dtp = new DTPatrocinio(codigoSeleccionado, tipoNivel, montoAporte, tipoRegistroSeleccionado, cantidadRegistros, fechaAlta, institucionSeleccionada, null);
-        
         // Crear el Patrocinio
         ControladorEvento controlador = ControladorEvento.getInstance();
         try {
-        	controlador.crearPatrocinio(dtp, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
+        	controlador.crearPatrocinio(codigoSeleccionado, tipoNivel, tipoRegistroSeleccionado, cantidadRegistros, montoAporte, fechaAlta, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
         } catch (PatrocinioSuperaMontoException exc) {
         	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;

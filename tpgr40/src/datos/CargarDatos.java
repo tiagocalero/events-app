@@ -178,14 +178,10 @@ public class CargarDatos {
 		contE.crearTipoRegistro("Montevideo Fashion Week", "Montevideo Fashion Week 2026", "Visitante", "Acceso parcial a los eventos de la semana", 150, 25);
 		
 		//Cargar Patrocinios
-		DTPatrocinio dtp1 = new DTPatrocinio("TECHUDELAR", TipoNivelPatrocinio.Oro, 20000, "Estudiante", 4, LocalDate.parse("21/08/2025", fmt), "Facultad de Ingeniería", null);
-		contE.crearPatrocinio(dtp1, "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");
-		DTPatrocinio dtp2 = new DTPatrocinio("TECHANII", TipoNivelPatrocinio.Plata, 10000, "General", 1, LocalDate.parse("20/08/2025", fmt), "Agencia Nacional de Investigación e Innovación (ANII)", null);
-		contE.crearPatrocinio(dtp2, "Tecnología Punta del Este 2026", "Agencia Nacional de Investigación e Innovación (ANII)", "Conferencia de Tecnología");
-		DTPatrocinio dtp3 = new DTPatrocinio("CORREANTEL", TipoNivelPatrocinio.Platino, 25000, "Corredor 10K", 10, LocalDate.parse("04/03/2025", fmt), "Antel", null);
-		contE.crearPatrocinio(dtp3, "Maratón de Montevideo 2025", "Antel", "Maratón de Montevideo");
-		DTPatrocinio dtp4 = new DTPatrocinio("EXPOCAT", TipoNivelPatrocinio.Bronce, 15000, "General", 10, LocalDate.parse("05/05/2025", fmt), "Universidad Católica del Uruguay", null);
-		contE.crearPatrocinio(dtp4, "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
+		contE.crearPatrocinio("TECHUDELAR", TipoNivelPatrocinio.Oro, "Estudiante", 4, 20000, LocalDate.parse("21/08/2025", fmt), "Tecnología Punta del Este 2026", "Facultad de Ingeniería", "Conferencia de Tecnología");
+		contE.crearPatrocinio("TECHANII", TipoNivelPatrocinio.Plata, "General", 1, 10000, LocalDate.parse("20/08/2025", fmt), "Tecnología Punta del Este 2026", "Agencia Nacional de Investigación e Innovación (ANII)", "Conferencia de Tecnología");
+		contE.crearPatrocinio("CORREANTEL", TipoNivelPatrocinio.Platino, "Corredor 10K", 10, 25000, LocalDate.parse("04/03/2025", fmt), "Maratón de Montevideo 2025", "Antel", "Maratón de Montevideo");
+		contE.crearPatrocinio("EXPOCAT", TipoNivelPatrocinio.Bronce, "General", 10, 15000, LocalDate.parse("05/05/2025", fmt), "Expointer Uruguay 2025", "Universidad Católica del Uruguay", "Expointer Uruguay");
 		
 		//Cargar Asistentes
 		contU.altaAsistente("atorres", "Ana", "atorres@gmail.com", "123.torres", "IMG-US01.jpg", "Torres", LocalDate.parse("12/05/1990", fmt), "Facultad de Ingeniería");

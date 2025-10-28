@@ -17,14 +17,13 @@ public class Evento {
 	private String imagen;
 	private int visitas;
 	
-	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen, int visitas) {
+	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
 		this.categorias = new ArrayList<>();
 		this.imagen = imagen;
-		this.visitas = visitas;
 		ediciones = new HashMap<>();
 		
 		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
@@ -83,7 +82,9 @@ public class Evento {
 	public void agregarCategoria(Categoria categoria) {
 		categorias.add(categoria);
 	}
+	
+	/*
 	public int incrementarVisitar() {
 		this.visitas++;
-	}
+	}*/
 }

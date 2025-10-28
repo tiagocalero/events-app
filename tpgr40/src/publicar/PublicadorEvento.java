@@ -13,6 +13,7 @@ import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.ws.Endpoint;
 
 import logica.ControladorEvento;
@@ -21,6 +22,7 @@ import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTRegistro;
 import logica.DTTRegistro;
+import logica.TipoNivelPatrocinio;
 
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
@@ -44,23 +46,23 @@ public class PublicadorEvento {
     }
 
     @WebMethod
-    public ArrayList<String> listarEdiciones(String nombreEvento) {
-    	return new ArrayList<>(contEvento.listarEdiciones(nombreEvento));
+    public String[] listarEdiciones(String nombreEvento) {
+    	return contEvento.listarEdiciones(nombreEvento).toArray(new String[0]);
     }
     
     @WebMethod
-    public ArrayList<String> listarEdicionesIngresadas(String nombreEvento) {
-    	return new ArrayList<>(contEvento.listarEdicionesIngresadas(nombreEvento));
+    public String[] listarEdicionesIngresadas(String nombreEvento) {
+    	return contEvento.listarEdicionesIngresadas(nombreEvento).toArray(new String[0]);
     }
     
     @WebMethod
-    public ArrayList<String> listarEdicionesAceptadas(String nombreEvento) {
-    	return new ArrayList<>(contEvento.listarEdicionesAceptadas(nombreEvento));
+    public String[] listarEdicionesAceptadas(String nombreEvento) {
+    	return contEvento.listarEdicionesAceptadas(nombreEvento).toArray(new String[0]);
     }
 
     @WebMethod
-    public ArrayList<String> listarEventos() {
-		return new ArrayList<>(contEvento.listarEventos());
+    public String[] listarEventos() {
+		return contEvento.listarEventos().toArray(new String[0]);
 	}
 
     @WebMethod
@@ -74,23 +76,23 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public ArrayList<String> listarInstitucionesEdicionEvento(String nomEvento, String nomEdicion) {
-    	return new ArrayList<>(contEvento.listarInstituciones(nomEvento, nomEdicion));
+    public String[] listarInstitucionesEdicionEvento(String nomEvento, String nomEdicion) {
+    	return contEvento.listarInstituciones(nomEvento, nomEdicion).toArray(new String[0]);
     }
     
     @WebMethod
-    public ArrayList<String> listarInstituciones() {
-    	return new ArrayList<>(contEvento.listarInstituciones());
+    public String[] listarInstituciones() {
+    	return contEvento.listarInstituciones().toArray(new String[0]);
     }
     
     @WebMethod
-    public ArrayList<String> listarOrganizadores() {
-    	return new ArrayList<>(contEvento.listarOrganizadores());
+    public String[] listarOrganizadores() {
+    	return contEvento.listarOrganizadores().toArray(new String[0]);
     }
     
     @WebMethod
-    public ArrayList<String> listarCategorias() {
-    	return new ArrayList<>(contEvento.listarCategorias());
+    public String[] listarCategorias() {
+    	return contEvento.listarCategorias().toArray(new String[0]);
     }
     
     @WebMethod
@@ -119,9 +121,9 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public void crearPatrocinio(DTPatrocinio dtp, String nombreEdicion, String nombreInstitucion, String nombreEvento)
+	public void crearPatrocinio(String codigo, TipoNivelPatrocinio tipo, String nombreTipoRegistro, int cantRegistros, float monto, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaAlta, String nombreEdicion, String nombreInstitucion, String nombreEvento)
 		throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
-		contEvento.crearPatrocinio(dtp, nombreEdicion, nombreInstitucion, nombreEvento);
+		contEvento.crearPatrocinio(codigo, tipo, nombreTipoRegistro, cantRegistros, monto, fechaAlta, nombreEdicion, nombreInstitucion, nombreEvento);
 	}
     
     @WebMethod
@@ -142,8 +144,8 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public ArrayList<String> listarTipoRegistro(String nombreEvento, String nombreEdicion) {
-    	return new ArrayList<>(contEvento.listarTipoRegistro(nombreEvento, nombreEdicion));
+    public String[] listarTipoRegistro(String nombreEvento, String nombreEdicion) {
+    	return contEvento.listarTipoRegistro(nombreEvento, nombreEdicion).toArray(new String[0]);
     }
     
     @WebMethod
@@ -169,8 +171,8 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public ArrayList<DTRegistro> registrosEdicion(String nombreEdicion, String nombreEvento) {
-    	return new ArrayList<>(contEvento.registrosEdicion(nombreEdicion, nombreEvento));
+    public DTRegistro[] registrosEdicion(String nombreEdicion, String nombreEvento) {
+    	return contEvento.registrosEdicion(nombreEdicion, nombreEvento).toArray(new DTRegistro[0]);
     }
     
     @WebMethod

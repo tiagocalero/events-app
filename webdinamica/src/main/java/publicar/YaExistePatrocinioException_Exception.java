@@ -10,7 +10,7 @@ import jakarta.xml.ws.WebFault;
  * Generated source version: 3.0
  * 
  */
-@WebFault(name = "YaExistePatrocinioException", targetNamespace = "http://publicar/")
+@WebFault(name = "PatrocinioSuperaMontoException", targetNamespace = "http://publicar/")
 public class YaExistePatrocinioException_Exception
     extends Exception
 {
@@ -19,14 +19,14 @@ public class YaExistePatrocinioException_Exception
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private YaExistePatrocinioException faultInfo;
+    private Object faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public YaExistePatrocinioException_Exception(String message, YaExistePatrocinioException faultInfo) {
+    public YaExistePatrocinioException_Exception(String message, Object faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class YaExistePatrocinioException_Exception
      * @param faultInfo
      * @param message
      */
-    public YaExistePatrocinioException_Exception(String message, YaExistePatrocinioException faultInfo, Throwable cause) {
+    public YaExistePatrocinioException_Exception(String message, Object faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class YaExistePatrocinioException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: publicar.YaExistePatrocinioException
+     *     returns fault bean: java.lang.Object
      */
-    public YaExistePatrocinioException getFaultInfo() {
+    public Object getFaultInfo() {
         return faultInfo;
     }
 

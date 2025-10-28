@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -9,8 +10,10 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import excepciones.PatrocinioSuperaMontoException;
-import excepciones.YaExistePatrocinioException;
+import publicar.PatrocinioSuperaMontoException;
+import publicar.PatrocinioSuperaMontoException_Exception;
+import publicar.YaExistePatrocinioException;
+import publicar.YaExistePatrocinioException_Exception;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,8 +30,10 @@ import logica.DTOrganizador;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.DTUsuario;
-import logica.TipoNivelPatrocinio;
+import publicar.TipoNivelPatrocinio;
+import publicar.DtEdicion;
 import publicar.DtEvento;
+import publicar.DtPatrocinio;
 
 /**
  * Servlet implementation class Evento
@@ -74,19 +79,20 @@ public class Evento extends HttpServlet {
 
 	// GET /patrocinios/alta
 	protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+        publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
@@ -101,9 +107,10 @@ public class Evento extends HttpServlet {
 		}
 
 		List<String> instituciones = 
-				c.listarInstituciones()
+				port.listarInstituciones()
+				.getItem()
 				.stream()
-				.filter(e -> !c.listarInstituciones(evento, edicion).contains(e))
+				.filter(e -> !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(e))
 				.collect(Collectors.toList());
 		request.setAttribute("instituciones", instituciones);
 
@@ -115,7 +122,7 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		List<String> tipoRegistros = c.listarTipoRegistro(evento, edicion);
+		List<String> tipoRegistros = port.listarTipoRegistro(evento, edicion).getItem();
 		request.setAttribute("tipoRegistros", tipoRegistros);
 
 		// Mostrar el HTML
@@ -125,24 +132,25 @@ public class Evento extends HttpServlet {
 	// POST /patrocinios/alta
 	// Crea un patrocinio con los parámetros pasados
 	protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 		String institucion = request.getParameter("institucion");
-		TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel"));
+		TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel").toUpperCase());
 		float monto = Float.parseFloat(request.getParameter("monto"));
 		int cantRegistros = Integer.parseInt(request.getParameter("cantRegistros"));
 		String tipoRegistro = request.getParameter("tipoRegistro");
 		String codigo = request.getParameter("codigo");
 
-		DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -156,13 +164,13 @@ public class Evento extends HttpServlet {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
-
-		DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion, null);
+		
+	    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
 
 		try {
-			c.crearPatrocinio(dtp, edicion, institucion, evento);
-		} catch(PatrocinioSuperaMontoException
-				| YaExistePatrocinioException
+			port.crearPatrocinio(codigo, nivel, tipoRegistro, cantRegistros, monto, LocalDate.now().format(fmt), edicion, institucion, evento);
+		} catch(PatrocinioSuperaMontoException_Exception
+				| YaExistePatrocinioException_Exception
 				| IllegalArgumentException ex) {
 			request.setAttribute("error", ex.getMessage());
 

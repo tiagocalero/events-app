@@ -9,6 +9,7 @@ import jakarta.jws.soap.SOAPBinding;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
 import jakarta.xml.ws.FaultAction;
+import net.java.dev.jaxb.array.StringArray;
 
 
 /**
@@ -20,7 +21,8 @@ import jakarta.xml.ws.FaultAction;
 @WebService(name = "PublicadorEvento", targetNamespace = "http://publicar/")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 @XmlSeeAlso({
-    ObjectFactory.class
+    net.java.dev.jaxb.array.ObjectFactory.class,
+    publicar.ObjectFactory.class
 })
 public interface PublicadorEvento {
 
@@ -29,12 +31,12 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarEdicionesIngresadasRequest", output = "http://publicar/PublicadorEvento/listarEdicionesIngresadasResponse")
-    public ArrayList listarEdicionesIngresadas(
+    public StringArray listarEdicionesIngresadas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -42,12 +44,12 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarEdicionesAceptadasRequest", output = "http://publicar/PublicadorEvento/listarEdicionesAceptadasResponse")
-    public ArrayList listarEdicionesAceptadas(
+    public StringArray listarEdicionesAceptadas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -56,12 +58,12 @@ public interface PublicadorEvento {
      * @param arg0
      * @param arg1
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarInstitucionesEdicionEventoRequest", output = "http://publicar/PublicadorEvento/listarInstitucionesEdicionEventoResponse")
-    public ArrayList listarInstitucionesEdicionEvento(
+    public StringArray listarInstitucionesEdicionEvento(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
@@ -70,22 +72,22 @@ public interface PublicadorEvento {
     /**
      * 
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarInstitucionesRequest", output = "http://publicar/PublicadorEvento/listarInstitucionesResponse")
-    public ArrayList listarInstituciones();
+    public StringArray listarInstituciones();
 
     /**
      * 
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarOrganizadoresRequest", output = "http://publicar/PublicadorEvento/listarOrganizadoresResponse")
-    public ArrayList listarOrganizadores();
+    public StringArray listarOrganizadores();
 
     /**
      * 
@@ -218,24 +220,24 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarEdicionesRequest", output = "http://publicar/PublicadorEvento/listarEdicionesResponse")
-    public ArrayList listarEdiciones(
+    public StringArray listarEdiciones(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
     /**
      * 
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarEventosRequest", output = "http://publicar/PublicadorEvento/listarEventosResponse")
-    public ArrayList listarEventos();
+    public StringArray listarEventos();
 
     /**
      * 
@@ -266,12 +268,12 @@ public interface PublicadorEvento {
     /**
      * 
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarCategoriasRequest", output = "http://publicar/PublicadorEvento/listarCategoriasResponse")
-    public ArrayList listarCategorias();
+    public StringArray listarCategorias();
 
     /**
      * 
@@ -308,6 +310,11 @@ public interface PublicadorEvento {
      * @param arg1
      * @param arg2
      * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @param arg8
      * @throws PatrocinioSuperaMontoException_Exception
      * @throws YaExistePatrocinioException_Exception
      */
@@ -318,13 +325,23 @@ public interface PublicadorEvento {
     })
     public void crearPatrocinio(
         @WebParam(name = "arg0", partName = "arg0")
-        DtPatrocinio arg0,
+        String arg0,
         @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
+        TipoNivelPatrocinio arg1,
         @WebParam(name = "arg2", partName = "arg2")
         String arg2,
         @WebParam(name = "arg3", partName = "arg3")
-        String arg3)
+        int arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        float arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7,
+        @WebParam(name = "arg8", partName = "arg8")
+        String arg8)
         throws PatrocinioSuperaMontoException_Exception, YaExistePatrocinioException_Exception
     ;
 
@@ -392,12 +409,12 @@ public interface PublicadorEvento {
      * @param arg0
      * @param arg1
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/listarTipoRegistroRequest", output = "http://publicar/PublicadorEvento/listarTipoRegistroResponse")
-    public ArrayList listarTipoRegistro(
+    public StringArray listarTipoRegistro(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
@@ -464,12 +481,12 @@ public interface PublicadorEvento {
      * @param arg0
      * @param arg1
      * @return
-     *     returns publicar.ArrayList
+     *     returns publicar.DtRegistroArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/registrosEdicionRequest", output = "http://publicar/PublicadorEvento/registrosEdicionResponse")
-    public ArrayList registrosEdicion(
+    public DtRegistroArray registrosEdicion(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
