@@ -10,4 +10,5 @@ module tpgr40 {
 		requires jakarta.xml.ws;
 		requires jakarta.xml.bind;
 	    opens logica to com.sun.xml.bind;
+	    exports publicar;
 }

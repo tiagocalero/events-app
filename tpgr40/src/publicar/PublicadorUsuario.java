@@ -2,7 +2,6 @@ package publicar;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
@@ -69,7 +68,7 @@ public class PublicadorUsuario {
     }
     
     @WebMethod
-    public boolean altaAsistente(String nick, String nombre, String correo, String cont, String img, String apellido, LocalDate nac, String ins) {
+    public boolean altaAsistenteInstitucion(String nick, String nombre, String correo, String cont, String img, String apellido, LocalDate nac, String ins) {
     	return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac, ins);
     }
     
@@ -84,18 +83,18 @@ public class PublicadorUsuario {
     }
     
     @WebMethod
-    public List<DTEdicion> consultaOrganizadorAceptadas(String nickname) {
-    	return contUsuario.consultaOrganizadorAceptadas(nickname);
+    public ArrayList<DTEdicion> consultaOrganizadorAceptadas(String nickname) {
+    	return new ArrayList<>(contUsuario.consultaOrganizadorAceptadas(nickname));
     }
     
     @WebMethod
-    public List<DTEdicion> consultaOrganizador() {
-		return contUsuario.consultaOrganizador();
+    public ArrayList<DTEdicion> consultaOrganizador() {
+		return new ArrayList<>(contUsuario.consultaOrganizador());
 	}
     
     @WebMethod
-    public List<DTRegistro> consultaAsistente() {
-    	return contUsuario.consultaAsistente();
+    public ArrayList<DTRegistro> consultaAsistente() {
+    	return new ArrayList<>(contUsuario.consultaAsistente());
     }
     
     @WebMethod

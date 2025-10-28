@@ -2,7 +2,6 @@ package publicar;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import excepciones.PatrocinioSuperaMontoException;
@@ -12,6 +11,8 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.ws.Endpoint;
 
 import logica.ControladorEvento;
@@ -61,10 +62,10 @@ public class PublicadorEvento {
     public ArrayList<String> listarEventos() {
 		return new ArrayList<>(contEvento.listarEventos());
 	}
-    
+
     @WebMethod
-    public List<DTEvento> listarDTEventos() {
-    	return contEvento.listarDTEventos();
+    public DTEvento[] listarDTEventos() {
+    	return contEvento.listarDTEventos().toArray(new DTEvento[0]);
     }
     
     @WebMethod
@@ -73,7 +74,7 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public ArrayList<String> listarInstituciones(String nomEvento, String nomEdicion) {
+    public ArrayList<String> listarInstitucionesEdicionEvento(String nomEvento, String nomEdicion) {
     	return new ArrayList<>(contEvento.listarInstituciones(nomEvento, nomEdicion));
     }
     
@@ -125,12 +126,6 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
-			ArrayList<String> categorias) {
-    	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias);
-    }
-    
-    @WebMethod
-    public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
 			ArrayList<String> categorias, String imagen) {
     	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen);
     }
@@ -139,12 +134,6 @@ public class PublicadorEvento {
     public boolean usuarioEnEdicion(String edicion, String usuario, String evento) {
     	return contEvento.usuarioEnEdicion(edicion, usuario, evento);
     }
-    
-    @WebMethod
-    public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
-		return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
-	}
     
     @WebMethod
     public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
@@ -180,8 +169,8 @@ public class PublicadorEvento {
     }
     
     @WebMethod
-    public List<DTRegistro> registrosEdicion(String nombreEdicion, String nombreEvento) {
-    	return contEvento.registrosEdicion(nombreEdicion, nombreEvento);
+    public ArrayList<DTRegistro> registrosEdicion(String nombreEdicion, String nombreEvento) {
+    	return new ArrayList<>(contEvento.registrosEdicion(nombreEdicion, nombreEvento));
     }
     
     @WebMethod
@@ -195,8 +184,8 @@ public class PublicadorEvento {
 	}
     
     @WebMethod
-    public List<DTEvento> listarDTEventosCategoria(String categoria) {
-    	return contEvento.listarDTEventosCategoria(categoria);
+    public DTEvento[] listarDTEventosCategoria(String categoria) {
+    	return contEvento.listarDTEventosCategoria(categoria).toArray(new DTEvento[0]);
     }
     
     @WebMethod

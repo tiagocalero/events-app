@@ -3,6 +3,10 @@ package logica;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTEvento {
 	private String nombre;
 	private String sigla;
@@ -11,6 +15,8 @@ public class DTEvento {
 	private List<String> categorias;
 	private List<String> ediciones;
 	private String imagen;
+	
+	public DTEvento() {}
 	
 	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, List<String> ediciones, String imagen) {
 		this.nombre = nombre;

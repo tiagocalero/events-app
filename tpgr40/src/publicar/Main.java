@@ -6,6 +6,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+    	presentacion.Principal.main(args);
+    	
         // TODO code application logic here
         PublicadorEvento pe = new PublicadorEvento();
         pe.publicar();
