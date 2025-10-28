@@ -15,14 +15,16 @@ public class Evento {
 	private Map<String, Edicion> ediciones;
 	private String descripcion;
 	private String imagen;
+	private int visitas;
 	
-	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen) {
+	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen, int visitas) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
 		this.categorias = new ArrayList<>();
 		this.imagen = imagen;
+		this.visitas = visitas;
 		ediciones = new HashMap<>();
 		
 		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
@@ -42,7 +44,7 @@ public class Evento {
 
 		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, visitas);
 	}
 	
 	public DTEvento getDatosAceptadas() {
@@ -59,7 +61,7 @@ public class Evento {
 		    }
 		}
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, visitas);
 	}
 	
 	public boolean existeEdicion(String nombre) {
@@ -80,5 +82,8 @@ public class Evento {
 	
 	public void agregarCategoria(Categoria categoria) {
 		categorias.add(categoria);
+	}
+	public int incrementarVisitar() {
+		this.visitas++;
 	}
 }
