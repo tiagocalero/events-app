@@ -1,7 +1,6 @@
 package test.java;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,7 +29,6 @@ import logica.ManejadorCategoria;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
 import logica.Organizador;
-import logica.Usuario;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {

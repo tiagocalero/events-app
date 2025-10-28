@@ -7,8 +7,17 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Publicador p = new Publicador();
-        p.publicar();
+        PublicadorEvento pe = new PublicadorEvento();
+        pe.publicar();
+        
+        PublicadorUsuario pu = new PublicadorUsuario();
+        pu.publicar();
+        
+        PublicadorInstitucion pi = new PublicadorInstitucion();
+        pi.publicar();
+        
+        PublicadorCategoria pc = new PublicadorCategoria();
+        pc.publicar();
     }
 
 }
