@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://logica" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://logica" xmlns:intf="http://logica" xmlns:tns1="http://time.java" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4.1-SNAPSHOT
+Built on Nov 07, 2023 (07:57:58 UTC)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://logica" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://time.java"/>
+   <element name="getInstitucionesPatrocinadoras">
+    <complexType/>
+   </element>
+   <element name="getInstitucionesPatrocinadorasResponse">
+    <complexType>
+     <sequence>
+      <element name="getInstitucionesPatrocinadorasReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <element name="getFechaInicio">
+    <complexType/>
+   </element>
+   <element name="getFechaInicioResponse">
+    <complexType>
+     <sequence>
+      <element name="getFechaInicioReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCiudad">
+    <complexType/>
+   </element>
+   <element name="getCiudadResponse">
+    <complexType>
+     <sequence>
+      <element name="getCiudadReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPais">
+    <complexType/>
+   </element>
+   <element name="getPaisResponse">
+    <complexType>
+     <sequence>
+      <element name="getPaisReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSigla">
+    <complexType/>
+   </element>
+   <element name="getSiglaResponse">
+    <complexType>
+     <sequence>
+      <element name="getSiglaReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getEvento">
+    <complexType/>
+   </element>
+   <element name="getEventoResponse">
+    <complexType>
+     <sequence>
+      <element name="getEventoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getImagen">
+    <complexType/>
+   </element>
+   <element name="getImagenResponse">
+    <complexType>
+     <sequence>
+      <element name="getImagenReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAsistentes">
+    <complexType/>
+   </element>
+   <element name="getAsistentesResponse">
+    <complexType>
+     <sequence>
+      <element name="getAsistentesReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getFechaFin">
+    <complexType/>
+   </element>
+   <element name="getFechaFinResponse">
+    <complexType>
+     <sequence>
+      <element name="getFechaFinReturn" type="tns1:LocalDate"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getOrganizador">
+    <complexType/>
+   </element>
+   <element name="getOrganizadorResponse">
+    <complexType>
+     <sequence>
+      <element name="getOrganizadorReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getNombre">
+    <complexType/>
+   </element>
+   <element name="getNombreResponse">
+    <complexType>
+     <sequence>
+      <element name="getNombreReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getFechaAlta">
+    <complexType/>
+   </element>
+   <element name="getFechaAltaResponse">
+    <complexType>
+     <sequence>
+      <element name="getFechaAltaReturn" type="tns1:LocalDate"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getTipoRegistros">
+    <complexType/>
+   </element>
+   <element name="getTipoRegistrosResponse">
+    <complexType>
+     <sequence>
+      <element name="getTipoRegistrosReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getSiglaResponse">
+
+      <wsdl:part element="impl:getSiglaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTipoRegistrosRequest">
+
+      <wsdl:part element="impl:getTipoRegistros" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getInstitucionesPatrocinadorasRequest">
+
+      <wsdl:part element="impl:getInstitucionesPatrocinadoras" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getEventoRequest">
+
+      <wsdl:part element="impl:getEvento" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCiudadResponse">
+
+      <wsdl:part element="impl:getCiudadResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getOrganizadorResponse">
+
+      <wsdl:part element="impl:getOrganizadorResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFechaAltaRequest">
+
+      <wsdl:part element="impl:getFechaAlta" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCiudadRequest">
+
+      <wsdl:part element="impl:getCiudad" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAsistentesRequest">
+
+      <wsdl:part element="impl:getAsistentes" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getEventoResponse">
+
+      <wsdl:part element="impl:getEventoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPaisResponse">
+
+      <wsdl:part element="impl:getPaisResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPaisRequest">
+
+      <wsdl:part element="impl:getPais" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFechaAltaResponse">
+
+      <wsdl:part element="impl:getFechaAltaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getOrganizadorRequest">
+
+      <wsdl:part element="impl:getOrganizador" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFechaInicioResponse">
+
+      <wsdl:part element="impl:getFechaInicioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTipoRegistrosResponse">
+
+      <wsdl:part element="impl:getTipoRegistrosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getInstitucionesPatrocinadorasResponse">
+
+      <wsdl:part element="impl:getInstitucionesPatrocinadorasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSiglaRequest">
+
+      <wsdl:part element="impl:getSigla" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNombreResponse">
+
+      <wsdl:part element="impl:getNombreResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFechaInicioRequest">
+
+      <wsdl:part element="impl:getFechaInicio" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getImagenResponse">
+
+      <wsdl:part element="impl:getImagenResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFechaFinRequest">
+
+      <wsdl:part element="impl:getFechaFin" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFechaFinResponse">
+
+      <wsdl:part element="impl:getFechaFinResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAsistentesResponse">
+
+      <wsdl:part element="impl:getAsistentesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNombreRequest">
+
+      <wsdl:part element="impl:getNombre" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getImagenRequest">
+
+      <wsdl:part element="impl:getImagen" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="DTEdicion">
+
+      <wsdl:operation name="getInstitucionesPatrocinadoras">
+
+         <wsdl:input message="impl:getInstitucionesPatrocinadorasRequest" name="getInstitucionesPatrocinadorasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getInstitucionesPatrocinadorasResponse" name="getInstitucionesPatrocinadorasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFechaInicio">
+
+         <wsdl:input message="impl:getFechaInicioRequest" name="getFechaInicioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getFechaInicioResponse" name="getFechaInicioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCiudad">
+
+         <wsdl:input message="impl:getCiudadRequest" name="getCiudadRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCiudadResponse" name="getCiudadResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPais">
+
+         <wsdl:input message="impl:getPaisRequest" name="getPaisRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getPaisResponse" name="getPaisResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSigla">
+
+         <wsdl:input message="impl:getSiglaRequest" name="getSiglaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getSiglaResponse" name="getSiglaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEvento">
+
+         <wsdl:input message="impl:getEventoRequest" name="getEventoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getEventoResponse" name="getEventoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getImagen">
+
+         <wsdl:input message="impl:getImagenRequest" name="getImagenRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getImagenResponse" name="getImagenResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAsistentes">
+
+         <wsdl:input message="impl:getAsistentesRequest" name="getAsistentesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAsistentesResponse" name="getAsistentesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFechaFin">
+
+         <wsdl:input message="impl:getFechaFinRequest" name="getFechaFinRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getFechaFinResponse" name="getFechaFinResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getOrganizador">
+
+         <wsdl:input message="impl:getOrganizadorRequest" name="getOrganizadorRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getOrganizadorResponse" name="getOrganizadorResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNombre">
+
+         <wsdl:input message="impl:getNombreRequest" name="getNombreRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getNombreResponse" name="getNombreResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFechaAlta">
+
+         <wsdl:input message="impl:getFechaAltaRequest" name="getFechaAltaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getFechaAltaResponse" name="getFechaAltaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTipoRegistros">
+
+         <wsdl:input message="impl:getTipoRegistrosRequest" name="getTipoRegistrosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getTipoRegistrosResponse" name="getTipoRegistrosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="DTEdicionSoapBinding" type="impl:DTEdicion">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getInstitucionesPatrocinadoras">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getInstitucionesPatrocinadorasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getInstitucionesPatrocinadorasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFechaInicio">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFechaInicioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFechaInicioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCiudad">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCiudadRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCiudadResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPais">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPaisRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPaisResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSigla">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSiglaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSiglaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEvento">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getEventoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getEventoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getImagen">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getImagenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getImagenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAsistentes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAsistentesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAsistentesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFechaFin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFechaFinRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFechaFinResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getOrganizador">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getOrganizadorRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getOrganizadorResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNombre">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNombreRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNombreResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFechaAlta">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFechaAltaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFechaAltaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTipoRegistros">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getTipoRegistrosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getTipoRegistrosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="DTEdicionService">
+
+      <wsdl:port binding="impl:DTEdicionSoapBinding" name="DTEdicion">
+
+         <wsdlsoap:address location="http://localhost:8080/webdinamica/services/DTEdicion"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
