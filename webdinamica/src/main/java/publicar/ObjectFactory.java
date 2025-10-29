@@ -104,16 +104,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ArrayList }
-     * 
-     * @return
-     *     the new instance of {@link ArrayList }
-     */
-    public ArrayList createArrayList() {
-        return new ArrayList();
-    }
-
-    /**
      * Create an instance of {@link DtRegistro }
      * 
      * @return
@@ -121,6 +111,16 @@ public class ObjectFactory {
      */
     public DtRegistro createDtRegistro() {
         return new DtRegistro();
+    }
+
+    /**
+     * Create an instance of {@link ArrayList }
+     * 
+     * @return
+     *     the new instance of {@link ArrayList }
+     */
+    public ArrayList createArrayList() {
+        return new ArrayList();
     }
 
     /**

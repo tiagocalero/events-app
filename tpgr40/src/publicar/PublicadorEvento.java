@@ -1,7 +1,9 @@
 package publicar;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import excepciones.PatrocinioSuperaMontoException;
@@ -127,9 +129,10 @@ public class PublicadorEvento {
 	}
     
     @WebMethod
-    public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
-			ArrayList<String> categorias, String imagen) {
-    	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen);
+    public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, String fechaAlta,
+			String[] categorias, String imagen) {
+    	DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
+    	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.parse(fechaAlta, fmt), Arrays.asList(categorias), imagen);
     }
     
     @WebMethod

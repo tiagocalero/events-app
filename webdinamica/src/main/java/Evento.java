@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import net.java.dev.jaxb.array.StringArray;
 
 import publicar.PatrocinioSuperaMontoException;
 import publicar.PatrocinioSuperaMontoException_Exception;
@@ -217,7 +218,8 @@ public class Evento extends HttpServlet {
 	// GET /eventos/alta
 	// Carga las categorías existentes en el formulario
 	protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
@@ -231,7 +233,7 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		List<String> categorias = c.listarCategorias();
+		List<String> categorias = port.listarCategorias().getItem();
 		request.setAttribute("categorias", categorias);
 
 		// Mostrar el HTML
@@ -257,31 +259,31 @@ public class Evento extends HttpServlet {
 		String descripcion = request.getParameter("desc");
 		String sigla = request.getParameter("sigla");
 		String[] categoriasA = request.getParameterValues("categorias");
-		List<String> categorias = (categoriasA != null)
-				? Arrays.asList(categoriasA)
-						: List.of();
+		StringArray categorias = new StringArray();
+		categorias.getItem().addAll(Arrays.asList(categoriasA));
+		
 		// Obtener imagen
 		Part filePart = request.getPart("imagen");
 		boolean subioImagen = filePart != null && filePart.getSize() > 0;
-
-		ControladorEvento c = ControladorEvento.getInstance();
-		boolean ok;
-
+    	String fileName = null;
+    	
 		if (subioImagen) {
 			// Generar un nombre aleatorio para la imagen,
 			// guardarla en una carpeta temporal
-			String fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
+			fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
 			String uploadPath = getServletContext().getRealPath("/uploads");
 			File uploadDir = new File(uploadPath);
 
 			if (!uploadDir.exists()) uploadDir.mkdir();
 
 			filePart.write(uploadPath + File.separator + fileName);
-
-			ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias, fileName);
-		} else {
-			ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias);
 		}
+
+    	DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+		boolean ok = port.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now().format(fmt), categorias, fileName);
 
 		if (!ok) {
 			// Se incluyen todos los atributos para que se vuelvan a cargar y que el
