@@ -229,10 +229,13 @@ public class servletUsuario extends HttpServlet {
     protected void inicio_sesionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String nick_o_correo = request.getParameter("nick_o_correo");
     	String passwd = request.getParameter("passwd");
-    	ControladorUsuario c = ControladorUsuario.getInstance();
-    	DTUsuario u = c.elegirUsuario(nick_o_correo);
+    	
+    	publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();	
+        
+    	DTUsuario u = port.elegirUsuario(nick_o_correo);
 
-    	if (u != null && c.chequearContrasena(nick_o_correo, passwd)) {
+    	if (u != null && port.chequearContrasena(nick_o_correo, passwd)) {
     		HttpSession session = request.getSession(true);
     		session.setAttribute("usuario", u);
         	response.sendRedirect("/webdinamica");

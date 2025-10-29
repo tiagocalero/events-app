@@ -31,10 +31,12 @@ import logica.DTOrganizador;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.DTUsuario;
+import net.java.dev.jaxb.array.StringArray;
 import publicar.TipoNivelPatrocinio;
 import publicar.DtEdicion;
 import publicar.DtEvento;
 import publicar.DtPatrocinio;
+import publicar.DttRegistro;
 
 /**
  * Servlet implementation class Evento
@@ -450,8 +452,9 @@ public class Evento extends HttpServlet {
 		String nombreEdicion = request.getParameter("edicion");
 		String nombreEvento = request.getParameter("evento");
 
-		ControladorEvento c = ControladorEvento.getInstance();
-		
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();		
+        
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
@@ -464,12 +467,12 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		if (!c.existeEdicionEvento(nombreEvento, nombreEdicion)) {
+		if (!port.existeEdicionEvento(nombreEvento, nombreEdicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		List<String> tiposRegistro = c.listarTipoRegistro(nombreEvento, nombreEdicion);
+		StringArray tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion);
 		request.setAttribute("tiposRegistro", tiposRegistro);
 
 		request.setAttribute("nombreEvento", nombreEvento);
@@ -485,7 +488,8 @@ public class Evento extends HttpServlet {
 		String nombreEdicion = request.getParameter("edicion");
 		String nombreTRegistro = request.getParameter("tiposRegistro");
 		String evento = request.getParameter("evento");
-		LocalDate fechaAlta = LocalDate.now();
+		
+
 		String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
 
 		HttpSession userSession = request.getSession(false);
@@ -505,25 +509,28 @@ public class Evento extends HttpServlet {
 		String nickname = usuario.getNickname();
 		String nombreInstitucion = usuario.getInstitucion();
 
-		ControladorEvento c = ControladorEvento.getInstance();
-
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
 		boolean conPatrocinio = false;
 		String mensajeError = null;
 
 		// A) Lógica de Validación de Patrocinio
 		if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
 			try {
-			    c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
+			    port.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
 			} catch (IllegalArgumentException | NoSuchElementException | IllegalStateException exc) {
 			    mensajeError = exc.getMessage();
 			}
 			
 			conPatrocinio = true;
 		}
+	    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
 
 		// B) Si no hubo error en el patrocinio (o si no se usó) -> Proceder al alta
 		if (mensajeError == null) {
-			if (c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio)) {
+			//le voy a poner en la fecha string como alta patrocinio, capaz hay que cambiar
+			if (port.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, LocalDate.now().format(fmt), conPatrocinio)) {
 				mensajeError = "No hay cupos para el registro " + nombreTRegistro;
 			}
 		}
@@ -538,7 +545,7 @@ public class Evento extends HttpServlet {
 			// 2. Guardar datos para que el usuario pueda reintentar sin perderlos
 			request.setAttribute("nombreEdicion", nombreEdicion);
 			request.setAttribute("evento", evento);
-			List<String> tiposRegistro = c.listarTipoRegistro(evento, nombreEdicion);
+			StringArray tiposRegistro = port.listarTipoRegistro(evento, nombreEdicion);
 			request.setAttribute("tiposRegistro", tiposRegistro);
 			request.setAttribute("nombreTRegistro", nombreTRegistro);
 			// 3. Redirigir a una página de error o a la misma página de registro para mostrar el mensaje
@@ -599,14 +606,15 @@ public class Evento extends HttpServlet {
 	}
 
 	protected void altaTipoRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
-
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -622,13 +630,15 @@ public class Evento extends HttpServlet {
 		String edicion = request.getParameter("edicion");
 		String tregistro = request.getParameter("tipoRegistro");
 
-		ControladorEvento c = ControladorEvento.getInstance();
-		if (!c.existeEdicionEvento(evento, edicion) || !c.listarTipoRegistro(evento, edicion).contains(tregistro)) {
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+		if (!port.existeEdicionEvento(evento, edicion) || !port.listarTipoRegistro(evento, edicion).getItem().contains(tregistro)) {
 			response.sendRedirect("/webdinamica");
 			return;
 
 		}
-		DTTRegistro dtr = c.mostrarTipoRegistro(evento, edicion, tregistro);
+		DttRegistro dtr = port.mostrarTipoRegistro(evento, edicion, tregistro);
 		request.setAttribute("tipoRegistro", dtr);
 
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaTipoRegistro.jsp").forward(request, response);
@@ -644,9 +654,10 @@ public class Evento extends HttpServlet {
 		float costo = Float.parseFloat(request.getParameter("costo"));
 		int cupo = Integer.parseInt(request.getParameter("cupo"));
 
-		ControladorEvento c = ControladorEvento.getInstance();
-
-		boolean ok = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+		boolean ok = port.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
 
 		if (!ok) {
 			request.setAttribute("nombreEvento", nombreEvento);
