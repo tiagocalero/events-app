@@ -135,7 +135,7 @@ public interface PublicadorEvento {
         @WebParam(name = "arg3", partName = "arg3")
         String arg3,
         @WebParam(name = "arg4", partName = "arg4")
-        LocalDate arg4,
+        String arg4,
         @WebParam(name = "arg5", partName = "arg5")
         boolean arg5);
 
