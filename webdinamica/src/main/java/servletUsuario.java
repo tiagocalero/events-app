@@ -46,7 +46,6 @@ public class servletUsuario extends HttpServlet {
     
     // GET /usuarios/alta
     protected void altaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// Cargar eventos
         publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
         publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
     	
@@ -139,15 +138,16 @@ public class servletUsuario extends HttpServlet {
     	}
     		
     	boolean ok = false;
-    	ControladorUsuario c = ControladorUsuario.getInstance();
+        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
     	if (tipo.equals("Asistente")) {
     		if (inst != "none") {
-    			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
+    			ok = port.altaAsistenteInstitucion(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
     		} else {
-    			ok = c.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
+    			ok = port.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
     		}
     	} else if (tipo.equals("Organizador")) {
-    		ok = c.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
+    		ok = port.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
     	}
     				
     	if (!ok) {
