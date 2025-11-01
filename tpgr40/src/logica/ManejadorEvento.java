@@ -1,9 +1,12 @@
 package logica;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
+
 
 public class ManejadorEvento {
 	private Map<String, Evento> eventos;
@@ -84,5 +87,31 @@ public class ManejadorEvento {
 		Evento evento = obtenerEvento(nombreEvento);
 		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
 		return edicion.getTipoRegistro(nombreTRegistro);
+	}
+	
+	// Busca ediciones y eventos que contengan str en
+	// el nombre o descripción 
+	public List<DTEvento> buscarEventos(String str) {
+		List<DTEvento> coincidencias = new ArrayList<>();
+		
+		for (Evento evento : eventos.values()) {
+		    if (evento.getNombre().toLowerCase().contains(str) || evento.getDescripcion().toLowerCase().contains(str))
+		    	coincidencias.add(evento.getDatos());
+		}
+		
+		return coincidencias;
+	}
+	
+	public List<DTEdicion> buscarEdiciones(String str) {
+		List<DTEdicion> coincidencias = new ArrayList<>();
+		
+		for (Evento evento : eventos.values()) {
+		    for (Edicion edicion : evento.getEdiciones().values()) {
+		    	if (edicion.getNombre().toLowerCase().contains(str))
+		    		coincidencias.add(edicion.getDatos());
+		    }
+		}
+		
+		return coincidencias;
 	}
 }

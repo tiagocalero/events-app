@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.AbstractMap.SimpleEntry;
 
 import excepciones.PatrocinioSuperaMontoException;
 import excepciones.YaExistePatrocinioException;
@@ -199,5 +201,14 @@ public class PublicadorEvento {
 			throws NoSuchElementException, IllegalArgumentException {
     	contEvento.patrocinioEdicion(codigoPatrocinio, nombreEdicion, nombreEvento, nombreTRegistroSeleccionado, nombreInstitucion);
     }
+
+    @WebMethod
+    public DTEvento[] buscarEventos(String str) {
+    	return contEvento.buscarEventos(str).toArray(new DTEvento[0]);
+    }
     
+    @WebMethod
+    public DTEdicion[] buscarEdiciones(String str) {
+    	return contEvento.buscarEdiciones(str).toArray(new DTEdicion[0]);
+    }
 }
