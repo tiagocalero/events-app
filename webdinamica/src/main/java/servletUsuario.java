@@ -22,6 +22,7 @@ import logica.DTOrganizador;
 import logica.DTOrganizadorModificado;
 import logica.DTRegistro;
 import logica.DTUsuario;
+import publicar.DtUsuario;
 
 /**
  * Servlet implementation class Usuario
@@ -45,9 +46,11 @@ public class servletUsuario extends HttpServlet {
     
     // GET /usuarios/alta
     protected void altaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ControladorInstitucion c = ControladorInstitucion.getInstance();
+    	// Cargar eventos
+        publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
+        publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
     	
-    	List<String> instituciones = c.listarInstituciones();
+    	List<String> instituciones = port.listarInstituciones();
         request.setAttribute("instituciones", instituciones);
         
     	// Mostrar el HTML
@@ -233,7 +236,7 @@ public class servletUsuario extends HttpServlet {
     	publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
         publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();	
         
-    	DTUsuario u = port.elegirUsuario(nick_o_correo);
+    	DtUsuario u = port.elegirUsuario(nick_o_correo);
 
     	if (u != null && port.chequearContrasena(nick_o_correo, passwd)) {
     		HttpSession session = request.getSession(true);

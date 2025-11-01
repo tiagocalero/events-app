@@ -10,16 +10,17 @@ import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.ws.Endpoint;
 
 import logica.ControladorCategoria;
+import logica.ControladorInstitucion;
 
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class PublicadorInstitucion {
 
     private Endpoint endpoint = null;
-    private ControladorCategoria contCategoria = null;
+    private ControladorInstitucion contInstitucion = null;
     //Constructor
     public PublicadorInstitucion() {
-    	contCategoria = ControladorCategoria.getInstance();
+    	contInstitucion = ControladorInstitucion.getInstance();
     }
 
     @WebMethod(exclude = true)
@@ -33,13 +34,18 @@ public class PublicadorInstitucion {
     }
     
     @WebMethod
-    public boolean altaCategoria(String nombreCategoria) {
-		return contCategoria.altaCategoria(nombreCategoria);
-	}
+    public boolean altaInstitucion(String nombre, String desc, String url) {
+    	return contInstitucion.altaInstitucion(nombre, desc, url);
+    }
     
     @WebMethod
-	public ArrayList<String> categorias() {
-		return new ArrayList<>(contCategoria.categorias());
-	}
+    public boolean altaInstitucion(String nombre, String desc, String url, String imagen) {
+    	return contInstitucion.altaInstitucion(nombre, desc, url, imagen);
+    }
+    
+    @WebMethod
+    public ArrayList<String> listarInstituciones() {
+    	return new ArrayList<String>(contInstitucion.listarInstituciones());
+    }
     
 }
