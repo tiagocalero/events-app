@@ -3,12 +3,16 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.ctc.wstx.shaded.msv_core.datatype.xsd.Comparator;
+
 import net.java.dev.jaxb.array.StringArray;
 
 import publicar.PatrocinioSuperaMontoException;
@@ -683,6 +687,16 @@ public class Evento extends HttpServlet {
         List<DtEvento> eventos = port.buscarEventos(request.getParameter("b")).getItem();
         List<DtEdicion> ediciones = port.buscarEdiciones(request.getParameter("b")).getItem();
 
+        String ordenar = request.getParameter("ordenar");
+        
+        if (ordenar != null && ordenar.equals("az")) {
+        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()));
+        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()));
+        } else if (ordenar != null && ordenar.equals("za")) {
+        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()).reversed());
+        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()).reversed());        	
+        }
+        
 		request.setAttribute("eventos", eventos);
 		request.setAttribute("ediciones", ediciones);
 

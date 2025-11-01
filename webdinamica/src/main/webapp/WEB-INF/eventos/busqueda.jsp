@@ -22,14 +22,27 @@
     <%@ include file="/components/sidebar.jsp" %>
   	<div class="container py-3">
 	  	<div class="row gy-3">
-		
-		<h3 class="mt-5"> Resultados de búsqueda para <b><%= request.getParameter("b") %></b> </h3>
+		<h3 class="mt-4">
+			Resultados de búsqueda para <b><%= request.getParameter("b") %> </b>
+			
+		 	<div class="btn-group m-3">
+				<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+				    Ordenar
+				</button>
+				<ul class="dropdown-menu">
+				    <li><a class="dropdown-item" href="?b=<%= request.getParameter("b") %>">Por defecto</a></li>
+				    <li><a class="dropdown-item" href="?b=<%= request.getParameter("b") %>&ordenar=az">A-Z</a></li>
+				    <li><a class="dropdown-item" href="?b=<%= request.getParameter("b") %>&ordenar=za">Z-A</a></li>
+				</ul>
+			</div>
+		</h3>
+	 
 	 <% String categoria = request.getParameter("categoria");
 		List<DtEvento> eventos = (List<DtEvento>) request.getAttribute("eventos");
 		List<DtEdicion> ediciones = (List<DtEdicion>) request.getAttribute("ediciones");
 		
 		if (eventos != null && !eventos.isEmpty()) { %>
-			<h4 class="mt-4"> Eventos </h4>
+			<h4 class="mt-3"> Eventos </h4>
 	 <% }
 		for (DtEvento e : eventos) { %>
 	      <div class="col-sm-6">
