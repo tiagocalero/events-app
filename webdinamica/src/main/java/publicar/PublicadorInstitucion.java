@@ -26,6 +26,16 @@ public interface PublicadorInstitucion {
 
     /**
      * 
+     * @return
+     *     returns publicar.ArrayList
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorInstitucion/categoriasRequest", output = "http://publicar/PublicadorInstitucion/categoriasResponse")
+    public ArrayList categorias();
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns boolean
@@ -36,15 +46,5 @@ public interface PublicadorInstitucion {
     public boolean altaCategoria(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorInstitucion/categoriasRequest", output = "http://publicar/PublicadorInstitucion/categoriasResponse")
-    public ArrayList categorias();
 
 }
