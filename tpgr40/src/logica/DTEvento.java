@@ -11,8 +11,9 @@ public class DTEvento {
 	private List<String> categorias;
 	private List<String> ediciones;
 	private String imagen;
+	private boolean finalizado;
 	
-	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, List<String> ediciones, String imagen) {
+	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, List<String> ediciones, String imagen, boolean finalizado) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
@@ -20,6 +21,7 @@ public class DTEvento {
 		this.categorias = categorias;
 		this.ediciones = ediciones;
 		this.imagen = imagen;
+		this.finalizado = finalizado;
 	}
 	
 	public String getNombre() {
@@ -48,5 +50,9 @@ public class DTEvento {
 	
 	public String getImagen() {
 		return imagen;
+	}
+	
+	public Boolean getFinalizado( ) {
+		return finalizado;
 	}
 }

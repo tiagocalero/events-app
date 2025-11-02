@@ -15,14 +15,16 @@ public class Evento {
 	private Map<String, Edicion> ediciones;
 	private String descripcion;
 	private String imagen;
+	private Boolean finalizado;
 	
-	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen) {
+	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen, Boolean finalizado) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
 		this.categorias = new ArrayList<>();
 		this.imagen = imagen;
+		this.finalizado= finalizado;
 		ediciones = new HashMap<>();
 		
 		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
@@ -42,7 +44,7 @@ public class Evento {
 
 		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado);
 	}
 	
 	public DTEvento getDatosAceptadas() {
@@ -59,7 +61,7 @@ public class Evento {
 		    }
 		}
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado);
 	}
 	
 	public boolean existeEdicion(String nombre) {
@@ -80,5 +82,13 @@ public class Evento {
 	
 	public void agregarCategoria(Categoria categoria) {
 		categorias.add(categoria);
+	}
+	
+	public boolean getFinalizado() {
+		return finalizado;
+	}
+	
+	public void finalizar() {
+		this.finalizado = true;
 	}
 }
