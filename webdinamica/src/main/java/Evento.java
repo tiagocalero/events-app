@@ -3,12 +3,16 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.ctc.wstx.shaded.msv_core.datatype.xsd.Comparator;
+
 import net.java.dev.jaxb.array.StringArray;
 
 import publicar.PatrocinioSuperaMontoException;
@@ -42,7 +46,7 @@ import publicar.DttRegistro;
  * Servlet implementation class Evento
  */
 
-@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*", "/TipoRegistro/*"})
+@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*", "/TipoRegistro/*", "/busqueda"})
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024,     // 1 MB
 		maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -675,6 +679,29 @@ public class Evento extends HttpServlet {
 
 		altaTipoRegistroGET(request, response);
 	}
+	
+	protected void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+
+        List<DtEvento> eventos = port.buscarEventos(request.getParameter("b")).getItem();
+        List<DtEdicion> ediciones = port.buscarEdiciones(request.getParameter("b")).getItem();
+
+        String ordenar = request.getParameter("ordenar");
+        
+        if (ordenar != null && ordenar.equals("az")) {
+        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()));
+        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()));
+        } else if (ordenar != null && ordenar.equals("za")) {
+        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()).reversed());
+        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()).reversed());        	
+        }
+        
+		request.setAttribute("eventos", eventos);
+		request.setAttribute("ediciones", ediciones);
+
+		request.getRequestDispatcher("/WEB-INF/eventos/busqueda.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -695,8 +722,7 @@ public class Evento extends HttpServlet {
 				altaEventoGET(request, response);
 			} else if (path.equals("/consultaEvento")) {
 				consultaEventoGET(request, response);
-			}
-			else {
+			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
@@ -745,6 +771,8 @@ public class Evento extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
+		} else if (servletPath.equals("/busqueda")) {
+			buscar(request, response);
 		} else {
 
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -808,6 +836,8 @@ public class Evento extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
+		} else if (servletPath.equals("/busqueda")) {
+			buscar(request, response);
 		} else {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			response.getWriter().println("404 - Página no encontrada");

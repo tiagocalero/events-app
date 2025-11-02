@@ -1,9 +1,13 @@
 package logica;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
+
 
 public class ManejadorEvento {
 	private Map<String, Evento> eventos;
@@ -84,5 +88,44 @@ public class ManejadorEvento {
 		Evento evento = obtenerEvento(nombreEvento);
 		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
 		return edicion.getTipoRegistro(nombreTRegistro);
+	}
+
+	// Devuelve los datos de los eventos que contienen todas las palabras de
+	// str en su nombre o descripción
+	public List<DTEvento> buscarEventos(String str) {
+		List<DTEvento> coincidencias = new ArrayList<>();
+		String[] palabras = str.split("\\s+");
+		
+		for (Evento evento : eventos.values()) {
+	    	boolean contieneCadaPalabra
+    			= Arrays.stream(palabras)
+	    			    .allMatch(p -> evento.getNombre().toLowerCase().contains(p)
+    			                    || evento.getDescripcion().toLowerCase().contains(p));
+	    	
+	    	if (contieneCadaPalabra)
+	    		coincidencias.add(evento.getDatos());
+		}
+		
+		return coincidencias;
+	}
+
+	// Devuelve los datos de las ediciones que contienen todas las palabras de
+	// str en su nombre
+	public List<DTEdicion> buscarEdiciones(String str) {
+		List<DTEdicion> coincidencias = new ArrayList<>();
+		String[] palabras = str.split("\\s+");
+		
+		for (Evento evento : eventos.values()) {
+		    for (Edicion edicion : evento.getEdiciones().values()) {
+		    	boolean contieneCadaPalabra
+		    		= Arrays.stream(palabras)
+			    			.allMatch(p -> edicion.getNombre().toLowerCase().contains(p));
+		    	
+		    	if (contieneCadaPalabra)
+		    		coincidencias.add(edicion.getDatos());
+		    }
+		}
+		
+		return coincidencias;
 	}
 }

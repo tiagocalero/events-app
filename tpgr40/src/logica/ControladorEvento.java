@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.stream.Collectors;
 
 import excepciones.PatrocinioSuperaMontoException;
@@ -421,5 +422,15 @@ public class ControladorEvento {
 		if (!patr.usarCodigo())
 			throw new IllegalStateException(
 					"El patrocnio de '" + nombreInstitucion + "' ha usado todos sus registros gratuitos");
+	}
+	
+	public List<DTEvento> buscarEventos(String str) {
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		return me.buscarEventos(str.toLowerCase());
+	}
+	
+	public List<DTEdicion> buscarEdiciones(String str) {
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		return me.buscarEdiciones(str.toLowerCase());
 	}
 }

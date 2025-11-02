@@ -35,6 +35,10 @@ public class Evento {
 		return nombre;
 	}
 	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
 	public DTEvento getDatos() {
 		List<String> nomCategorias = 
 			categorias.stream()
