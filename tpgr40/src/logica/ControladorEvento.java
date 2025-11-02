@@ -426,11 +426,11 @@ public class ControladorEvento {
 	
 	public List<DTEvento> buscarEventos(String str) {
 		ManejadorEvento me = ManejadorEvento.getInstance();
-		return me.buscarEventos(str.toLowerCase());
+		return me.buscarEventos(str);
 	}
 	
 	public List<DTEdicion> buscarEdiciones(String str) {
 		ManejadorEvento me = ManejadorEvento.getInstance();
-		return me.buscarEdiciones(str.toLowerCase());
+		return me.buscarEdiciones(str);
 	}
 }

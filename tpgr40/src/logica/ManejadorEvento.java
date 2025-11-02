@@ -1,5 +1,6 @@
 package logica;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,13 +95,13 @@ public class ManejadorEvento {
 	// str en su nombre o descripción
 	public List<DTEvento> buscarEventos(String str) {
 		List<DTEvento> coincidencias = new ArrayList<>();
-		String[] palabras = str.split("\\s+");
+		String[] palabras = normalizar(str).split("\\s+");
 		
 		for (Evento evento : eventos.values()) {
 	    	boolean contieneCadaPalabra
     			= Arrays.stream(palabras)
-	    			    .allMatch(p -> evento.getNombre().toLowerCase().contains(p)
-    			                    || evento.getDescripcion().toLowerCase().contains(p));
+	    			    .allMatch(p -> normalizar(evento.getNombre()).contains(p)
+    			                    || normalizar(evento.getDescripcion()).contains(p));
 	    	
 	    	if (contieneCadaPalabra)
 	    		coincidencias.add(evento.getDatos());
@@ -113,19 +114,27 @@ public class ManejadorEvento {
 	// str en su nombre
 	public List<DTEdicion> buscarEdiciones(String str) {
 		List<DTEdicion> coincidencias = new ArrayList<>();
-		String[] palabras = str.split("\\s+");
+		String[] palabras = normalizar(str).split("\\s+");
 		
 		for (Evento evento : eventos.values()) {
 		    for (Edicion edicion : evento.getEdiciones().values()) {
 		    	boolean contieneCadaPalabra
 		    		= Arrays.stream(palabras)
-			    			.allMatch(p -> edicion.getNombre().toLowerCase().contains(p));
+			    			.allMatch(p -> normalizar(edicion.getNombre()).contains(p));
 		    	
-		    	if (contieneCadaPalabra)
+		    	if (contieneCadaPalabra && edicion.getEstado() == TipoEstado.Aceptada)
 		    		coincidencias.add(edicion.getDatos());
 		    }
 		}
 		
 		return coincidencias;
+	}
+	
+	// Quitar tildes y transformar a minúscula un String
+	// Usada para las búsquedas
+	private static String normalizar(String str) {
+	    return Normalizer.normalize(str, Normalizer.Form.NFD)
+	                     .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+	                     .toLowerCase();
 	}
 }

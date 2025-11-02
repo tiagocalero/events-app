@@ -23,7 +23,7 @@
   	<div class="container py-3">
 	  	<div class="row gy-3">
 		<h3 class="mt-4">
-			Resultados de búsqueda para <b><%= request.getParameter("b") %> </b>
+			Resultados de búsqueda para <b>"<%= request.getParameter("b") %>"</b>
 			
 		 	<div class="btn-group m-3">
 				<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,6 +77,7 @@
       		</div>
 		        <div class="card-body">
 		          <h5 class="card-title"><%= e.getNombre() %></h5>
+		          <p class="card-text">Evento: <%= e.getEvento() %></p>
 		          <a href="/webdinamica/ediciones/consultaEdicion?edicion=<%= URLEncoder.encode(e.getNombre(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(e.getEvento(), StandardCharsets.UTF_8) %>" class="btn btn-primary">Más información</a>
 		        </div>
 		      </div>
