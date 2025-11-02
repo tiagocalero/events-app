@@ -30,50 +30,15 @@ public interface PublicadorEvento {
     /**
      * 
      * @param arg0
-     * @param arg1
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
-    @Action(input = "http://publicar/PublicadorEvento/confirmarEdicionRequest", output = "http://publicar/PublicadorEvento/confirmarEdicionResponse")
-    public void confirmarEdicion(
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarEdicionesRequest", output = "http://publicar/PublicadorEvento/listarEdicionesResponse")
+    public StringArray listarEdiciones(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorEvento/rechazarEdicionRequest", output = "http://publicar/PublicadorEvento/rechazarEdicionResponse")
-    public void rechazarEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorEvento/patrocinioEdicionRequest", output = "http://publicar/PublicadorEvento/patrocinioEdicionResponse")
-    public void patrocinioEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4);
+        String arg0);
 
     /**
      * 
@@ -83,8 +48,21 @@ public interface PublicadorEvento {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarEdicionesRequest", output = "http://publicar/PublicadorEvento/listarEdicionesResponse")
-    public StringArray listarEdiciones(
+    @Action(input = "http://publicar/PublicadorEvento/listarEdicionesIngresadasRequest", output = "http://publicar/PublicadorEvento/listarEdicionesIngresadasResponse")
+    public StringArray listarEdicionesIngresadas(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarEdicionesAceptadasRequest", output = "http://publicar/PublicadorEvento/listarEdicionesAceptadasResponse")
+    public StringArray listarEdicionesAceptadas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -126,6 +104,42 @@ public interface PublicadorEvento {
 
     /**
      * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarInstitucionesEdicionEventoRequest", output = "http://publicar/PublicadorEvento/listarInstitucionesEdicionEventoResponse")
+    public StringArray listarInstitucionesEdicionEvento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarInstitucionesRequest", output = "http://publicar/PublicadorEvento/listarInstitucionesResponse")
+    public StringArray listarInstituciones();
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarOrganizadoresRequest", output = "http://publicar/PublicadorEvento/listarOrganizadoresResponse")
+    public StringArray listarOrganizadores();
+
+    /**
+     * 
      * @return
      *     returns net.java.dev.jaxb.array.StringArray
      */
@@ -146,6 +160,57 @@ public interface PublicadorEvento {
     public DtEvento informacionEvento(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns publicar.DtEvento
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/informacionEventoEdAceptadasRequest", output = "http://publicar/PublicadorEvento/informacionEventoEdAceptadasResponse")
+    public DtEvento informacionEventoEdAceptadas(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @return
+     *     returns publicar.DtPatrocinio
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/consultaPatrocinioInstitucionRequest", output = "http://publicar/PublicadorEvento/consultaPatrocinioInstitucionResponse")
+    public DtPatrocinio consultaPatrocinioInstitucion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @return
+     *     returns publicar.DttRegistro
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/seleccionarTipoRegistroRequest", output = "http://publicar/PublicadorEvento/seleccionarTipoRegistroResponse")
+    public DttRegistro seleccionarTipoRegistro(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
 
     /**
      * 
@@ -203,6 +268,34 @@ public interface PublicadorEvento {
         String arg8)
         throws PatrocinioSuperaMontoException_Exception, YaExistePatrocinioException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/ingresarDatosEventoRequest", output = "http://publicar/PublicadorEvento/ingresarDatosEventoResponse")
+    public boolean ingresarDatosEvento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        StringArray arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5);
 
     /**
      * 
@@ -312,6 +405,25 @@ public interface PublicadorEvento {
      * @param arg0
      * @param arg1
      * @param arg2
+     * @return
+     *     returns publicar.DttRegistro
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/mostrarTipoRegistroRequest", output = "http://publicar/PublicadorEvento/mostrarTipoRegistroResponse")
+    public DttRegistro mostrarTipoRegistro(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
      * @param arg3
      * @param arg4
      * @param arg5
@@ -340,6 +452,22 @@ public interface PublicadorEvento {
      * @param arg0
      * @param arg1
      * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/existeEdicionEventoRequest", output = "http://publicar/PublicadorEvento/existeEdicionEventoResponse")
+    public boolean existeEdicionEvento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
      *     returns publicar.DtRegistroArray
      */
     @WebMethod
@@ -354,40 +482,11 @@ public interface PublicadorEvento {
     /**
      * 
      * @param arg0
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarEdicionesIngresadasRequest", output = "http://publicar/PublicadorEvento/listarEdicionesIngresadasResponse")
-    public StringArray listarEdicionesIngresadas(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarEdicionesAceptadasRequest", output = "http://publicar/PublicadorEvento/listarEdicionesAceptadasResponse")
-    public StringArray listarEdicionesAceptadas(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
      * @param arg1
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarInstitucionesEdicionEventoRequest", output = "http://publicar/PublicadorEvento/listarInstitucionesEdicionEventoResponse")
-    public StringArray listarInstitucionesEdicionEvento(
+    @Action(input = "http://publicar/PublicadorEvento/confirmarEdicionRequest", output = "http://publicar/PublicadorEvento/confirmarEdicionResponse")
+    public void confirmarEdicion(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
@@ -395,133 +494,12 @@ public interface PublicadorEvento {
 
     /**
      * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarInstitucionesRequest", output = "http://publicar/PublicadorEvento/listarInstitucionesResponse")
-    public StringArray listarInstituciones();
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarOrganizadoresRequest", output = "http://publicar/PublicadorEvento/listarOrganizadoresResponse")
-    public StringArray listarOrganizadores();
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns publicar.DtEvento
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/informacionEventoEdAceptadasRequest", output = "http://publicar/PublicadorEvento/informacionEventoEdAceptadasResponse")
-    public DtEvento informacionEventoEdAceptadas(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
      * @param arg0
      * @param arg1
-     * @param arg2
-     * @return
-     *     returns publicar.DtPatrocinio
      */
     @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/consultaPatrocinioInstitucionRequest", output = "http://publicar/PublicadorEvento/consultaPatrocinioInstitucionResponse")
-    public DtPatrocinio consultaPatrocinioInstitucion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @return
-     *     returns publicar.DttRegistro
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/seleccionarTipoRegistroRequest", output = "http://publicar/PublicadorEvento/seleccionarTipoRegistroResponse")
-    public DttRegistro seleccionarTipoRegistro(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/ingresarDatosEventoRequest", output = "http://publicar/PublicadorEvento/ingresarDatosEventoResponse")
-    public boolean ingresarDatosEvento(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        StringArray arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @return
-     *     returns publicar.DttRegistro
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/mostrarTipoRegistroRequest", output = "http://publicar/PublicadorEvento/mostrarTipoRegistroResponse")
-    public DttRegistro mostrarTipoRegistro(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/existeEdicionEventoRequest", output = "http://publicar/PublicadorEvento/existeEdicionEventoResponse")
-    public boolean existeEdicionEvento(
+    @Action(input = "http://publicar/PublicadorEvento/rechazarEdicionRequest", output = "http://publicar/PublicadorEvento/rechazarEdicionResponse")
+    public void rechazarEdicion(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
@@ -539,5 +517,27 @@ public interface PublicadorEvento {
     public DtEventoArray listarDTEventosCategoria(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorEvento/patrocinioEdicionRequest", output = "http://publicar/PublicadorEvento/patrocinioEdicionResponse")
+    public void patrocinioEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4);
 
 }

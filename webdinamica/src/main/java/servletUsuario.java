@@ -12,9 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import logica.ControladorEvento;
-import logica.ControladorInstitucion;
-import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTAsistenteModificado;
 import logica.DTEdicion;
@@ -23,6 +20,8 @@ import logica.DTOrganizadorModificado;
 import logica.DTRegistro;
 import logica.DTUsuario;
 import publicar.DtUsuario;
+import publicar.DtAsistente;
+import publicar.DtOrganizador;
 
 /**
  * Servlet implementation class Usuario
@@ -57,14 +56,16 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void perfilUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ControladorUsuario c = ControladorUsuario.getInstance();
-    	ControladorInstitucion i = ControladorInstitucion.getInstance();
-    	
-    	List<String> instituciones = i.listarInstituciones();
+        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        publicar.PublicadorInstitucionService serviceI = new publicar.PublicadorInstitucionService();
+        publicar.PublicadorInstitucion portI = serviceI.getPublicadorInstitucionPort();
+        
+    	List<String> instituciones = portI.listarInstituciones();
         
         request.setAttribute("instituciones", instituciones);
         HttpSession userSession = request.getSession(false);
-		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que visitantes accedan
 		if (usuario == null) {
@@ -72,13 +73,13 @@ public class servletUsuario extends HttpServlet {
 			return;
 		}
 		
-    	usuario = c.elegirUsuario(usuario.getNickname());
+    	usuario = port.elegirUsuario(usuario.getNickname());
     	
-    	if (usuario instanceof DTAsistente) {
-    		List<DTRegistro> registros = c.consultaAsistente();
+    	if (usuario instanceof DtAsistente) {
+    		List<DTRegistro> registros = port.consultaAsistente();
     		request.setAttribute("registros", registros);
-    	} else if (usuario instanceof DTOrganizador) {
-    		List<DTEdicion> ediciones = c.consultaOrganizador();
+    	} else if (usuario instanceof DtOrganizador) {
+    		List<DTEdicion> ediciones = port.consultaOrganizador();
     		request.setAttribute("ediciones", ediciones);
     	}
     	
@@ -86,13 +87,14 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ControladorUsuario c = ControladorUsuario.getInstance();
+        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
      	String nick = (String) request.getParameter("nick");
-    	if (nick != null && c.elegirUsuario(nick) != null) {
-    		DTUsuario usuario = c.elegirUsuario(nick);
+    	if (nick != null && port.elegirUsuario(nick) != null) {
+    		DtUsuario usuario = port.elegirUsuario(nick);
         	
-        	if (usuario instanceof DTAsistente) {
-        		List<DTRegistro> registros = c.consultaAsistente();
+        	if (usuario instanceof DtAsistente) {
+        		List<DTRegistro> registros = port.consultaAsistente();
         		request.setAttribute("registros", registros);
         	}
         	
@@ -173,9 +175,10 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void modificarUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	ControladorUsuario c = ControladorUsuario.getInstance();
+        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
     	HttpSession userSession = request.getSession(false);
-		DTUsuario dtu = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que visitantes accedan
 		if (dtu == null) {
@@ -203,24 +206,24 @@ public class servletUsuario extends HttpServlet {
     		imgPart.write(uploadPath + File.separator + uniqueFileName);
     	}
 
-    	dtu = c.elegirUsuario(nick);
+    	dtu = port.elegirUsuario(nick);
     	
-    	if (dtu instanceof DTAsistente) {
+    	if (dtu instanceof DtAsistente) {
     		String apellido = request.getParameter("apellido");
         	String inst = request.getParameter("institucion");
         	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
     		
-    		DTAsistenteModificado dtam = new DTAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
-    		c.modificarDatosUsuario(dtam);
-    	} else if (dtu instanceof DTOrganizador) {
+    		DtAsistenteModificado dtam = new DTAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
+    		port.modificarDatosUsuario(dtam);
+    	} else if (dtu instanceof DtOrganizador) {
     		String desc = request.getParameter("desc");
         	String link = request.getParameter("link");
         	
-    		DTOrganizadorModificado dtom = new DTOrganizadorModificado(nombre, uniqueFileName, desc, link);
-    		c.modificarDatosUsuario(dtom);
+    		DtOrganizadorModificado dtom = new DTOrganizadorModificado(nombre, uniqueFileName, desc, link);
+    		port.modificarDatosUsuario(dtom);
     	}
     	
-		dtu = c.elegirUsuario(nick);
+		dtu = port.elegirUsuario(nick);
 		userSession.setAttribute("usuario", dtu);
     	response.sendRedirect("/webdinamica/usuarios/");
     }
@@ -268,8 +271,10 @@ public class servletUsuario extends HttpServlet {
  		String nueva = request.getParameter("newPass");
  		String confNueva = request.getParameter("confNewPass");
  		
- 		ControladorUsuario cu = ControladorUsuario.getInstance();HttpSession userSession = request.getSession(false);
-		DTUsuario dtu = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+ 		HttpSession userSession = request.getSession(false);
+		DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que visitantes accedan
 		if (dtu == null) {
@@ -277,7 +282,7 @@ public class servletUsuario extends HttpServlet {
 			return;
 		}
 		
- 		if (cu.chequearContrasena(dtu.getNickname(), actual)) {
+ 		if (port.chequearContrasena(dtu.getNickname(), actual)) {
  			if (actual.equals(nueva)) {
  				request.setAttribute("error2", "La nueva contraseña no puede ser igual a la actual.");
  	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
@@ -285,7 +290,7 @@ public class servletUsuario extends HttpServlet {
  				request.setAttribute("error3", "Las contraseñas no coniciden.");
  	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
  			} else {
- 				cu.setContrasena(dtu.getNickname(), nueva);
+ 				port.setContrasena(dtu.getNickname(), nueva);
  				response.sendRedirect("/webdinamica/usuarios/fin_sesion");
  			}
  		} else {
@@ -333,8 +338,9 @@ public class servletUsuario extends HttpServlet {
     }
  	
 	protected void listaGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorUsuario cu = ControladorUsuario.getInstance();
-		List<String> usuarios = cu.listarUsuarios();
+        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+		List<String> usuarios = port.listarUsuarios();
 		request.setAttribute("lista", usuarios);
 		
     	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);

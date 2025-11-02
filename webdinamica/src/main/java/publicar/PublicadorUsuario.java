@@ -27,81 +27,6 @@ public interface PublicadorUsuario {
     /**
      * 
      * @param arg0
-     * @return
-     *     returns publicar.DtUsuario
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/elegirUsuarioRequest", output = "http://publicar/PublicadorUsuario/elegirUsuarioResponse")
-    public DtUsuario elegirUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/hashearContrasenaRequest", output = "http://publicar/PublicadorUsuario/hashearContrasenaResponse")
-    public String hashearContrasena(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/chequearContrasenaRequest", output = "http://publicar/PublicadorUsuario/chequearContrasenaResponse")
-    public boolean chequearContrasena(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorUsuario/setContrasenaRequest", output = "http://publicar/PublicadorUsuario/setContrasenaResponse")
-    public void setContrasena(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
-    public ArrayList listarAsistentes();
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar/PublicadorUsuario/listarUsuariosResponse")
-    public ArrayList listarUsuarios();
-
-    /**
-     * 
-     * @param arg0
      * @param arg1
      * @param arg2
      * @param arg3
@@ -168,8 +93,48 @@ public interface PublicadorUsuario {
      */
     @WebMethod
     @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/consultaOrganizadorRequest", output = "http://publicar/PublicadorUsuario/consultaOrganizadorResponse")
+    public ArrayList consultaOrganizador();
+
+    /**
+     * 
+     * @return
+     *     returns publicar.ArrayList
+     */
+    @WebMethod
+    @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorUsuario/consultaAsistenteRequest", output = "http://publicar/PublicadorUsuario/consultaAsistenteResponse")
     public ArrayList consultaAsistente();
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar/PublicadorUsuario/modificarDatosUsuarioResponse")
+    public void modificarDatosUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuarioModificado arg0);
+
+    /**
+     * 
+     * @return
+     *     returns publicar.ArrayList
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
+    public ArrayList listarAsistentes();
+
+    /**
+     * 
+     * @return
+     *     returns publicar.ArrayList
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar/PublicadorUsuario/listarUsuariosResponse")
+    public ArrayList listarUsuarios();
 
     /**
      * 
@@ -183,23 +148,29 @@ public interface PublicadorUsuario {
 
     /**
      * 
+     * @param arg0
      * @return
-     *     returns publicar.ArrayList
+     *     returns publicar.DtUsuario
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/consultaOrganizadorRequest", output = "http://publicar/PublicadorUsuario/consultaOrganizadorResponse")
-    public ArrayList consultaOrganizador();
+    @Action(input = "http://publicar/PublicadorUsuario/elegirUsuarioRequest", output = "http://publicar/PublicadorUsuario/elegirUsuarioResponse")
+    public DtUsuario elegirUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
 
     /**
      * 
      * @param arg0
+     * @return
+     *     returns java.lang.String
      */
     @WebMethod
-    @Action(input = "http://publicar/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar/PublicadorUsuario/modificarDatosUsuarioResponse")
-    public void modificarDatosUsuario(
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/hashearContrasenaRequest", output = "http://publicar/PublicadorUsuario/hashearContrasenaResponse")
+    public String hashearContrasena(
         @WebParam(name = "arg0", partName = "arg0")
-        DtUsuarioModificado arg0);
+        String arg0);
 
     /**
      * 
@@ -259,6 +230,35 @@ public interface PublicadorUsuario {
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar/PublicadorUsuario/datosRegistroUsuarioResponse")
     public DtRegistro datosRegistroUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/chequearContrasenaRequest", output = "http://publicar/PublicadorUsuario/chequearContrasenaResponse")
+    public boolean chequearContrasena(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorUsuario/setContrasenaRequest", output = "http://publicar/PublicadorUsuario/setContrasenaResponse")
+    public void setContrasena(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
