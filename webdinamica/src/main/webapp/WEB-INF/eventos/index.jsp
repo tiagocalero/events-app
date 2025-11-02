@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="logica.DTEvento" %>
+<%@ page import="publicar.DtEvento" %>
 <%@ page import="logica.DTUsuario" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,14 +25,14 @@
 		<!-- Para todas las categorias -->
 		<%
 		String categoria = request.getParameter("categoria");
-		List<DTEvento> eventos = (List<DTEvento>) request.getAttribute("eventos");
+		List<DtEvento> eventos = (List<DtEvento>) request.getAttribute("eventos");
 	    
 		if (eventos.isEmpty()) { %>
 		<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
 		  <h3 class="text-center"> No hay eventos <%= categoria != null ? "para esta categoría, intenta seleccionar otra" : "en el sistema" %>. </h3>
 		</div>
      <% }
-    	for (DTEvento e : eventos) { %>
+    	for (DtEvento e : eventos) { %>
 	      <div class="col-sm-6">
 		      <div class="card">
 		        <div class="d-flex justify-content-center align-items-center h-100">

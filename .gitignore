@@ -7,10 +7,14 @@ tpgr40/.settings
 tpgr40./classpath
 tpgr40./classpath
 webdinamica/.settings
-webdinamica./classpath
-webdinamica./classpath
+webdinamica/.classpath
+webdinamica/.project
 /bin/
 /.settings/
 /.classpath
 /.project
+webMobile/.settings
+webMobile/.classpath
+webMobile/.project
 /webdinamica/src/main/webapp/WEB-INF/lib/logica.jar
+

@@ -3,6 +3,10 @@ package logica;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTEdicion {
 	
     private String pais;

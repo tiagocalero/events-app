@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +12,14 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import excepciones.PatrocinioSuperaMontoException;
-import excepciones.YaExistePatrocinioException;
+import com.ctc.wstx.shaded.msv_core.datatype.xsd.Comparator;
+
+import net.java.dev.jaxb.array.StringArray;
+
+import publicar.PatrocinioSuperaMontoException;
+import publicar.PatrocinioSuperaMontoException_Exception;
+import publicar.YaExistePatrocinioException;
+import publicar.YaExistePatrocinioException_Exception;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,13 +37,18 @@ import logica.DTOrganizador;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.DTUsuario;
-import logica.TipoNivelPatrocinio;
+import net.java.dev.jaxb.array.StringArray;
+import publicar.TipoNivelPatrocinio;
+import publicar.DtEdicion;
+import publicar.DtEvento;
+import publicar.DtPatrocinio;
+import publicar.DttRegistro;
 
 /**
  * Servlet implementation class Evento
  */
 
-@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*", "/TipoRegistro/*"})
+@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*", "/TipoRegistro/*", "/busqueda"})
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024,     // 1 MB
 		maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -54,17 +67,17 @@ public class Evento extends HttpServlet {
 
 	// GET /eventos
 	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
-
 		// Cargar eventos
+        publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String categoria = request.getParameter("categoria");
-		List<DTEvento> eventos;
+		List<DtEvento> eventos;
 		if (categoria != null && !categoria.trim().isEmpty()) {
-			eventos = c.listarDTEventosCategoriaNoFinalizados(categoria);
+			eventos = port.listarDTEventosCategoriaNoFinalizados(categoria).getItem();
 		} else {
-			eventos = c.listarDTEventosNoFinalizados();
-		}
+			eventos = port.listarDTEventosNoFinalizados().getItem();		
+		} 
 		
 		request.setAttribute("eventos", eventos);
 		request.setAttribute("categoriaSeleccionada", categoria); 
@@ -75,19 +88,20 @@ public class Evento extends HttpServlet {
 
 	// GET /patrocinios/alta
 	protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+        publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
@@ -102,9 +116,10 @@ public class Evento extends HttpServlet {
 		}
 
 		List<String> instituciones = 
-				c.listarInstituciones()
+				port.listarInstituciones()
+				.getItem()
 				.stream()
-				.filter(e -> !c.listarInstituciones(evento, edicion).contains(e))
+				.filter(e -> !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(e))
 				.collect(Collectors.toList());
 		request.setAttribute("instituciones", instituciones);
 
@@ -116,7 +131,7 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		List<String> tipoRegistros = c.listarTipoRegistro(evento, edicion);
+		List<String> tipoRegistros = port.listarTipoRegistro(evento, edicion).getItem();
 		request.setAttribute("tipoRegistros", tipoRegistros);
 
 		// Mostrar el HTML
@@ -126,24 +141,25 @@ public class Evento extends HttpServlet {
 	// POST /patrocinios/alta
 	// Crea un patrocinio con los parámetros pasados
 	protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 		String institucion = request.getParameter("institucion");
-		TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel"));
+		TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel").toUpperCase());
 		float monto = Float.parseFloat(request.getParameter("monto"));
 		int cantRegistros = Integer.parseInt(request.getParameter("cantRegistros"));
 		String tipoRegistro = request.getParameter("tipoRegistro");
 		String codigo = request.getParameter("codigo");
 
-		DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -157,13 +173,13 @@ public class Evento extends HttpServlet {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
-
-		DTPatrocinio dtp = new DTPatrocinio(codigo, nivel, monto, tipoRegistro, cantRegistros, LocalDate.now(), institucion, null);
+		
+	    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
 
 		try {
-			c.crearPatrocinio(dtp, edicion, institucion, evento);
-		} catch(PatrocinioSuperaMontoException
-				| YaExistePatrocinioException
+			port.crearPatrocinio(codigo, nivel, tipoRegistro, cantRegistros, monto, LocalDate.now().format(fmt), edicion, institucion, evento);
+		} catch(PatrocinioSuperaMontoException_Exception
+				| YaExistePatrocinioException_Exception
 				| IllegalArgumentException ex) {
 			request.setAttribute("error", ex.getMessage());
 
@@ -184,7 +200,8 @@ public class Evento extends HttpServlet {
 	// GET /patrocinios
 	// POST /patrocinios
 	protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -193,13 +210,13 @@ public class Evento extends HttpServlet {
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, o la institución no existe
 		// para la edición, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)
-				|| !c.listarInstituciones(evento, edicion).contains(institucion)) {
+		if (!port.existeEdicionEvento(evento, edicion)
+				|| !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(institucion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		DTPatrocinio dtp = c.consultaPatrocinioInstitucion(evento, edicion, institucion);
+		DtPatrocinio dtp = port.consultaPatrocinioInstitucion(evento, edicion, institucion);
 		request.setAttribute("dtp", dtp);
 
 		// Mostrar el HTML
@@ -209,7 +226,8 @@ public class Evento extends HttpServlet {
 	// GET /eventos/alta
 	// Carga las categorías existentes en el formulario
 	protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
@@ -223,7 +241,7 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		List<String> categorias = c.listarCategorias();
+		List<String> categorias = port.listarCategorias().getItem();
 		request.setAttribute("categorias", categorias);
 
 		// Mostrar el HTML
@@ -249,31 +267,31 @@ public class Evento extends HttpServlet {
 		String descripcion = request.getParameter("desc");
 		String sigla = request.getParameter("sigla");
 		String[] categoriasA = request.getParameterValues("categorias");
-		List<String> categorias = (categoriasA != null)
-				? Arrays.asList(categoriasA)
-						: List.of();
+		StringArray categorias = new StringArray();
+		categorias.getItem().addAll(Arrays.asList(categoriasA));
+		
 		// Obtener imagen
 		Part filePart = request.getPart("imagen");
 		boolean subioImagen = filePart != null && filePart.getSize() > 0;
-
-		ControladorEvento c = ControladorEvento.getInstance();
-		boolean ok;
-
+    	String fileName = null;
+    	
 		if (subioImagen) {
 			// Generar un nombre aleatorio para la imagen,
 			// guardarla en una carpeta temporal
-			String fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
+			fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
 			String uploadPath = getServletContext().getRealPath("/uploads");
 			File uploadDir = new File(uploadPath);
 
 			if (!uploadDir.exists()) uploadDir.mkdir();
 
 			filePart.write(uploadPath + File.separator + fileName);
-
-			ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias, fileName, false);
-		} else {
-			ok = c.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now(), categorias, false);
 		}
+
+    	DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+		boolean ok = port.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now().format(fmt), categorias, fileName);
 
 		if (!ok) {
 			// Se incluyen todos los atributos para que se vuelvan a cargar y que el
@@ -440,8 +458,9 @@ public class Evento extends HttpServlet {
 		String nombreEdicion = request.getParameter("edicion");
 		String nombreEvento = request.getParameter("evento");
 
-		ControladorEvento c = ControladorEvento.getInstance();
-		
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();		
+        
 		HttpSession userSession = request.getSession(false);
 		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
@@ -454,12 +473,12 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		if (!c.existeEdicionEvento(nombreEvento, nombreEdicion)) {
+		if (!port.existeEdicionEvento(nombreEvento, nombreEdicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		List<String> tiposRegistro = c.listarTipoRegistro(nombreEvento, nombreEdicion);
+		StringArray tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion);
 		request.setAttribute("tiposRegistro", tiposRegistro);
 
 		request.setAttribute("nombreEvento", nombreEvento);
@@ -475,7 +494,8 @@ public class Evento extends HttpServlet {
 		String nombreEdicion = request.getParameter("edicion");
 		String nombreTRegistro = request.getParameter("tiposRegistro");
 		String evento = request.getParameter("evento");
-		LocalDate fechaAlta = LocalDate.now();
+		
+
 		String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
 
 		HttpSession userSession = request.getSession(false);
@@ -495,25 +515,28 @@ public class Evento extends HttpServlet {
 		String nickname = usuario.getNickname();
 		String nombreInstitucion = usuario.getInstitucion();
 
-		ControladorEvento c = ControladorEvento.getInstance();
-
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
 		boolean conPatrocinio = false;
 		String mensajeError = null;
 
 		// A) Lógica de Validación de Patrocinio
 		if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
 			try {
-			    c.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
+			    port.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
 			} catch (IllegalArgumentException | NoSuchElementException | IllegalStateException exc) {
 			    mensajeError = exc.getMessage();
 			}
 			
 			conPatrocinio = true;
 		}
+	    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
 
 		// B) Si no hubo error en el patrocinio (o si no se usó) -> Proceder al alta
 		if (mensajeError == null) {
-			if (c.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, fechaAlta, conPatrocinio)) {
+			//le voy a poner en la fecha string como alta patrocinio, capaz hay que cambiar
+			if (port.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, LocalDate.now().format(fmt), conPatrocinio)) {
 				mensajeError = "No hay cupos para el registro " + nombreTRegistro;
 			}
 		}
@@ -528,7 +551,7 @@ public class Evento extends HttpServlet {
 			// 2. Guardar datos para que el usuario pueda reintentar sin perderlos
 			request.setAttribute("nombreEdicion", nombreEdicion);
 			request.setAttribute("evento", evento);
-			List<String> tiposRegistro = c.listarTipoRegistro(evento, nombreEdicion);
+			StringArray tiposRegistro = port.listarTipoRegistro(evento, nombreEdicion);
 			request.setAttribute("tiposRegistro", tiposRegistro);
 			request.setAttribute("nombreTRegistro", nombreTRegistro);
 			// 3. Redirigir a una página de error o a la misma página de registro para mostrar el mensaje
@@ -557,7 +580,7 @@ public class Evento extends HttpServlet {
 		ControladorEvento c = ControladorEvento.getInstance();
 
 		String evento = request.getParameter("evento");
-
+		
 		if (!c.listarEventos().contains(evento)) {
 			response.sendRedirect("/webdinamica");
 			return;
@@ -589,14 +612,15 @@ public class Evento extends HttpServlet {
 	}
 
 	protected void altaTipoRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorEvento c = ControladorEvento.getInstance();
-
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -612,13 +636,15 @@ public class Evento extends HttpServlet {
 		String edicion = request.getParameter("edicion");
 		String tregistro = request.getParameter("tipoRegistro");
 
-		ControladorEvento c = ControladorEvento.getInstance();
-		if (!c.existeEdicionEvento(evento, edicion) || !c.listarTipoRegistro(evento, edicion).contains(tregistro)) {
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+		if (!port.existeEdicionEvento(evento, edicion) || !port.listarTipoRegistro(evento, edicion).getItem().contains(tregistro)) {
 			response.sendRedirect("/webdinamica");
 			return;
 
 		}
-		DTTRegistro dtr = c.mostrarTipoRegistro(evento, edicion, tregistro);
+		DttRegistro dtr = port.mostrarTipoRegistro(evento, edicion, tregistro);
 		request.setAttribute("tipoRegistro", dtr);
 
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaTipoRegistro.jsp").forward(request, response);
@@ -634,9 +660,10 @@ public class Evento extends HttpServlet {
 		float costo = Float.parseFloat(request.getParameter("costo"));
 		int cupo = Integer.parseInt(request.getParameter("cupo"));
 
-		ControladorEvento c = ControladorEvento.getInstance();
-
-		boolean ok = c.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+		boolean ok = port.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
 
 		if (!ok) {
 			request.setAttribute("nombreEvento", nombreEvento);
@@ -654,9 +681,29 @@ public class Evento extends HttpServlet {
 
 		altaTipoRegistroGET(request, response);
 	}
-		
 	
-	//######  FINALIZAR EVENTO  ######
+	protected void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+
+        List<DtEvento> eventos = port.buscarEventos(request.getParameter("b")).getItem();
+        List<DtEdicion> ediciones = port.buscarEdiciones(request.getParameter("b")).getItem();
+
+        String ordenar = request.getParameter("ordenar");
+        
+        if (ordenar != null && ordenar.equals("az")) {
+        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()));
+        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()));
+        } else if (ordenar != null && ordenar.equals("za")) {
+        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()).reversed());
+        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()).reversed());        	
+        }
+        
+		request.setAttribute("eventos", eventos);
+		request.setAttribute("ediciones", ediciones);
+
+		request.getRequestDispatcher("/WEB-INF/eventos/busqueda.jsp").forward(request, response);
+	}
 
 		// GET /eventos/finalizarEvento
 		// Permite finalizar un evento
@@ -784,6 +831,8 @@ public class Evento extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
+		} else if (servletPath.equals("/busqueda")) {
+			buscar(request, response);
 		} else {
 
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -849,6 +898,8 @@ public class Evento extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
+		} else if (servletPath.equals("/busqueda")) {
+			buscar(request, response);
 		} else {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			response.getWriter().println("404 - Página no encontrada");

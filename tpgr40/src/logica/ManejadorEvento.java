@@ -1,9 +1,14 @@
 package logica;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
+
 
 public class ManejadorEvento {
 	private Map<String, Evento> eventos;
@@ -90,5 +95,51 @@ public class ManejadorEvento {
 	public void finalizarEvento(String evento) {
 		Evento ev = obtenerEvento(evento);
 		ev.finalizar();
+	}
+	// Devuelve los datos de los eventos que contienen todas las palabras de
+	// str en su nombre o descripción
+	public List<DTEvento> buscarEventos(String str) {
+		List<DTEvento> coincidencias = new ArrayList<>();
+		String[] palabras = normalizar(str).split("\\s+");
+		
+		for (Evento evento : eventos.values()) {
+	    	boolean contieneCadaPalabra
+    			= Arrays.stream(palabras)
+	    			    .allMatch(p -> normalizar(evento.getNombre()).contains(p)
+    			                    || normalizar(evento.getDescripcion()).contains(p));
+	    	
+	    	if (contieneCadaPalabra)
+	    		coincidencias.add(evento.getDatos());
+		}
+		
+		return coincidencias;
+	}
+
+	// Devuelve los datos de las ediciones que contienen todas las palabras de
+	// str en su nombre
+	public List<DTEdicion> buscarEdiciones(String str) {
+		List<DTEdicion> coincidencias = new ArrayList<>();
+		String[] palabras = normalizar(str).split("\\s+");
+		
+		for (Evento evento : eventos.values()) {
+		    for (Edicion edicion : evento.getEdiciones().values()) {
+		    	boolean contieneCadaPalabra
+		    		= Arrays.stream(palabras)
+			    			.allMatch(p -> normalizar(edicion.getNombre()).contains(p));
+		    	
+		    	if (contieneCadaPalabra && edicion.getEstado() == TipoEstado.Aceptada)
+		    		coincidencias.add(edicion.getDatos());
+		    }
+		}
+		
+		return coincidencias;
+	}
+	
+	// Quitar tildes y transformar a minúscula un String
+	// Usada para las búsquedas
+	private static String normalizar(String str) {
+	    return Normalizer.normalize(str, Normalizer.Form.NFD)
+	                     .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+	                     .toLowerCase();
 	}
 }

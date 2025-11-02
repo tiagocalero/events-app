@@ -69,7 +69,7 @@ public class Edicion {
     public String getNombre() {
         return this.nombre;
     }
-    
+	
     public String getEvento() {
         String nombreEv = evento.getNombre();
         return nombreEv;

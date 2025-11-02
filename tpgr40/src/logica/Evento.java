@@ -16,6 +16,7 @@ public class Evento {
 	private String descripcion;
 	private String imagen;
 	private Boolean finalizado;
+	private int visitas;
 	
 	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen, Boolean finalizado) {
 		this.nombre = nombre;
@@ -36,6 +37,10 @@ public class Evento {
 		return nombre;
 	}
 	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
 	public DTEvento getDatos() {
 		List<String> nomCategorias = 
 			categorias.stream()
@@ -44,7 +49,7 @@ public class Evento {
 
 		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen,finalizado, visitas);
 	}
 	
 	public DTEvento getDatosAceptadas() {
@@ -60,8 +65,7 @@ public class Evento {
 		        nomEdiciones.add(entry.getKey());
 		    }
 		}
-		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado, visitas);
 	}
 	
 	public boolean existeEdicion(String nombre) {
@@ -91,4 +95,8 @@ public class Evento {
 	public void finalizar() {
 		this.finalizado = true;
 	}
+	/*
+	public int incrementarVisitar() {
+		this.visitas++;
+	}*/
 }

@@ -2,15 +2,24 @@ package logica;
 
 import java.time.LocalDate;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import publicar.LocalDateAdapter;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTPatrocinio {
 	private String codigo;
 	private TipoNivelPatrocinio tipo;
 	private float monto;
 	private String tipoRegistro;
 	private int cantRegistros;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate fechaAlta;
 	private String institucion;
 	private String imagenInstitucion;
+	
+	public DTPatrocinio() {}
 	
 	public DTPatrocinio(String codigo, TipoNivelPatrocinio tipo, float monto, String tipoRegistro, int cantRegistros, LocalDate fechaAlta, String institucion, String imagenInstitucion) {
 		this.codigo = codigo;
@@ -42,7 +51,7 @@ public class DTPatrocinio {
 	public int getCantRegistros() {
 		return cantRegistros;
 	}
-	
+
 	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}

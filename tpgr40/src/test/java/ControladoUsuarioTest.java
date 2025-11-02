@@ -1,7 +1,6 @@
 package test.java;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,7 +29,6 @@ import logica.ManejadorCategoria;
 import logica.ManejadorInstitucion;
 import logica.ManejadorUsuario;
 import logica.Organizador;
-import logica.Usuario;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {
@@ -186,8 +184,8 @@ class ControladorUsuarioTest {
 		ce.crearTipoRegistro("Evento test", "Edición test 2", "tp5", "desc5", 101, 12);
 		ce.darDeAltaRegistro("as", "Edición test 1", "tp5", "Evento test", f, false);
 		ce.darDeAltaRegistro("as", "Edición test 2", "tp5", "Evento test", f, false);
-		DTRegistro dtr1 = new DTRegistro(101, f, "Evento test", "Edición test 1", "tp5", "as", false);
-		DTRegistro dtr2 = new DTRegistro(101, f, "Evento test", "Edición test 2", "tp5", "as", false);
+		DTRegistro dtr1 = new DTRegistro(101, f, "Evento test", "Edición test 1", "tp5", "as", false, false);
+		DTRegistro dtr2 = new DTRegistro(101, f, "Evento test", "Edición test 2", "tp5", "as", false, false);
 		
 		Asistente a = (Asistente) m.obtener("as");
 		// chequeo asistente
