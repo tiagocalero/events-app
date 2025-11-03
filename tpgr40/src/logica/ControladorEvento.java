@@ -88,6 +88,34 @@ public class ControladorEvento {
 
 		return eventos.values().stream().map(Evento::getDatos).collect(Collectors.toList());
 	}
+	
+	public List<DTEvento> listarDTEventosNoFinalizados() {
+	    ManejadorEvento manejador = ManejadorEvento.getInstance();
+
+	    Map<String, Evento> eventos = manejador.eventos();
+
+	    return eventos.values().stream()
+	            // FILTRADO: Solo mantiene los objetos Evento donde getFinalizada() devuelve 'false'.
+	            .filter(e -> !e.getFinalizado()) 
+	            // MAPEO: Convierte los objetos Evento filtrados a DTEvento.
+	            .map(Evento::getDatos)
+	            // COLECCIÓN: Recolecta los DTEvento en una lista.
+	            .collect(Collectors.toList());
+	}
+	
+	public List<DTEvento> listarDTEventosCategoriaNoFinalizados(String categoria) {
+	    ManejadorCategoria manejador = ManejadorCategoria.getInstance();
+	    // 1. Obtiene solo los eventos asociados a la categoría
+	    Map<String, Evento> eventos = manejador.eventosCategoria(categoria);
+
+	    return eventos.values().stream()
+	            // 2. FILTRO: Solo mantiene los eventos que NO están finalizados.
+	            .filter(e -> !e.getFinalizado()) 
+	            // 3. MAPEO: Convierte los objetos Evento filtrados a DTEvento.
+	            .map(Evento::getDatos)
+	            // 4. COLECCIÓN: Recolecta los DTEvento en una lista.
+	            .collect(Collectors.toList());
+	}
 
 	public List<String> listarPatrocinios(String nomEvento, String nomEdicion) {
 		ManejadorEvento manejador = ManejadorEvento.getInstance();
@@ -214,20 +242,20 @@ public class ControladorEvento {
 
 	// Crea un evento sin imagen (imagen = null)
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
-			List<String> categorias) {
-		return ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias, null);
+			List<String> categorias, Boolean finalizado) {
+		return ingresarDatosEvento(nombre, descripcion, sigla, fechaAlta, categorias, null, finalizado);
 	}
 
 	// Incluye imagen en los parámetros
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
-			List<String> categorias, String imagen) {
+			List<String> categorias, String imagen, Boolean finalizado) {
 		ManejadorEvento manejador = ManejadorEvento.getInstance();
 
 		// Todo evento debe tener una categoría
 		if (categorias.isEmpty())
 			return false;
 
-		return manejador.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen);
+		return manejador.crearEvento(nombre, descripcion, sigla, fechaAlta, categorias, imagen, finalizado);
 	}
 
 	public boolean usuarioEnEdicion(String edicion, String usuario, String evento) {
@@ -367,6 +395,11 @@ public class ControladorEvento {
 		Evento evento = manejador.obtenerEvento(nombreEvento);
 		Edicion edicion = manejador.obtenerEdicion(nombreEdicion, evento);
 		edicion.confirmar();
+	}
+	
+	public void finalizarEvento(String nombreEvento) {
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		manejador.finalizarEvento(nombreEvento);
 	}
 
 	public void rechazarEdicion(String nombreEvento, String nombreEdicion) {

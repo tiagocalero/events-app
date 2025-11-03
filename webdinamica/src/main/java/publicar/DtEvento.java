@@ -26,6 +26,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="categorias" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         <element name="ediciones" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         <element name="imagen" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="finalizado" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         <element name="visitas" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       </sequence>
  *     </restriction>
@@ -44,6 +45,7 @@ import jakarta.xml.bind.annotation.XmlType;
     "categorias",
     "ediciones",
     "imagen",
+    "finalizado",
     "visitas"
 })
 public class DtEvento {
@@ -57,6 +59,7 @@ public class DtEvento {
     @XmlElement(nillable = true)
     protected List<String> ediciones;
     protected String imagen;
+    protected boolean finalizado;
     protected int visitas;
 
     /**
@@ -239,6 +242,22 @@ public class DtEvento {
      */
     public void setImagen(String value) {
         this.imagen = value;
+    }
+
+    /**
+     * Gets the value of the finalizado property.
+     * 
+     */
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    /**
+     * Sets the value of the finalizado property.
+     * 
+     */
+    public void setFinalizado(boolean value) {
+        this.finalizado = value;
     }
 
     /**

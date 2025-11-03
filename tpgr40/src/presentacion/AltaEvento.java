@@ -144,7 +144,7 @@ public class AltaEvento extends JInternalFrame {
         // Si la operación genera un error, mostrárselo al usuario
         boolean exito;
         try {
-        	exito = controlador.ingresarDatosEvento(nombre, desc, sigla, fechaAlta, categorias);
+        	exito = controlador.ingresarDatosEvento(nombre, desc, sigla, fechaAlta, categorias, false);
 		} catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    	return;

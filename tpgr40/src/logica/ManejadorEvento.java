@@ -38,7 +38,7 @@ public class ManejadorEvento {
 	}
 	
 	// Devuelve false si ya existe un evento con el mismo nombre
-	public boolean crearEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias, String imagen) {
+	public boolean crearEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta, List<String> categorias, String imagen, Boolean finalizado) {
 		if (existe(nombre))
 			return false;
 		
@@ -48,7 +48,8 @@ public class ManejadorEvento {
 			descripcion,
 			fechaAlta,
 			categorias,
-			imagen
+			imagen,
+			finalizado
 		);
 		eventos.put(nombre, evento);
 		
@@ -90,7 +91,11 @@ public class ManejadorEvento {
 		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
 		return edicion.getTipoRegistro(nombreTRegistro);
 	}
-
+	
+	public void finalizarEvento(String evento) {
+		Evento ev = obtenerEvento(evento);
+		ev.finalizar();
+	}
 	// Devuelve los datos de los eventos que contienen todas las palabras de
 	// str en su nombre o descripción
 	public List<DTEvento> buscarEventos(String str) {

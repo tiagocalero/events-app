@@ -15,15 +15,17 @@ public class Evento {
 	private Map<String, Edicion> ediciones;
 	private String descripcion;
 	private String imagen;
+	private Boolean finalizado;
 	private int visitas;
 	
-	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen) {
+	public Evento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, String imagen, Boolean finalizado) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;
 		this.fechaAlta = fechaAlta;
 		this.categorias = new ArrayList<>();
 		this.imagen = imagen;
+		this.finalizado= finalizado;
 		ediciones = new HashMap<>();
 		
 		ManejadorCategoria manejador = ManejadorCategoria.getInstance();
@@ -47,7 +49,7 @@ public class Evento {
 
 		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, visitas);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen,finalizado, visitas);
 	}
 	
 	public DTEvento getDatosAceptadas() {
@@ -63,8 +65,7 @@ public class Evento {
 		        nomEdiciones.add(entry.getKey());
 		    }
 		}
-		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, visitas);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado, visitas);
 	}
 	
 	public boolean existeEdicion(String nombre) {
@@ -87,11 +88,20 @@ public class Evento {
 		categorias.add(categoria);
 	}
 	
+
 	public int getVisitas() {
 		return visitas;
 	}
 	
-	public void incrementarVisitar() {
+	public void incrementarVisitas() {
 		this.visitas++;
 	}
+	public boolean getFinalizado() {
+		return finalizado;
+	}
+	
+	public void finalizar() {
+		this.finalizado = true;
+	}
+	
 }
