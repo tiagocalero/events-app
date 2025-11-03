@@ -112,4 +112,10 @@ public class PublicadorUsuario {
     	contUsuario.setContrasena(nickOCorreo, nueva);
     }
     
+    
+    @WebMethod
+    public void registrarAsistencia(String asistente, String edicion) {
+    	contUsuario.registrarAsistencia(asistente, edicion);
+    }
+    
 }
