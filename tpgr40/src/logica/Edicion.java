@@ -22,6 +22,7 @@ public class Edicion {
     private Evento evento;
     private List<Registro> registros;
     private String imagen;
+    private String video;
 
     public Edicion(
 			Evento evento,
@@ -33,7 +34,8 @@ public class Edicion {
 			LocalDate fechaAlta,
 			String ciudad,
 			String pais,
-			String imagen
+			String imagen,
+			String video
 	) {
         this.evento = evento;
         this.organizador = organizador;
@@ -49,6 +51,7 @@ public class Edicion {
         this.tRegistros = new HashMap<String, TRegistro>();
         this.registros = new ArrayList<>();
         this.imagen = imagen;
+        this.video = video;
         
         organizador.agregarEdicion(this);
         evento.agregarEdicion(this);
@@ -63,7 +66,7 @@ public class Edicion {
         		         .collect(Collectors.toList());
         
 
-		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname(), imagen);
+		return new DTEdicion(evento.getNombre(), pais, ciudad, fechaInicio, fechaFinal, fechaAlta, sigla, nombre, institucionesPatrocinadoras, nombreTRegistros, nickAsistentes, organizador.getNickname(), imagen, video);
 	}
 	
     public String getNombre() {
@@ -129,5 +132,9 @@ public class Edicion {
     
     public void rechazar() {
     	estado = TipoEstado.Rechazada;
+    }
+    
+    public String getVideo() {
+    	return video;
     }
 }

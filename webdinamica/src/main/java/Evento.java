@@ -330,7 +330,7 @@ public class Evento extends HttpServlet {
 		LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
 		LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
 		String nombreEvento = request.getParameter("evento");
-
+		String video = request.getParameter("video-url");
 		LocalDate fechaAlta = LocalDate.now();
 
 		HttpSession user = request.getSession(false);
@@ -356,13 +356,13 @@ public class Evento extends HttpServlet {
 		}
 
 		ControladorEvento c = ControladorEvento.getInstance();
-		boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName);
+		boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName, video);
 
 		if (!ok) {
 			request.setAttribute("name", nombre);
 			request.setAttribute("ciudad", ciudad);
 			request.setAttribute("sigla", sigla);
-			request.setAttribute("pais", pais);
+			request.setAttribute("pais", pais); 
 			request.setAttribute("fecha-inicio", fechaInicio);
 			request.setAttribute("fecha-fin", fechaFin);
 
@@ -437,6 +437,9 @@ public class Evento extends HttpServlet {
 
 		String imagen = datosEdicion.getImagen();
 		request.setAttribute("imagen", imagen);
+		
+		String video = datosEdicion.getVideo();
+		request.setAttribute("video", video);
 
 		List<String> instituciones = c.listarInstituciones(evento, edicion);
 		request.setAttribute("instituciones", instituciones);

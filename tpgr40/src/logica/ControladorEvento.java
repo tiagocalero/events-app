@@ -264,13 +264,13 @@ public class ControladorEvento {
 	}
 
 	public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-			LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais) {
+			LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String video) {
 		return altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad,
-				pais, null);
+				pais, null, video);
 	}
 
 	public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-			LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen) {
+			LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen, String video) {
 		ManejadorEvento manejadorEv = ManejadorEvento.getInstance();
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 
@@ -281,7 +281,7 @@ public class ControladorEvento {
 			return false;
 
 		Edicion edicion = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin,
-				fechaAlta, ciudad, pais, imagen);
+				fechaAlta, ciudad, pais, imagen, video);
 		evento.agregarEdicion(edicion);
 
 		return true;

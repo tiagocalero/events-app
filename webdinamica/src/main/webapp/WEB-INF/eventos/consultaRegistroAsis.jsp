@@ -47,7 +47,21 @@
      <% } %>
       </form>
       
-    </div>
+      <br>
+      <form action="/webdinamica/usuarios/descargarConstancia" method="POST" style="margin-top: 20px;">
+          
+          <% 
+            String nombreEdicion = (String) request.getAttribute("edicion");
+            String nombreEvento = request.getParameter("evento");
+          %>
+          <input type="hidden" name="evento" value="<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>"/>
+          <input type="hidden" name="edicion" value="<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>"/>
+          
+          <button type="submit" class="btn btn-success" style="background-color: #28a745; border-color: #28a745;">
+              Descargar Constancia de Asistencia (PDF)
+          </button>
+      </form>
+      </div>
 
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
         <ul class="list-unstyled ps-0">
@@ -56,8 +70,9 @@
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               
               <% 
-                String nombreEdicion = (String) request.getAttribute("edicion");
-                String nombreEvento = request.getParameter("evento");
+                // Estas variables ya están definidas arriba, pero se dejan aquí para claridad del bloque Edición
+                // String nombreEdicion = (String) request.getAttribute("edicion"); 
+                // String nombreEvento = request.getParameter("evento"); 
                 String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
               %>
               

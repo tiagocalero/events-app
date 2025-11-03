@@ -28,7 +28,7 @@
     // Código Java: ¡Requiere punto y coma!
     String nombreEvento = request.getParameter("evento");
     String nombreEdicion = request.getParameter("edicion"); 
-    
+    String videoUrl = (String) request.getAttribute("video");
     // URL base para el registro y consulta
     String urlRegistroAsistente = "/webdinamica/ediciones/registroAEdicionEvento?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
     String urlConsultaAsistente = "/webdinamica/usuarios/consultaRegistroAsis?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
@@ -68,6 +68,51 @@
           <p><strong>Fecha Fin:</strong> <%= ((LocalDate) request.getAttribute("fecha-fin")).toString() %></p>
           <p><strong>Fecha Alta:</strong> <%= ((LocalDate) request.getAttribute("fecha-alta")).toString() %></p>
           
+		   <%
+			    // Obtener la URL del video del atributo enviado por el Servlet
+			    String videoId = null;
+			
+			    // Verificar si la URL existe y no está vacía
+			    if (videoUrl != null && !videoUrl.trim().isEmpty()) {
+			        
+			        // --- Lógica para extraer el ID del Video ---
+			        
+			        // 1. Caso: URL larga (ej: https://www.youtube.com/watch?v=VIDEO_ID)
+			        if (videoUrl.contains("v=")) {
+			            int startIndex = videoUrl.indexOf("v=") + 2;
+			            int endIndex = videoUrl.indexOf("&", startIndex); // Maneja parámetros adicionales
+			
+			            if (endIndex == -1) {
+			                videoId = videoUrl.substring(startIndex);
+			            } else {
+			                videoId = videoUrl.substring(startIndex, endIndex);
+			            }
+			        } 
+			        // 2. Caso: URL corta (ej: https://youtu.be/VIDEO_ID)
+			        else if (videoUrl.contains("youtu.be/")) {
+			            int startIndex = videoUrl.indexOf("youtu.be/") + 9;
+			            videoId = videoUrl.substring(startIndex);
+			        }
+			    }
+			
+			    // Si el ID se extrajo correctamente, mostrar el iframe
+			    if (videoId != null) {
+		   %>
+			  
+			    <div class="video-container mt-4">
+			        <h3>Video</h3>
+			        <%-- Incrustar el video en el iframe usando el ID extraído --%>
+			        <iframe width="100%" height="315" 
+			                src="https://www.youtube.com/embed/<%= videoId %>" 
+			                frameborder="0" 
+			                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+			                allowfullscreen>
+			        </iframe>
+			    </div>
+		   <%
+			    }
+		   %>
+
           <%-- Lógica de Botones Condicionales --%>
           <% 
             if (esElOrganizadorDeEstaEdicion) { 
