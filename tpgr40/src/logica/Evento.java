@@ -88,6 +88,14 @@ public class Evento {
 		categorias.add(categoria);
 	}
 	
+
+	public int getVisitas() {
+		return visitas;
+	}
+	
+	public void incrementarVisitas() {
+		this.visitas++;
+	}
 	public boolean getFinalizado() {
 		return finalizado;
 	}
@@ -95,8 +103,5 @@ public class Evento {
 	public void finalizar() {
 		this.finalizado = true;
 	}
-	/*
-	public int incrementarVisitar() {
-		this.visitas++;
-	}*/
+	
 }

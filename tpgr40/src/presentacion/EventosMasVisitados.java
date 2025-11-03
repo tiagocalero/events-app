@@ -70,7 +70,21 @@ public class EventosMasVisitados extends JInternalFrame {
         // Acción de actualizar
         btnActualizar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                cargarEventosMasVisitados();
+            	modeloTabla.setRowCount(0);
+
+                // Obtener los 5 más visitados desde la lógica
+                ControladorEvento c = ControladorEvento.getInstance();
+                List<Evento> eventos = c.obtenerEventosMasVisitados();
+
+                // Cargar los eventos en la tabla
+                int i = 0;
+                for (Evento ev : eventos) {
+                    modeloTabla.addRow(new Object[]{
+                        i++,                  // Posición (1°, 2°, 3°, ...)
+                        ev.getNombre(),        // Nombre del evento
+                        ev.getVisitas()        // Cantidad de visitas
+                    });
+                }           
             }
         });
     }

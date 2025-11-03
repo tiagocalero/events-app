@@ -466,4 +466,13 @@ public class ControladorEvento {
 		ManejadorEvento me = ManejadorEvento.getInstance();
 		return me.buscarEdiciones(str);
 	}
+	public List<Evento> obtenerEventosMasVisitados(){
+		ManejadorEvento me = ManejadorEvento.getInstance();
+		Map<String, Evento> eventos = me.eventos();
+		
+		return eventos.values().stream()
+	            .sorted((e1, e2) -> Integer.compare(e2.getVisitas(), e1.getVisitas())) // de mayor a menor
+	            .limit(5)
+	            .collect(Collectors.toList());
+	}
 }
