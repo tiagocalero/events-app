@@ -48,31 +48,31 @@ public class CargarDatos {
 
         fechaAlta = LocalDate.parse("10/01/2025", fmt);
 		List<String> cats1 = new ArrayList<>(Arrays.asList("Tecnología", "Innovación"));
-		contE.ingresarDatosEvento("Conferencia de Tecnología", "Evento sobre innovación tecnológica", "CONFTEC", fechaAlta, cats1);
+		contE.ingresarDatosEvento("Conferencia de Tecnología", "Evento sobre innovación tecnológica", "CONFTEC", fechaAlta, cats1, false);
 
         fechaAlta = LocalDate.parse("01/02/2025", fmt);
 		List<String> cats2 = new ArrayList<>(Arrays.asList("Cultura", "Literatura"));
-		contE.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2, "IMG-EV02.jpeg");
+		contE.ingresarDatosEvento("Feria del Libro", "Encuentro anual de literatura", "FERLIB", fechaAlta, cats2, "IMG-EV02.jpeg", false);
 
         fechaAlta = LocalDate.parse("15/03/2023", fmt);
 		List<String> cats3 = new ArrayList<>(Arrays.asList("Cultura", "Música"));
-		contE.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3, "IMG-EV03.jpeg");
+		contE.ingresarDatosEvento("Montevideo Rock", "Festival de rock con artistas nacionales e internacionales", "MONROCK", fechaAlta, cats3, "IMG-EV03.jpeg", false);
 
         fechaAlta = LocalDate.parse("01/01/2022", fmt);
 		List<String> cats4 = new ArrayList<>(Arrays.asList("Deporte", "Salud"));
-		contE.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4, "IMG-EV04.png");
+		contE.ingresarDatosEvento("Maratón de Montevideo", "Competencia deportiva anual en la capital", "MARATON", fechaAlta, cats4, "IMG-EV04.png", false);
 
         fechaAlta = LocalDate.parse("10/04/2024", fmt);
 		List<String> cats5 = new ArrayList<>(Arrays.asList("Cultura", "Entretenimiento"));
-		contE.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5, "IMG-EV05.png");
+		contE.ingresarDatosEvento("Montevideo Comics", "Convención de historietas, cine y cultura geek", "COMICS", fechaAlta, cats5, "IMG-EV05.png", false);
 
         fechaAlta = LocalDate.parse("12/12/2024", fmt);
 		List<String> cats6 = new ArrayList<>(Arrays.asList("Agro", "Negocios"));
-		contE.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6, "IMG-EV06.png");
+		contE.ingresarDatosEvento("Expointer Uruguay", "Exposición internacional agropecuaria y ganadera", "EXPOAGRO", fechaAlta, cats6, "IMG-EV06.png", false);
 
         fechaAlta = LocalDate.parse("20/07/2025", fmt);
 		List<String> cats7 = new ArrayList<>(Arrays.asList("Cultura", "Moda"));
-		contE.ingresarDatosEvento("Montevideo Fashion Week", "Pasarela de moda uruguaya e internacional", "MFASHION", fechaAlta, cats7);
+		contE.ingresarDatosEvento("Montevideo Fashion Week", "Pasarela de moda uruguaya e internacional", "MFASHION", fechaAlta, cats7, false);
 		
 		
 		//Cargar Organizaciones

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -28,6 +29,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import logica.ControladorEvento;
+import logica.ControladorUsuario;
 import logica.DTAsistente;
 import logica.DTEdicion;
 import logica.DTEvento;
@@ -72,11 +74,11 @@ public class Evento extends HttpServlet {
 		String categoria = request.getParameter("categoria");
 		List<DtEvento> eventos;
 		if (categoria != null && !categoria.trim().isEmpty()) {
-			eventos = port.listarDTEventosCategoria(categoria).getItem();
+			eventos = port.listarDTEventosCategoriaNoFinalizados(categoria).getItem();
 		} else {
-			eventos = port.listarDTEventos().getItem();
-		}
-
+			eventos = port.listarDTEventosNoFinalizados().getItem();		
+		} 
+		
 		request.setAttribute("eventos", eventos);
 		request.setAttribute("categoriaSeleccionada", categoria); 
 
@@ -703,6 +705,61 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/busqueda.jsp").forward(request, response);
 	}
 
+		// GET /eventos/finalizarEvento
+		// Permite finalizar un evento
+		protected void finalizarEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		    // 1. Obtener el controlador
+		    ControladorUsuario c = ControladorUsuario.getInstance();
+		    ControladorEvento ce = ControladorEvento.getInstance();
+	
+		    // 2. Obtener la sesión y el usuario (se mantiene la lógica original)
+		    HttpSession userSession = request.getSession(false);
+		    DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		    
+		    // 3. Obtener todas las ediciones del Organizador
+		    List<DTEdicion> ediciones = c.consultaOrganizador();
+		    
+		    // 4. Crear un Set para almacenar nombres de eventos únicos
+		    Set<String> eventosUnicos = new HashSet<>();
+		    
+		    // 5. Recorrer las ediciones para extraer los nombres de eventos únicos
+		    for (DTEdicion edicion : ediciones) {
+		    	DTEvento ev = ce.informacionEvento(edicion.getEvento());
+		    	if (ev.getFinalizado() == false) {
+		    		eventosUnicos.add(edicion.getEvento()); 
+		    	}
+		    }
+		    
+		    // 6. Convertir el Set (único) a una List para enviarlo al JSP
+		    List<String> eventos = new ArrayList<>(eventosUnicos);
+		    
+		    // 7. Establecer los atributos para el JSP
+		    // Se envía la lista de ediciones por si el JSP la necesita (e.g., para el sidebar).
+		    request.setAttribute("ediciones", ediciones);
+		    
+		    // Se envía la nueva lista de nombres de eventos únicos.
+		    request.setAttribute("eventosCreados", eventos);
+		    
+		    String nombreEvento = request.getParameter("nombreEvento");
+		    request.setAttribute("evento", nombreEvento);
+		    
+		    // 8. Hacer el forward al JSP
+		    request.getRequestDispatcher("/WEB-INF/eventos/finalizarEvento.jsp").forward(request, response);
+		}
+		
+		protected void finalizarEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			ControladorEvento c = ControladorEvento.getInstance();
+
+		    // 1. Obtener el parámetro del formulario (nombreEvento)
+		    String nombreEvento = request.getParameter("nombreEvento");
+		    
+		    c.finalizarEvento(nombreEvento);
+		    finalizarEventoGET(request, response);
+		}
+
+
+	//############################# 
+		
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -722,7 +779,10 @@ public class Evento extends HttpServlet {
 				altaEventoGET(request, response);
 			} else if (path.equals("/consultaEvento")) {
 				consultaEventoGET(request, response);
-			} else {
+			} else if (path.equals("/finalizarEvento")) {
+				finalizarEventoGET(request, response);
+			}
+			else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
@@ -798,7 +858,9 @@ public class Evento extends HttpServlet {
 				response.getWriter().println("Página de consulta");
 			} else if (path.equals("/alta")) {
 				altaEventoPOST(request, response);
-			} else {
+			} else if (path.equals("/finalizarEvento")) {
+				finalizarEventoPOST(request, response);
+			}else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
