@@ -113,7 +113,7 @@ public class Principal extends JFrame {
         menuEventosMasVisitados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	JInternalFrame emv = new listarEventosMasVisitados();
+            	JInternalFrame emv = new EventosMasVisitados();
                 desktopPane.add(emv);
                 centerInternalFrame(emv);
                 emv.setVisible(true);

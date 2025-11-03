@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class listarEventosMasVisitados extends JInternalFrame {
+public class EventosMasVisitados extends JInternalFrame {
     private JTable tablaEventos;
     private JButton btnActualizar;
     private JButton btnCerrar;
@@ -18,7 +18,7 @@ public class listarEventosMasVisitados extends JInternalFrame {
     private JLabel lblTitulo;
     private DefaultTableModel modeloTabla;
 
-    public listarEventosMasVisitados() {
+    public EventosMasVisitados() {
         initComponents();
     }
 
