@@ -58,6 +58,9 @@
 		  <label for="imagen">Selecciona una foto:</label>
 		  <input type="file" id="imagen" name="imagen" accept="image/*"><br/>
 		
+		  <label for="video-url">URL del Video (Opcional):</label>
+		  <input type="url" id="video-url" name="video-url" value="${requestScope['video-url']}" placeholder="Ej: https://www.youtube.com/watch?v=..."><br/>
+		  
 		  <input type="reset" value = "Borrar"/>
 		  <input type="submit" value = "Crear"/>
 		</form>
