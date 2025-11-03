@@ -31,6 +31,19 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @return
+     *     returns publicar.DtEventoArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosRequest", output = "http://publicar/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosResponse")
+    public DtEventoArray listarDTEventosCategoriaNoFinalizados(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
@@ -52,6 +65,16 @@ public interface PublicadorEvento {
     public StringArray listarEdicionesAceptadas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns publicar.DtEventoArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarDTEventosNoFinalizadosRequest", output = "http://publicar/PublicadorEvento/listarDTEventosNoFinalizadosResponse")
+    public DtEventoArray listarDTEventosNoFinalizados();
 
     /**
      * 
@@ -509,6 +532,19 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorEvento/rechazarEdicionRequest", output = "http://publicar/PublicadorEvento/rechazarEdicionResponse")
+    public void rechazarEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
      * @param arg2
      * @param arg3
      * @param arg4
@@ -526,19 +562,6 @@ public interface PublicadorEvento {
         String arg3,
         @WebParam(name = "arg4", partName = "arg4")
         String arg4);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorEvento/rechazarEdicionRequest", output = "http://publicar/PublicadorEvento/rechazarEdicionResponse")
-    public void rechazarEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
 
     /**
      * 

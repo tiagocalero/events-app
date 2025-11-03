@@ -47,6 +47,9 @@ public class Institucion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Categoria.listarCategorias(request, response);
 	    	
+		publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
+        publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
+		
 		//request.setCharacterEncoding("UTF-8");
 
         // Get form fields
@@ -68,10 +71,8 @@ public class Institucion extends HttpServlet {
 	        fotoPart.write(uploadPath + File.separator + fileName);
         }
 
-        ControladorInstitucion controlador = ControladorInstitucion.getInstance();
-
         try {
-        	boolean creada = controlador.altaInstitucion(nombre, descripcion, sitioWeb, fileName);
+        	boolean creada = port.altaInstitucion(nombre, descripcion, sitioWeb, fileName);
 
             if (creada) {
                 request.setAttribute("mensaje", "Institución creada correctamente.");
