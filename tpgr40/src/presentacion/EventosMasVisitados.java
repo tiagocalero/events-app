@@ -73,3 +73,5 @@ public class EventosMasVisitados extends JInternalFrame {
                 cargarEventosMasVisitados();
             }
         });
+    }
+}

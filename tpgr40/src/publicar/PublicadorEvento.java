@@ -74,6 +74,14 @@ public class PublicadorEvento {
     	return contEvento.listarDTEventos().toArray(new DTEvento[0]);
     }
     
+    public DTEvento[] listarDTEventosNoFinalizados() {
+    	return contEvento.listarDTEventos().toArray(new DTEvento[0]);
+    }
+    
+    public DTEvento[] listarDTEventosCategoriaNoFinalizados(String categoria) {
+    	return contEvento.listarDTEventos().toArray(new DTEvento[0]);
+    }
+    
     @WebMethod
     public ArrayList<String> listarPatrocinios(String nomEvento, String nomEdicion) {
     	return new ArrayList<>(contEvento.listarPatrocinios(nomEvento, nomEdicion));
@@ -134,7 +142,7 @@ public class PublicadorEvento {
     public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, String fechaAlta,
 			String[] categorias, String imagen) {
     	DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-    	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.parse(fechaAlta, fmt), Arrays.asList(categorias), imagen);
+    	return contEvento.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.parse(fechaAlta, fmt), Arrays.asList(categorias), imagen, false);
     }
     
     @WebMethod
