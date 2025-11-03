@@ -108,19 +108,19 @@ public class Principal extends JFrame {
             }
         });
         menuEventos.add(menuConEventos);
-        /*
-        JMenuItem menuConEventos = new JMenuItem("Eventos más Visitados");
-        menuConEventos.addActionListener(new ActionListener() {
+        
+        JMenuItem menuEventosMasVisitados = new JMenuItem("Eventos más Visitados");
+        menuEventosMasVisitados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	JInternalFrame c = new EventosMasVisitados(desktopPane);
-                desktopPane.add(c);
-                centerInternalFrame(c);
-                c.setVisible(true);
+            	JInternalFrame emv = new listarEventosMasVisitados();
+                desktopPane.add(emv);
+                centerInternalFrame(emv);
+                emv.setVisible(true);
             }
         });
-        menuEventos.add(menuConEventos);
-*/
+        menuEventos.add(menuEventosMasVisitados);
+
         JMenu menuEdiciones = new JMenu("Ediciones");
         menuBar.add(menuEdiciones);
         JMenuItem menuAltaEdicion = new JMenuItem("Alta de Edición de Evento");

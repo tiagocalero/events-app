@@ -87,8 +87,11 @@ public class Evento {
 		categorias.add(categoria);
 	}
 	
-	/*
-	public int incrementarVisitar() {
+	public int getVisitas() {
+		return visitas;
+	}
+	
+	public void incrementarVisitar() {
 		this.visitas++;
-	}*/
+	}
 }
