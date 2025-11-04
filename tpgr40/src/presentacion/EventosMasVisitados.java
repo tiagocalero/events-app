@@ -20,6 +20,7 @@ public class EventosMasVisitados extends JInternalFrame {
 
     public EventosMasVisitados() {
         initComponents();
+        cargarDatosIniciales();
     }
 
     private void initComponents() {
@@ -87,5 +88,20 @@ public class EventosMasVisitados extends JInternalFrame {
                 }           
             }
         });
+    }
+    private void cargarDatosIniciales() {
+        modeloTabla.setRowCount(0);
+
+        ControladorEvento c = ControladorEvento.getInstance();
+        List<Evento> eventos = c.obtenerEventosMasVisitados();
+
+        int i = 1;
+        for (Evento ev : eventos) {
+            modeloTabla.addRow(new Object[]{
+                i++,                
+                ev.getNombre(),      
+                ev.getVisitas()   
+            });
+        }
     }
 }

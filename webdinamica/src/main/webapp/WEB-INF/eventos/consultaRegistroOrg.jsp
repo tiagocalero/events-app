@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="logica.DTRegistro" %>
+<%@ page import="publicar.DtRegistro" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     
     <%
       // Recuperar la lista y la edición del Request
-      List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
+      List<publicar.DtRegistro> registros = (List<publicar.DtRegistro>) request.getAttribute("registros");
       String nombreEdicion = (String) request.getAttribute("edicion"); 
     %>
 
@@ -37,11 +37,12 @@
         <select id="usuarioSelect" name="asistente" onchange="mostrarDetalles(this.value)">
           <option value="">Seleccione un Asistente</option>
           
-          <%
+          <%//es nombre edicion?
+          
             if (registros != null) {
-                for (DTRegistro registro : registros) {
-          %>
-                    <option value="<%= registro.getNombre() %>"><%= registro.getNombre() %></option>
+                for (DtRegistro registro : registros) {
+          %> 
+                    <option value="<%= registro.getNicknameUsuario() %>"><%= registro.getNicknameUsuario() %></option> 
           <%
                 }
             }
@@ -92,11 +93,11 @@
     const registrosJS = [];
     <%
       if (registros != null) {
-          for (DTRegistro registro : registros) {
+          for (DtRegistro registro : registros) {
               // Creamos el objeto JS directamente con los datos de Java
     %>
               registrosJS.push({
-                  nicknameAsistente: '<%= registro.getNombre() %>',
+                  nicknameAsistente: '<%= registro.getNicknameUsuario() %>',
                   fecha: '<%= registro.getFecha() %>',
                   tipo: '<%= registro.getTipo() %>',
                   costo: '<%= registro.getCosto() %>'

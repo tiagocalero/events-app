@@ -18,7 +18,7 @@ import logica.Evento;
 
 
 
-@WebFilter("/eventos/consulta") // Se aplica a las URLs de consultar eventos
+@WebFilter("/eventos/consultaEvento") // Se aplica a las URLs de consultar eventos
 public class ContadorFiltroEventos implements Filter {
 
     @Override
