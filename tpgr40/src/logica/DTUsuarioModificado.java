@@ -2,8 +2,10 @@ package logica;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({ DTAsistenteModificado.class, DTOrganizadorModificado.class })
 public class DTUsuarioModificado {
 	private String nombre;
 	private String imagen;

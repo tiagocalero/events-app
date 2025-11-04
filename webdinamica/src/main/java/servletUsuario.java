@@ -21,6 +21,7 @@ import logica.DTRegistro;
 import logica.DTUsuario;
 import publicar.DtUsuario;
 import publicar.DtAsistente;
+import publicar.DtEdicion;
 import publicar.DtOrganizador;
 import publicar.DtEdicion;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -34,6 +35,7 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import java.time.format.DateTimeFormatter;
 import java.io.OutputStream;
 
+import publicar.DtRegistro;
 
 /**
  * Servlet implementation class Usuario
@@ -60,7 +62,7 @@ public class servletUsuario extends HttpServlet {
         publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
         publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
     	
-    	List<String> instituciones = port.listarInstituciones();
+    	List<String> instituciones = port.listarInstituciones().getItem();
         request.setAttribute("instituciones", instituciones);
         
     	// Mostrar el HTML
@@ -73,7 +75,7 @@ public class servletUsuario extends HttpServlet {
         publicar.PublicadorInstitucionService serviceI = new publicar.PublicadorInstitucionService();
         publicar.PublicadorInstitucion portI = serviceI.getPublicadorInstitucionPort();
         
-    	List<String> instituciones = portI.listarInstituciones();
+    	List<String> instituciones = portI.listarInstituciones().getItem();
         
         request.setAttribute("instituciones", instituciones);
         HttpSession userSession = request.getSession(false);
@@ -88,10 +90,10 @@ public class servletUsuario extends HttpServlet {
     	usuario = port.elegirUsuario(usuario.getNickname());
     	
     	if (usuario instanceof DtAsistente) {
-    		List<DTRegistro> registros = port.consultaAsistente();
+    		List<DtRegistro> registros = port.consultaAsistente().getItem();
     		request.setAttribute("registros", registros);
     	} else if (usuario instanceof DtOrganizador) {
-    		List<DTEdicion> ediciones = port.consultaOrganizador();
+    		List<DtEdicion> ediciones = port.consultaOrganizador().getItem();
     		request.setAttribute("ediciones", ediciones);
     	}
     	
@@ -106,7 +108,7 @@ public class servletUsuario extends HttpServlet {
     		DtUsuario usuario = port.elegirUsuario(nick);
         	
         	if (usuario instanceof DtAsistente) {
-        		List<DTRegistro> registros = port.consultaAsistente();
+        		List<DtRegistro> registros = port.consultaAsistente().getItem();
         		request.setAttribute("registros", registros);
         	}
         	
@@ -352,7 +354,7 @@ public class servletUsuario extends HttpServlet {
 	protected void listaGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
         publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
-		List<String> usuarios = port.listarUsuarios();
+		List<String> usuarios = port.listarUsuarios().getItem();
 		request.setAttribute("lista", usuarios);
 		
     	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);
