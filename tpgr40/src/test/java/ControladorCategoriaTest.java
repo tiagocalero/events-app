@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
-import logica.ManejadorCategoria;
-import logica.ControladorCategoria;
+import main.java.logica.ManejadorCategoria;
+import main.java.logica.ControladorCategoria;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorCategoriaTest {

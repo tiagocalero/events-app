@@ -14,21 +14,21 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import logica.Asistente;
-import logica.ControladorCategoria;
-import logica.ControladorEvento;
-import logica.ControladorInstitucion;
-import logica.ControladorUsuario;
-import logica.DTAsistente;
-import logica.DTAsistenteModificado;
-import logica.DTEdicion;
-import logica.DTOrganizador;
-import logica.DTOrganizadorModificado;
-import logica.DTRegistro;
-import logica.ManejadorCategoria;
-import logica.ManejadorInstitucion;
-import logica.ManejadorUsuario;
-import logica.Organizador;
+import main.java.logica.Asistente;
+import main.java.logica.ControladorCategoria;
+import main.java.logica.ControladorEvento;
+import main.java.logica.ControladorInstitucion;
+import main.java.logica.ControladorUsuario;
+import main.java.logica.DTAsistente;
+import main.java.logica.DTAsistenteModificado;
+import main.java.logica.DTEdicion;
+import main.java.logica.DTOrganizador;
+import main.java.logica.DTOrganizadorModificado;
+import main.java.logica.DTRegistro;
+import main.java.logica.ManejadorCategoria;
+import main.java.logica.ManejadorInstitucion;
+import main.java.logica.ManejadorUsuario;
+import main.java.logica.Organizador;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorUsuarioTest {

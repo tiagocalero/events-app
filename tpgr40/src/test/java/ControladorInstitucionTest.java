@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import logica.ControladorInstitucion;
-import logica.Institucion;
-import logica.ManejadorInstitucion;
+import main.java.logica.ControladorInstitucion;
+import main.java.logica.Institucion;
+import main.java.logica.ManejadorInstitucion;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorInstitucionTest {

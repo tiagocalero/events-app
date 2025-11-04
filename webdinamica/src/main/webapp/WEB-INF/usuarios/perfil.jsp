@@ -1,9 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
+<<<<<<< HEAD
 <%@ page import="publicar.DtAsistente" %>
 <%@ page import="publicar.DtOrganizador" %>
 <%@ page import="publicar.DtEdicion" %>
 <%@ page import="publicar.DtRegistro" %>
+=======
+<%@ page import="logica.DTUsuario" %>
+<%@ page import="main.java.publicar.DtAsistente" %>
+<%@ page import="main.java.publicar.DtOrganizador" %>
+<%@ page import="logica.DTEdicion" %>
+<%@ page import="logica.DTRegistro" %>
+>>>>>>> b5eae1d (Maven de tpgr40)
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>

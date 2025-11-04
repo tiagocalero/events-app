@@ -18,21 +18,21 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import excepciones.PatrocinioSuperaMontoException;
-import excepciones.YaExistePatrocinioException;
-import logica.ControladorCategoria;
-import logica.ControladorEvento;
-import logica.ControladorInstitucion;
-import logica.ControladorUsuario;
-import logica.DTEdicion;
-import logica.DTEvento;
-import logica.DTPatrocinio;
-import logica.DTTRegistro;
-import logica.ManejadorCategoria;
-import logica.ManejadorEvento;
-import logica.ManejadorInstitucion;
-import logica.ManejadorUsuario;
-import logica.TipoNivelPatrocinio;
+import main.java.excepciones.PatrocinioSuperaMontoException;
+import main.java.excepciones.YaExistePatrocinioException;
+import main.java.logica.ControladorCategoria;
+import main.java.logica.ControladorEvento;
+import main.java.logica.ControladorInstitucion;
+import main.java.logica.ControladorUsuario;
+import main.java.logica.DTEdicion;
+import main.java.logica.DTEvento;
+import main.java.logica.DTPatrocinio;
+import main.java.logica.DTTRegistro;
+import main.java.logica.ManejadorCategoria;
+import main.java.logica.ManejadorEvento;
+import main.java.logica.ManejadorInstitucion;
+import main.java.logica.ManejadorUsuario;
+import main.java.logica.TipoNivelPatrocinio;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControladorEventoTest {

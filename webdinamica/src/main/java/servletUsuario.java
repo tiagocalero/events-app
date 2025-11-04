@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+<<<<<<< HEAD
 import publicar.DtAsistenteModificado;
 import publicar.DtOrganizadorModificado;
 import publicar.DtUsuario;
@@ -31,6 +32,20 @@ import java.time.format.DateTimeFormatter;
 import java.io.OutputStream;
 
 import publicar.DtRegistro;
+=======
+import logica.DTAsistente;
+import logica.DTAsistenteModificado;
+import logica.DTEdicion;
+import logica.DTOrganizador;
+import logica.DTOrganizadorModificado;
+import logica.DTRegistro;
+import logica.DTUsuario;
+import main.java.publicar.DtUsuario;
+import main.java.publicar.DtAsistente;
+import main.java.publicar.DtEdicion;
+import main.java.publicar.DtOrganizador;
+import main.java.publicar.DtRegistro;
+>>>>>>> b5eae1d (Maven de tpgr40)
 
 /**
  * Servlet implementation class Usuario

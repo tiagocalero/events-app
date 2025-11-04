@@ -2,8 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="publicar.DtUsuario" %> 
-<%@ page import="publicar.DtOrganizador" %> 
+<%@ page import="main.java.publicar.DtUsuario" %> 
+<%@ page import="main.java.publicar.DtOrganizador" %> 
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 

@@ -1,0 +1,5 @@
+package main.java.logica;
+
+public enum TipoNivelPatrocinio {
+	Platino, Oro, Plata, Bronce
+}
