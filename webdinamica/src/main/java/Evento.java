@@ -449,7 +449,7 @@ public class Evento extends HttpServlet {
 		String video = datosEdicion.getVideo();
 		request.setAttribute("video", video);
 
-		List<String> instituciones = port.listarInstituciones().getItem();
+		List<String> instituciones = port.listarInstitucionesEdicionEvento(evento, edicion).getItem();
 		request.setAttribute("instituciones", instituciones);
 
 		// No se muestra el botón de crear patrocinio si la edición ya
