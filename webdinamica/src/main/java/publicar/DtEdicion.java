@@ -21,9 +21,9 @@ import jakarta.xml.bind.annotation.XmlType;
  *       <sequence>
  *         <element name="pais" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="ciudad" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         <element name="fechaInicio" type="{http://publicar/}localDate" minOccurs="0"/>
- *         <element name="fechaFin" type="{http://publicar/}localDate" minOccurs="0"/>
- *         <element name="fechaAlta" type="{http://publicar/}localDate" minOccurs="0"/>
+ *         <element name="fechaInicio" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="fechaFin" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="fechaAlta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="sigla" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="nombre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="institucionesPatrocinadoras" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
@@ -62,9 +62,9 @@ public class DtEdicion {
 
     protected String pais;
     protected String ciudad;
-    protected LocalDate fechaInicio;
-    protected LocalDate fechaFin;
-    protected LocalDate fechaAlta;
+    protected String fechaInicio;
+    protected String fechaFin;
+    protected String fechaAlta;
     protected String sigla;
     protected String nombre;
     @XmlElement(nillable = true)
@@ -131,10 +131,10 @@ public class DtEdicion {
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
@@ -143,10 +143,10 @@ public class DtEdicion {
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFechaInicio(LocalDate value) {
+    public void setFechaInicio(String value) {
         this.fechaInicio = value;
     }
 
@@ -155,10 +155,10 @@ public class DtEdicion {
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
@@ -167,10 +167,10 @@ public class DtEdicion {
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFechaFin(LocalDate value) {
+    public void setFechaFin(String value) {
         this.fechaFin = value;
     }
 
@@ -179,10 +179,10 @@ public class DtEdicion {
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFechaAlta() {
+    public String getFechaAlta() {
         return fechaAlta;
     }
 
@@ -191,10 +191,10 @@ public class DtEdicion {
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFechaAlta(LocalDate value) {
+    public void setFechaAlta(String value) {
         this.fechaAlta = value;
     }
 

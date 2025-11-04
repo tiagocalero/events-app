@@ -43,6 +43,7 @@ import publicar.DtOrganizador;
 import publicar.DtPatrocinio;
 import publicar.DtUsuario;
 import publicar.DttRegistro;
+import publicar.DtAsistente;
 
 /**
  * Servlet implementation class Evento
@@ -85,6 +86,8 @@ public class Evento extends HttpServlet {
 		// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
 	}
+	
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
 	// GET /patrocinios/alta
 	protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -334,7 +337,7 @@ public class Evento extends HttpServlet {
 		LocalDate fechaAlta = LocalDate.now();
 
 		HttpSession user = request.getSession(false);
-		DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
 		String nicknameOrganizador = usuario.getNickname();
 
 		// Obtener imagen
@@ -355,8 +358,10 @@ public class Evento extends HttpServlet {
 			filePart.write(uploadPath + File.separator + fileName);
 		}
 
-		ControladorEvento c = ControladorEvento.getInstance();
-		boolean ok = c.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName, video);
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+        boolean ok = port.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName, video);
 
 		if (!ok) {
 			request.setAttribute("name", nombre);
@@ -381,18 +386,18 @@ public class Evento extends HttpServlet {
 	// GET /ediciones/consultaEdicion
 	// Carga las categorías existentes en el formulario
 	protected void consultaEdicionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ControladorEvento c = ControladorEvento.getInstance();
-
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();	
+        
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
 
-		if (!c.existeEdicionEvento(evento, edicion)) {
+		if (!port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
-		DTEdicion datosEdicion = c.obtenerEdicion(edicion, evento);
+		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 
 		// 1. Obtener el usuario de la sesión
 		HttpSession session = request.getSession(false);
@@ -402,10 +407,10 @@ public class Evento extends HttpServlet {
 
 		// 2. Verificar si el usuario logueado es un Asistente y si está registrado
 		if (usuario instanceof DTAsistente) {
-			DTAsistente asistente = (DTAsistente) usuario;
+			DtAsistente asistente = (DtAsistente) usuario;
 			String nickname = asistente.getNickname();
 
-			estaRegistrado = c.usuarioEnEdicion(edicion, nickname, evento);
+			estaRegistrado = port.usuarioEnEdicion(edicion, nickname, evento);
 		}
 
 		request.setAttribute("estaRegistrado", estaRegistrado);
@@ -419,17 +424,17 @@ public class Evento extends HttpServlet {
 
 		String ciudad = datosEdicion.getCiudad();
 		request.setAttribute("ciudad", ciudad);
-
-		LocalDate fechaIni = datosEdicion.getFechaInicio();
+		
+		LocalDate fechaIni = LocalDate.parse(datosEdicion.getFechaInicio(), FORMATTER);
 		request.setAttribute("fecha-ini", fechaIni);
 
-		LocalDate fechaFin = datosEdicion.getFechaFin();
+		LocalDate fechaFin = LocalDate.parse(datosEdicion.getFechaFin(), FORMATTER);
 		request.setAttribute("fecha-fin", fechaFin);
 
-		LocalDate fechaAlta = datosEdicion.getFechaAlta();
+		LocalDate fechaAlta = LocalDate.parse(datosEdicion.getFechaAlta(), FORMATTER);
 		request.setAttribute("fecha-alta", fechaAlta);
 
-		List<String> tiposRegistros = datosEdicion.getTipoRegistros();
+		List<String> tiposRegistros = datosEdicion.getTRegistros();
 		request.setAttribute("tiposRegistros", tiposRegistros);
 
 		String organizador = datosEdicion.getOrganizador();
@@ -441,12 +446,12 @@ public class Evento extends HttpServlet {
 		String video = datosEdicion.getVideo();
 		request.setAttribute("video", video);
 
-		List<String> instituciones = c.listarInstituciones(evento, edicion);
+		List<String> instituciones = port.listarInstituciones().getItem();
 		request.setAttribute("instituciones", instituciones);
 
 		// No se muestra el botón de crear patrocinio si la edición ya
 		// está patrocinada por todas las instituciones
-		boolean tieneTodasLasInstituciones = new HashSet<>(c.listarInstituciones()).equals(new HashSet<>(instituciones));
+		boolean tieneTodasLasInstituciones = new HashSet<>(port.listarInstituciones().getItem()).equals(new HashSet<>(instituciones));
 		request.setAttribute("tieneTodasLasInstituciones", tieneTodasLasInstituciones);
 
 		// Mostrar el HTML
@@ -465,13 +470,13 @@ public class Evento extends HttpServlet {
         publicar.PublicadorEvento port = service.getPublicadorEventoPort();		
         
 		HttpSession userSession = request.getSession(false);
-		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que organizadores o visitantes accedan
 		if (usuario == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (!(usuario instanceof DTAsistente)) {
+		} else if (!(usuario instanceof DtAsistente)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -502,18 +507,18 @@ public class Evento extends HttpServlet {
 		String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
 
 		HttpSession userSession = request.getSession(false);
-		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que organizadores o visitantes accedan
 		if (usuarioLoggeado == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (!(usuarioLoggeado instanceof DTAsistente)) {
+		} else if (!(usuarioLoggeado instanceof DtAsistente)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 		
-		DTAsistente usuario = (DTAsistente) usuarioLoggeado;
+		DtAsistente usuario = (DtAsistente) usuarioLoggeado;
 
 		String nickname = usuario.getNickname();
 		String nombreInstitucion = usuario.getInstitucion();
@@ -714,24 +719,26 @@ public class Evento extends HttpServlet {
 		// GET /eventos/finalizarEvento
 		// Permite finalizar un evento
 		protected void finalizarEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    // 1. Obtener el controlador
-		    ControladorUsuario c = ControladorUsuario.getInstance();
-		    ControladorEvento ce = ControladorEvento.getInstance();
+			publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+	        publicar.PublicadorEvento portE = service.getPublicadorEventoPort();
+	        
+	        publicar.PublicadorUsuarioService serviceU = new publicar.PublicadorUsuarioService();
+	        publicar.PublicadorUsuario portU = serviceU.getPublicadorUsuarioPort();
 	
 		    // 2. Obtener la sesión y el usuario (se mantiene la lógica original)
 		    HttpSession userSession = request.getSession(false);
 		    DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 		    
 		    // 3. Obtener todas las ediciones del Organizador
-		    List<DTEdicion> ediciones = c.consultaOrganizador();
+		    List<DtEdicion> ediciones = portU.consultaOrganizador().getItem();
 		    
 		    // 4. Crear un Set para almacenar nombres de eventos únicos
 		    Set<String> eventosUnicos = new HashSet<>();
 		    
 		    // 5. Recorrer las ediciones para extraer los nombres de eventos únicos
-		    for (DTEdicion edicion : ediciones) {
-		    	DTEvento ev = ce.informacionEvento(edicion.getEvento());
-		    	if (ev.getFinalizado() == false) {
+		    for (DtEdicion edicion : ediciones) {
+		    	DtEvento ev = portE.informacionEvento(edicion.getEvento());
+		    	if (ev.isFinalizado() == false) {
 		    		eventosUnicos.add(edicion.getEvento()); 
 		    	}
 		    }

@@ -152,8 +152,8 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen) {
-    	return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, imagen);
+		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen, String video) {
+    	return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, imagen, video);
     }
     
     @WebMethod
@@ -174,7 +174,7 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean darDeAltaRegistro(String nickAsistente, String nombreEdicion, String nombreTRegistro,
-		String nickEvento, LocalDate fechaAlta, Boolean patrocinio) {
+		String nickEvento, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaAlta, Boolean patrocinio) {
     	return contEvento.darDeAltaRegistro(nickAsistente, nombreEdicion, nombreTRegistro, nickEvento, fechaAlta, patrocinio);
     }
     

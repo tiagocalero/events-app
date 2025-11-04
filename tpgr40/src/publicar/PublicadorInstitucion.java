@@ -39,8 +39,8 @@ public class PublicadorInstitucion {
     }
     
     @WebMethod
-    public ArrayList<String> listarInstituciones() {
-    	return new ArrayList<String>(contInstitucion.listarInstituciones());
+    public String[] listarInstituciones() {
+    	return contInstitucion.listarInstituciones().toArray(new String[0]);
     }
     
 }
