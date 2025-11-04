@@ -486,7 +486,7 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		StringArray tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion);
+		List<String> tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion).getItem();
 		request.setAttribute("tiposRegistro", tiposRegistro);
 
 		request.setAttribute("nombreEvento", nombreEvento);

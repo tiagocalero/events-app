@@ -152,7 +152,7 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen, String video) {
+    		@XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaInicio, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaFin, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaAlta, String ciudad, String pais, String imagen, String video) {
     	return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, imagen, video);
     }
     
