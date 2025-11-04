@@ -8,6 +8,8 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
+import net.java.dev.jaxb.array.ObjectFactory;
+import net.java.dev.jaxb.array.StringArray;
 
 
 /**
@@ -23,16 +25,6 @@ import jakarta.xml.ws.Action;
 })
 public interface PublicadorInstitucion {
 
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar/PublicadorInstitucion/listarInstitucionesResponse")
-    public ArrayList listarInstituciones();
 
     /**
      * 
@@ -55,5 +47,17 @@ public interface PublicadorInstitucion {
         String arg2,
         @WebParam(name = "arg3", partName = "arg3")
         String arg3);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar/PublicadorInstitucion/listarInstitucionesResponse")
+
+    public StringArray listarInstituciones();
+
 
 }

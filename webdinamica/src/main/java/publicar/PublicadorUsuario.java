@@ -8,6 +8,7 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
+import net.java.dev.jaxb.array.StringArray;
 
 
 /**
@@ -19,136 +20,11 @@ import jakarta.xml.ws.Action;
 @WebService(name = "PublicadorUsuario", targetNamespace = "http://publicar/")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 @XmlSeeAlso({
-    ObjectFactory.class
+    net.java.dev.jaxb.array.ObjectFactory.class,
+    publicar.ObjectFactory.class
 })
 public interface PublicadorUsuario {
 
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @param arg7
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/altaAsistenteInstitucionRequest", output = "http://publicar/PublicadorUsuario/altaAsistenteInstitucionResponse")
-    public boolean altaAsistenteInstitucion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/consultaOrganizadorAceptadasRequest", output = "http://publicar/PublicadorUsuario/consultaOrganizadorAceptadasResponse")
-    public ArrayList consultaOrganizadorAceptadas(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns publicar.DtRegistro
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar/PublicadorUsuario/datosRegistroUsuarioResponse")
-    public DtRegistro datosRegistroUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorUsuario/registrarAsistenciaRequest", output = "http://publicar/PublicadorUsuario/registrarAsistenciaResponse")
-    public void registrarAsistencia(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/consultaOrganizadorRequest", output = "http://publicar/PublicadorUsuario/consultaOrganizadorResponse")
-    public ArrayList consultaOrganizador();
-
-    /**
-     * 
-     * @param arg0
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar/PublicadorUsuario/modificarDatosUsuarioResponse")
-    public void modificarDatosUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuarioModificado arg0);
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarOrganizadoresRequest", output = "http://publicar/PublicadorUsuario/listarOrganizadoresResponse")
-    public ArrayList listarOrganizadores();
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
-    public ArrayList listarAsistentes();
-
-    /**
-     * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar/PublicadorUsuario/listarUsuariosResponse")
-    public ArrayList listarUsuarios();
 
     /**
      * 
@@ -179,7 +55,7 @@ public interface PublicadorUsuario {
         @WebParam(name = "arg5", partName = "arg5")
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6);
+        String arg6);
 
     /**
      * 
@@ -215,12 +91,62 @@ public interface PublicadorUsuario {
     /**
      * 
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
+    public StringArray listarAsistentes();
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar/PublicadorUsuario/listarUsuariosResponse")
+    public StringArray listarUsuarios();
+
+    /**
+     * 
+     * @return
+     *     returns publicar.DtEdicionArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/consultaOrganizadorRequest", output = "http://publicar/PublicadorUsuario/consultaOrganizadorResponse")
+    public DtEdicionArray consultaOrganizador();
+
+    /**
+     * 
+     * @return
+     *     returns publicar.DtRegistroArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorUsuario/consultaAsistenteRequest", output = "http://publicar/PublicadorUsuario/consultaAsistenteResponse")
-    public ArrayList consultaAsistente();
+    public DtRegistroArray consultaAsistente();
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar/PublicadorUsuario/modificarDatosUsuarioResponse")
+    public void modificarDatosUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuarioModificado arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarOrganizadoresRequest", output = "http://publicar/PublicadorUsuario/listarOrganizadoresResponse")
+    public StringArray listarOrganizadores();
 
     /**
      * 
@@ -252,6 +178,69 @@ public interface PublicadorUsuario {
      * 
      * @param arg0
      * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/altaAsistenteInstitucionRequest", output = "http://publicar/PublicadorUsuario/altaAsistenteInstitucionResponse")
+    public boolean altaAsistenteInstitucion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns publicar.DtEdicionArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/consultaOrganizadorAceptadasRequest", output = "http://publicar/PublicadorUsuario/consultaOrganizadorAceptadasResponse")
+    public DtEdicionArray consultaOrganizadorAceptadas(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns publicar.DtRegistro
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar/PublicadorUsuario/datosRegistroUsuarioResponse")
+    public DtRegistro datosRegistroUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
      * @return
      *     returns boolean
      */
@@ -272,6 +261,19 @@ public interface PublicadorUsuario {
     @WebMethod
     @Action(input = "http://publicar/PublicadorUsuario/setContrasenaRequest", output = "http://publicar/PublicadorUsuario/setContrasenaResponse")
     public void setContrasena(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorUsuario/registrarAsistenciaRequest", output = "http://publicar/PublicadorUsuario/registrarAsistenciaResponse")
+    public void registrarAsistencia(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")

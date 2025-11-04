@@ -1,10 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="logica.DTUsuario" %>
-<%@ page import="logica.DTAsistente" %>
-<%@ page import="logica.DTOrganizador" %>
-<%@ page import="logica.DTEdicion" %>
-<%@ page import="logica.DTRegistro" %>
+<%@ page import="publicar.DtAsistente" %>
+<%@ page import="publicar.DtOrganizador" %>
+<%@ page import="publicar.DtEdicion" %>
+<%@ page import="publicar.DtRegistro" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
@@ -26,8 +25,8 @@
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
-    <% DTAsistente asistente = null;
-       DTOrganizador organizador = null; %>
+    <% DtAsistente asistente = null;
+       DtOrganizador organizador = null; %>
 
     <div class="content content-consulta">
       <form id="modifyUserForm" class="content-form-modificar" action="modificar" method="post"  enctype="multipart/form-data">
@@ -41,8 +40,8 @@
         <label for="nombre"><strong>Nombre:</strong></label>
         <input type="text" id="nombre" name="name" value="<%= usuarioLoggeado.getNombre() != null ? usuarioLoggeado.getNombre() : "" %>"/><br/>
 
-		<% if (usuarioLoggeado instanceof DTAsistente) { 
-			asistente = (DTAsistente) usuarioLoggeado; %>
+		<% if (usuarioLoggeado instanceof DtAsistente) { 
+			asistente = (DtAsistente) usuarioLoggeado; %>
         	<label for="apellido"><strong>Apellido:</strong></label>
         	<input type="text" id="apellido" name="apellido" value="<%= asistente.getApellido() != null ? asistente.getApellido() : "" %>"/><br/>
         <% } %>
@@ -56,7 +55,7 @@
         <label for="pass"><strong>Contraseña:</strong></label>
         <a href="/webdinamica/usuarios/cambiar_contrasena" id="pass" >cambiar contraseña</a></br>
 
-		<% if (usuarioLoggeado instanceof DTAsistente) { %>
+		<% if (usuarioLoggeado instanceof DtAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
         	<input type="date" id="nacimiento" name="nacimiento" value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>"/><br/>
 
@@ -71,8 +70,8 @@
 					</option>
           		<% } %>
         	</select><br/>
-        <% } else if (usuarioLoggeado instanceof DTOrganizador) { 
-        	organizador = (DTOrganizador) usuarioLoggeado;%>
+        <% } else if (usuarioLoggeado instanceof DtOrganizador) { 
+        	organizador = (DtOrganizador) usuarioLoggeado;%>
         	<label for="link"><strong>Sitio Web:</strong></label>
         	<input type="text" id="link" name="link" value="<%= organizador.getLink() != null ? organizador.getLink() : "" %>" /><br/>
 
@@ -87,19 +86,19 @@
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-          	<% if (usuarioLoggeado instanceof DTAsistente) { %>
+          	<% if (usuarioLoggeado instanceof DtAsistente) { %>
             	Registros
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-              		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
-    	      			for (DTRegistro reg : registros) { %>
-              			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              		<% List<DtRegistro> registros = (List<DtRegistro>) request.getAttribute("registros");
+    	      			for (DtRegistro reg : registros) { %>
+              			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getNombreEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getNombreEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getNombreEdicion() %></a></li>
               		<% } %>
            		</ul>
-            <% } else if (usuarioLoggeado instanceof DTOrganizador) { %>
+            <% } else if (usuarioLoggeado instanceof DtOrganizador) { %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-            		<% List<DTEdicion> ediciones = (List<DTEdicion>) request.getAttribute("ediciones");
-    	      			for (DTEdicion ed : ediciones) { %>
+            		<% List<DtEdicion> ediciones = (List<DtEdicion>) request.getAttribute("ediciones");	
+    	      			for (DtEdicion ed : ediciones) { %>
             			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>
             	</ul>

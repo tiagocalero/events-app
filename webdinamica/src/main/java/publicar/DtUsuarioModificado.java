@@ -3,6 +3,7 @@ package publicar;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -30,6 +31,10 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "dtUsuarioModificado", propOrder = {
     "nombre",
     "imagen"
+})
+@XmlSeeAlso({
+    DtAsistenteModificado.class,
+    DtOrganizadorModificado.class
 })
 public class DtUsuarioModificado {
 

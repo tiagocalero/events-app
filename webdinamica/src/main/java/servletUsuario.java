@@ -12,16 +12,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import logica.DTAsistente;
-import logica.DTAsistenteModificado;
-import logica.DTEdicion;
-import logica.DTOrganizador;
-import logica.DTOrganizadorModificado;
-import logica.DTRegistro;
-import logica.DTUsuario;
+import publicar.DtAsistenteModificado;
+import publicar.DtOrganizadorModificado;
 import publicar.DtUsuario;
 import publicar.DtAsistente;
+import publicar.DtEdicion;
 import publicar.DtOrganizador;
+import publicar.DtEdicion;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import java.time.format.DateTimeFormatter;
+import java.io.OutputStream;
+
+import publicar.DtRegistro;
 
 /**
  * Servlet implementation class Usuario
@@ -34,6 +43,7 @@ import publicar.DtOrganizador;
 )
 public class servletUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,7 +58,7 @@ public class servletUsuario extends HttpServlet {
         publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
         publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
     	
-    	List<String> instituciones = port.listarInstituciones();
+    	List<String> instituciones = port.listarInstituciones().getItem();
         request.setAttribute("instituciones", instituciones);
         
     	// Mostrar el HTML
@@ -61,7 +71,7 @@ public class servletUsuario extends HttpServlet {
         publicar.PublicadorInstitucionService serviceI = new publicar.PublicadorInstitucionService();
         publicar.PublicadorInstitucion portI = serviceI.getPublicadorInstitucionPort();
         
-    	List<String> instituciones = portI.listarInstituciones();
+    	List<String> instituciones = portI.listarInstituciones().getItem();
         
         request.setAttribute("instituciones", instituciones);
         HttpSession userSession = request.getSession(false);
@@ -76,10 +86,10 @@ public class servletUsuario extends HttpServlet {
     	usuario = port.elegirUsuario(usuario.getNickname());
     	
     	if (usuario instanceof DtAsistente) {
-    		List<DTRegistro> registros = port.consultaAsistente();
+    		List<DtRegistro> registros = port.consultaAsistente().getItem();
     		request.setAttribute("registros", registros);
     	} else if (usuario instanceof DtOrganizador) {
-    		List<DTEdicion> ediciones = port.consultaOrganizador();
+    		List<DtEdicion> ediciones = port.consultaOrganizador().getItem();
     		request.setAttribute("ediciones", ediciones);
     	}
     	
@@ -94,7 +104,7 @@ public class servletUsuario extends HttpServlet {
     		DtUsuario usuario = port.elegirUsuario(nick);
         	
         	if (usuario instanceof DtAsistente) {
-        		List<DTRegistro> registros = port.consultaAsistente();
+        		List<DtRegistro> registros = port.consultaAsistente().getItem();
         		request.setAttribute("registros", registros);
         	}
         	
@@ -144,9 +154,9 @@ public class servletUsuario extends HttpServlet {
         publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
     	if (tipo.equals("Asistente")) {
     		if (inst != "none") {
-    			ok = port.altaAsistenteInstitucion(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
+    			ok = port.altaAsistenteInstitucion(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento.format(FORMATTER), inst);
     		} else {
-    			ok = port.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
+    			ok = port.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento.format(FORMATTER));
     		}
     	} else if (tipo.equals("Organizador")) {
     		ok = port.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
@@ -213,13 +223,21 @@ public class servletUsuario extends HttpServlet {
         	String inst = request.getParameter("institucion");
         	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
     		
-    		DtAsistenteModificado dtam = new DTAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
+    		DtAsistenteModificado dtam = new DtAsistenteModificado();
+    		dtam.setNombre(nombre);
+    		dtam.setImagen(uniqueFileName);
+    		dtam.setApellido(apellido);
+    		dtam.setNacimiento(nacimiento.format(FORMATTER));
+    		dtam.setInstitucion(inst);
     		port.modificarDatosUsuario(dtam);
     	} else if (dtu instanceof DtOrganizador) {
     		String desc = request.getParameter("desc");
         	String link = request.getParameter("link");
-        	
-    		DtOrganizadorModificado dtom = new DTOrganizadorModificado(nombre, uniqueFileName, desc, link);
+    		DtOrganizadorModificado dtom = new DtOrganizadorModificado();
+        	dtom.setNombre(nombre);
+        	dtom.setImagen(uniqueFileName);
+        	dtom.setDescripcion(desc);
+        	dtom.setLink(link);
     		port.modificarDatosUsuario(dtom);
     	}
     	
@@ -255,7 +273,7 @@ public class servletUsuario extends HttpServlet {
     
     protected void cambiarContraGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession userSession = request.getSession(false);
-		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que visitantes accedan
 		if (usuario == null) {
@@ -340,11 +358,112 @@ public class servletUsuario extends HttpServlet {
 	protected void listaGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
         publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
-		List<String> usuarios = port.listarUsuarios();
+		List<String> usuarios = port.listarUsuarios().getItem();
 		request.setAttribute("lista", usuarios);
 		
     	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);
     }
+	
+	protected void descargarConstanciaPOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    
+	    // 1. OBTENER DATOS DEL REGISTRO Y ASISTENTE 🚀
+	    
+	    // Datos enviados desde el JSP (por POST)
+	    String nombreEvento = request.getParameter("evento");
+	    String nombreEdicion = request.getParameter("edicion");
+	    
+	    // Obtener datos del asistente desde la sesión
+	    HttpSession userSession = request.getSession(false);
+	    DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+	    
+	    
+	    // Datos de ejemplo o simulacro (DEBES REEMPLAZAR POR LA LLAMADA A TU PUBLICADOR/WS)
+	    // Ejemplo: PublicadorEventoPort port = service.getPublicadorEventoPort();
+	    // String ciudad = port.obtenerCiudadEdicion(nombreEvento, nombreEdicion);
+	    // String fechaEdicion = port.obtenerFechaEdicion(nombreEvento, nombreEdicion);
+	    publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        
+        DtEdicion edicion = port.obtenerEdicion(nombreEvento, nombreEdicion);
+        
+	    String nombreAsistente = dtu.getNombre();
+	    String ciudad = edicion.getCiudad();        // <-- Reemplazar por dato real
+	    publicar.LocalDate fechaEdicionStr = edicion.getFechaInicio(); // <-- Reemplazar por dato real (Fecha de la Edición)
+
+	    // 2. CONFIGURAR LA RESPUESTA HTTP PARA DESCARGA
+	    response.setContentType("application/pdf");
+	    String nombreArchivo = String.format("Constancia_%s_%s.pdf", 
+	                                         nombreEdicion.replaceAll("\\s+", "_"), 
+	                                         dtu.getNickname());
+	    
+	    // La cabecera Content-Disposition fuerza al navegador a descargar el archivo
+	    response.setHeader("Content-Disposition", "attachment; filename=\"" + nombreArchivo + "\"");
+
+	    // 3. GENERACIÓN DEL PDF CON iText 7
+	    try (OutputStream out = response.getOutputStream()) {
+	        
+	        // Inicializa el escritor de PDF y el documento
+	        PdfWriter writer = new PdfWriter(out);
+	        PdfDocument pdf = new PdfDocument(writer);
+	        Document document = new Document(pdf);
+	        
+	        // Fuentes
+	        PdfFont fontNormal = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+	        PdfFont fontBold = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+
+	        // --- Contenido del Documento ---
+
+	        // Título del documento
+	        Paragraph titulo = new Paragraph("CERTIFICADO DE ASISTENCIA")
+	                .setFont(fontBold)
+	                .setFontSize(22)
+	                .setTextAlignment(TextAlignment.CENTER)
+	                .setMarginBottom(40);
+	        document.add(titulo);
+	        
+	        // Cuerpo del certificado
+	        document.add(new Paragraph("Eventos.uy certifica la participación de:")
+	                .setFont(fontNormal).setMarginBottom(15));
+	        
+	        // Información del Asistente
+	        document.add(new Paragraph(String.format("Nombre Completo: %s %s", nombreAsistente, apellidoAsistente))
+	                .setFont(fontBold).setMarginBottom(5).setFontSize(14));
+	        
+	        // Separador visual
+	        document.add(new Paragraph("---").setTextAlignment(TextAlignment.CENTER).setMarginBottom(20));
+
+	        // Información del Evento/Edición
+	        document.add(new Paragraph("En el evento y edición:")
+	                .setFont(fontNormal).setMarginTop(10));
+	        
+	        document.add(new Paragraph(String.format("Evento: %s", nombreEvento))
+	                .setFont(fontBold));
+	        
+	        document.add(new Paragraph(String.format("Edición: %s", nombreEdicion))
+	                .setFont(fontBold));
+	        
+	        document.add(new Paragraph(String.format("Lugar: %s", ciudad))
+	                .setFont(fontNormal));
+	        
+	        document.add(new Paragraph(String.format("Fecha de la Edición: %s", fechaEdicionStr))
+	                .setFont(fontNormal).setMarginBottom(40));
+	        
+	        // Fecha de Emisión del comprobante
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy");
+	        String fechaActual = LocalDate.now().format(formatter);
+	        
+	        document.add(new Paragraph(String.format("Comprobante generado dinámicamente el %s.", fechaActual))
+	                .setFont(fontNormal).setTextAlignment(TextAlignment.RIGHT).setFontSize(10));
+	        
+	        // Cierra el documento, forzando la escritura al OutputStream
+	        document.close();
+	        
+	    } catch (Exception e) {
+	        // Manejo de errores
+	        response.setContentType("text/plain");
+	        response.getWriter().println("Error interno al generar el PDF: " + e.getMessage());
+	    }
+	}
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -403,6 +522,8 @@ public class servletUsuario extends HttpServlet {
 					inicio_sesionPOST(request, response);
 				} else if (path.equals("/cambiar_contrasena")) {
 		        	cambiarContraPOST(request, response);
+		        } else if (path != null && path.equals("/descargarConstancia")) {
+		            descargarConstanciaPOST(request, response);
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
