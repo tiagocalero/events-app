@@ -320,29 +320,32 @@ public class servletUsuario extends HttpServlet {
     // ######  CONSULTA REGISTRO DOGET  ###### 
 
  	protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		ControladorUsuario cu = ControladorUsuario.getInstance();
+ 		publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
     		    	
  		String evento = request.getParameter("evento");
  		String edicion = request.getParameter("edicion");
     		    	
  		HttpSession user = request.getSession(false);
- 		DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+ 		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
     		     	 
- 		if (usuario instanceof DTOrganizador) {
-    		    		
- 			ControladorEvento ce = ControladorEvento.getInstance();
+ 		if (usuario instanceof DtOrganizador) {
+ 			
+ 			publicar.PublicadorEventoService serviceE = new publicar.PublicadorEventoService();
+ 	        publicar.PublicadorEvento portE = serviceE.getPublicadorEventoPort();   		
+
     	    		
-    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
+    		List<DtRegistro> registros = portE.registrosEdicion(edicion, evento).getItem();
     		request.setAttribute("registros", registros);
     		request.setAttribute("edicion", edicion);
 
     		    		
     		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroOrg.jsp").forward(request, response);
     		    	
-    	} else if (usuario instanceof DTAsistente) {
-    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
+    	} else if (usuario instanceof DtAsistente) {
+    		DtRegistro registro = port.datosRegistroUsuario(edicion, usuario.getNickname());
     		
-    		request.setAttribute("patrocinio", registro.getPatrocinio());
+    		request.setAttribute("patrocinio", registro.isPatrocinio());
     		request.setAttribute("costo", registro.getCosto());
     		request.setAttribute("fecha", registro.getFecha());
     		request.setAttribute("tipo", registro.getTipo());
@@ -426,7 +429,7 @@ public class servletUsuario extends HttpServlet {
 	                .setFont(fontNormal).setMarginBottom(15));
 	        
 	        // Información del Asistente
-	        document.add(new Paragraph(String.format("Nombre Completo: %s %s", nombreAsistente, apellidoAsistente))
+	        document.add(new Paragraph(String.format("Nombre Completo: %s %s", nombreAsistente))
 	                .setFont(fontBold).setMarginBottom(5).setFontSize(14));
 	        
 	        // Separador visual
