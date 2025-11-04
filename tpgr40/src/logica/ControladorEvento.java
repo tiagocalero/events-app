@@ -250,6 +250,8 @@ public class ControladorEvento {
 	public boolean ingresarDatosEvento(String nombre, String descripcion, String sigla, LocalDate fechaAlta,
 			List<String> categorias, String imagen, Boolean finalizado) {
 		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		
+		imagen = (imagen == "") ? null : imagen;
 
 		// Todo evento debe tener una categoría
 		if (categorias.isEmpty())

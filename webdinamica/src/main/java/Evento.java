@@ -273,7 +273,7 @@ public class Evento extends HttpServlet {
 		// Obtener imagen
 		Part filePart = request.getPart("imagen");
 		boolean subioImagen = filePart != null && filePart.getSize() > 0;
-    	String fileName = null;
+    	String fileName = "";
     	
 		if (subioImagen) {
 			// Generar un nombre aleatorio para la imagen,

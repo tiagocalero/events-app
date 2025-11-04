@@ -2,8 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="logica.DTUsuario" %> 
-<%@ page import="logica.DTOrganizador" %> 
+<%@ page import="publicar.DtUsuario" %> 
+<%@ page import="publicar.DtOrganizador" %> 
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
@@ -71,7 +71,7 @@
             Ediciones
             
             <% 
-              boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTOrganizador); 
+              boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof DtOrganizador); 
               
               // 2. Declaración de variables para enlaces (Con alcance para toda la sección)
               String nombreEvento = request.getParameter("evento");
