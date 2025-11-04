@@ -12,12 +12,11 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import main.java.publicar.PatrocinioSuperaMontoException;
+import main.java.publicar.PatrocinioSuperaMontoException_Exception;
+import main.java.publicar.YaExistePatrocinioException;
+import main.java.publicar.YaExistePatrocinioException_Exception;
 import net.java.dev.jaxb.array.StringArray;
-
-import publicar.PatrocinioSuperaMontoException;
-import publicar.PatrocinioSuperaMontoException_Exception;
-import publicar.YaExistePatrocinioException;
-import publicar.YaExistePatrocinioException_Exception;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -35,15 +34,19 @@ import logica.DTOrganizador;
 import logica.DTPatrocinio;
 import logica.DTTRegistro;
 import logica.DTUsuario;
-import net.java.dev.jaxb.array.StringArray;
-import publicar.TipoNivelPatrocinio;
-import publicar.DtEdicion;
-import publicar.DtEvento;
-import publicar.DtOrganizador;
-import publicar.DtPatrocinio;
-import publicar.DtUsuario;
-import publicar.DttRegistro;
-import publicar.DtAsistente;
+
+import main.java.publicar.DtAsistente;
+import main.java.publicar.TipoNivelPatrocinio;
+import main.java.publicar.DtEdicion;
+import main.java.publicar.DtEvento;
+import main.java.publicar.DtOrganizador;
+import main.java.publicar.DtPatrocinio;
+import main.java.publicar.DtUsuario;
+import main.java.publicar.DttRegistro;
+import main.java.publicar.PublicadorEventoService;
+import main.java.publicar.PublicadorEvento;
+import main.java.publicar.PublicadorUsuarioService;
+import main.java.publicar.PublicadorUsuario;
 
 /**
  * Servlet implementation class Evento
@@ -69,8 +72,8 @@ public class Evento extends HttpServlet {
 	// GET /eventos
 	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Cargar eventos
-        publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String categoria = request.getParameter("categoria");
 		List<DtEvento> eventos;
@@ -91,8 +94,8 @@ public class Evento extends HttpServlet {
 
 	// GET /patrocinios/alta
 	protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+        PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -144,8 +147,8 @@ public class Evento extends HttpServlet {
 	// POST /patrocinios/alta
 	// Crea un patrocinio con los parámetros pasados
 	protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -203,8 +206,8 @@ public class Evento extends HttpServlet {
 	// GET /patrocinios
 	// POST /patrocinios
 	protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -229,8 +232,8 @@ public class Evento extends HttpServlet {
 	// GET /eventos/alta
 	// Carga las categorías existentes en el formulario
 	protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
 		HttpSession userSession = request.getSession(false);
 		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
@@ -291,8 +294,8 @@ public class Evento extends HttpServlet {
 		}
 
     	DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
 		boolean ok = port.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now().format(fmt), categorias, fileName);
 
@@ -358,8 +361,8 @@ public class Evento extends HttpServlet {
 			filePart.write(uploadPath + File.separator + fileName);
 		}
 
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
         boolean ok = port.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio.format(FORMATTER), fechaFin.format(FORMATTER), fechaAlta.format(FORMATTER), ciudad, pais, fileName, video);
 
@@ -386,8 +389,8 @@ public class Evento extends HttpServlet {
 	// GET /ediciones/consultaEdicion
 	// Carga las categorías existentes en el formulario
 	protected void consultaEdicionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();	
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();	
         
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -446,7 +449,7 @@ public class Evento extends HttpServlet {
 		String video = datosEdicion.getVideo();
 		request.setAttribute("video", video);
 
-		List<String> instituciones = port.listarInstituciones().getItem();
+		List<String> instituciones = port.listarInstitucionesEdicionEvento(evento, edicion).getItem();
 		request.setAttribute("instituciones", instituciones);
 
 		// No se muestra el botón de crear patrocinio si la edición ya
@@ -466,8 +469,8 @@ public class Evento extends HttpServlet {
 		String nombreEdicion = request.getParameter("edicion");
 		String nombreEvento = request.getParameter("evento");
 
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();		
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();		
         
 		HttpSession userSession = request.getSession(false);
 		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
@@ -523,8 +526,8 @@ public class Evento extends HttpServlet {
 		String nickname = usuario.getNickname();
 		String nombreInstitucion = usuario.getInstitucion();
 
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
 		boolean conPatrocinio = false;
 		String mensajeError = null;
@@ -586,8 +589,8 @@ public class Evento extends HttpServlet {
 	protected void consultaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
 
 		String evento = request.getParameter("evento");
@@ -623,8 +626,8 @@ public class Evento extends HttpServlet {
 	}
 
 	protected void altaTipoRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
 		String evento = request.getParameter("evento");
 		String edicion = request.getParameter("edicion");
@@ -647,8 +650,8 @@ public class Evento extends HttpServlet {
 		String edicion = request.getParameter("edicion");
 		String tregistro = request.getParameter("tipoRegistro");
 
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
 		if (!port.existeEdicionEvento(evento, edicion) || !port.listarTipoRegistro(evento, edicion).getItem().contains(tregistro)) {
 			response.sendRedirect("/webdinamica");
@@ -671,8 +674,8 @@ public class Evento extends HttpServlet {
 		float costo = Float.parseFloat(request.getParameter("costo"));
 		int cupo = Integer.parseInt(request.getParameter("cupo"));
 
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
 		boolean ok = port.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
 
@@ -694,8 +697,8 @@ public class Evento extends HttpServlet {
 	}
 	
 	protected void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
 
         List<DtEvento> eventos = port.buscarEventos(request.getParameter("b")).getItem();
         List<DtEdicion> ediciones = port.buscarEdiciones(request.getParameter("b")).getItem();
@@ -719,11 +722,11 @@ public class Evento extends HttpServlet {
 		// GET /eventos/finalizarEvento
 		// Permite finalizar un evento
 		protected void finalizarEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-	        publicar.PublicadorEvento portE = service.getPublicadorEventoPort();
+			PublicadorEventoService service = new PublicadorEventoService();
+	        PublicadorEvento portE = service.getPublicadorEventoPort();
 	        
-	        publicar.PublicadorUsuarioService serviceU = new publicar.PublicadorUsuarioService();
-	        publicar.PublicadorUsuario portU = serviceU.getPublicadorUsuarioPort();
+	        PublicadorUsuarioService serviceU = new PublicadorUsuarioService();
+	        PublicadorUsuario portU = serviceU.getPublicadorUsuarioPort();
 	
 		    // 2. Obtener la sesión y el usuario (se mantiene la lógica original)
 		    HttpSession userSession = request.getSession(false);
@@ -921,4 +924,3 @@ public class Evento extends HttpServlet {
 	}
 
 }
-

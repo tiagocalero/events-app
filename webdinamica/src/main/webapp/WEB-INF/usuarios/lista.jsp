@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="publicar.DtUsuario" %>
-<%@ page import="publicar.DtAsistente" %>
+<%@ page import="main.java.publicar.DtUsuario" %>
+<%@ page import="main.java.publicar.DtAsistente" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
@@ -23,8 +23,8 @@
 	  	<div class="row gy-3">
 		
 			<div class="list-group m-3 w-50">
-				<% publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-				   publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+				<% main.java.publicar.PublicadorUsuarioService service = new main.java.publicar.PublicadorUsuarioService();
+				   main.java.publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
 				   List<String> lista = (List<String>) request.getAttribute("lista");
 				   for (String us : lista) {
 					   DtUsuario dtus = port.elegirUsuario(us);

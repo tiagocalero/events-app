@@ -25,8 +25,8 @@ public class Categoria extends HttpServlet {
 
 
     protected static void listarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	publicar.PublicadorCategoriaService service = new publicar.PublicadorCategoriaService();
-        publicar.PublicadorCategoria port = service.getPublicadorCategoriaPort();
+    	main.java.publicar.PublicadorCategoriaService service = new main.java.publicar.PublicadorCategoriaService();
+    	main.java.publicar.PublicadorCategoria port = service.getPublicadorCategoriaPort();
     	
     	//ControladorCategoria c = ControladorCategoria.getInstance();
         

@@ -1,9 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="publicar.DtAsistente" %>
-<%@ page import="publicar.DtOrganizador" %>
-<%@ page import="publicar.DtEdicion" %>
-<%@ page import="publicar.DtRegistro" %>
+<<<<<<< HEAD
+<%@ page import="logica.DTUsuario" %>
+=======
+>>>>>>> f65a788 (Más rebase)
+<%@ page import="main.java.publicar.DtAsistente" %>
+<%@ page import="main.java.publicar.DtOrganizador" %>
+<%@ page import="main.java.publicar.DtEdicion" %>
+<%@ page import="main.java.publicar.DtRegistro" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>

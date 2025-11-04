@@ -1,0 +1,349 @@
+package main.java.presentacion;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import main.java.excepciones.PatrocinioSuperaMontoException;
+import main.java.excepciones.YaExistePatrocinioException;
+import main.java.logica.ControladorEvento;
+import main.java.logica.ControladorInstitucion;
+import main.java.logica.DTPatrocinio;
+import main.java.logica.TipoNivelPatrocinio;
+
+public class AltaPatrocinio extends JInternalFrame{
+	private static final long serialVersionUID = -1428879017218292598L;
+	private final JTextField txtAporte = new JTextField();
+	private JComboBox<String> comboBoxEdiciones;
+	private JComboBox<String> comboBoxInstituciones;
+	private JComboBox<String> comboBoxEventos;
+	private JButton botonCancelar;
+	private JButton botonCrear;
+	private JTextField textCantRegistros;
+	private JLabel labelCantRegistros;
+	private JLabel labelTipoRegistros;
+	private JLabel labelPatrocinio;
+	private JComboBox<String> comboBoxNivelPatrocinio;
+	private JComboBox<String> comboBoxTipoRegistro;
+	private JLabel labelAporte;
+	private JLabel labelDatosDelUsuario;
+	private JLabel labelCodigo;
+	private JTextField textCodigo;
+	private JTextField textFecha;
+	
+	public AltaPatrocinio() {
+		
+		setVisible(true);
+		setSize(300, 200);
+		setResizable(true);
+		setIconifiable(true);
+		setMaximizable(true);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
+		setTitle("Alta de Patrocinio");
+		setBounds(30, 30, 833, 430);
+		getContentPane().setLayout(null);
+		
+		//DATOS DE LA IZQ
+		
+		labelDatosDelUsuario = new JLabel("Datos del Patrocinio");
+		labelDatosDelUsuario.setFont(new Font("Dialog", Font.BOLD, 16));
+		labelDatosDelUsuario.setBounds(12, 0, 271, 80);
+		labelDatosDelUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(labelDatosDelUsuario);
+        
+		comboBoxEventos = new JComboBox<String>();
+        comboBoxEventos.setBounds(27, 92, 226, 43);
+        getContentPane().add(comboBoxEventos);       
+
+        comboBoxInstituciones = new JComboBox<String>();
+        comboBoxInstituciones.setBounds(27, 221, 226, 43);
+        getContentPane().add(comboBoxInstituciones);
+        
+        comboBoxEdiciones = new JComboBox<String>();
+        comboBoxEdiciones.setBounds(27, 155, 226, 43);
+        getContentPane().add(comboBoxEdiciones);
+		
+        
+        //DATOS DE LA DERECHA
+  
+        labelAporte = new JLabel("Aporte Económico:");
+        labelAporte.setBounds(386, 74, 139, 37);
+        labelAporte.setHorizontalAlignment(SwingConstants.RIGHT);
+        getContentPane().add(labelAporte);
+        
+        txtAporte.setBounds(536, 74, 226, 37);
+        getContentPane().add(txtAporte);
+        txtAporte.setColumns(10);
+                           
+        comboBoxTipoRegistro = new JComboBox<String>();
+        comboBoxTipoRegistro.setBounds(536, 172, 226, 43);
+        getContentPane().add(comboBoxTipoRegistro);
+        
+        comboBoxNivelPatrocinio = new JComboBox<String>();
+        comboBoxNivelPatrocinio.setModel(new DefaultComboBoxModel<String>(new String[] {"Platino", "Oro", "Plata", "Bronce"}));
+        comboBoxNivelPatrocinio.setBounds(536, 22, 226, 43);
+        getContentPane().add(comboBoxNivelPatrocinio);
+        
+        labelPatrocinio = new JLabel("Nivel Patrocinio:");
+        labelPatrocinio.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelPatrocinio.setBounds(404, 23, 121, 37);
+        getContentPane().add(labelPatrocinio);
+        
+        labelTipoRegistros = new JLabel("Tipo de Registro Gratutito:");
+        labelTipoRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelTipoRegistros.setBounds(309, 175, 216, 37);
+        getContentPane().add(labelTipoRegistros);
+        
+        labelCantRegistros = new JLabel("Cantidad de Registros Gratuitos:");
+        labelCantRegistros.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelCantRegistros.setBounds(291, 123, 234, 37);
+        getContentPane().add(labelCantRegistros);
+        
+        textCantRegistros = new JTextField();
+        textCantRegistros.setColumns(10);
+        textCantRegistros.setBounds(536, 123, 226, 37);
+        getContentPane().add(textCantRegistros);
+        
+        botonCrear = new JButton("Crear");
+        botonCrear.setBounds(396, 349, 108, 29);
+        getContentPane().add(botonCrear);
+        
+        botonCancelar = new JButton("Cancelar");
+        botonCancelar.setBounds(284, 349, 108, 29);
+        getContentPane().add(botonCancelar);
+        
+        labelCodigo = new JLabel("Codigo:");
+        labelCodigo.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelCodigo.setBounds(309, 224, 216, 37);
+        getContentPane().add(labelCodigo);
+        
+        textCodigo = new JTextField();
+        textCodigo.setColumns(10);
+        textCodigo.setBounds(536, 227, 226, 37);
+        getContentPane().add(textCodigo);
+        
+        JLabel labelFecha = new JLabel("Fecha Alta:");
+        labelFecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        labelFecha.setBounds(309, 273, 216, 37);
+        getContentPane().add(labelFecha);
+        
+        textFecha = new JTextField();
+        textFecha.setColumns(10);
+        textFecha.setBounds(536, 276, 226, 37);
+        getContentPane().add(textFecha);
+		
+
+        inicializarCombos();
+        //FUNCIONES
+        
+        comboBoxEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                // Obtener el evento seleccionado
+                String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+                
+                // Verificar que la selección sea válida
+                if (eventoSeleccionado != null && !eventoSeleccionado.equals("Seleccione un Evento")) {
+                    // Llamar al método que carga las ediciones
+                	DefaultComboBoxModel<String> edicionesModel = new DefaultComboBoxModel<>();
+                    edicionesModel.addElement("Seleccione una Edición");
+                    
+                    ControladorEvento manejador = ControladorEvento.getInstance();
+                    manejador.listarEdiciones(eventoSeleccionado).forEach(edicionesModel::addElement);
+                    comboBoxEdiciones.setModel(edicionesModel);
+                } else {
+                	// Si seleccionó "Seleccione un Evento", no mostrar ediciones
+                    comboBoxEdiciones.setModel(new DefaultComboBoxModel<>());
+                }
+             
+            }
+        });
+        
+        comboBoxEdiciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                // Obtener la edicion seleccionada
+                String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+                String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+                
+                // Verificar que la selección sea válida
+                if (edicionSeleccionada != null && !edicionSeleccionada.equals("Seleccione una Edición")) {
+                    // Cargar TipoRegistros para la edición y evento
+                    DefaultComboBoxModel<String> tipoRegistrosModel = new DefaultComboBoxModel<String>();
+                    tipoRegistrosModel.addElement("Seleccione un Tipo de Registro");
+                    
+                    ControladorEvento controlador = ControladorEvento.getInstance();
+                    List<String> tipoRegistros = controlador.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada);
+                    for (String tipoRegistro: tipoRegistros)
+                        tipoRegistrosModel.addElement(tipoRegistro);
+                    
+                    comboBoxTipoRegistro.setModel(tipoRegistrosModel);
+                }
+             
+            }
+        });
+        
+        botonCancelar.addActionListener(new ActionListener( ) {
+        	@Override
+            public void actionPerformed(ActionEvent event) { dispose(); }
+        });
+        
+        botonCrear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) { crearPatrocinio(); }
+        });
+ 
+	}
+	
+	private void inicializarCombos() {
+        DefaultComboBoxModel<String> eventosModel = new DefaultComboBoxModel<String>();
+        eventosModel.addElement("Seleccione un Evento");
+        
+        ControladorEvento controlador = ControladorEvento.getInstance();
+        controlador.listarEventos().forEach(eventosModel::addElement);
+        comboBoxEventos.setModel(eventosModel);
+        
+        // Llamar al método que carga las instituciones
+    	DefaultComboBoxModel<String> institucionesModel = new DefaultComboBoxModel<>();
+        institucionesModel.addElement("Seleccione una Institución");
+
+        ControladorInstitucion controladorInst = ControladorInstitucion.getInstance();
+        controladorInst.listarInstituciones()
+                       .forEach(institucionesModel::addElement);
+        comboBoxInstituciones.setModel(institucionesModel);
+
+        // Tipo Registro
+        comboBoxTipoRegistro.setModel(new DefaultComboBoxModel<String>(new String[] {"Selecciona un Tipo de Registro"}));
+        
+        // Ediciones
+        comboBoxEdiciones.setModel(new DefaultComboBoxModel<String>());
+    }
+	
+	private void crearPatrocinio() {
+        // Obtener los datos seleccionados
+        String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+        String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+        String institucionSeleccionada = (String) comboBoxInstituciones.getSelectedItem();
+        String tipoRegistroSeleccionado = (String) comboBoxTipoRegistro.getSelectedItem();
+        String nivelPatrocinioSeleccionado = (String) comboBoxNivelPatrocinio.getSelectedItem();
+        String aporteEconomicoSeleccionado = (String) txtAporte.getText();
+        String cantRegistrosSeleccionados = (String) textCantRegistros.getText();
+        String codigoSeleccionado = sacarEspacios(textCodigo.getText());
+        
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaAlta;
+        // Si la fecha es inválida, mostrar un error
+        try {
+        	fechaAlta = LocalDate.parse(sacarEspacios(textFecha.getText()), fmt);
+        } catch (Exception ex) {
+        	JOptionPane.showMessageDialog(this, "El formato de las fechas debe ser dd/mm/aaaa.", "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+        // Transformar los datos seleccionados
+	    // Validación de monto y cantidad registroslnk
+        TipoNivelPatrocinio tipoNivel = TipoNivelPatrocinio.valueOf(nivelPatrocinioSeleccionado);
+        float montoAporte;
+        int cantidadRegistros;
+        try {
+        	montoAporte = Float.parseFloat(aporteEconomicoSeleccionado);
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Aporte económico inválido", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+        try {
+        	cantidadRegistros = Integer.parseInt(cantRegistrosSeleccionados);
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Cantidad de registros inválido", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+        
+        if (codigoSeleccionado.isEmpty()) {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "El código no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        
+        // Validar nombres de evento, edición e institución
+        if (eventoSeleccionado == null || eventoSeleccionado == "" || eventoSeleccionado == "Seleccione un Evento") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir un evento", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        if (edicionSeleccionada == null || edicionSeleccionada == "" || edicionSeleccionada == "Seleccione una Edición") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir una edición", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        if (institucionSeleccionada == null || institucionSeleccionada == "" || institucionSeleccionada == "Seleccione una Institución") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir una institución", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        if (tipoRegistroSeleccionado == null || tipoRegistroSeleccionado == "" || tipoRegistroSeleccionado == "Seleccione un Tipo de Registro") {
+	        JOptionPane.showMessageDialog(AltaPatrocinio.this, "Debe existir un tipo de registro", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+        }
+        
+        // Crear el Patrocinio
+        ControladorEvento controlador = ControladorEvento.getInstance();
+        try {
+        	controlador.crearPatrocinio(codigoSeleccionado, tipoNivel, tipoRegistroSeleccionado, cantidadRegistros, montoAporte, fechaAlta, edicionSeleccionada, institucionSeleccionada, eventoSeleccionado);
+        } catch (PatrocinioSuperaMontoException exc) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        } catch (YaExistePatrocinioException exc) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        } catch (IllegalArgumentException exc) {
+        	JOptionPane.showMessageDialog(AltaPatrocinio.this, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
+    	// Si se creó, dar la opción de agregar más instituciones o cerrar la ventana
+        Object[] opciones = {"Agregar más patrocinios", "Cerrar"};
+        int resultado = JOptionPane.showOptionDialog(
+            AltaPatrocinio.this,
+            "Se creó el patrocinio: " + codigoSeleccionado,
+            "",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,        
+            opciones,    
+            opciones[0] // opción por defecto
+        );
+
+        // Ver qué eligió el usuario
+        switch (resultado) {
+            case 0:
+            	// Borrar campos
+            	txtAporte.setText("");
+            	textCantRegistros.setText("");
+            	textCodigo.setText("");
+            	textFecha.setText("");
+            	inicializarCombos();
+            	break;
+            case 1:
+            	dispose(); // Cierra la ventana
+            	break;
+            default: // El usuario cierra el diálogo
+            	dispose();
+            	break;
+        };
+	}
+
+	// Borrar espacios en blanco al comienzo y final de un String (para usar en campos)
+	private static String sacarEspacios(String str) {
+	    return str == null ? "" : str.trim();
+	}
+}

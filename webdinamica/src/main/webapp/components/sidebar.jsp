@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="publicar.DtUsuario" %>
-<%@ page import="publicar.DtOrganizador" %>
+<%@ page import="main.java.publicar.DtUsuario" %>
+<%@ page import="main.java.publicar.DtOrganizador" %>
 <div class="flex-shrink-0 p-3 mb-3" style="width: 280px">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
