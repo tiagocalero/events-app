@@ -580,25 +580,28 @@ public class Evento extends HttpServlet {
 	// Carga las categorías existentes en el formulario
 	protected void consultaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ControladorEvento c = ControladorEvento.getInstance();
+		
+		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
+        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+
 
 		String evento = request.getParameter("evento");
 		
-		if (!c.listarEventos().contains(evento)) {
+		if (!port.listarEventos().getItem().contains(evento)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
 
 		//DTEvento datosEvento = c.informacionEvento(evento);
-		DTEvento datosEvento = c.informacionEventoEdAceptadas(evento);
+		DtEvento datosEvento = port.informacionEventoEdAceptadas(evento);
 
 		String descripcion = datosEvento.getDescripcion();
 		request.setAttribute("descripcion", descripcion);
 
 		String sigla = datosEvento.getSigla();
 		request.setAttribute("sigla", sigla);
-
-		LocalDate fechaAlta = datosEvento.getFechaAlta();
+		
+		String fechaAlta = datosEvento.getFechaAlta();
 		request.setAttribute("fecha-alta", fechaAlta);
 
 		List<String> categorias = datosEvento.getCategorias();

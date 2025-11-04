@@ -53,7 +53,7 @@ public class DtEvento {
     protected String nombre;
     protected String sigla;
     protected String descripcion;
-    protected LocalDate fechaAlta;
+    protected String fechaAlta;
     @XmlElement(nillable = true)
     protected List<String> categorias;
     @XmlElement(nillable = true)
@@ -142,7 +142,7 @@ public class DtEvento {
      *     {@link LocalDate }
      *     
      */
-    public LocalDate getFechaAlta() {
+    public String getFechaAlta() {
         return fechaAlta;
     }
 
@@ -154,7 +154,7 @@ public class DtEvento {
      *     {@link LocalDate }
      *     
      */
-    public void setFechaAlta(LocalDate value) {
+    public void setFechaAlta(String value) {
         this.fechaAlta = value;
     }
 
