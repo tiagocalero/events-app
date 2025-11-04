@@ -1,4 +1,4 @@
-<%@ page import="publicar.DtUsuario" %>
+<%@ page import="main.java.publicar.DtUsuario" %>
 <header>
 	<div class="container">
 <% HttpSession userSession = request.getSession(false);

@@ -47,8 +47,8 @@ public class Institucion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Categoria.listarCategorias(request, response);
 	    	
-		publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
-        publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
+		main.java.publicar.PublicadorInstitucionService service = new main.java.publicar.PublicadorInstitucionService();
+		main.java.publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
 		
 		//request.setCharacterEncoding("UTF-8");
 

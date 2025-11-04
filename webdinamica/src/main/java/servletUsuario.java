@@ -12,13 +12,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import publicar.DtAsistenteModificado;
-import publicar.DtOrganizadorModificado;
-import publicar.DtUsuario;
-import publicar.DtAsistente;
-import publicar.DtEdicion;
-import publicar.DtOrganizador;
-import publicar.DtEdicion;
+
+import main.java.publicar.DtAsistenteModificado;
+import main.java.publicar.DtOrganizadorModificado;
+import main.java.publicar.DtUsuario;
+import main.java.publicar.DtAsistente;
+import main.java.publicar.DtEdicion;
+import main.java.publicar.DtOrganizador;
+import main.java.publicar.DtEdicion;
+import main.java.publicar.DtRegistro;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -30,7 +32,20 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import java.time.format.DateTimeFormatter;
 import java.io.OutputStream;
 
-import publicar.DtRegistro;
+import main.java.publicar.PublicadorEventoService;
+import main.java.publicar.PublicadorEvento;
+import main.java.publicar.PublicadorUsuarioService;
+import main.java.publicar.PublicadorUsuario;
+import main.java.publicar.PublicadorInstitucionService;
+import main.java.publicar.PublicadorInstitucion;
+
+import logica.DTAsistente;
+import logica.DTAsistenteModificado;
+import logica.DTEdicion;
+import logica.DTOrganizador;
+import logica.DTOrganizadorModificado;
+import logica.DTRegistro;
+import logica.DTUsuario;
 
 /**
  * Servlet implementation class Usuario
@@ -55,8 +70,8 @@ public class servletUsuario extends HttpServlet {
     
     // GET /usuarios/alta
     protected void altaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        publicar.PublicadorInstitucionService service = new publicar.PublicadorInstitucionService();
-        publicar.PublicadorInstitucion port = service.getPublicadorInstitucionPort();
+        PublicadorInstitucionService service = new PublicadorInstitucionService();
+        PublicadorInstitucion port = service.getPublicadorInstitucionPort();
     	
     	List<String> instituciones = port.listarInstituciones().getItem();
         request.setAttribute("instituciones", instituciones);
@@ -66,10 +81,10 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void perfilUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
-        publicar.PublicadorInstitucionService serviceI = new publicar.PublicadorInstitucionService();
-        publicar.PublicadorInstitucion portI = serviceI.getPublicadorInstitucionPort();
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        PublicadorInstitucionService serviceI = new PublicadorInstitucionService();
+        PublicadorInstitucion portI = serviceI.getPublicadorInstitucionPort();
         
     	List<String> instituciones = portI.listarInstituciones().getItem();
         
@@ -97,8 +112,8 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
      	String nick = (String) request.getParameter("nick");
     	if (nick != null && port.elegirUsuario(nick) != null) {
     		DtUsuario usuario = port.elegirUsuario(nick);
@@ -150,8 +165,8 @@ public class servletUsuario extends HttpServlet {
     	}
     		
     	boolean ok = false;
-        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
     	if (tipo.equals("Asistente")) {
     		if (inst != "none") {
     			ok = port.altaAsistenteInstitucion(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento.format(FORMATTER), inst);
@@ -185,8 +200,8 @@ public class servletUsuario extends HttpServlet {
     }
     
     protected void modificarUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
     	HttpSession userSession = request.getSession(false);
 		DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
@@ -254,8 +269,8 @@ public class servletUsuario extends HttpServlet {
     	String nick_o_correo = request.getParameter("nick_o_correo");
     	String passwd = request.getParameter("passwd");
     	
-    	publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();	
+    	PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();	
         
     	DtUsuario u = port.elegirUsuario(nick_o_correo);
 
@@ -289,8 +304,8 @@ public class servletUsuario extends HttpServlet {
  		String nueva = request.getParameter("newPass");
  		String confNueva = request.getParameter("confNewPass");
  		
-        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
  		HttpSession userSession = request.getSession(false);
 		DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
@@ -320,8 +335,8 @@ public class servletUsuario extends HttpServlet {
     // ######  CONSULTA REGISTRO DOGET  ###### 
 
  	protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+ 		PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
     		    	
  		String evento = request.getParameter("evento");
  		String edicion = request.getParameter("edicion");
@@ -331,8 +346,8 @@ public class servletUsuario extends HttpServlet {
     		     	 
  		if (usuario instanceof DtOrganizador) {
  			
- 			publicar.PublicadorEventoService serviceE = new publicar.PublicadorEventoService();
- 	        publicar.PublicadorEvento portE = serviceE.getPublicadorEventoPort();   		
+ 			PublicadorEventoService serviceE = new PublicadorEventoService();
+ 	        PublicadorEvento portE = serviceE.getPublicadorEventoPort();   		
 
     	    		
     		List<DtRegistro> registros = portE.registrosEdicion(edicion, evento).getItem();
@@ -359,8 +374,8 @@ public class servletUsuario extends HttpServlet {
     }
  	
 	protected void listaGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
-        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
 		List<String> usuarios = port.listarUsuarios().getItem();
 		request.setAttribute("lista", usuarios);
 		
@@ -384,14 +399,14 @@ public class servletUsuario extends HttpServlet {
 	    // Ejemplo: PublicadorEventoPort port = service.getPublicadorEventoPort();
 	    // String ciudad = port.obtenerCiudadEdicion(nombreEvento, nombreEdicion);
 	    // String fechaEdicion = port.obtenerFechaEdicion(nombreEvento, nombreEdicion);
-	    publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
-        publicar.PublicadorEvento port = service.getPublicadorEventoPort();
+	    PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
         
         DtEdicion edicion = port.obtenerEdicion(nombreEvento, nombreEdicion);
         
 	    String nombreAsistente = dtu.getNombre();
 	    String ciudad = edicion.getCiudad();        // <-- Reemplazar por dato real
-	    publicar.LocalDate fechaEdicionStr = edicion.getFechaInicio(); // <-- Reemplazar por dato real (Fecha de la Edición)
+	    main.java.publicar.LocalDate fechaEdicionStr = edicion.getFechaInicio(); // <-- Reemplazar por dato real (Fecha de la Edición)
 
 	    // 2. CONFIGURAR LA RESPUESTA HTTP PARA DESCARGA
 	    response.setContentType("application/pdf");

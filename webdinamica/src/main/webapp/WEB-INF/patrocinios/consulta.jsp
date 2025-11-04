@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="publicar.DtPatrocinio" %>
+<%@ page import="main.java.publicar.DtPatrocinio" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>

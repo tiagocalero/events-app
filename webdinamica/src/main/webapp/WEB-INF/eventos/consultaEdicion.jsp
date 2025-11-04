@@ -2,8 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="logica.DTOrganizador" %>
-<%@ page import="logica.DTAsistente" %>
+<%@ page import="main.java.publicar.DtOrganizador" %>
+<%@ page import="main.java.publicar.DtAsistente" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
@@ -39,8 +39,8 @@
     String organizadorNickname = (String) request.getAttribute("organizador");
     
     // Chequeos de rol y registro
-    boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof publicar.DtOrganizador);
-    boolean esAsistente = (usuarioLoggeado != null) && (usuarioLoggeado instanceof publicar.DtAsistente);
+    boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof DtOrganizador);
+    boolean esAsistente = (usuarioLoggeado != null) && (usuarioLoggeado instanceof DtAsistente);
     
     // NOTA: 'estaRegistrado' DEBE ser enviado por el Servlet (true/false)
     Boolean estaRegistrado = (Boolean) request.getAttribute("estaRegistrado");
@@ -50,7 +50,7 @@
     
     // Chequeo si el usuario logueado es el organizador de ESTA edición
     boolean esElOrganizadorDeEstaEdicion = esOrganizador && 
-                                           ((publicar.DtOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
+                                           ((DtOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
                                            
 	%>
 	

@@ -1,0 +1,203 @@
+package main.java.presentacion;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import main.java.logica.ControladorEvento;
+import main.java.logica.DTTRegistro;
+
+public class ConsultaTipoRegistro extends JInternalFrame {
+	private JInternalFrame frmConsultaEventos;
+	private JLabel lblEventos;
+	private JLabel lblDesc;
+	private JLabel lblCupo;
+	private JLabel lblCosto;
+	private JComboBox<String> comboBoxEventos;
+	private JComboBox<String> comboBoxEdiciones;
+	private JComboBox<String> comboBoxTipoRegistro;
+	private JLabel lblNombre;
+	private JLabel lblEdiciones;
+	private JLabel lblTipoRegistro;
+	private JTextField textFieldNombre;
+	private JTextField textFieldDesc;
+	private JTextField textFieldCupo;
+	private JTextField textFieldCosto;
+	private JButton btnCerrar;
+	
+	
+	
+	public ConsultaTipoRegistro() {
+		initComponents();
+	}
+	
+	public ConsultaTipoRegistro(String evento, String edicion, String tregistro) {
+        initComponents();
+        cargarDatosIniciales(evento, edicion, tregistro);
+    }
+
+	
+	public void initComponents() {
+		setVisible(true);
+		setResizable(true);
+		setIconifiable(true);
+		setMaximizable(true);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
+
+		setTitle("Consultar un Tipo de Registro");
+		setBounds(30, 30, 727, 430);
+		getContentPane().setLayout(null);
+		
+		lblEventos = new JLabel("Eventos:");
+		lblEventos.setBounds(22, 29, 262, 36);
+        lblEventos.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblEventos);
+
+        comboBoxEventos = new JComboBox<>();
+        comboBoxEventos.setBounds(22, 76, 262, 36);
+        
+        ControladorEvento c = ControladorEvento.getInstance();
+        
+        for (String e: c.listarEventos()) {
+        	comboBoxEventos.addItem(e);
+        }
+        getContentPane().add(comboBoxEventos);
+        
+        
+        lblEdiciones = new JLabel("Ediciones: ");
+        lblEdiciones.setHorizontalAlignment(SwingConstants.CENTER);
+        lblEdiciones.setBounds(22, 134, 262, 36);
+        getContentPane().add(lblEdiciones);
+        
+        comboBoxEdiciones = new JComboBox<>();
+        comboBoxEdiciones.setBounds(22, 188, 262, 36);
+        getContentPane().add(comboBoxEdiciones);
+        
+        comboBoxEventos.addActionListener(e -> {
+        	// Primero vaciamos el combo de ediciones
+		    comboBoxEdiciones.removeAllItems();
+
+		    // Obtenemos el evento seleccionado
+		    String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+
+		    // Listamos las ediciones de ese evento y agregamos al combo
+		    for (String ed : c.listarEdiciones(eventoSeleccionado)) {
+		        comboBoxEdiciones.addItem(ed);
+		    }
+        });
+        
+        lblTipoRegistro = new JLabel("Tipos de Registro: ");
+        lblTipoRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTipoRegistro.setBounds(12, 238, 270, 36);
+        getContentPane().add(lblTipoRegistro);
+        
+        comboBoxTipoRegistro = new JComboBox<>();
+        comboBoxTipoRegistro.setBounds(22, 285, 262, 36);
+        getContentPane().add(comboBoxTipoRegistro);
+        
+        comboBoxEdiciones.addActionListener(e -> {
+        	// Primero vaciamos el combo de ediciones
+		    comboBoxTipoRegistro.removeAllItems();
+
+		    // Obtenemos el evento seleccionado
+		    String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+		    
+		 // Obtenemos la edicion seleccionada
+		    String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+		    
+		    if (edicionSeleccionada != null && eventoSeleccionado != null) {
+
+		    	// Listamos las ediciones de ese evento y agregamos al combo
+		    	for (String nombreTRegistro : c.listarTipoRegistro(eventoSeleccionado, edicionSeleccionada)) {
+		    		comboBoxTipoRegistro.addItem(nombreTRegistro);
+		    	}
+		    }
+        });
+        
+        lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(350, 84, 100, 21);
+        lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblNombre);
+
+        
+        textFieldNombre = new JTextField();
+        textFieldNombre.setBounds(441, 82, 249, 25);
+        textFieldNombre.setEditable(false);
+        getContentPane().add(textFieldNombre);
+        
+        lblDesc = new JLabel("Descripcion:");
+		lblDesc.setBounds(339, 142, 123, 21);
+        lblDesc.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblDesc);
+        
+        textFieldDesc = new JTextField();
+        textFieldDesc.setBounds(441, 140, 249, 65);
+        textFieldDesc.setEditable(false);
+        getContentPane().add(textFieldDesc);
+        
+        lblCupo = new JLabel("Cupo:");
+		lblCupo.setBounds(350, 226, 109, 22);
+        lblCupo.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblCupo);
+        
+        textFieldCupo = new JTextField();
+        textFieldCupo.setBounds(441, 225, 249, 25);
+        textFieldCupo.setEditable(false);
+        getContentPane().add(textFieldCupo);
+        
+        lblCosto = new JLabel("Costo:");
+		lblCosto.setBounds(350, 276, 115, 21);
+        lblCosto.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblCosto);
+        
+        textFieldCosto = new JTextField();
+        textFieldCosto.setBounds(441, 274, 249, 25);
+        textFieldCosto.setEditable(false);
+        getContentPane().add(textFieldCosto);
+        
+        btnCerrar = new JButton("Cerrar");
+    	btnCerrar.setBounds(305, 351, 105, 27);
+    	btnCerrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            	dispose();
+            }
+        });
+    	getContentPane().add(btnCerrar);
+        
+        
+        comboBoxTipoRegistro.addActionListener(e -> {
+        	
+        	String eventoSeleccionado = (String) comboBoxEventos.getSelectedItem();
+            String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
+            String tipoRegistroSeleccionado = (String) comboBoxTipoRegistro.getSelectedItem();
+            
+            if (eventoSeleccionado != null && edicionSeleccionada != null && tipoRegistroSeleccionado != null) {
+
+            	DTTRegistro seleccionado = c.seleccionarTipoRegistro(tipoRegistroSeleccionado, eventoSeleccionado, edicionSeleccionada);
+            
+            	// Mostramos los datos en los campos de texto
+            	textFieldNombre.setText(seleccionado.getNombre());
+            	textFieldDesc.setText(seleccionado.getDescripcion());
+            	textFieldCosto.setText("$" + String.valueOf(seleccionado.getCosto()));
+            	textFieldCupo.setText(String.valueOf(seleccionado.getCupo()));
+            }
+        });
+	}
+	
+	private void cargarDatosIniciales(String evento, String edicion, String tregistro) {
+        if (edicion != null && evento != null && tregistro != null) {
+        	comboBoxEventos.setSelectedItem(evento);
+            comboBoxEdiciones.setSelectedItem(edicion);
+            comboBoxTipoRegistro.setSelectedItem(tregistro);
+        }
+    }
+}
