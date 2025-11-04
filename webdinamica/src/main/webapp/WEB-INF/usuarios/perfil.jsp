@@ -2,6 +2,8 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="publicar.DtAsistente" %>
 <%@ page import="publicar.DtOrganizador" %>
+<%@ page import="publicar.DtEdicion" %>
+<%@ page import="publicar.DtRegistro" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
@@ -87,16 +89,16 @@
           	<% if (usuarioLoggeado instanceof DtAsistente) { %>
             	Registros
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-              		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
-    	      			for (DTRegistro reg : registros) { %>
+              		<% List<DtRegistro> registros = (List<DtRegistro>) request.getAttribute("registros");
+    	      			for (DtRegistro reg : registros) { %>
               			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
               		<% } %>
            		</ul>
             <% } else if (usuarioLoggeado instanceof DtOrganizador) { %>
             	Ediciones
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-            		<% List<DTEdicion> ediciones = (List<DTEdicion>) request.getAttribute("ediciones");
-    	      			for (DTEdicion ed : ediciones) { %>
+            		<% List<DtEdicion> ediciones = (List<DtEdicion>) request.getAttribute("ediciones");	
+    	      			for (DtEdicion ed : ediciones) { %>
             			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>
             	</ul>

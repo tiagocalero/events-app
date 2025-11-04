@@ -215,13 +215,13 @@ public class servletUsuario extends HttpServlet {
         	String inst = request.getParameter("institucion");
         	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
     		
-    		DtAsistenteModificado dtam = new DTAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
+    		DtAsistenteModificado dtam = new DtAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
     		port.modificarDatosUsuario(dtam);
     	} else if (dtu instanceof DtOrganizador) {
     		String desc = request.getParameter("desc");
         	String link = request.getParameter("link");
         	
-    		DtOrganizadorModificado dtom = new DTOrganizadorModificado(nombre, uniqueFileName, desc, link);
+    		DtOrganizadorModificado dtom = new DtOrganizadorModificado(nombre, uniqueFileName, desc, link);
     		port.modificarDatosUsuario(dtom);
     	}
     	
