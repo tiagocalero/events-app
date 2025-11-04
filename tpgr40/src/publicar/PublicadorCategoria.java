@@ -38,8 +38,8 @@ public class PublicadorCategoria {
 	}
     
     @WebMethod
-	public ArrayList<String> categorias() {
-		return new ArrayList<>(contCategoria.categorias());
+	public String[] categorias() {
+		return contCategoria.categorias().toArray(new String[0]);
 	}
     
 }

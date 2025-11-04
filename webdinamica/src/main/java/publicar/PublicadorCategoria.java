@@ -8,6 +8,8 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
+import net.java.dev.jaxb.array.ObjectFactory;
+import net.java.dev.jaxb.array.StringArray;
 
 
 /**
@@ -27,12 +29,12 @@ public interface PublicadorCategoria {
     /**
      * 
      * @return
-     *     returns publicar.ArrayList
+     *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorCategoria/categoriasRequest", output = "http://publicar/PublicadorCategoria/categoriasResponse")
-    public ArrayList categorias();
+    public StringArray categorias();
 
     /**
      * 
