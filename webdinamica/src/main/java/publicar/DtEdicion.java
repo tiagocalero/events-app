@@ -32,6 +32,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="organizador" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="evento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="imagen" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="video" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -54,7 +55,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "asistentes",
     "organizador",
     "evento",
-    "imagen"
+    "imagen",
+    "video"
 })
 public class DtEdicion {
 
@@ -74,6 +76,7 @@ public class DtEdicion {
     protected String organizador;
     protected String evento;
     protected String imagen;
+    protected String video;
 
     /**
      * Gets the value of the pais property.
@@ -406,6 +409,30 @@ public class DtEdicion {
      */
     public void setImagen(String value) {
         this.imagen = value;
+    }
+
+    /**
+     * Gets the value of the video property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVideo() {
+        return video;
+    }
+
+    /**
+     * Sets the value of the video property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVideo(String value) {
+        this.video = value;
     }
 
 }

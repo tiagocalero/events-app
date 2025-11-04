@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="logica.DTUsuario" %>
-<%@ page import="logica.DTOrganizador" %>
+<%@ page import="publicar.DtUsuario" %>
+<%@ page import="publicar.DtOrganizador" %>
 <div class="flex-shrink-0 p-3 mb-3" style="width: 280px">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
@@ -33,7 +33,7 @@
       </li>
       
 	  <% HttpSession userSessionSidebar = request.getSession(false);
-	     DTUsuario usuarioLoggeadoSidebar = (DTUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
+	     DtUsuario usuarioLoggeadoSidebar = (DtUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
 	     boolean datosCargados = false;
 	     if (getServletContext().getAttribute("datosCargados") != null)
 	      	datosCargados = (boolean) getServletContext().getAttribute("datosCargados"); %>
@@ -55,7 +55,7 @@
 				<a href="/webdinamica/usuarios/lista" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Usuarios</a>
 			</li>
-	  	  <% if (usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DTOrganizador)) { %>
+	  	  <% if (usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DtOrganizador)) { %>
 			  <li>
 			    <a
 			      href="/webdinamica/eventos/alta"

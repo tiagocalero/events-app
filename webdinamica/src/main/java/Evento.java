@@ -12,8 +12,6 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.ctc.wstx.shaded.msv_core.datatype.xsd.Comparator;
-
 import net.java.dev.jaxb.array.StringArray;
 
 import publicar.PatrocinioSuperaMontoException;
@@ -41,7 +39,9 @@ import net.java.dev.jaxb.array.StringArray;
 import publicar.TipoNivelPatrocinio;
 import publicar.DtEdicion;
 import publicar.DtEvento;
+import publicar.DtOrganizador;
 import publicar.DtPatrocinio;
+import publicar.DtUsuario;
 import publicar.DttRegistro;
 
 /**
@@ -103,14 +103,14 @@ public class Evento extends HttpServlet {
 
 		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 		HttpSession userSession = request.getSession(false);
-		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que asistentes o visitantes accedan, ni organizadores
 		// de una edición distinta a la actual.
 		if (usuarioLoggeado == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DTOrganizador)) {
+		} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DtOrganizador)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -155,7 +155,7 @@ public class Evento extends HttpServlet {
 
 		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 		HttpSession userSession = request.getSession(false);
-		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
@@ -169,7 +169,7 @@ public class Evento extends HttpServlet {
 		if (usuarioLoggeado == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DTOrganizador)) {
+		} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DtOrganizador)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -230,13 +230,13 @@ public class Evento extends HttpServlet {
         publicar.PublicadorEvento port = service.getPublicadorEventoPort();
 
 		HttpSession userSession = request.getSession(false);
-		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que asistentes o visitantes accedan
 		if (usuarioLoggeado == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (!(usuarioLoggeado instanceof DTOrganizador)) {
+		} else if (!(usuarioLoggeado instanceof DtOrganizador)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -252,13 +252,13 @@ public class Evento extends HttpServlet {
 	// Crea un evento con los parámetros pasados
 	protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession userSession = request.getSession(false);
-		DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que asistentes o visitantes accedan
 		if (usuarioLoggeado == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (!(usuarioLoggeado instanceof DTOrganizador)) {
+		} else if (!(usuarioLoggeado instanceof DtOrganizador)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -717,7 +717,7 @@ public class Evento extends HttpServlet {
 	
 		    // 2. Obtener la sesión y el usuario (se mantiene la lógica original)
 		    HttpSession userSession = request.getSession(false);
-		    DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		    DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 		    
 		    // 3. Obtener todas las ediciones del Organizador
 		    List<DTEdicion> ediciones = c.consultaOrganizador();

@@ -2,8 +2,10 @@ package logica;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({ DTAsistente.class, DTOrganizador.class })
 public class DTUsuario {
 	private String nickname;
 	private String nombre;
