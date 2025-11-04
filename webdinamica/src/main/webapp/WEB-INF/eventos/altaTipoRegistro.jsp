@@ -35,8 +35,8 @@
       <h3><strong>Ingrese los datos del nuevo tipo de registro:</strong></h3>
    
       <form class = "content-form-alta "action="altaTipoRegistro" method="post">
-		<input type="hidden" name="nombreEvento" value="<%= nombreEvento != null ? nombreEvento : request.getParameter("evento") %>" />
-  		<input type="hidden" name="nombreEdicion" value="<%= nombreEdicion != null ? nombreEdicion : request.getParameter("edicion") %>" />
+		<input type="hidden" name="evento" value="<%= nombreEvento != null ? nombreEvento : request.getParameter("evento") %>" />
+  		<input type="hidden" name="edicion" value="<%= nombreEdicion != null ? nombreEdicion : request.getParameter("edicion") %>" />
   		
   		<label for= "nombre">Nombre:</label>
         <input type = "text" id = "nombre" name = "nombre" value="<%= nombre %>" required/><br/> 

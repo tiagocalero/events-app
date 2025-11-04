@@ -664,8 +664,8 @@ public class Evento extends HttpServlet {
 	// POST /edicion/alta
 	// Crea una edicion con los parámetros pasados
 	protected void altaTipoRegistroPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombreEvento = request.getParameter("nombreEvento");
-		String nombreEdicion = request.getParameter("nombreEdicion");
+		String nombreEvento = request.getParameter("evento");
+		String nombreEdicion = request.getParameter("edicion");
 		String nombre = request.getParameter("nombre");
 		String desc = request.getParameter("descripcion");
 		float costo = Float.parseFloat(request.getParameter("costo"));
