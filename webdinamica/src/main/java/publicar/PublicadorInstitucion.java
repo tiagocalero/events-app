@@ -26,16 +26,6 @@ public interface PublicadorInstitucion {
 
     /**
      * 
-     * @return
-     *     returns publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar/PublicadorInstitucion/listarInstitucionesResponse")
-    public ArrayList listarInstituciones();
-
-    /**
-     * 
      * @param arg0
      * @param arg1
      * @param arg2
@@ -55,5 +45,15 @@ public interface PublicadorInstitucion {
         String arg2,
         @WebParam(name = "arg3", partName = "arg3")
         String arg3);
+
+    /**
+     * 
+     * @return
+     *     returns publicar.ArrayList
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar/PublicadorInstitucion/listarInstitucionesResponse")
+    public ArrayList listarInstituciones();
 
 }

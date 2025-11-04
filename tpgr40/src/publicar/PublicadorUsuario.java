@@ -38,18 +38,18 @@ public class PublicadorUsuario {
     }
 
     @WebMethod
-    public ArrayList<String> listarAsistentes() {
-    	return new ArrayList<>(contUsuario.listarAsistentes());
+    public String[] listarAsistentes() {
+    	return contUsuario.listarAsistentes().toArray(new String[0]);
     }
 
     @WebMethod
-    public ArrayList<String> listarOrganizadores() {
-    	return new ArrayList<>(contUsuario.listarOrganizadores());
+    public String[] listarOrganizadores() {
+    	return contUsuario.listarOrganizadores().toArray(new String[0]);
     }
     
     @WebMethod
-    public ArrayList<String> listarUsuarios() {
-    	return new ArrayList<>(contUsuario.listarUsuarios());
+    public String[] listarUsuarios() {
+    	return contUsuario.listarUsuarios().toArray(new String[0]);
     }
     
     @WebMethod
@@ -83,18 +83,18 @@ public class PublicadorUsuario {
     }
     
     @WebMethod
-    public ArrayList<DTEdicion> consultaOrganizadorAceptadas(String nickname) {
-    	return new ArrayList<>(contUsuario.consultaOrganizadorAceptadas(nickname));
+    public DTEdicion[] consultaOrganizadorAceptadas(String nickname) {
+    	return contUsuario.consultaOrganizadorAceptadas(nickname).toArray(new DTEdicion[0]);
     }
     
     @WebMethod
-    public ArrayList<DTEdicion> consultaOrganizador() {
-		return new ArrayList<>(contUsuario.consultaOrganizador());
+    public DTEdicion[] consultaOrganizador() {
+		return contUsuario.consultaOrganizador().toArray(new DTEdicion[0]);
 	}
     
     @WebMethod
-    public ArrayList<DTRegistro> consultaAsistente() {
-    	return new ArrayList<>(contUsuario.consultaAsistente());
+    public DTRegistro[] consultaAsistente() {
+    	return contUsuario.consultaAsistente().toArray(new DTRegistro[0]);
     }
     
     @WebMethod
