@@ -5,14 +5,19 @@ import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import publicar.LocalDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DTEdicion {
 	
     private String pais;
     private String ciudad;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaInicio;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaFin;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaAlta;
     private String sigla;
     private String nombre;
