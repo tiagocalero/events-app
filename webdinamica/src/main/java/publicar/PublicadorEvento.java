@@ -343,6 +343,7 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @param arg1
+     * @param arg10
      * @param arg2
      * @param arg3
      * @param arg4
@@ -377,7 +378,9 @@ public interface PublicadorEvento {
         @WebParam(name = "arg8", partName = "arg8")
         String arg8,
         @WebParam(name = "arg9", partName = "arg9")
-        String arg9);
+        String arg9,
+        @WebParam(name = "arg10", partName = "arg10")
+        String arg10);
 
     /**
      * 
@@ -466,7 +469,7 @@ public interface PublicadorEvento {
         @WebParam(name = "arg3", partName = "arg3")
         String arg3,
         @WebParam(name = "arg4", partName = "arg4")
-        LocalDate arg4,
+        String arg4,
         @WebParam(name = "arg5", partName = "arg5")
         boolean arg5);
 
