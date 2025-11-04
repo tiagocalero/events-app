@@ -81,7 +81,7 @@ public class Evento extends HttpServlet {
 		} 
 		
 		request.setAttribute("eventos", eventos);
-		request.setAttribute("categoriaSeleccionada", categoria); 
+		request.setAttribute("categoriaSeleccionada", categoria);
 
 		// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/eventos/index.jsp").forward(request, response);
@@ -778,6 +778,7 @@ public class Evento extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+				
 		Categoria.listarCategorias(request, response);
 
 		if (servletPath.equals("/eventos")) {

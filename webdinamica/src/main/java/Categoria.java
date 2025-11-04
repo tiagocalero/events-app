@@ -25,9 +25,12 @@ public class Categoria extends HttpServlet {
 
 
     protected static void listarCategorias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ControladorCategoria c = ControladorCategoria.getInstance();
+    	publicar.PublicadorCategoriaService service = new publicar.PublicadorCategoriaService();
+        publicar.PublicadorCategoria port = service.getPublicadorCategoriaPort();
+    	
+    	//ControladorCategoria c = ControladorCategoria.getInstance();
         
-        List<String> categoriasListado = c.categorias();
+        List<String> categoriasListado = port.categorias().getItem();
         request.setAttribute("categoriasListado", categoriasListado);
     }
 
