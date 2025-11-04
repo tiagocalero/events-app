@@ -26,6 +26,7 @@ import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTRegistro;
 import logica.DTTRegistro;
+import logica.Evento;
 import logica.TipoNivelPatrocinio;
 
 @WebService
@@ -130,6 +131,9 @@ public class PublicadorEvento {
     @WebMethod
     public DTEdicion obtenerEdicion(String nombreEdicion, String nombreEvento) {
     	return contEvento.obtenerEdicion(nombreEdicion, nombreEvento);
+    }
+    public void incrementarVisitas(String nombreEvento) {
+    	contEvento.incrementarVisitas(nombreEvento);
     }
     
     @WebMethod

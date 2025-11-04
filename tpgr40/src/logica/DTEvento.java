@@ -5,12 +5,15 @@ import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import publicar.LocalDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DTEvento {
 	private String nombre;
 	private String sigla;
 	private String descripcion;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate fechaAlta;
 	private List<String> categorias;
 	private List<String> ediciones;

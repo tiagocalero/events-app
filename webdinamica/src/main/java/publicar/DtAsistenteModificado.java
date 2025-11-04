@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *     <extension base="{http://publicar/}dtUsuarioModificado">
  *       <sequence>
  *         <element name="apellido" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         <element name="nacimiento" type="{http://publicar/}localDate" minOccurs="0"/>
+ *         <element name="nacimiento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="institucion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
  *     </extension>
@@ -38,7 +38,7 @@ public class DtAsistenteModificado
 {
 
     protected String apellido;
-    protected LocalDate nacimiento;
+    protected String nacimiento;
     protected String institucion;
 
     /**
@@ -70,10 +70,10 @@ public class DtAsistenteModificado
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getNacimiento() {
+    public String getNacimiento() {
         return nacimiento;
     }
 
@@ -82,10 +82,10 @@ public class DtAsistenteModificado
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setNacimiento(LocalDate value) {
+    public void setNacimiento(String value) {
         this.nacimiento = value;
     }
 

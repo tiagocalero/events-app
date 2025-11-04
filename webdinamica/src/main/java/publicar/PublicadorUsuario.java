@@ -55,7 +55,7 @@ public interface PublicadorUsuario {
         @WebParam(name = "arg5", partName = "arg5")
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6);
+        String arg6);
 
     /**
      * 
@@ -87,6 +87,16 @@ public interface PublicadorUsuario {
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
         String arg6);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
+    public StringArray listarAsistentes();
 
     /**
      * 
@@ -127,16 +137,6 @@ public interface PublicadorUsuario {
     public void modificarDatosUsuario(
         @WebParam(name = "arg0", partName = "arg0")
         DtUsuarioModificado arg0);
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
-    public StringArray listarAsistentes();
 
     /**
      * 
@@ -204,7 +204,7 @@ public interface PublicadorUsuario {
         @WebParam(name = "arg5", partName = "arg5")
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6,
+        String arg6,
         @WebParam(name = "arg7", partName = "arg7")
         String arg7);
 
