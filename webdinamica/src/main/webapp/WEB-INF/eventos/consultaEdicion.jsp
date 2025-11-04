@@ -39,8 +39,8 @@
     String organizadorNickname = (String) request.getAttribute("organizador");
     
     // Chequeos de rol y registro
-    boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTOrganizador);
-    boolean esAsistente = (usuarioLoggeado != null) && (usuarioLoggeado instanceof logica.DTAsistente);
+    boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof publicar.DtOrganizador);
+    boolean esAsistente = (usuarioLoggeado != null) && (usuarioLoggeado instanceof publicar.DtAsistente);
     
     // NOTA: 'estaRegistrado' DEBE ser enviado por el Servlet (true/false)
     Boolean estaRegistrado = (Boolean) request.getAttribute("estaRegistrado");
@@ -50,7 +50,7 @@
     
     // Chequeo si el usuario logueado es el organizador de ESTA edición
     boolean esElOrganizadorDeEstaEdicion = esOrganizador && 
-                                           ((logica.DTOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
+                                           ((publicar.DtOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
                                            
 	%>
 	

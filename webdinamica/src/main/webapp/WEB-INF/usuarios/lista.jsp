@@ -1,9 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="logica.DTEvento" %>
-<%@ page import="logica.DTUsuario" %>
-<%@ page import="logica.DTAsistente" %>
-<%@ page import="logica.DTOrganizador" %>
-<%@ page import="logica.ControladorUsuario" %>
+<%@ page import="publicar.DtUsuario" %>
+<%@ page import="publicar.DtAsistente" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
@@ -26,15 +23,16 @@
 	  	<div class="row gy-3">
 		
 			<div class="list-group m-3 w-50">
-				<% ControladorUsuario cu = ControladorUsuario.getInstance();
+				<% publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+				   publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
 				   List<String> lista = (List<String>) request.getAttribute("lista");
 				   for (String us : lista) {
-					   DTUsuario dtus = cu.elegirUsuario(us);
+					   DtUsuario dtus = port.elegirUsuario(us);
 					   boolean esEl = usuarioLoggeado != null ? dtus.getNickname().equals(usuarioLoggeado.getNickname()) : false;
 				   %>
 				   <a href="/webdinamica/usuarios/<%= esEl ? "" : "consulta" %>?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>"
 				   	  class="list-group-item list-group-item-action <%= esEl ? "active" : "" %>"><%= dtus.getNombre() %> 
-				   	  <%= dtus instanceof DTAsistente ? ((DTAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
+				   	  <%= dtus instanceof DtAsistente ? ((DtAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
 				   </a>
 				<% } %>
 			</div>

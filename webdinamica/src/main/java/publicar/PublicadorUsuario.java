@@ -28,6 +28,26 @@ public interface PublicadorUsuario {
 
     /**
      * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
+    public StringArray listarAsistentes();
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar/PublicadorUsuario/listarUsuariosResponse")
+    public StringArray listarUsuarios();
+
+    /**
+     * 
      * @param arg0
      * @param arg1
      * @param arg2
@@ -55,7 +75,17 @@ public interface PublicadorUsuario {
         @WebParam(name = "arg5", partName = "arg5")
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6);
+        String arg6);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar/PublicadorUsuario/modificarDatosUsuarioResponse")
+    public void modificarDatosUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuarioModificado arg0);
 
     /**
      * 
@@ -91,16 +121,6 @@ public interface PublicadorUsuario {
     /**
      * 
      * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar/PublicadorUsuario/listarUsuariosResponse")
-    public StringArray listarUsuarios();
-
-    /**
-     * 
-     * @return
      *     returns publicar.DtEdicionArray
      */
     @WebMethod
@@ -117,26 +137,6 @@ public interface PublicadorUsuario {
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorUsuario/consultaAsistenteRequest", output = "http://publicar/PublicadorUsuario/consultaAsistenteResponse")
     public DtRegistroArray consultaAsistente();
-
-    /**
-     * 
-     * @param arg0
-     */
-    @WebMethod
-    @Action(input = "http://publicar/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar/PublicadorUsuario/modificarDatosUsuarioResponse")
-    public void modificarDatosUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuarioModificado arg0);
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar/PublicadorUsuario/listarAsistentesResponse")
-    public StringArray listarAsistentes();
 
     /**
      * 
@@ -204,7 +204,7 @@ public interface PublicadorUsuario {
         @WebParam(name = "arg5", partName = "arg5")
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6,
+        String arg6,
         @WebParam(name = "arg7", partName = "arg7")
         String arg7);
 

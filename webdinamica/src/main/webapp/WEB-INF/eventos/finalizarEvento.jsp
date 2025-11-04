@@ -2,8 +2,8 @@
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="logica.DTUsuario" %>
 <%@ page import="logica.DTEvento" %>
-<%@ page import="logica.DTAsistente" %>
-<%@ page import="logica.DTOrganizador" %>
+<%@ page import="publicar.DtAsistente" %>
+<%@ page import="publicar.DtOrganizador" %>
 <%@ page import="logica.DTEdicion" %>
 <%@ page import="logica.DTRegistro" %>
 <%@ page import="java.util.List" %>
@@ -27,8 +27,8 @@
 
   <main>
     <%@ include file="/components/sidebar.jsp" %>
-    <% DTAsistente asistente = null;
-       DTOrganizador organizador = null; %>
+    <% DtAsistente asistente = null;
+       DtOrganizador organizador = null; %>
 
     <div class="content content-consulta">
         
@@ -36,7 +36,7 @@
         
         <ul class="list-unstyled ps-0">
           <li class="mb-1">
-          	<% if (usuarioLoggeado instanceof DTAsistente) { %>
+          	<% if (usuarioLoggeado instanceof DtAsistente) { %>
                 Registros
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
@@ -44,7 +44,7 @@
               			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
               		<% } %>
            		</ul>
-            <% } else if (usuarioLoggeado instanceof DTOrganizador) { %>
+            <% } else if (usuarioLoggeado instanceof DtOrganizador) { %>
             	
             	<p class="mb-4">Lista de eventos para gestionar la finalización:</p>
             	

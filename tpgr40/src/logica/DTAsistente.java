@@ -3,10 +3,13 @@ import java.time.LocalDate;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import publicar.LocalDateAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DTAsistente extends DTUsuario {
 	private String apellido;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate nacimiento;
 	private String institucion;
 

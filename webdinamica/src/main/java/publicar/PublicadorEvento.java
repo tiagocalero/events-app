@@ -254,6 +254,16 @@ public interface PublicadorEvento {
     /**
      * 
      * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar/PublicadorEvento/incrementarVisitasRequest", output = "http://publicar/PublicadorEvento/incrementarVisitasResponse")
+    public void incrementarVisitas(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
      * @param arg1
      * @param arg2
      * @param arg3
@@ -368,11 +378,11 @@ public interface PublicadorEvento {
         @WebParam(name = "arg3", partName = "arg3")
         String arg3,
         @WebParam(name = "arg4", partName = "arg4")
-        LocalDate arg4,
+        String arg4,
         @WebParam(name = "arg5", partName = "arg5")
-        LocalDate arg5,
+        String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        LocalDate arg6,
+        String arg6,
         @WebParam(name = "arg7", partName = "arg7")
         String arg7,
         @WebParam(name = "arg8", partName = "arg8")

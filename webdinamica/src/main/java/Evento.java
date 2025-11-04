@@ -361,7 +361,7 @@ public class Evento extends HttpServlet {
 		publicar.PublicadorEventoService service = new publicar.PublicadorEventoService();
         publicar.PublicadorEvento port = service.getPublicadorEventoPort();
         
-        boolean ok = port.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, fileName, video);
+        boolean ok = port.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio.format(FORMATTER), fechaFin.format(FORMATTER), fechaAlta.format(FORMATTER), ciudad, pais, fileName, video);
 
 		if (!ok) {
 			request.setAttribute("name", nombre);
@@ -400,13 +400,13 @@ public class Evento extends HttpServlet {
 		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
 
 		// 1. Obtener el usuario de la sesión
-		HttpSession session = request.getSession(false);
-		Object usuario = (session != null) ? session.getAttribute("usuario") : null;
+		HttpSession user = request.getSession(false);
+		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
 
 		boolean estaRegistrado = false;
 
 		// 2. Verificar si el usuario logueado es un Asistente y si está registrado
-		if (usuario instanceof DTAsistente) {
+		if (usuario instanceof DtAsistente) {
 			DtAsistente asistente = (DtAsistente) usuario;
 			String nickname = asistente.getNickname();
 
@@ -486,7 +486,7 @@ public class Evento extends HttpServlet {
 			return;
 		}
 
-		StringArray tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion);
+		List<String> tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion).getItem();
 		request.setAttribute("tiposRegistro", tiposRegistro);
 
 		request.setAttribute("nombreEvento", nombreEvento);
@@ -664,8 +664,8 @@ public class Evento extends HttpServlet {
 	// POST /edicion/alta
 	// Crea una edicion con los parámetros pasados
 	protected void altaTipoRegistroPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombreEvento = request.getParameter("nombreEvento");
-		String nombreEdicion = request.getParameter("nombreEdicion");
+		String nombreEvento = request.getParameter("evento");
+		String nombreEdicion = request.getParameter("edicion");
 		String nombre = request.getParameter("nombre");
 		String desc = request.getParameter("descripcion");
 		float costo = Float.parseFloat(request.getParameter("costo"));

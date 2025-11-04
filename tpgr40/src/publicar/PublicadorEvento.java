@@ -26,6 +26,7 @@ import logica.DTEvento;
 import logica.DTPatrocinio;
 import logica.DTRegistro;
 import logica.DTTRegistro;
+import logica.Evento;
 import logica.TipoNivelPatrocinio;
 
 @WebService
@@ -131,6 +132,9 @@ public class PublicadorEvento {
     public DTEdicion obtenerEdicion(String nombreEdicion, String nombreEvento) {
     	return contEvento.obtenerEdicion(nombreEdicion, nombreEvento);
     }
+    public void incrementarVisitas(String nombreEvento) {
+    	contEvento.incrementarVisitas(nombreEvento);
+    }
     
     @WebMethod
 	public void crearPatrocinio(String codigo, TipoNivelPatrocinio tipo, String nombreTipoRegistro, int cantRegistros, float monto, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaAlta, String nombreEdicion, String nombreInstitucion, String nombreEvento)
@@ -152,7 +156,7 @@ public class PublicadorEvento {
     
     @WebMethod
     public boolean altaEdicion(String nombreEvento, String nicknameOrganizador, String nombre, String sigla,
-		LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String ciudad, String pais, String imagen, String video) {
+    		@XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaInicio, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaFin, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaAlta, String ciudad, String pais, String imagen, String video) {
     	return contEvento.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, imagen, video);
     }
     

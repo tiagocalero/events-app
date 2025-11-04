@@ -12,13 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import logica.DTAsistente;
 import publicar.DtAsistenteModificado;
-import logica.DTEdicion;
-import logica.DTOrganizador;
 import publicar.DtOrganizadorModificado;
-import logica.DTRegistro;
-import logica.DTUsuario;
 import publicar.DtUsuario;
 import publicar.DtAsistente;
 import publicar.DtEdicion;
@@ -48,6 +43,7 @@ import publicar.DtRegistro;
 )
 public class servletUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -158,9 +154,9 @@ public class servletUsuario extends HttpServlet {
         publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
     	if (tipo.equals("Asistente")) {
     		if (inst != "none") {
-    			ok = port.altaAsistenteInstitucion(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento, inst);
+    			ok = port.altaAsistenteInstitucion(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento.format(FORMATTER), inst);
     		} else {
-    			ok = port.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento);
+    			ok = port.altaAsistente(nickname, nombre, email, passwd, uniqueFileName, apellido, nacimiento.format(FORMATTER));
     		}
     	} else if (tipo.equals("Organizador")) {
     		ok = port.altaOrganizador(nickname, nombre, email, passwd, uniqueFileName, desc, link);
@@ -227,13 +223,21 @@ public class servletUsuario extends HttpServlet {
         	String inst = request.getParameter("institucion");
         	LocalDate nacimiento = LocalDate.parse(request.getParameter("nacimiento"));
     		
-    		DtAsistenteModificado dtam = new DtAsistenteModificado(nombre, uniqueFileName, apellido, nacimiento, inst);
+    		DtAsistenteModificado dtam = new DtAsistenteModificado();
+    		dtam.setNombre(nombre);
+    		dtam.setImagen(uniqueFileName);
+    		dtam.setApellido(apellido);
+    		dtam.setNacimiento(nacimiento.format(FORMATTER));
+    		dtam.setInstitucion(inst);
     		port.modificarDatosUsuario(dtam);
     	} else if (dtu instanceof DtOrganizador) {
     		String desc = request.getParameter("desc");
         	String link = request.getParameter("link");
-        	
-    		DtOrganizadorModificado dtom = new DtOrganizadorModificado(nombre, uniqueFileName, desc, link);
+    		DtOrganizadorModificado dtom = new DtOrganizadorModificado();
+        	dtom.setNombre(nombre);
+        	dtom.setImagen(uniqueFileName);
+        	dtom.setDescripcion(desc);
+        	dtom.setLink(link);
     		port.modificarDatosUsuario(dtom);
     	}
     	
@@ -269,7 +273,7 @@ public class servletUsuario extends HttpServlet {
     
     protected void cambiarContraGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession userSession = request.getSession(false);
-		DTUsuario usuario = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		// No permitir que visitantes accedan
 		if (usuario == null) {
@@ -316,29 +320,32 @@ public class servletUsuario extends HttpServlet {
     // ######  CONSULTA REGISTRO DOGET  ###### 
 
  	protected void consultaRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 		ControladorUsuario cu = ControladorUsuario.getInstance();
+ 		publicar.PublicadorUsuarioService service = new publicar.PublicadorUsuarioService();
+        publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
     		    	
  		String evento = request.getParameter("evento");
  		String edicion = request.getParameter("edicion");
     		    	
  		HttpSession user = request.getSession(false);
- 		DTUsuario usuario = (DTUsuario) user.getAttribute("usuario");
+ 		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
     		     	 
- 		if (usuario instanceof DTOrganizador) {
-    		    		
- 			ControladorEvento ce = ControladorEvento.getInstance();
+ 		if (usuario instanceof DtOrganizador) {
+ 			
+ 			publicar.PublicadorEventoService serviceE = new publicar.PublicadorEventoService();
+ 	        publicar.PublicadorEvento portE = serviceE.getPublicadorEventoPort();   		
+
     	    		
-    		List<DTRegistro> registros = ce.registrosEdicion(edicion, evento);
+    		List<DtRegistro> registros = portE.registrosEdicion(edicion, evento).getItem();
     		request.setAttribute("registros", registros);
     		request.setAttribute("edicion", edicion);
 
     		    		
     		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroOrg.jsp").forward(request, response);
     		    	
-    	} else if (usuario instanceof DTAsistente) {
-    		DTRegistro registro = cu.datosRegistroUsuario(edicion, usuario.getNickname());
+    	} else if (usuario instanceof DtAsistente) {
+    		DtRegistro registro = port.datosRegistroUsuario(edicion, usuario.getNickname());
     		
-    		request.setAttribute("patrocinio", registro.getPatrocinio());
+    		request.setAttribute("patrocinio", registro.isPatrocinio());
     		request.setAttribute("costo", registro.getCosto());
     		request.setAttribute("fecha", registro.getFecha());
     		request.setAttribute("tipo", registro.getTipo());
@@ -422,7 +429,7 @@ public class servletUsuario extends HttpServlet {
 	                .setFont(fontNormal).setMarginBottom(15));
 	        
 	        // Información del Asistente
-	        document.add(new Paragraph(String.format("Nombre Completo: %s %s", nombreAsistente, apellidoAsistente))
+	        document.add(new Paragraph(String.format("Nombre Completo: %s %s", nombreAsistente))
 	                .setFont(fontBold).setMarginBottom(5).setFontSize(14));
 	        
 	        // Separador visual

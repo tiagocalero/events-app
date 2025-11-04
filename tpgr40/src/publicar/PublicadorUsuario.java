@@ -8,6 +8,7 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.ws.Endpoint;
 
 import logica.ControladorUsuario;
@@ -68,12 +69,12 @@ public class PublicadorUsuario {
     }
     
     @WebMethod
-    public boolean altaAsistenteInstitucion(String nick, String nombre, String correo, String cont, String img, String apellido, LocalDate nac, String ins) {
+    public boolean altaAsistenteInstitucion(String nick, String nombre, String correo, String cont, String img, String apellido, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate nac, String ins) {
     	return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac, ins);
     }
     
     @WebMethod
-    public boolean altaAsistente(String nick, String nombre, String correo, String cont, String img, String apellido, LocalDate nac) {
+    public boolean altaAsistente(String nick, String nombre, String correo, String cont, String img, String apellido, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate nac) {
     	return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac);
     }
     
