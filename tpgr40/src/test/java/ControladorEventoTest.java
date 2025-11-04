@@ -76,7 +76,7 @@ class ControladorEventoTest {
 	// Probar crear eventos con categorías que ya existen
 	@Test @Order(1)
 	void testCrearEventoConCategoriaExistente() {
-		assertEquals(true, c.ingresarDatosEvento("Evento 1", "descripcion1", "e1", fActual, List.of("c1", "c2", "c3")));
+		assertEquals(true, c.ingresarDatosEvento("Evento 1", "descripcion1", "e1", fActual, List.of("c1", "c2", "c3"), false));
 		
 		DTEvento dte = c.informacionEvento("Evento 1");
 		// Tomar el dt y asegurarse que cada campo sea correcto
@@ -94,7 +94,7 @@ class ControladorEventoTest {
 	// Probar crear eventos con categorías que no existen
 	@Test @Order(2)
 	void testCrearEventoConCategoriaNoExistente() {
-		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", fActual, List.of("c2", "c4")));
+		assertEquals(true, c.ingresarDatosEvento("Evento 2", "descripcion2", "e2", fActual, List.of("c2", "c4"), false));
 		
 		DTEvento dte = c.informacionEvento("Evento 2");
 		assertEquals("Evento 2", dte.getNombre());
@@ -112,7 +112,7 @@ class ControladorEventoTest {
 	// Probar crear un evento con un nombre que ya existe
 	@Test @Order(3)
 	void testCrearEventoExistente() {
-		assertEquals(false, c.ingresarDatosEvento("Evento 1", "descripcion2", "e2", fActual, List.of("c4")));
+		assertEquals(false, c.ingresarDatosEvento("Evento 1", "descripcion2", "e2", fActual, List.of("c4"), false));
 
 		// Chequear que no se modifique el evento existente
 		DTEvento dte = c.informacionEvento("Evento 1");
@@ -133,9 +133,9 @@ class ControladorEventoTest {
 	void testCrearEdicionEvento() {
 		LocalDate f = LocalDate.now();
 		
-		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 1", "ed1", f, f, f, "Montevideo", "Uruguay"));
+		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 1", "ed1", f, f, f, "Montevideo", "Uruguay", null));
 		assertEquals(List.of("Edición 1"), c.listarEdiciones("Evento 1"));
-		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 2", "ed2", f, f, f, "Salto", "Uruguay"));
+		assertEquals(true, c.altaEdicion("Evento 1", "org", "Edición 2", "ed2", f, f, f, "Salto", "Uruguay", null));
 		assertEquals(Set.of("Edición 1", "Edición 2"), new HashSet<>(c.listarEdiciones("Evento 1")));
 	}
 	
@@ -159,8 +159,8 @@ class ControladorEventoTest {
 	void testCrearEdicionExistenteEvento() {
 		LocalDate f = LocalDate.now();
 		
-		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay"));
-		assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay"));
+		assertEquals(false, c.altaEdicion("Evento 1", "org", "Edición 1", "dsa", f, f, f, "Montevideo", "Uruguay", null));
+		assertEquals(false, c.altaEdicion("Evento 2", "org", "Edición 1", "assd", f, f, f, "Montevideo", "Uruguay", null));
 	}
 	
 	

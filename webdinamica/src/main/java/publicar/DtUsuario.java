@@ -3,6 +3,7 @@ package publicar;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -34,6 +35,10 @@ import jakarta.xml.bind.annotation.XmlType;
     "nombre",
     "correo",
     "imagen"
+})
+@XmlSeeAlso({
+    DtAsistente.class,
+    DtOrganizador.class
 })
 public class DtUsuario {
 

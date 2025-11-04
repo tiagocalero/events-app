@@ -31,19 +31,6 @@ public interface PublicadorEvento {
      * 
      * @param arg0
      * @return
-     *     returns publicar.DtEventoArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosRequest", output = "http://publicar/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosResponse")
-    public DtEventoArray listarDTEventosCategoriaNoFinalizados(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
      *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
@@ -586,6 +573,19 @@ public interface PublicadorEvento {
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorEvento/buscarEdicionesRequest", output = "http://publicar/PublicadorEvento/buscarEdicionesResponse")
     public DtEdicionArray buscarEdiciones(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns publicar.DtEventoArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosRequest", output = "http://publicar/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosResponse")
+    public DtEventoArray listarDTEventosCategoriaNoFinalizados(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 

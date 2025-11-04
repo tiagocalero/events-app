@@ -1,8 +1,8 @@
-<%@ page import="logica.DTUsuario" %>
+<%@ page import="publicar.DtUsuario" %>
 <header>
 	<div class="container">
 <% HttpSession userSession = request.getSession(false);
-   DTUsuario usuarioLoggeado = (DTUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+   DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
    if (usuarioLoggeado != null) { %>
       <div
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"

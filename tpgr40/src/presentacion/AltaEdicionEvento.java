@@ -212,7 +212,7 @@ public class AltaEdicionEvento extends JInternalFrame {
         // Si la operación genera un error, mostrárselo al usuario
         boolean exito;
         try {
-        	exito = controlador.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais);
+        	exito = controlador.altaEdicion(evento, organizador, nombre, sigla, fechaInicio, fechaFin, fechaAlta, ciudad, pais, null, null);
         } catch (Exception exc) {
         	JOptionPane.showMessageDialog(this, "Error inesperado:\n" + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         	return;

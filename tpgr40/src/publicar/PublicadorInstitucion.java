@@ -32,12 +32,7 @@ public class PublicadorInstitucion {
     public Endpoint getEndpoint() {
             return endpoint;
     }
-    
-    @WebMethod
-    public boolean altaInstitucion(String nombre, String desc, String url) {
-    	return contInstitucion.altaInstitucion(nombre, desc, url);
-    }
-    
+      
     @WebMethod
     public boolean altaInstitucion(String nombre, String desc, String url, String imagen) {
     	return contInstitucion.altaInstitucion(nombre, desc, url, imagen);
