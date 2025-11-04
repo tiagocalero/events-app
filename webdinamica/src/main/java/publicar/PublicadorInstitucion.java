@@ -56,8 +56,6 @@ public interface PublicadorInstitucion {
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://publicar/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar/PublicadorInstitucion/listarInstitucionesResponse")
-
     public StringArray listarInstituciones();
-
 
 }
