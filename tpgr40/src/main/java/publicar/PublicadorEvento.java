@@ -10,6 +10,9 @@ import java.util.AbstractMap.SimpleEntry;
 
 import main.java.excepciones.PatrocinioSuperaMontoException;
 import main.java.excepciones.YaExistePatrocinioException;
+import main.java.excepciones.RegistroAEdicionException;
+import main.java.excepciones.AltaPatrocinioException;
+
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
@@ -138,8 +141,12 @@ public class PublicadorEvento {
     
     @WebMethod
 	public void crearPatrocinio(String codigo, TipoNivelPatrocinio tipo, String nombreTipoRegistro, int cantRegistros, float monto, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate fechaAlta, String nombreEdicion, String nombreInstitucion, String nombreEvento)
-		throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
-		contEvento.crearPatrocinio(codigo, tipo, nombreTipoRegistro, cantRegistros, monto, fechaAlta, nombreEdicion, nombreInstitucion, nombreEvento);
+		throws AltaPatrocinioException {
+		try {
+    	contEvento.crearPatrocinio(codigo, tipo, nombreTipoRegistro, cantRegistros, monto, fechaAlta, nombreEdicion, nombreInstitucion, nombreEvento);
+		} catch (YaExistePatrocinioException | PatrocinioSuperaMontoException | IllegalArgumentException exc) {
+			throw new AltaPatrocinioException(exc.getMessage());
+		}
 	}
     
     @WebMethod
@@ -210,8 +217,12 @@ public class PublicadorEvento {
     @WebMethod
     public void patrocinioEdicion(String codigoPatrocinio, String nombreEdicion, String nombreEvento,
 		String nombreTRegistroSeleccionado, String nombreInstitucion)
-			throws NoSuchElementException, IllegalArgumentException {
-    	contEvento.patrocinioEdicion(codigoPatrocinio, nombreEdicion, nombreEvento, nombreTRegistroSeleccionado, nombreInstitucion);
+			throws RegistroAEdicionException {
+    	try {
+            contEvento.patrocinioEdicion(codigoPatrocinio, nombreEdicion, nombreEvento, nombreTRegistroSeleccionado, nombreInstitucion);
+        } catch (NoSuchElementException | IllegalArgumentException | IllegalStateException e) {
+            throw new RegistroAEdicionException(e.getMessage());
+        }
     }
 
     @WebMethod

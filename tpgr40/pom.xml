@@ -36,6 +36,7 @@
 	    <version>3.1.0</version>
 	    <configuration>
 	      <mainClass>main.java.publicar.Main</mainClass>
+	      <classpathScope>runtime</classpathScope>
 	    </configuration>
 	  </plugin>
 
@@ -48,66 +49,56 @@
 	        <manifest>
 	          <addClasspath>true</addClasspath>
 	          <classpathPrefix>lib/</classpathPrefix>
-	          <mainClass>main.java.publicar.Main</mainClass> <!-- 👈 Cambia esto si tu paquete es otro -->
+	          <mainClass>main.java.publicar.Main</mainClass>
 	        </manifest>
 	      </archive>
 	    </configuration>
 	  </plugin>
     </plugins>
   </build>
- 
   <dependencies>
-	<dependency>
-	  <groupId>jakarta.xml.ws</groupId>
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-rt</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-tools</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.xml.ws</groupId>
       <artifactId>jakarta.xml.ws-api</artifactId>
-	  <version>4.0.0</version>
-	</dependency>
-    <dependency>
-        <groupId>com.sun.xml.ws</groupId>
-        <artifactId>jaxws-rt</artifactId>
-        <version>4.0.2</version>
+      <version>3.0.1</version>
     </dependency>
 
-    <!-- Herramientas de JAX-WS (wsimport, etc.) -->
     <dependency>
-        <groupId>com.sun.xml.ws</groupId>
-        <artifactId>jaxws-tools</artifactId>
-        <version>4.0.2</version>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>3.0.1</version>
     </dependency>
 
-    <!-- API JAXB -->
     <dependency>
-        <groupId>jakarta.xml.bind</groupId>
-        <artifactId>jakarta.xml.bind-api</artifactId>
-        <version>4.0.2</version>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>3.0.2</version>
     </dependency>
 
-    <!-- Implementación JAXB -->
+    <!-- JUnit -->
     <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-runtime</artifactId>
-        <version>4.0.5</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
     </dependency>
-
-    <!-- Activación Jakarta (requerida por JAX-WS/JAXB) -->
     <dependency>
-        <groupId>jakarta.activation</groupId>
-        <artifactId>jakarta.activation-api</artifactId>
-        <version>2.1.3</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
     </dependency>
-    
-    <dependency>
-	  <groupId>org.junit.jupiter</groupId>
-	  <artifactId>junit-jupiter-api</artifactId>
-	  <version>5.10.2</version>
-	  <scope>test</scope>
-	</dependency>
-	
-	<dependency>
-	  <groupId>org.junit.jupiter</groupId>
-	  <artifactId>junit-jupiter-engine</artifactId>
-	  <version>5.10.2</version>
-	  <scope>test</scope>
-	</dependency>
   </dependencies>
 </project>
