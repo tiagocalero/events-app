@@ -91,7 +91,7 @@ public class Evento extends HttpServlet {
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!port.existeEdicionEvento(evento, edicion)) {
+		if (evento == null || edicion == null || !port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -103,7 +103,7 @@ public class Evento extends HttpServlet {
 		// No permitir que asistentes o visitantes accedan, ni organizadores
 		// de una edición distinta a la actual.
 		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesaion");
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
 		} else if (!usuarioLoggeado.getNickname().equals(datosEdicion.getOrganizador())) {
 			response.sendRedirect("/webdinamica/");
@@ -154,7 +154,7 @@ public class Evento extends HttpServlet {
 
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
-		if (!port.existeEdicionEvento(evento, edicion)) {
+		if (evento == null || edicion == null || !port.existeEdicionEvento(evento, edicion)) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -203,7 +203,8 @@ public class Evento extends HttpServlet {
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, o la institución no existe
 		// para la edición, redirigir a página principal
-		if (!port.existeEdicionEvento(evento, edicion)
+		if (evento == null || edicion == null 
+				|| !port.existeEdicionEvento(evento, edicion)
 				|| !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(institucion)) {
 			response.sendRedirect("/webdinamica");
 			return;
