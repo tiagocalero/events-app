@@ -2,21 +2,16 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import main.java.publicar.PatrocinioSuperaMontoException;
-import main.java.publicar.PatrocinioSuperaMontoException_Exception;
-import main.java.publicar.YaExistePatrocinioException;
-import main.java.publicar.YaExistePatrocinioException_Exception;
-import net.java.dev.jaxb.array.StringArray;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,27 +21,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import logica.ControladorEvento;
-import logica.ControladorUsuario;
-import logica.DTAsistente;
-import logica.DTEdicion;
-import logica.DTEvento;
-import logica.DTOrganizador;
-import logica.DTPatrocinio;
-import logica.DTTRegistro;
-import logica.DTUsuario;
-
 import main.java.publicar.DtAsistente;
-import main.java.publicar.TipoNivelPatrocinio;
 import main.java.publicar.DtEdicion;
 import main.java.publicar.DtEvento;
 import main.java.publicar.DtOrganizador;
 import main.java.publicar.DtPatrocinio;
 import main.java.publicar.DtUsuario;
 import main.java.publicar.DttRegistro;
-import main.java.publicar.PublicadorEventoService;
+import main.java.publicar.AltaPatrocinioException_Exception;
 import main.java.publicar.PublicadorEvento;
-import main.java.publicar.PublicadorUsuarioService;
+import main.java.publicar.PublicadorEventoService;
 import main.java.publicar.PublicadorUsuario;
+import main.java.publicar.PublicadorUsuarioService;
+import main.java.publicar.RegistroAEdicionException_Exception;
+import main.java.publicar.TipoNivelPatrocinio;
+import net.java.dev.jaxb.array.StringArray;
 
 /**
  * Servlet implementation class Evento
@@ -114,10 +103,10 @@ public class Evento extends HttpServlet {
 		// No permitir que asistentes o visitantes accedan, ni organizadores
 		// de una edición distinta a la actual.
 		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webdinamica/usuarios/inicio_sesaion");
 			return;
-		} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DtOrganizador)) {
-			response.sendRedirect("/webdinamica");
+		} else if (!usuarioLoggeado.getNickname().equals(datosEdicion.getOrganizador())) {
+			response.sendRedirect("/webdinamica/");
 			return;
 		}
 
@@ -175,7 +164,7 @@ public class Evento extends HttpServlet {
 		if (usuarioLoggeado == null) {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
-		} else if (usuarioLoggeado.getNickname() != datosEdicion.getOrganizador() || !(usuarioLoggeado instanceof DtOrganizador)) {
+		} else if (!usuarioLoggeado.getNickname().equals(datosEdicion.getOrganizador())) {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
@@ -184,9 +173,7 @@ public class Evento extends HttpServlet {
 
 		try {
 			port.crearPatrocinio(codigo, nivel, tipoRegistro, cantRegistros, monto, LocalDate.now().format(fmt), edicion, institucion, evento);
-		} catch(PatrocinioSuperaMontoException_Exception
-				| YaExistePatrocinioException_Exception
-				| IllegalArgumentException ex) {
+		} catch(AltaPatrocinioException_Exception ex) {
 			request.setAttribute("error", ex.getMessage());
 
 			// Se incluyen todos los atributos para que se vuelvan a cargar y
@@ -536,7 +523,7 @@ public class Evento extends HttpServlet {
 		if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
 			try {
 			    port.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
-			} catch (IllegalArgumentException | NoSuchElementException | IllegalStateException exc) {
+			} catch (RegistroAEdicionException_Exception exc) {
 			    mensajeError = exc.getMessage();
 			}
 			

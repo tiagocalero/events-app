@@ -3,7 +3,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import logica.ControladorCategoria;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +27,6 @@ public class Categoria extends HttpServlet {
     	main.java.publicar.PublicadorCategoriaService service = new main.java.publicar.PublicadorCategoriaService();
     	main.java.publicar.PublicadorCategoria port = service.getPublicadorCategoriaPort();
     	
-    	//ControladorCategoria c = ControladorCategoria.getInstance();
-        
         List<String> categoriasListado = port.categorias().getItem();
         request.setAttribute("categoriasListado", categoriasListado);
     }

@@ -406,7 +406,7 @@ public class servletUsuario extends HttpServlet {
         
 	    String nombreAsistente = dtu.getNombre();
 	    String ciudad = edicion.getCiudad();        // <-- Reemplazar por dato real
-	    main.java.publicar.LocalDate fechaEdicionStr = edicion.getFechaInicio(); // <-- Reemplazar por dato real (Fecha de la Edición)
+	    String fechaEdicionStr = edicion.getFechaInicio(); // <-- Reemplazar por dato real (Fecha de la Edición)
 
 	    // 2. CONFIGURAR LA RESPUESTA HTTP PARA DESCARGA
 	    response.setContentType("application/pdf");

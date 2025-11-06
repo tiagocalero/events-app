@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="publicar.DtRegistro" %>
+<%@ page import="main.java.publicar.DtRegistro" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     
     <%
       // Recuperar la lista y la edición del Request
-      List<publicar.DtRegistro> registros = (List<publicar.DtRegistro>) request.getAttribute("registros");
+      List<main.java.publicar.DtRegistro> registros = (List<main.java.publicar.DtRegistro>) request.getAttribute("registros");
       String nombreEdicion = (String) request.getAttribute("edicion"); 
     %>
 
