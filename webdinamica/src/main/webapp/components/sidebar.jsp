@@ -32,11 +32,10 @@
 		</div>
       </li>
       
-	  <% HttpSession userSessionSidebar = request.getSession(false);
+	  <% 
+	     HttpSession userSessionSidebar = request.getSession(false);
 	     DtUsuario usuarioLoggeadoSidebar = (DtUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
-	     boolean datosCargados = false;
-	     if (getServletContext().getAttribute("datosCargados") != null)
-	      	datosCargados = (boolean) getServletContext().getAttribute("datosCargados"); %>
+	  %>
       <li class="border-top my-3"></li>
       <li class="mb-1">
         <button
@@ -75,25 +74,6 @@
 			  		Finalizar Evento
 			  	</a>
 			  </li>
-		  <% } %>
-		  	 
-		  <% 
-	      	 // No mostrar el botón de cargar datos si ya se cargaron los datos
-	      	 if (!datosCargados) {
-	  	  %>
-			  <li>
-			    <a
-			      href="#"
-			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-				  id="carga-datos"
-			      >Cargar Datos</a>
-			  </li>
-	
-			  <script>
-			    document.getElementById("carga-datos").href = 
-			    			"/webdinamica/CargarDatos?redirect=" + 
-			    				encodeURIComponent(window.location.href);
-			  </script>
 		  <% } %>
 		</ul>
 
