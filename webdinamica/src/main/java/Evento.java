@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -11,6 +12,14 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -387,9 +396,11 @@ public class Evento extends HttpServlet {
 			response.sendRedirect("/webdinamica");
 			return;
 		}
+		
+        System.out.println("DEBUG SERVER: Intentando buscar Evento con nombre: [" + evento + "]");
 
 		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
-
+        
 		// 1. Obtener el usuario de la sesión
 		HttpSession user = request.getSession(false);
 		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
@@ -845,6 +856,104 @@ public class Evento extends HttpServlet {
 			response.getWriter().println("404 - Página no encontrada");
 		}
 	}
+	
+	protected void descargarConstanciaPOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    
+	    // 1. OBTENER DATOS DEL REGISTRO Y ASISTENTE 
+		
+		PublicadorEventoService service = new PublicadorEventoService();
+        PublicadorEvento port = service.getPublicadorEventoPort();
+        
+	    // Datos enviados desde el JSP (por POST)
+	    String nombreEvento = request.getParameter("evento");
+	    String nombreEdicion = request.getParameter("edicion");
+	    
+        System.out.println("DEBUG SERVER: Intentando buscar Evento con nombre: [" + nombreEvento + "]");
+
+        DtEdicion edicion = port.obtenerEdicion(nombreEdicion, nombreEvento);
+
+	    // Obtener datos del asistente desde la sesión
+	    HttpSession userSession = request.getSession(false);
+	    DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+	    
+	    
+	    // Datos de ejemplo o simulacro (DEBES REEMPLAZAR POR LA LLAMADA A TU PUBLICADOR/WS)
+	    // Ejemplo: PublicadorEventoPort port = service.getPublicadorEventoPort();
+	    // String ciudad = port.obtenerCiudadEdicion(nombreEvento, nombreEdicion);
+	    // String fechaEdicion = port.obtenerFechaEdicion(nombreEvento, nombreEdicion);
+                        
+	    String nombreAsistente = dtu.getNombre();
+	    String ciudad = edicion.getCiudad();  
+	    String fechaEdicionStr = edicion.getFechaInicio();
+
+	    // 2. CONFIGURAR LA RESPUESTA HTTP PARA DESCARGA
+	    response.setContentType("application/pdf");
+	    String nombreArchivo = String.format("Constancia_%s_%s.pdf", 
+	                                         nombreEdicion.replaceAll("\\s+", "_"), 
+	                                         dtu.getNickname());
+	    
+	    // La cabecera Content-Disposition fuerza al navegador a descargar el archivo
+	    response.setHeader("Content-Disposition", "attachment; filename=\"" + nombreArchivo + "\"");
+
+	    // 3. GENERACIÓN DEL PDF CON iText 7
+	    try (OutputStream out = response.getOutputStream()) {
+	        
+	    	// Inicializa el escritor de PDF y el documento
+	        PdfWriter writer = new PdfWriter(out);
+	        PdfDocument pdf = new PdfDocument(writer);
+	        Document document = new Document(pdf);
+	        
+	        // --- Contenido del Documento ---
+
+	        // Título del documento
+	        Paragraph titulo = new Paragraph("CERTIFICADO DE ASISTENCIA")
+	                .setBold() // Usar negrita sin cargar la fuente explícitamente
+	                .setFontSize(22)	             
+	                .setMarginBottom(40);
+	        document.add(titulo);
+	        
+	        // Cuerpo del certificado
+	        document.add(new Paragraph("Eventos.uy certifica la participación de:")
+	                .setMarginBottom(15));
+	        
+	        // Información del Asistente
+	        document.add(new Paragraph(String.format("Nombre Completo: %s", nombreAsistente))
+	                .setBold()
+	                .setMarginBottom(5).setFontSize(14));
+	        
+	        // Separador visual (Se reemplazó por una línea simple para mayor seguridad)
+	        document.add(new Paragraph("--------------------------------------------------------------------------------------------------")
+	                .setMarginBottom(20));
+
+	        // Información del Evento/Edición
+	        document.add(new Paragraph("En el evento y edición:")
+	                .setMarginTop(10));
+	        
+	        document.add(new Paragraph(String.format("Evento: %s", nombreEvento))
+	                .setBold());
+	        
+	        document.add(new Paragraph(String.format("Edición: %s", nombreEdicion))
+	                .setBold());
+	        
+	        document.add(new Paragraph(String.format("Lugar: %s", ciudad)));
+	        
+	        document.add(new Paragraph(String.format("Fecha de la Edición: %s", fechaEdicionStr))
+	                .setMarginBottom(40));
+	        
+	        // Fecha de Emisión del comprobante
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy");
+	        String fechaActual = LocalDate.now().format(formatter);
+	        
+	        document.add(new Paragraph(String.format("Comprobante generado dinámicamente el %s.", fechaActual))
+	                .setFontSize(10));
+	                
+	        
+	        // Cierra el documento, forzando la escritura al OutputStream
+	        document.close();
+	        
+	    }
+	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -880,7 +989,9 @@ public class Evento extends HttpServlet {
 			} else if (path.equals("/registroAEdicionEvento")) {
 
 				registroAEdicionEventoPOST(request, response);
-			} 
+			} else if (path != null && path.equals("/descargarConstancia")) {
+	            descargarConstanciaPOST(request, response);
+			}
 			else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");

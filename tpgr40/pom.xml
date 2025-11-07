@@ -101,6 +101,7 @@
       <scope>test</scope>
     </dependency>
     
+    <!-- Itext-->
     <dependency>
         <groupId>com.itextpdf</groupId>
         <artifactId>kernel</artifactId>
@@ -112,7 +113,8 @@
     <dependency>
         <groupId>com.itextpdf</groupId>
         <artifactId>io</artifactId>
-        <version>7.2.5</version> </dependency>
-        
+        <version>7.2.5</version> </dependency>    
+    
   </dependencies>
+    
 </project>

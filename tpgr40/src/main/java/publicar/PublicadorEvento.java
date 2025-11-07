@@ -139,6 +139,8 @@ public class PublicadorEvento {
     public DTEdicion obtenerEdicion(String nombreEdicion, String nombreEvento) {
     	return contEvento.obtenerEdicion(nombreEdicion, nombreEvento);
     }
+    
+    @WebMethod
     public void incrementarVisitas(String nombreEvento) {
     	contEvento.incrementarVisitas(nombreEvento);
     }
