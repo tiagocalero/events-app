@@ -120,7 +120,7 @@ public class ControladorUsuario{
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();	
 		
 		Usuario usuario = manejador.obtener(nickOCorreo);
-		return usuario.chequearContrasena(cont);
+		return usuario != null && usuario.chequearContrasena(cont);
 	}
 	
 	public void setContrasena(String nickOCorreo, String nueva) {
