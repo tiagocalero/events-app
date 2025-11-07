@@ -75,7 +75,7 @@ public class ManejadorEvento {
 		Evento evento = obtenerEvento(nombreEvento);
 		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
 		for (Registro registro: edicion.getRegistros()) {
-			if (registro.getNicknameAsistente() == nickAsistente) {
+			if (registro.getNicknameAsistente().equals(nickAsistente)) {
 				return true;
 			}
 		}

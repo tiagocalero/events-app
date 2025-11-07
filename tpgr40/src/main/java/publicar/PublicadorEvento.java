@@ -57,6 +57,10 @@ public class PublicadorEvento {
     public String[] listarEdiciones(String nombreEvento) {
     	return contEvento.listarEdiciones(nombreEvento).toArray(new String[0]);
     }
+    @WebMethod
+    public void finalizarEvento(String nombreEvento) {
+    	contEvento.finalizarEvento(nombreEvento);
+    }
     
     @WebMethod
     public String[] listarEdicionesIngresadas(String nombreEvento) {

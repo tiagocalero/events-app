@@ -335,7 +335,7 @@ public class Evento extends HttpServlet {
 		Part filePart = request.getPart("imagen");
 		boolean subioImagen = filePart != null && filePart.getSize() > 0;
 
-		String fileName = null;
+		String fileName = "";
 
 		if (subioImagen) {
 			// Generar un nombre aleatorio para la imagen,
@@ -400,7 +400,7 @@ public class Evento extends HttpServlet {
 		if (usuario instanceof DtAsistente) {
 			DtAsistente asistente = (DtAsistente) usuario;
 			String nickname = asistente.getNickname();
-
+			
 			estaRegistrado = port.usuarioEnEdicion(edicion, nickname, evento);
 		}
 
@@ -752,12 +752,13 @@ public class Evento extends HttpServlet {
 		}
 		
 		protected void finalizarEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			ControladorEvento c = ControladorEvento.getInstance();
+			PublicadorEventoService service = new PublicadorEventoService();
+	        PublicadorEvento portE = service.getPublicadorEventoPort();
 
 		    // 1. Obtener el parámetro del formulario (nombreEvento)
 		    String nombreEvento = request.getParameter("nombreEvento");
 		    
-		    c.finalizarEvento(nombreEvento);
+		    portE.finalizarEvento(nombreEvento);
 		    finalizarEventoGET(request, response);
 		}
 

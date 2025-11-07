@@ -271,10 +271,9 @@ public class servletUsuario extends HttpServlet {
     	
     	PublicadorUsuarioService service = new PublicadorUsuarioService();
         PublicadorUsuario port = service.getPublicadorUsuarioPort();	
-        
-    	DtUsuario u = port.elegirUsuario(nick_o_correo);
 
-    	if (u != null && port.chequearContrasena(nick_o_correo, passwd)) {
+    	if (port.chequearContrasena(nick_o_correo, passwd)) {
+        	DtUsuario u = port.elegirUsuario(nick_o_correo);
     		HttpSession session = request.getSession(true);
     		session.setAttribute("usuario", u);
         	response.sendRedirect("/webdinamica");
