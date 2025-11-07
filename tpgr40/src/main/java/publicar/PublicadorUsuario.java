@@ -119,4 +119,24 @@ public class PublicadorUsuario {
     	contUsuario.registrarAsistencia(asistente, edicion);
     }
     
+    @WebMethod
+    public String[] obtenerSeguidos(String nickname) {
+    	return contUsuario.obtenerSeguidos(nickname).toArray(new String[0]);
+    }
+    
+    @WebMethod
+    public void agregarSeguido(String nickSeguidor, String nickSeguido) {
+    	contUsuario.seguirUsuario(nickSeguidor, nickSeguido);
+    }
+    
+    @WebMethod
+    public void eliminarSeguido(String nickSeguidor, String nickSeguido) {
+    	contUsuario.dejarDeSeguirUsuario(nickSeguidor, nickSeguido);
+    }
+    
+    @WebMethod
+    public boolean esSeguido(String nickSeguidor, String nickSeguido) {
+    	return contUsuario.esSeguido(nickSeguidor, nickSeguido);
+    }
+    
 }

@@ -136,4 +136,28 @@ public class ControladorUsuario{
 		Asistente usuario = (Asistente) manejador.obtener(asistente);
 		usuario.registrarAsistencia(edicion);
 	}
+	
+	public void seguirUsuario(String seguidor, String seguido) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		Usuario userSeguidor = manejador.obtener(seguidor);
+		userSeguidor.agregarSeguido(seguido);
+	}
+	
+	public void dejarDeSeguirUsuario(String seguidor, String seguido) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		Usuario userSeguidor = manejador.obtener(seguidor);
+		userSeguidor.eliminarSeguido(seguido);
+	}
+	
+	public boolean esSeguido(String seguidor, String seguido) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		Usuario userSeguidor = manejador.obtener(seguidor);
+		return userSeguidor.esSeguido(seguido);
+	}
+	
+	public List<String> obtenerSeguidos(String nickname) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		Usuario user = manejador.obtener(nickname);
+		return user.getSeguidos();
+	}
 }
