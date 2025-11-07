@@ -6,7 +6,7 @@ import java.util.List;
 public class TRegistro {
 	private String nombre; 
 	private String descripcion; 
-	private float costo;
+	private fldsoat costo;
 	private int cupo;
 	private List<Registro> registro;
 	
