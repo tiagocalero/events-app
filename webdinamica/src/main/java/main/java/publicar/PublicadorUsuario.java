@@ -192,12 +192,12 @@ public interface PublicadorUsuario {
      * @param arg0
      * @param arg1
      * @return
-     *     returns boolean
+     *     returns main.java.publicar.DtRegistro
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaResponse")
-    public boolean chequearContrasena(
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioResponse")
+    public DtRegistro datosRegistroUsuario(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
@@ -208,12 +208,12 @@ public interface PublicadorUsuario {
      * @param arg0
      * @param arg1
      * @return
-     *     returns main.java.publicar.DtRegistro
+     *     returns boolean
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioResponse")
-    public DtRegistro datosRegistroUsuario(
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaResponse")
+    public boolean chequearContrasena(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
