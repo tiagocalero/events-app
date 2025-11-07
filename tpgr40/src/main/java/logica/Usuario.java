@@ -1,11 +1,14 @@
 package main.java.logica;
 
+import java.util.List;
+
 public abstract class Usuario {
 	private String nickname;
 	private String nombre;
 	private String correo;
 	private String contrasena;
 	private String imagen;
+	private List<String> seguidos;
 	
 	public Usuario(String nick, String nom, String correo, String contrasena, String img) {
 		ControladorUsuario controlador = ControladorUsuario.getInstance();
@@ -31,6 +34,10 @@ public abstract class Usuario {
 	public String getImagen() {
 		return imagen;
 	}
+	
+	public List<String> getSeguidos() {
+		return seguidos;
+	}
 
 	public boolean chequearContrasena(String pass) {
 		ControladorUsuario controlador = ControladorUsuario.getInstance();
@@ -50,6 +57,18 @@ public abstract class Usuario {
 	public void setContrasena(String contrasena) {
 		ControladorUsuario controlador = ControladorUsuario.getInstance();
 		this.contrasena = controlador.hashearContrasena(contrasena);
+	}
+	
+	public void agregarSeguido(String nickSeguido) {
+		seguidos.add(nickSeguido);
+	}
+	
+	public boolean esSeguido(String nickSeguido) {
+		return seguidos.contains(nickSeguido);
+	}
+	
+	public void eliminarSeguido(String nickSeguido) {
+		seguidos.remove(nickSeguido);
 	}
 	
 	public abstract void modificar(DTUsuarioModificado datos);
