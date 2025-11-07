@@ -70,7 +70,11 @@
         	<textarea type="text" id="desc" disabled><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
         
-        <% if () %>
+        <% if (port.esSeguido(usuarioLoggeado.getNickname(), usuario.getNickname())) { %>
+        	<button type="button" id="btn-unfollow" class="btn btn-danger">Dejar de Seguir</button>
+        <% } else { %>
+            <button type="button" id="btn-follow" class="btn btn-primary">Seguir</button>
+        <% } %>
       </form>
     </div>
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
