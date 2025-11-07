@@ -1,9 +1,6 @@
 
 package main.java.publicar;
 
-import javax.xml.namespace.QName;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.annotation.XmlElementDecl;
 import jakarta.xml.bind.annotation.XmlRegistry;
 
 
@@ -24,64 +21,12 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AltaPatrocinioException_QNAME = new QName("http://publicar.java.main/", "AltaPatrocinioException");
-    private final static QName _RegistroAEdicionException_QNAME = new QName("http://publicar.java.main/", "RegistroAEdicionException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: main.java.publicar
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link AltaPatrocinioException }
-     * 
-     * @return
-     *     the new instance of {@link AltaPatrocinioException }
-     */
-    public AltaPatrocinioException createAltaPatrocinioException() {
-        return new AltaPatrocinioException();
-    }
-
-    /**
-     * Create an instance of {@link RegistroAEdicionException }
-     * 
-     * @return
-     *     the new instance of {@link RegistroAEdicionException }
-     */
-    public RegistroAEdicionException createRegistroAEdicionException() {
-        return new RegistroAEdicionException();
-    }
-
-    /**
-     * Create an instance of {@link DttRegistro }
-     * 
-     * @return
-     *     the new instance of {@link DttRegistro }
-     */
-    public DttRegistro createDttRegistro() {
-        return new DttRegistro();
-    }
-
-    /**
-     * Create an instance of {@link ArrayList }
-     * 
-     * @return
-     *     the new instance of {@link ArrayList }
-     */
-    public ArrayList createArrayList() {
-        return new ArrayList();
-    }
-
-    /**
-     * Create an instance of {@link DtRegistro }
-     * 
-     * @return
-     *     the new instance of {@link DtRegistro }
-     */
-    public DtRegistro createDtRegistro() {
-        return new DtRegistro();
     }
 
     /**
@@ -95,16 +40,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtEvento }
-     * 
-     * @return
-     *     the new instance of {@link DtEvento }
-     */
-    public DtEvento createDtEvento() {
-        return new DtEvento();
-    }
-
-    /**
      * Create an instance of {@link DtEdicion }
      * 
      * @return
@@ -115,33 +50,73 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtPatrocinio }
+     * Create an instance of {@link DtUsuarioModificado }
      * 
      * @return
-     *     the new instance of {@link DtPatrocinio }
+     *     the new instance of {@link DtUsuarioModificado }
      */
-    public DtPatrocinio createDtPatrocinio() {
-        return new DtPatrocinio();
+    public DtUsuarioModificado createDtUsuarioModificado() {
+        return new DtUsuarioModificado();
     }
 
     /**
-     * Create an instance of {@link DtRegistroArray }
+     * Create an instance of {@link DtAsistenteModificado }
      * 
      * @return
-     *     the new instance of {@link DtRegistroArray }
+     *     the new instance of {@link DtAsistenteModificado }
      */
-    public DtRegistroArray createDtRegistroArray() {
-        return new DtRegistroArray();
+    public DtAsistenteModificado createDtAsistenteModificado() {
+        return new DtAsistenteModificado();
     }
 
     /**
-     * Create an instance of {@link DtEventoArray }
+     * Create an instance of {@link DtOrganizadorModificado }
      * 
      * @return
-     *     the new instance of {@link DtEventoArray }
+     *     the new instance of {@link DtOrganizadorModificado }
      */
-    public DtEventoArray createDtEventoArray() {
-        return new DtEventoArray();
+    public DtOrganizadorModificado createDtOrganizadorModificado() {
+        return new DtOrganizadorModificado();
+    }
+
+    /**
+     * Create an instance of {@link DtUsuario }
+     * 
+     * @return
+     *     the new instance of {@link DtUsuario }
+     */
+    public DtUsuario createDtUsuario() {
+        return new DtUsuario();
+    }
+
+    /**
+     * Create an instance of {@link DtAsistente }
+     * 
+     * @return
+     *     the new instance of {@link DtAsistente }
+     */
+    public DtAsistente createDtAsistente() {
+        return new DtAsistente();
+    }
+
+    /**
+     * Create an instance of {@link DtOrganizador }
+     * 
+     * @return
+     *     the new instance of {@link DtOrganizador }
+     */
+    public DtOrganizador createDtOrganizador() {
+        return new DtOrganizador();
+    }
+
+    /**
+     * Create an instance of {@link DtRegistro }
+     * 
+     * @return
+     *     the new instance of {@link DtRegistro }
+     */
+    public DtRegistro createDtRegistro() {
+        return new DtRegistro();
     }
 
     /**
@@ -155,29 +130,13 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AltaPatrocinioException }{@code >}
+     * Create an instance of {@link DtRegistroArray }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link AltaPatrocinioException }{@code >}
+     *     the new instance of {@link DtRegistroArray }
      */
-    @XmlElementDecl(namespace = "http://publicar.java.main/", name = "AltaPatrocinioException")
-    public JAXBElement<AltaPatrocinioException> createAltaPatrocinioException(AltaPatrocinioException value) {
-        return new JAXBElement<>(_AltaPatrocinioException_QNAME, AltaPatrocinioException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RegistroAEdicionException }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link RegistroAEdicionException }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://publicar.java.main/", name = "RegistroAEdicionException")
-    public JAXBElement<RegistroAEdicionException> createRegistroAEdicionException(RegistroAEdicionException value) {
-        return new JAXBElement<>(_RegistroAEdicionException_QNAME, RegistroAEdicionException.class, null, value);
+    public DtRegistroArray createDtRegistroArray() {
+        return new DtRegistroArray();
     }
 
 }

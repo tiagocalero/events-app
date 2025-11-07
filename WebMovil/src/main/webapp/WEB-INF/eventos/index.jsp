@@ -2,7 +2,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="main.java.publicar.DtEvento" %>
-<%@ page import="logica.DTUsuario" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eventos.uy - Inicio</title>
   
-  <link rel="stylesheet" href="/webdinamica/assets/styles.css">
+  <link rel="stylesheet" href="/webmovil/assets/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
@@ -32,7 +31,10 @@
 		  <h3 class="text-center"> No hay eventos <%= categoria != null ? "para esta categoría, intenta seleccionar otra" : "en el sistema" %>. </h3>
 		</div>
      <% }
-    	for (DtEvento e : eventos) { %>
+    	for (DtEvento e : eventos) { 
+    		if (e.isFinalizado() != true) {
+    	%>
+    	
 	      <div class="col-sm-6">
 		      <div class="card">
 		        <div class="d-flex justify-content-center align-items-center h-100">
@@ -50,6 +52,7 @@
 		      </div>
 		  </div>
 		<%
+    	}
     	}
 		%>
 	    </div>
