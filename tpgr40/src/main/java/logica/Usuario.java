@@ -1,6 +1,8 @@
 package main.java.logica;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class Usuario {
 	private String nickname;
@@ -8,7 +10,7 @@ public abstract class Usuario {
 	private String correo;
 	private String contrasena;
 	private String imagen;
-	private List<String> seguidos;
+	private Set<String> seguidos;
 	
 	public Usuario(String nick, String nom, String correo, String contrasena, String img) {
 		ControladorUsuario controlador = ControladorUsuario.getInstance();
@@ -17,6 +19,7 @@ public abstract class Usuario {
 		this.correo = correo;
 		this.contrasena = controlador.hashearContrasena(contrasena);
 		this.imagen = img;
+		this.seguidos = new java.util.HashSet<>();
 	}
 	
 	public String getNickname() {
@@ -36,7 +39,7 @@ public abstract class Usuario {
 	}
 	
 	public List<String> getSeguidos() {
-		return seguidos;
+		return seguidos.stream().collect(Collectors.toList());
 	}
 
 	public boolean chequearContrasena(String pass) {
