@@ -212,6 +212,12 @@ public class ControladorEvento {
 		e.incrementarVisitas();
 	}
 
+	public void setVisitasEvento(String nombreEvento, int vis) {
+		ManejadorEvento m = ManejadorEvento.getInstance();
+		Evento e = m.obtenerEvento(nombreEvento);
+		e.setVisitas(vis);
+	}
+
 	public void crearPatrocinio(String codigo, TipoNivelPatrocinio tipo, String nombreTipoRegistro, int cantRegistros, float monto, LocalDate fechaAlta, String nombreEdicion, String nombreInstitucion, String nombreEvento)
 			throws YaExistePatrocinioException, PatrocinioSuperaMontoException, IllegalArgumentException {
 		// Obtengo la Institucion
