@@ -27,7 +27,7 @@ class Header extends HTMLElement {
               />
             </form>
             
-            <div class="dropdown text-end">
+            <div class="foto-perfil-responsive">
               <a
                 href="#"
                 class="d-block link-body-emphasis text-decoration-none"
