@@ -131,6 +131,34 @@ public class servletUsuario extends HttpServlet {
     	}
     }
     
+    protected void consultaUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        HttpSession userSession = request.getSession(false);
+		DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+        
+        String accion = request.getParameter("accion");
+        String objetivo = request.getParameter("nick");
+        String actor = dtu.getNickname();
+
+        try {
+            switch (accion) {
+                case "seguir":
+                    port.agregarSeguido(actor, objetivo);
+                    break;
+                case "dejar":
+                    port.eliminarSeguido(actor, objetivo);
+                    break;
+                default:
+                	// Acción no reconocida
+					break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/webdinamica/usuarios/consulta?nick=" + objetivo);
+    }
+    
 	// POST /usuarios/alta
     // Crea una usuario con los parámetros pasados
     protected void altaUsuarioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -435,6 +463,8 @@ public class servletUsuario extends HttpServlet {
 		        	modificarUsuarioPOST(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioPOST(request, response);
+		        } else if (path.equals("/consulta")) {
+		        	consultaUsuarioPOST(request, response);
 		        } else if(path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
 				} else if (path.equals("/cambiar_contrasena")) {
