@@ -96,6 +96,11 @@ public class Evento {
 	public void incrementarVisitas() {
 		this.visitas++;
 	}
+
+	public void setVisitas(int vis){
+		this.visitas = vis;
+	}
+
 	public boolean getFinalizado() {
 		return finalizado;
 	}
