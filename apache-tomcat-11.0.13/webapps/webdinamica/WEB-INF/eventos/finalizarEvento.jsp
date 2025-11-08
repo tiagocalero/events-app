@@ -5,7 +5,7 @@
 <%@ page import="main.java.publicar.DtAsistente" %>
 <%@ page import="main.java.publicar.DtOrganizador" %>
 <%@ page import="logica.DTEdicion" %>
-<%@ page import="logica.DTRegistro" %>
+<%@ page import="main.java.publicar.DtRegistro" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
@@ -39,9 +39,9 @@
           	<% if (usuarioLoggeado instanceof DtAsistente) { %>
                 Registros
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-              		<% List<DTRegistro> registros = (List<DTRegistro>) request.getAttribute("registros");
-    	      			for (DTRegistro reg : registros) { %>
-              			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getEdicion() %></a></li>
+              		<% List<DtRegistro> registros = (List<DtRegistro>) request.getAttribute("registros");
+    	      			for (DtRegistro reg : registros) { %>
+              			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getNombreEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getNombreEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getNombreEdicion() %></a></li>
               		<% } %>
            		</ul>
             <% } else if (usuarioLoggeado instanceof DtOrganizador) { %>

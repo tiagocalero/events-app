@@ -31,7 +31,10 @@
 		  <h3 class="text-center"> No hay eventos <%= categoria != null ? "para esta categoría, intenta seleccionar otra" : "en el sistema" %>. </h3>
 		</div>
      <% }
-    	for (DtEvento e : eventos) { %>
+    	for (DtEvento e : eventos) { 
+    		if (e.isFinalizado() != true) {
+    	%>
+    	
 	      <div class="col-sm-6">
 		      <div class="card">
 		        <div class="d-flex justify-content-center align-items-center h-100">
@@ -49,6 +52,7 @@
 		      </div>
 		  </div>
 		<%
+    	}
     	}
 		%>
 	    </div>
