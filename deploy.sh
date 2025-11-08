@@ -51,13 +51,13 @@ mvn package
 
 # 3️⃣ webmovil
 echo "📦 Compilando webmovil..."
-cd "$BASE_DIR/webmovil"
+cd "$BASE_DIR/WebMovil"
 mvn package
 
 # 4️⃣ Copiar los .war a Tomcat
 echo "📂 Copiando archivos .war a Tomcat..."
 cp "$BASE_DIR/webdinamica/target/webdinamica-0.0.1-SNAPSHOT.war" "$TOMCAT_DIR/webapps/webdinamica.war"
-cp "$BASE_DIR/webmovil/target/webmovil-0.0.1-SNAPSHOT.war" "$TOMCAT_DIR/webapps/webmovil.war"
+cp "$BASE_DIR/WebMovil/target/webmovil-0.0.1-SNAPSHOT.war" "$TOMCAT_DIR/webapps/webmovil.war"
 
 # 5️⃣ Reiniciar Tomcat
 echo "🛑 Apagando Tomcat..."
