@@ -1,9 +1,17 @@
 
 package main.java.publicar;
 
+import java.util.Properties;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import javax.xml.namespace.QName;
+
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
 import jakarta.xml.ws.WebServiceClient;
@@ -29,11 +37,27 @@ public class PublicadorCategoriaService
     static {
         URL url = null;
         WebServiceException e = null;
+        String ip = "", puerto = "";
+
+        Properties properties = new Properties();
+        // Cargar parámetros (ip y puerto) desde archivo de configuración
         try {
-            url = new URL("http://localhost:9131/webservices?wsdl");
+            properties.load(new FileInputStream(new File(System.getProperty("user.home") + "/.eventosUy/configuracion.properties")));
+
+            ip = (String) properties.get("IP");
+            puerto = (String) properties.get("PUERTO_CATEGORIA");
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            url = new URL("http://" + ip + ":" + puerto + "/webservices?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
+
         PUBLICADORCATEGORIASERVICE_WSDL_LOCATION = url;
         PUBLICADORCATEGORIASERVICE_EXCEPTION = e;
     }

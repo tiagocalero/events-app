@@ -37,10 +37,10 @@
             aria-expanded="false"
           >
             <img
-              src=<%= (usuarioLoggeado.getImagen() != null)
+              src="<%= (usuarioLoggeado.getImagen() != null)
               ? "/webdinamica/uploads/" + usuarioLoggeado.getImagen()
             : "/webdinamica/assets/default_profile.jpg"
-          %>
+          %>"
               alt="foto de perfil"
               style="object-fit: cover;"
               width="40"

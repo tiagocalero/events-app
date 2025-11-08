@@ -20,17 +20,21 @@ import main.java.logica.DTUsuarioModificado;
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class PublicadorUsuario {
-
     private Endpoint endpoint = null;
     private ControladorUsuario contUsuario = null;
+    private String ip;
+    private String puerto;
+
     //Constructor
-    public PublicadorUsuario() {
+    public PublicadorUsuario(String ip, String puerto) {
     	contUsuario = ControladorUsuario.getInstance();
+        this.ip = ip;
+        this.puerto = puerto;
     }
 
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9129/webservices", this);
+         endpoint = Endpoint.publish("http://" + ip + ":" + puerto + "/webservices", this);
     }
 
     @WebMethod(exclude = true)
