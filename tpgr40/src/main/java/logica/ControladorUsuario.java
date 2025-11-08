@@ -39,6 +39,12 @@ public class ControladorUsuario{
         return new ArrayList<>(manejador.usuarios().keySet());
 	}
 
+	public boolean existeUsuario(String nickname) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		
+		return manejador.obtener(nickname) != null;
+	}
+
 	public DTUsuario elegirUsuario(String nickname) {
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
 		Usuario usu = manejador.obtener(nickname);

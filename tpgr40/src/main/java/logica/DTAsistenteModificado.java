@@ -13,6 +13,8 @@ public class DTAsistenteModificado extends DTUsuarioModificado {
 	private LocalDate nacimiento;
 	private String institucion;
 
+	public DTAsistenteModificado() {}
+
 	public DTAsistenteModificado(String nom, String img, String apellido, LocalDate fecha) {
 		super(nom, img);
 		this.apellido = apellido;

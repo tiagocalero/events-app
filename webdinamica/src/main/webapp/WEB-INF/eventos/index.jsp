@@ -2,7 +2,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="main.java.publicar.DtEvento" %>
-<%@ page import="logica.DTUsuario" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>

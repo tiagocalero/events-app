@@ -87,7 +87,7 @@ public class PublicadorEvento {
     }
     
     public DTEvento[] listarDTEventosCategoriaNoFinalizados(String categoria) {
-    	return contEvento.listarDTEventos().toArray(new DTEvento[0]);
+    	return contEvento.listarDTEventosCategoriaNoFinalizados(categoria).toArray(new DTEvento[0]);
     }
     
     @WebMethod
