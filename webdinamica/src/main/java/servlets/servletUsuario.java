@@ -91,8 +91,6 @@ public class servletUsuario extends HttpServlet {
 			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
 			return;
 		}
-		
-    	usuario = port.elegirUsuario(usuario.getNickname());
     	
     	if (usuario instanceof DtAsistente) {
     		List<DtRegistro> registros = port.consultaAsistente().getItem();
@@ -109,7 +107,7 @@ public class servletUsuario extends HttpServlet {
         PublicadorUsuarioService service = new PublicadorUsuarioService();
         PublicadorUsuario port = service.getPublicadorUsuarioPort();
      	String nick = (String) request.getParameter("nick");
-    	if (nick != null && port.elegirUsuario(nick) != null) {
+    	if (nick != null && port.existeUsuario(nick)) {
     		DtUsuario usuario = port.elegirUsuario(nick);
         	
         	if (usuario instanceof DtAsistente) {

@@ -69,8 +69,6 @@
         	<label for="desc" class="lblDesc"><strong>Descripción:</strong></label>
         	<textarea type="text" id="desc" disabled><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
-        
-        <% if () %>
       </form>
     </div>
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">

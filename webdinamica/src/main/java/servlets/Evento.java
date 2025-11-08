@@ -782,7 +782,6 @@ public class Evento extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
-		System.out.println("Entrando al servlet Evento...");
 		Categoria.listarCategorias(request, response);
 
 		if (servletPath.equals("/eventos")) {

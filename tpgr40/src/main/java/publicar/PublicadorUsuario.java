@@ -54,6 +54,11 @@ public class PublicadorUsuario {
     }
     
     @WebMethod
+    public boolean existeUsuario(String nickname) {
+        return contUsuario.existeUsuario(nickname);
+    }
+
+    @WebMethod
     public DTUsuario elegirUsuario(String nickname) {
     	return contUsuario.elegirUsuario(nickname);
     }
