@@ -69,6 +69,19 @@ public class Asistente extends Usuario {
 	public List<DTRegistro> consulta() {
 		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList());
 	}
+
+	public List<String> registrosNoConfirmados() {
+		
+		List<String> registrosNC = new ArrayList<>();
+		
+		for (Map.Entry<String, Registro> entry : registros.entrySet()) {
+		    if (entry.getValue().getAsistencia() == false) {
+		        registrosNC.add(entry.getKey());
+		    }
+		}
+
+		return registrosNC;
+	}
 	
 	public void registrarAsistencia(String edicion) {
 		Registro reg = getRegistro(edicion);

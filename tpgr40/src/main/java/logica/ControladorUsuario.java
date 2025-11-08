@@ -142,6 +142,14 @@ public class ControladorUsuario{
 		Asistente usuario = (Asistente) manejador.obtener(asistente);
 		usuario.registrarAsistencia(edicion);
 	}
+
+	public List<String> registrosNoConfirmados(String nickname){
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		assert usuario instanceof Asistente;
+		Asistente usuario = (Asistente) manejador.obtener(asistente);
+		return usuario.registrosNC();
+	}
+
 	
 	public void seguirUsuario(String seguidor, String seguido) {
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
