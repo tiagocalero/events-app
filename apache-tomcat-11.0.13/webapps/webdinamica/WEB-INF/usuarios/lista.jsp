@@ -38,15 +38,15 @@
 							<% if (usuarioLoggeado != null && !esEl) { %>
 								<form id="seguirUsuario" method="post">
 									<input type="hidden" name="usuarioASeguir" value="<%= dtus.getNickname() %>">
-	        				<% if (port.esSeguido(usuarioLoggeado.getNickname(), dtus.getNickname())) { %>
-	    						  <button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
-	    					  <% } else { %>
-	        					<button type="submit" name="accion" value="seguir" class="btn btn-primary">Seguir</button>
-	        				<% } %>
-	        			</form>
-	         		<% } %>
-		  			</div>
-			 <% } %>
+	        						<% if (port.esSeguido(usuarioLoggeado.getNickname(), dtus.getNickname())) { %>
+	    						  		<button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
+	    					  		<% } else { %>
+	        							<button type="submit" name="accion" value="seguir" class="btn btn-primary">Seguir</button>
+	        						<% } %>
+	        					</form>
+	         				<% } %>
+		  				</div>
+				<% } %>
 				</div>
 	    </div>
     </div>

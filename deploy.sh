@@ -42,17 +42,17 @@ fi
 # 1️⃣ tpgr40
 echo "📦 Compilando tpgr40..."
 cd "$TPGR40_DIR"
-mvn package dependency:copy-dependencies
+mvn clean package dependency:copy-dependencies
 
 # 2️⃣ webdinamica
 echo "📦 Compilando webdinamica..."
 cd "$BASE_DIR/webdinamica"
-mvn package
+mvn clean package
 
 # 3️⃣ webmovil
 echo "📦 Compilando webmovil..."
 cd "$BASE_DIR/WebMovil"
-mvn package
+mvn clean package
 
 # 4️⃣ Copiar los .war a Tomcat
 echo "📂 Copiando archivos .war a Tomcat..."

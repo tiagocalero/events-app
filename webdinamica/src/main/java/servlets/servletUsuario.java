@@ -173,7 +173,7 @@ public class servletUsuario extends HttpServlet {
     	
     	Part imgPart = request.getPart("foto");
     	String imgName = null;
-    	String uniqueFileName = null;
+    	String uniqueFileName = "";
     	if (imgPart != null && imgPart.getSize() > 0) {
     		imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
 
