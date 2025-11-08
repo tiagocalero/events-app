@@ -23,33 +23,31 @@
   	<div class="container py-3">
 	  	<div class="row gy-3">
 		
-			<div class="list-group m-3 w-50">
-				<% main.java.publicar.PublicadorUsuarioService service = new main.java.publicar.PublicadorUsuarioService();
-				   main.java.publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
-				   List<String> lista = (List<String>) request.getAttribute("lista");
-				   for (String us : lista) {
-					   DtUsuario dtus = port.elegirUsuario(us);
-					   boolean esEl = usuarioLoggeado != null ? dtus.getNickname().equals(usuarioLoggeado.getNickname()) : false;
-				   %>
-				   	<div class="item-usuario" style="display:flex;">
-    					<a href="/webdinamica/usuarios/consulta?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>"
-    						class="list-group-item list-group-item-action <%= esEl ? "active" : "" %>" style="width:400px;">
-    						<%= dtus.getNombre() %> 
-				   	  		<%= dtus instanceof DtAsistente ? ((DtAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
-				   	  	</a>
-						<% if (usuarioLoggeado != null && !esEl) { %>
-							<form id="seguirUsuario" method="post">
-								<input type="hidden" name="usuarioASeguir" value="<%= dtus.getNickname() %>">
-        						<% if (port.esSeguido(usuarioLoggeado.getNickname(), dtus.getNickname())) { %>
-    								<button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
-    							<% } else { %>
-        							<button type="submit" name="accion" value="seguir" class="btn btn-primary">Seguir</button>
-        						<% } %>
-        					</form>
-         				<% } %>
-  					</div>
-				<% } %>
-			</div>
+				<div class="list-group m-3 w-50">
+			 <% main.java.publicar.PublicadorUsuarioService service = new main.java.publicar.PublicadorUsuarioService();
+					main.java.publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
+					List<String> lista = (List<String>) request.getAttribute("lista");
+					for (String us : lista) {
+						DtUsuario dtus = port.elegirUsuario(us);
+						boolean esEl = usuarioLoggeado != null ? dtus.getNickname().equals(usuarioLoggeado.getNickname()) : false; %>
+						<div class="list-group-item list-group-item-action align-items-center item-usuario <%= esEl ? "active" : "" %>" style="display:flex;">
+			    		<a class="<%= esEl ? "text-white" : "text-black" %> text-decoration-none" href="/webdinamica/usuarios/consulta?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>" style="width:400px;">
+			    			<%= dtus.getNombre() %> 
+							  <%= dtus instanceof DtAsistente ? ((DtAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
+							</a>
+							<% if (usuarioLoggeado != null && !esEl) { %>
+								<form id="seguirUsuario" method="post">
+									<input type="hidden" name="usuarioASeguir" value="<%= dtus.getNickname() %>">
+	        				<% if (port.esSeguido(usuarioLoggeado.getNickname(), dtus.getNickname())) { %>
+	    						  <button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
+	    					  <% } else { %>
+	        					<button type="submit" name="accion" value="seguir" class="btn btn-primary">Seguir</button>
+	        				<% } %>
+	        			</form>
+	         		<% } %>
+		  			</div>
+			 <% } %>
+				</div>
 	    </div>
     </div>
   </main>

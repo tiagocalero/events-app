@@ -29,7 +29,7 @@
        DtOrganizador organizador = null; %>
 
     <div class="content content-consulta">
-      <form id="modifyUserForm" class="content-form-modificar" action="modificar" method="post"  enctype="multipart/form-data">
+      <form id="modifyUserForm" class="content-form-alta" action="modificar" method="post"  enctype="multipart/form-data">
 
         <div class="event-image">
           <img id="profile-pic" src="/webdinamica/uploads/<%= usuarioLoggeado.getImagen() %>"  onerror="this.onerror=null; this.src='/webdinamica/assets/default_profile.jpg';"
