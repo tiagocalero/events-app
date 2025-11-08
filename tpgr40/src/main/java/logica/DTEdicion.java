@@ -28,6 +28,8 @@ public class DTEdicion {
     private String evento;
     private String imagen;
     private String video;
+    
+    public DTEdicion() {}
 
     public DTEdicion(String evento, String pais, String ciudad, LocalDate fechaInicio, LocalDate fechaFin, LocalDate fechaAlta, String sigla, String nombre, List<String> institucionesPatrocinadoras, List<String> tRegistros, List<String> asistentes, String organizador, String imagen, String video) {
     	this.pais = pais;

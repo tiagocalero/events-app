@@ -11,6 +11,8 @@ public class DTUsuario {
 	private String nombre;
 	private String correo;
 	private String imagen;
+
+	public DTUsuario() {}
 	
 	public DTUsuario(String nick, String nombre, String correo, String img) {
 		this.nickname = nick;

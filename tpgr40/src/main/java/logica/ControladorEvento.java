@@ -157,7 +157,7 @@ public class ControladorEvento {
 	public DTEvento informacionEvento(String nombre) {
 		ManejadorEvento manejador = ManejadorEvento.getInstance();
 		Evento eventoBuscado = manejador.obtenerEvento(nombre);
-		DTEvento res = eventoBuscado.getDatosAceptadas();
+		DTEvento res = eventoBuscado.getDatos();
 
 		return res;
 	}

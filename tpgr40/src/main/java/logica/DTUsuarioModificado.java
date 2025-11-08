@@ -9,6 +9,8 @@ import jakarta.xml.bind.annotation.XmlSeeAlso;
 public class DTUsuarioModificado {
 	private String nombre;
 	private String imagen;
+
+	public DTUsuarioModificado() {}
 	
 	public DTUsuarioModificado(String nom, String img) {
 		this.nombre = nom;

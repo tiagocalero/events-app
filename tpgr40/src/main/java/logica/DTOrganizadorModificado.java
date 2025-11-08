@@ -8,6 +8,8 @@ public class DTOrganizadorModificado extends DTUsuarioModificado {
 	private String descripcion;
 	private String link;
 	
+	public DTOrganizadorModificado() {}
+	
 	public DTOrganizadorModificado(String nom, String img, String desc, String link) {
 		super(nom, img);
 		this.descripcion = desc;

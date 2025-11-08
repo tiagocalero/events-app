@@ -3,7 +3,6 @@
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="main.java.publicar.DtEvento" %>
 <%@ page import="main.java.publicar.DtEdicion" %>
-<%@ page import="logica.DTUsuario" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>

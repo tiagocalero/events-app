@@ -48,14 +48,14 @@
       </form>
       
       <br>
-      <form action="/webdinamica/usuarios/descargarConstancia" method="POST" style="margin-top: 20px;">
+      <form action="/webdinamica/ediciones/descargarConstancia" method="POST" style="margin-top: 20px;">
           
           <% 
             String nombreEdicion = (String) request.getAttribute("edicion");
             String nombreEvento = request.getParameter("evento");
           %>
-          <input type="hidden" name="evento" value="<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>"/>
-          <input type="hidden" name="edicion" value="<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>"/>
+          <input type="hidden" name="evento" value="<%= nombreEvento %>"/>
+          <input type="hidden" name="edicion" value="<%= nombreEdicion %>"/>
           
           <button type="submit" class="btn btn-success" style="background-color: #28a745; border-color: #28a745;">
               Descargar Constancia de Asistencia (PDF)

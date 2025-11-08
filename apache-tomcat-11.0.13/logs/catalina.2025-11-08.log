@@ -1,0 +1,451 @@
+08-Nov-2025 10:12:52.469 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/webdinamica]
+08-Nov-2025 10:12:52.515 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:12:52.751 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-Nov-2025 10:12:52.752 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:12:52.754 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+08-Nov-2025 10:12:52.769 INFO [Catalina-utility-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:12:52.771 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [256] ms
+08-Nov-2025 10:12:52.782 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:12:52.793 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:12:54.922 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            26.1
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           24.0.2
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Homebrew
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:12:54.924 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:12:54.932 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/conf/logging.properties
+08-Nov-2025 10:12:54.932 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-Nov-2025 10:12:54.932 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-Nov-2025 10:12:54.932 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+08-Nov-2025 10:12:54.932 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:12:54.933 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/temp
+08-Nov-2025 10:12:54.940 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/juanandres/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+08-Nov-2025 10:12:55.116 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:12:55.133 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [319] milliseconds
+08-Nov-2025 10:12:55.157 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+08-Nov-2025 10:12:55.157 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+08-Nov-2025 10:12:55.166 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war]
+08-Nov-2025 10:12:55.429 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:12:55.447 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war] has finished in [280] ms
+08-Nov-2025 10:12:55.447 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:12:55.531 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:12:55.533 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [86] ms
+08-Nov-2025 10:12:55.533 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs]
+08-Nov-2025 10:12:55.549 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs] has finished in [16] ms
+08-Nov-2025 10:12:55.549 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager]
+08-Nov-2025 10:12:55.568 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager] has finished in [19] ms
+08-Nov-2025 10:12:55.568 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples]
+08-Nov-2025 10:12:55.685 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples] has finished in [116] ms
+08-Nov-2025 10:12:55.685 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT]
+08-Nov-2025 10:12:55.695 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT] has finished in [10] ms
+08-Nov-2025 10:12:55.696 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager]
+08-Nov-2025 10:12:55.707 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager] has finished in [11] ms
+08-Nov-2025 10:12:55.709 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:12:55.717 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [583] milliseconds
+08-Nov-2025 10:19:18.353 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-Nov-2025 10:19:18.354 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:19:18.355 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+08-Nov-2025 10:19:18.372 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:19:18.382 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:19:20.243 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+08-Nov-2025 10:19:20.245 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            26.1
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           24.0.2
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Homebrew
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:19:20.246 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:19:20.253 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/conf/logging.properties
+08-Nov-2025 10:19:20.253 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:19:20.254 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/temp
+08-Nov-2025 10:19:20.263 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/juanandres/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+08-Nov-2025 10:19:20.450 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:19:20.471 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [339] milliseconds
+08-Nov-2025 10:19:20.499 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+08-Nov-2025 10:19:20.500 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+08-Nov-2025 10:19:20.513 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war]
+08-Nov-2025 10:19:20.890 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:19:20.914 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war] has finished in [399] ms
+08-Nov-2025 10:19:20.914 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:19:20.916 INFO [main] org.apache.catalina.startup.ExpandWar.expand An expanded directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica] was found with a last modified time that did not match the associated WAR. It will be deleted.
+08-Nov-2025 10:19:21.234 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:19:21.238 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [324] ms
+08-Nov-2025 10:19:21.239 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs]
+08-Nov-2025 10:19:21.273 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs] has finished in [34] ms
+08-Nov-2025 10:19:21.274 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager]
+08-Nov-2025 10:19:21.332 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager] has finished in [58] ms
+08-Nov-2025 10:19:21.332 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples]
+08-Nov-2025 10:19:21.501 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples] has finished in [168] ms
+08-Nov-2025 10:19:21.501 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT]
+08-Nov-2025 10:19:21.515 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT] has finished in [14] ms
+08-Nov-2025 10:19:21.515 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager]
+08-Nov-2025 10:19:21.528 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager] has finished in [13] ms
+08-Nov-2025 10:19:21.531 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:19:21.540 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1067] milliseconds
+08-Nov-2025 10:20:29.421 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-Nov-2025 10:20:29.421 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:29.423 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+08-Nov-2025 10:20:29.438 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:29.448 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:30.431 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            26.1
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           24.0.2
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Homebrew
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:30.433 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:30.439 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/conf/logging.properties
+08-Nov-2025 10:20:30.439 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-Nov-2025 10:20:30.439 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-Nov-2025 10:20:30.439 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:30.440 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/temp
+08-Nov-2025 10:20:30.447 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/juanandres/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+08-Nov-2025 10:20:30.623 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:30.640 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [319] milliseconds
+08-Nov-2025 10:20:30.660 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+08-Nov-2025 10:20:30.660 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+08-Nov-2025 10:20:30.670 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war]
+08-Nov-2025 10:20:30.935 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:20:30.951 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war] has finished in [282] ms
+08-Nov-2025 10:20:30.952 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:20:30.953 INFO [main] org.apache.catalina.startup.ExpandWar.expand An expanded directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica] was found with a last modified time that did not match the associated WAR. It will be deleted.
+08-Nov-2025 10:20:30.967 SEVERE [main] org.apache.catalina.startup.ContextConfig.beforeStart Exception fixing docBase for context [/webdinamica]
+	java.util.zip.ZipException: zip file is empty
+		at java.base/java.util.zip.ZipFile$Source.zerror(ZipFile.java:1784)
+		at java.base/java.util.zip.ZipFile$Source.findEND(ZipFile.java:1564)
+		at java.base/java.util.zip.ZipFile$Source.initCEN(ZipFile.java:1656)
+		at java.base/java.util.zip.ZipFile$Source.<init>(ZipFile.java:1497)
+		at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1460)
+		at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:671)
+		at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:201)
+		at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:148)
+		at java.base/java.util.jar.JarFile.<init>(JarFile.java:333)
+		at java.base/sun.net.www.protocol.jar.URLJarFile.<init>(URLJarFile.java:70)
+		at java.base/sun.net.www.protocol.jar.URLJarFile.getJarFile(URLJarFile.java:56)
+		at java.base/sun.net.www.protocol.jar.JarFileFactory.get(JarFileFactory.java:198)
+		at java.base/sun.net.www.protocol.jar.JarURLConnection.connect(JarURLConnection.java:116)
+		at java.base/sun.net.www.protocol.jar.JarURLConnection.getJarFile(JarURLConnection.java:71)
+		at org.apache.catalina.startup.ExpandWar.expand(ExpandWar.java:120)
+		at org.apache.catalina.startup.ContextConfig.fixDocBase(ContextConfig.java:808)
+		at org.apache.catalina.startup.ContextConfig.beforeStart(ContextConfig.java:944)
+		at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:289)
+		at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:109)
+		at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:389)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:163)
+		at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:564)
+		at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:650)
+		at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:923)
+		at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:1839)
+		at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+		at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:124)
+		at org.apache.catalina.startup.HostConfig.deployWARs(HostConfig.java:727)
+		at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:378)
+		at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1579)
+		at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:262)
+		at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:109)
+		at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:389)
+		at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:336)
+		at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:741)
+		at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:767)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1162)
+		at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1158)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+		at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:148)
+		at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:714)
+		at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:201)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.StandardService.startInternal(StandardService.java:410)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:864)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:756)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:339)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:470)
+08-Nov-2025 10:20:30.969 SEVERE [main] org.apache.catalina.startup.HostConfig.deployWAR Error deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+	java.lang.IllegalStateException: Error starting child
+		at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:567)
+		at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:650)
+		at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:923)
+		at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:1839)
+		at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+		at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:124)
+		at org.apache.catalina.startup.HostConfig.deployWARs(HostConfig.java:727)
+		at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:378)
+		at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1579)
+		at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:262)
+		at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:109)
+		at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:389)
+		at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:336)
+		at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:741)
+		at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:767)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1162)
+		at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1158)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+		at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:148)
+		at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:714)
+		at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:201)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.StandardService.startInternal(StandardService.java:410)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:864)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:756)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:339)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:470)
+	Caused by: org.apache.catalina.LifecycleException: Failed to initialize component [org.apache.catalina.webresources.WarResourceSet@1c3146bc]
+		at org.apache.catalina.util.LifecycleBase.handleSubClassException(LifecycleBase.java:404)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:125)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:155)
+		at org.apache.catalina.webresources.StandardRoot.startInternal(StandardRoot.java:714)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:4115)
+		at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4237)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:564)
+		... 34 more
+	Caused by: java.lang.IllegalArgumentException: java.util.zip.ZipException: zip file is empty
+		at org.apache.catalina.webresources.AbstractSingleArchiveResourceSet.initInternal(AbstractSingleArchiveResourceSet.java:140)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		... 41 more
+	Caused by: java.util.zip.ZipException: zip file is empty
+		at java.base/java.util.zip.ZipFile$Source.zerror(ZipFile.java:1784)
+		at java.base/java.util.zip.ZipFile$Source.findEND(ZipFile.java:1564)
+		at java.base/java.util.zip.ZipFile$Source.initCEN(ZipFile.java:1656)
+		at java.base/java.util.zip.ZipFile$Source.<init>(ZipFile.java:1497)
+		at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1460)
+		at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:671)
+		at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:201)
+		at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:148)
+		at java.base/java.util.jar.JarFile.<init>(JarFile.java:333)
+		at org.apache.catalina.webresources.AbstractSingleArchiveResourceSet.initInternal(AbstractSingleArchiveResourceSet.java:137)
+		... 42 more
+08-Nov-2025 10:20:30.970 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [17] ms
+08-Nov-2025 10:20:30.970 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs]
+08-Nov-2025 10:20:30.983 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs] has finished in [13] ms
+08-Nov-2025 10:20:30.983 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager]
+08-Nov-2025 10:20:31.001 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager] has finished in [18] ms
+08-Nov-2025 10:20:31.001 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples]
+08-Nov-2025 10:20:31.123 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples] has finished in [122] ms
+08-Nov-2025 10:20:31.123 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT]
+08-Nov-2025 10:20:31.133 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT] has finished in [10] ms
+08-Nov-2025 10:20:31.134 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager]
+08-Nov-2025 10:20:31.143 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager] has finished in [9] ms
+08-Nov-2025 10:20:31.145 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:31.152 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [511] milliseconds
+08-Nov-2025 10:20:51.157 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Undeploying context [/webdinamica]
+08-Nov-2025 10:20:51.161 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:20:51.261 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-Nov-2025 10:20:51.261 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:51.264 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+08-Nov-2025 10:20:51.403 INFO [Catalina-utility-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:20:51.405 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [243] ms
+08-Nov-2025 10:20:51.418 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:51.424 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:52.658 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+08-Nov-2025 10:20:52.660 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+08-Nov-2025 10:20:52.660 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+08-Nov-2025 10:20:52.660 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+08-Nov-2025 10:20:52.660 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            26.1
+08-Nov-2025 10:20:52.660 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
+08-Nov-2025 10:20:52.660 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home
+08-Nov-2025 10:20:52.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           24.0.2
+08-Nov-2025 10:20:52.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Homebrew
+08-Nov-2025 10:20:52.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:52.661 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/conf/logging.properties
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+08-Nov-2025 10:20:52.667 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+08-Nov-2025 10:20:52.668 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:52.668 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:20:52.668 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/temp
+08-Nov-2025 10:20:52.674 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/juanandres/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+08-Nov-2025 10:20:52.844 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:52.860 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [308] milliseconds
+08-Nov-2025 10:20:52.881 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+08-Nov-2025 10:20:52.881 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+08-Nov-2025 10:20:52.889 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war]
+08-Nov-2025 10:20:53.127 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:20:53.144 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war] has finished in [255] ms
+08-Nov-2025 10:20:53.145 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:20:53.221 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:20:53.223 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [78] ms
+08-Nov-2025 10:20:53.223 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs]
+08-Nov-2025 10:20:53.236 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs] has finished in [12] ms
+08-Nov-2025 10:20:53.236 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager]
+08-Nov-2025 10:20:53.251 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager] has finished in [15] ms
+08-Nov-2025 10:20:53.251 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples]
+08-Nov-2025 10:20:53.349 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples] has finished in [98] ms
+08-Nov-2025 10:20:53.349 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT]
+08-Nov-2025 10:20:53.358 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT] has finished in [9] ms
+08-Nov-2025 10:20:53.358 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager]
+08-Nov-2025 10:20:53.368 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager] has finished in [10] ms
+08-Nov-2025 10:20:53.369 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:20:53.376 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [515] milliseconds
+08-Nov-2025 10:21:47.409 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-Nov-2025 10:21:47.410 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:21:47.412 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+08-Nov-2025 10:21:47.425 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:21:47.437 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:21:48.693 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+08-Nov-2025 10:21:48.694 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+08-Nov-2025 10:21:48.694 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+08-Nov-2025 10:21:48.694 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            26.1
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           24.0.2
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Homebrew
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:21:48.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:21:48.701 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/conf/logging.properties
+08-Nov-2025 10:21:48.701 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 10:21:48.702 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/temp
+08-Nov-2025 10:21:48.709 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/juanandres/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+08-Nov-2025 10:21:48.881 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:21:48.898 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [311] milliseconds
+08-Nov-2025 10:21:48.922 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+08-Nov-2025 10:21:48.922 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+08-Nov-2025 10:21:48.932 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war]
+08-Nov-2025 10:21:49.263 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:21:49.283 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war] has finished in [350] ms
+08-Nov-2025 10:21:49.283 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 10:21:49.285 INFO [main] org.apache.catalina.startup.ExpandWar.expand An expanded directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica] was found with a last modified time that did not match the associated WAR. It will be deleted.
+08-Nov-2025 10:21:49.543 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 10:21:49.544 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [261] ms
+08-Nov-2025 10:21:49.545 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs]
+08-Nov-2025 10:21:49.559 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs] has finished in [14] ms
+08-Nov-2025 10:21:49.559 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager]
+08-Nov-2025 10:21:49.578 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager] has finished in [18] ms
+08-Nov-2025 10:21:49.578 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples]
+08-Nov-2025 10:21:49.728 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples] has finished in [150] ms
+08-Nov-2025 10:21:49.728 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT]
+08-Nov-2025 10:21:49.738 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT] has finished in [10] ms
+08-Nov-2025 10:21:49.739 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager]
+08-Nov-2025 10:21:49.751 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager] has finished in [11] ms
+08-Nov-2025 10:21:49.752 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 10:21:49.759 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [860] milliseconds
+08-Nov-2025 14:15:19.111 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-Nov-2025 14:15:19.111 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 14:15:19.112 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+08-Nov-2025 14:15:19.122 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 14:15:19.126 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 14:15:20.012 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.13
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Oct 10 2025 13:57:31 UTC
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.13.0
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            26.1
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/homebrew/Cellar/openjdk/24.0.2/libexec/openjdk.jdk/Contents/Home
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           24.0.2
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Homebrew
+08-Nov-2025 14:15:20.013 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 14:15:20.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/conf/logging.properties
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13
+08-Nov-2025 14:15:20.019 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/temp
+08-Nov-2025 14:15:20.025 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/juanandres/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+08-Nov-2025 14:15:20.123 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 14:15:20.133 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [184] milliseconds
+08-Nov-2025 14:15:20.148 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+08-Nov-2025 14:15:20.148 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.13]
+08-Nov-2025 14:15:20.154 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war]
+08-Nov-2025 14:15:20.315 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 14:15:20.326 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webmovil.war] has finished in [172] ms
+08-Nov-2025 14:15:20.327 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war]
+08-Nov-2025 14:15:20.327 INFO [main] org.apache.catalina.startup.ExpandWar.expand An expanded directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica] was found with a last modified time that did not match the associated WAR. It will be deleted.
+08-Nov-2025 14:15:20.466 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-Nov-2025 14:15:20.467 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/webdinamica.war] has finished in [140] ms
+08-Nov-2025 14:15:20.468 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs]
+08-Nov-2025 14:15:20.476 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/docs] has finished in [8] ms
+08-Nov-2025 14:15:20.476 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager]
+08-Nov-2025 14:15:20.486 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/manager] has finished in [10] ms
+08-Nov-2025 14:15:20.486 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples]
+08-Nov-2025 14:15:20.557 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/examples] has finished in [71] ms
+08-Nov-2025 14:15:20.558 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT]
+08-Nov-2025 14:15:20.563 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/ROOT] has finished in [6] ms
+08-Nov-2025 14:15:20.563 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager]
+08-Nov-2025 14:15:20.570 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/juanandres/Facultad/tprog/tpgr40/apache-tomcat-11.0.13/webapps/host-manager] has finished in [7] ms
+08-Nov-2025 14:15:20.571 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-Nov-2025 14:15:20.575 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [441] milliseconds

@@ -11,6 +11,7 @@ public class DTTRegistro {
     private String nombre;
     private String descripcion;
     
+    public DTTRegistro() {}
 
     public DTTRegistro(int cupo, float costo, String nombre, String descripcion) {
         this.cupo = cupo;
