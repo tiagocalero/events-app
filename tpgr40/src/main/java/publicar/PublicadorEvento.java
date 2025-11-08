@@ -35,17 +35,21 @@ import main.java.logica.TipoNivelPatrocinio;
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class PublicadorEvento {
+    private String ip;
+    private String puerto;
 
     private Endpoint endpoint = null;
     private ControladorEvento contEvento = null;
     //Constructor
-    public PublicadorEvento() {
+    public PublicadorEvento(String ip, String puerto) {
     	contEvento = ControladorEvento.getInstance();
+        this.ip = ip;
+        this.puerto = puerto;
     }
 
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9128/webservices", this);
+         endpoint = Endpoint.publish("http://" + ip + ":" + puerto + "/webservices", this);
     }
 
     @WebMethod(exclude = true)

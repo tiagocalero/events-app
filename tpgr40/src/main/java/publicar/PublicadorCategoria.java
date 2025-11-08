@@ -14,17 +14,21 @@ import main.java.logica.ControladorInstitucion;
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class PublicadorCategoria {
+    private String ip;
+    private String puerto;
 
     private Endpoint endpoint = null;
     private ControladorCategoria contCategoria = null;
     //Constructor
-    public PublicadorCategoria() {
+    public PublicadorCategoria(String ip, String puerto) {
     	contCategoria = ControladorCategoria.getInstance();
+        this.ip = ip;
+        this.puerto = puerto;
     }
 
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9131/webservices", this);
+         endpoint = Endpoint.publish("http://" + ip + ":" + puerto + "/webservices", this);
     }
 
     @WebMethod(exclude = true)
