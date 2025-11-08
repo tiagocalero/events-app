@@ -16,6 +16,7 @@ public class DTRegistro {
     private Boolean patrocinio;
     private Boolean asistencia;
 
+    public DTRegistro() {}
 
     public DTRegistro(float costo, LocalDate fecha, String nombreEvento, String nombreEdicion, String tipo, String nicknameUsuario, Boolean patrocinio, Boolean asistencia) {
         this.costo = costo;
