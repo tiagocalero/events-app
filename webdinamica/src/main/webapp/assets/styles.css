@@ -14,7 +14,7 @@ body {
 }
 
 /*### HEADER ###*/
-/*header {
+header {
   background: #212529;
   padding: 10px;
   display: flex;
@@ -26,13 +26,6 @@ body {
   height: 50px;
   width: auto;
 }
-header boton-izq-hdr {
-  height: 50px;
-  width: auto;
-  margin-left: 0;
-  margin-right: auto;
-}
-
 
 header .search {
   flex-grow: 1;
@@ -56,82 +49,7 @@ header button {
 header .user-links {
   font-size: 14px;
 }
-*/
-/* HEADER GENERAL */
-header {
-  background-color: #111; /* fondo negro */
-  color: #fff;
-  padding: 0.5rem 1rem;
-}
 
-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ICONO MENÚ IZQUIERDO */
-header .boton-izq-hdr {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  font-size: 1.5rem;
-}
-
-header .boton-izq-hdr svg {
-  width: 24px;
-  height: 24px;
-  fill: white;
-}
-
-/* LOGO CENTRAL */
-header .logo {
-  height: 40px;
-  object-fit: contain;
-}
-
-/* Para centrar el logo incluso entre íconos */
-header .container {
-  position: relative;
-}
-
-header .logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* AVATAR DERECHO */
-header .avatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-}
-
-/* Ajustes responsivos */
-@media (max-width: 576px) {
-  header {
-    padding: 0.4rem 0.8rem;
-  }
-
-  header .logo {
-    height: 35px;
-  }
-
-  header .boton-izq-hdr svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  header .avatar {
-    width: 32px;
-    height: 32px;
-  }
-}
 /*### MAIN ###*/
 main {
   display: flex;
@@ -188,7 +106,7 @@ aside ul li a {
 /*### ALTA ###*/
 
 .error {
-	color: red;
+  color: red;
 }
 
 .content-form-alta {
@@ -375,7 +293,7 @@ aside ul li a {
 }
 
 .event-image img {
-	max-width: 100%;
+  max-width: 100%;
 }
 
 .lblDesc {
