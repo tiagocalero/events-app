@@ -149,6 +149,9 @@ public class servletUsuario extends HttpServlet {
                 case "dejar":
                     port.eliminarSeguido(actor, objetivo);
                     break;
+                case "editar":
+					response.sendRedirect("/webdinamica/usuarios/");
+					return;
                 default:
                 	// Acción no reconocida
 					break;
@@ -409,6 +412,34 @@ public class servletUsuario extends HttpServlet {
     	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);
     }
 	
+	protected void listaPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        HttpSession userSession = request.getSession(false);
+		DtUsuario dtu = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+        
+        String accion = request.getParameter("accion");
+        String objetivo = request.getParameter("usuarioASeguir");
+        String actor = dtu.getNickname();
+
+        try {
+            switch (accion) {
+                case "seguir":
+                    port.agregarSeguido(actor, objetivo);
+                    break;
+                case "dejar":
+                    port.eliminarSeguido(actor, objetivo);
+                    break;
+                default:
+                	// Acción no reconocida
+					break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/webdinamica/usuarios/lista");
+	}
+	
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -465,6 +496,8 @@ public class servletUsuario extends HttpServlet {
 		        	altaUsuarioPOST(request, response);
 		        } else if (path.equals("/consulta")) {
 		        	consultaUsuarioPOST(request, response);
+		        } else if (path.equals("/lista")) {
+		        	listaPOST(request, response);
 		        } else if(path.equals("/inicio_sesion")) {
 					inicio_sesionPOST(request, response);
 				} else if (path.equals("/cambiar_contrasena")) {

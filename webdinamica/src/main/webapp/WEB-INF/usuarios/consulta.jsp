@@ -71,11 +71,13 @@
         <% } %>
         
         <% if (usuarioLoggeado != null) {
-        	if (port.esSeguido(usuarioLoggeado.getNickname(), usuario.getNickname())) { %>
+        	if (usuarioLoggeado.getNickname().equals(usuario.getNickname())) { %>
+				<button id="modifyBtn" type="submit" name="accion" value="editar" class="btn_login">Editar Perfil</button>
+        	<% } else if (port.esSeguido(usuarioLoggeado.getNickname(), usuario.getNickname())) { %>
     			<button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
     		<% } else { %>
         		<button type="submit" name="accion" value="seguir" class="btn btn-primary">Seguir</button>
-        	<% } 
+        	<% }
          } %>
       </form>
     </div>
