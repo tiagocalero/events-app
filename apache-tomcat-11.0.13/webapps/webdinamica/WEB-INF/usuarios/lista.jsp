@@ -30,8 +30,8 @@
 					for (String us : lista) {
 						DtUsuario dtus = port.elegirUsuario(us);
 						boolean esEl = usuarioLoggeado != null ? dtus.getNickname().equals(usuarioLoggeado.getNickname()) : false; %>
-						<div class="list-group-item list-group-item-action item-usuario <%= esEl ? "active" : "" %>" style="display:flex;">
-			    		<a href="/webdinamica/usuarios/consulta?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>" style="width:400px;">
+						<div class="list-group-item list-group-item-action align-items-center item-usuario <%= esEl ? "active" : "" %>" style="display:flex;">
+			    		<a class="<%= esEl ? "text-white" : "text-black" %> text-decoration-none" href="/webdinamica/usuarios/consulta?nick=<%= URLEncoder.encode(dtus.getNickname(), StandardCharsets.UTF_8) %>" style="width:400px;">
 			    			<%= dtus.getNombre() %> 
 							  <%= dtus instanceof DtAsistente ? ((DtAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
 							</a>
