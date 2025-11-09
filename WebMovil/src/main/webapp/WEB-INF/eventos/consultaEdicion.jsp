@@ -22,8 +22,6 @@
   <%@ include file="/components/header.jsp" %>
 
   <main>
-    <%@ include file="/components/sidebar.jsp" %>
-	
 	<%
     // Código Java: ¡Requiere punto y coma!
     String nombreEvento = request.getParameter("evento");

@@ -30,8 +30,6 @@
 	 DtOrganizador organizador = null; %>
 
   <main>
-    <%@ include file="/components/sidebar.jsp" %>
-
     <div class="content content-consulta">
       <form id="modifyUserForm" class="content-form-modificar" method="post">
 
