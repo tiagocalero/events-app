@@ -71,13 +71,13 @@ public class Asistente extends Usuario {
 		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList());
 	}
 
-	public List<String> registrosNoConfirmados() {
+	public List<DTRegistro> registrosNoConfirmados() {
 		
-		List<String> registrosNC = new ArrayList<>();
+		List<DTRegistro> registrosNC = new ArrayList<>();
 		
 		for (Registro registro : registros) {
         	if (!registro.getAsistencia()) {
-            	registrosNC.add(registro.getEdicion().getNombre());
+            	registrosNC.add(registro.getDatos());
         	}
    		}
 

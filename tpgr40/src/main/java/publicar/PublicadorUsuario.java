@@ -155,8 +155,8 @@ public class PublicadorUsuario {
     }
 
     @WebMethod
-    public String[] registrosNoConfirmados(String nickname){
-        return contUsuario.registrosNoConfirmados(nickname).toArray(new String[0]);
+    public DTRegistro[] registrosNoConfirmados(String nickname){
+        return contUsuario.registrosNoConfirmados(nickname).toArray(new DTRegistro[0]);
     }
     
 }

@@ -143,7 +143,7 @@ public class ControladorUsuario{
 		usuario.registrarAsistencia(edicion);
 	}
 
-	public List<String> registrosNoConfirmados(String nickname){
+	public List<DTRegistro> registrosNoConfirmados(String nickname){
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
 		assert usuario instanceof Asistente;
 		Asistente usuario = (Asistente) manejador.obtener(nickname);

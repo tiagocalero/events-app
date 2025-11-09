@@ -364,6 +364,19 @@ public class servletUsuario extends HttpServlet {
     	request.getRequestDispatcher("/WEB-INF/usuarios/lista.jsp").forward(request, response);
     }
 	
+	protected void regNCGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession userSession = request.getSession(false);
+ 		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		
+		PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+		if (usuario instanceof DtAsistente) {
+        		List<DtRegistro> registrosNC = port.consultaAsistente().getItem();
+        		request.setAttribute("regnc", registrosNC);
+        }
+		
+    	request.getRequestDispatcher("/WEB-INF/usuarios/registrosNoConf.jsp").forward(request, response);
+    }
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -381,7 +394,10 @@ public class servletUsuario extends HttpServlet {
 		        	consultaUsuarioGET(request, response);
 		        } else if (path.equals("/lista")) {
 		        	listaGET(request, response);
-	    		} else if (path.equals("/inicio_sesion")) {
+	    		} else if (path.equals("/registrosNoConf")) {
+		        	regNCGET(request, response);
+	    		}
+				else if (path.equals("/inicio_sesion")) {
 					inicio_sesionGET(request, response);
 		        } else if (path.equals("/cambiar_contrasena")) {
 		        	cambiarContraGET(request, response);

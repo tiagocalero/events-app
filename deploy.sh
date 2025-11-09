@@ -44,16 +44,10 @@ echo "📦 Compilando tpgr40..."
 cd "$TPGR40_DIR"
 mvn clean package dependency:copy-dependencies
 
-<<<<<<< HEAD
-build_module "$TPGR40_DIR" "tpgr40"
-build_module "$BASE_DIR/webdinamica" "webdinamica"
-build_module "$BASE_DIR/WebMovil" "webmovil"
-=======
 # 2️⃣ webdinamica
 echo "📦 Compilando webdinamica..."
 cd "$BASE_DIR/webdinamica"
 mvn clean package
->>>>>>> 78510912bdd832e72aef7486d32a224b96203800
 
 # 3️⃣ webmovil
 echo "📦 Compilando webmovil..."
