@@ -100,33 +100,6 @@ public class Evento extends HttpServlet {
 	
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
-	// GET /patrocinios
-	// POST /patrocinios
-	protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-
-		String evento = request.getParameter("evento");
-		String edicion = request.getParameter("edicion");
-		String institucion = request.getParameter("institucion");
-
-		// Si el evento/edición seleccionados no existen o la edición
-		// no existe para ese evento, o la institución no existe
-		// para la edición, redirigir a página principal
-		if (evento == null || edicion == null 
-				|| !port.existeEdicionEvento(evento, edicion)
-				|| !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(institucion)) {
-			response.sendRedirect("/webmovil");
-			return;
-		}
-
-		DtPatrocinio dtp = port.consultaPatrocinioInstitucion(evento, edicion, institucion);
-		request.setAttribute("dtp", dtp);
-
-		// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/patrocinios/consulta.jsp").forward(request, response);
-	}
-
 	//######  CONSULTA EDICION  ######
 
 	// GET /ediciones/consultaEdicion
@@ -148,13 +121,16 @@ public class Evento extends HttpServlet {
 		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
         
 		// 1. Obtener el usuario de la sesión
-		HttpSession user = request.getSession(false);
-		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
+		HttpSession userSession = request.getSession(false);
+		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 
 		boolean estaRegistrado = false;
 
 		// 2. Verificar si el usuario logueado es un Asistente y si está registrado
-		if (usuario instanceof DtAsistente) {
+		if (usuario == null) {
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
+			return;
+		} else if (usuario instanceof DtAsistente) {
 			DtAsistente asistente = (DtAsistente) usuario;
 			String nickname = asistente.getNickname();
 			
