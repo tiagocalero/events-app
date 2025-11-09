@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class Asistente extends Usuario {
 	private String apellido;
@@ -68,6 +69,19 @@ public class Asistente extends Usuario {
 
 	public List<DTRegistro> consulta() {
 		return registros.stream().map(registro -> registro.getDatos()).collect(Collectors.toList());
+	}
+
+	public List<DTRegistro> registrosNoConfirmados() {
+		
+		List<DTRegistro> registrosNC = new ArrayList<>();
+		
+		for (Registro registro : registros) {
+        	if (!registro.getAsistencia()) {
+            	registrosNC.add(registro.getDatos());
+        	}
+   		}
+
+		return registrosNC;
 	}
 	
 	public void registrarAsistencia(String edicion) {

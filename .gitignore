@@ -19,3 +19,5 @@ webMobile/.project
 /webdinamica/src/main/webapp/WEB-INF/lib/logica.jar
 apache-tomcat-11.0.13/work
 apache-tomcat-11.0.13/logs
+apache-tomcat-11.0.13/webapps/webdinamica.war
+apache-tomcat-11.0.13/webapps/webmovil.war

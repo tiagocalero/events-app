@@ -244,4 +244,5 @@ public class PublicadorEvento {
     public DTEdicion[] buscarEdiciones(String str) {
     	return contEvento.buscarEdiciones(str).toArray(new DTEdicion[0]);
     }
+
 }

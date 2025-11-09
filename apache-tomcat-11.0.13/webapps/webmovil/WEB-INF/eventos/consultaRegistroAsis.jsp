@@ -61,9 +61,18 @@
               </button>
         </form>
       <% } else if ((boolean) request.getAttribute("confirmable")) {%>
-        <button type="submit" class="btn btn-primary" style="background-color: #28a745; border-color: #28a745;">
-            Confirmar asistencia
-        </button>
+        <form action="/webmovil/usuarios/registrarAsistencia" method="POST" style="margin-top: 20px;">
+          <% 
+            String nombreEdicion = (String) request.getAttribute("edicion");
+            String nombreEvento = request.getParameter("evento");
+            %>
+          <input type="hidden" name="edicion" value="<%= nombreEdicion %>"/>
+          <input type="hidden" name="evento" value="<%= nombreEvento %>"/>
+          
+            <button type="submit" class="btn btn-success" style="background-color: #28a745; border-color: #28a745;">
+                Confirmar Asistencia
+            </button>
+      </form>
       <% } %>
       </div>
 
