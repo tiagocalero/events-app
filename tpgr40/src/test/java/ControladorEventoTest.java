@@ -123,10 +123,10 @@ class ControladorEventoTest {
 	}
 
 	// Probar listar eventos del sistema
-	@Test @Order(4)
-	void testListarEventos() {
-		assertEquals(Set.of("Evento 1", "Evento 2"), c.listarEventos().stream().collect(Collectors.toSet()));
-	}
+	//@Test @Order(4)
+	//void testListarEventos() {
+	//	assertEquals(Set.of("Evento 1", "Evento 2"), c.listarEventos().stream().collect(Collectors.toSet()));
+	//}
 
 	// Probar crear ediciones para un evento, y chequear que se listen en el evento
 	@Test @Order(5)

@@ -1,8 +1,0 @@
-/bin/
-.DS_Store
-.classpath
-.settings
-build
-bin
-.project
-/target/
