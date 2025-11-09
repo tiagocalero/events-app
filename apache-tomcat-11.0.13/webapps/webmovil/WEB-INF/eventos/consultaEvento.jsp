@@ -11,6 +11,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eventos.uy - Consulta de Evento</title>
   
   <link rel="stylesheet" href="/webmovil/assets/styles.css"> 
@@ -22,8 +23,6 @@
   <%@ include file="/components/header.jsp" %>
 
   <main>
-    <%@ include file="/components/sidebar.jsp" %>
-
     <div class="content">
     <form class="content-form-consulta" method="get">
       <div class="event-detail">
@@ -65,58 +64,60 @@
     </div>
 
     <%--- Ediciones Dinámicas ---%>
-    <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
-        <ul class="list-unstyled ps-0">
-          <li class="mb-1">
-            Ediciones
-            
-            <% 
-              boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof DtOrganizador); 
+    <div class="container py-3">
+      <div class="flex-shrink-0 p-3 m-0" style="width: 100%;">
+          <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+              Ediciones
               
-              // 2. Declaración de variables para enlaces (Con alcance para toda la sección)
-              String nombreEvento = request.getParameter("evento");
-              String urlAltaEdicion = "/webmovil/ediciones/altaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8);
-              
-              // 3. Mostrar el botón SOLO si el usuario es un Organizador
-              if (esOrganizador) {
-            %>
-            
-            <%-- Enlace para alta de edición (Solo visible para Organizadores) --%>
-            <a href="<%= urlAltaEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
-                </svg>
-            </a>
-            
-            <%
-              } // Cierre del if (esOrganizador)
-            %>
-            
-            <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
-              <%-- Iteración de ediciones usando Scriptlet --%>
               <% 
-                List<String> ediciones = (List<String>) request.getAttribute("ediciones");
+                boolean esOrganizador = (usuarioLoggeado != null) && (usuarioLoggeado instanceof DtOrganizador); 
                 
-                if (ediciones != null && !ediciones.isEmpty()) {
-                    for (String nombreEdicion : ediciones) {
-                        // Generamos el enlace dinámico para consultar la edición
+                // 2. Declaración de variables para enlaces (Con alcance para toda la sección)
+                String nombreEvento = request.getParameter("evento");
+                String urlAltaEdicion = "/webmovil/ediciones/altaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8);
+                
+                // 3. Mostrar el botón SOLO si el usuario es un Organizador
+                if (esOrganizador) {
               %>
-                      <li>
-                        <a href="/webmovil/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
-                          <%= nombreEdicion %>
-                        </a>
-                      </li>
+              
+              <%-- Enlace para alta de edición (Solo visible para Organizadores) --%>
+              <a href="<%= urlAltaEdicion %>" style="margin-left: 1em;height: 2em;" class="btn btn-warning">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" style="vertical-align: 0em;">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
+                  </svg>
+              </a>
+              
               <%
-                    }
-                } else {
+                } // Cierre del if (esOrganizador)
               %>
-                    <li>No hay ediciones disponibles.</li>
-              <%
-                }
-              %>
-            </ul>
-          </li>
-        </ul>
+              
+              <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
+                <%-- Iteración de ediciones usando Scriptlet --%>
+                <% 
+                  List<String> ediciones = (List<String>) request.getAttribute("ediciones");
+                  
+                  if (ediciones != null && !ediciones.isEmpty()) {
+                      for (String nombreEdicion : ediciones) {
+                          // Generamos el enlace dinámico para consultar la edición
+                %>
+                        <li>
+                          <a href="/webmovil/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                            <%= nombreEdicion %>
+                          </a>
+                        </li>
+                <%
+                      }
+                  } else {
+                %>
+                      <li>No hay ediciones disponibles.</li>
+                <%
+                  }
+                %>
+              </ul>
+            </li>
+          </ul>
+      </div>
     </div>
     </div>
   </main>
