@@ -2,14 +2,14 @@ package main.java.logica;
 
 import java.time.LocalDate;
 
-public class Registro{
+public class Registro {
     private float costo;
     private LocalDate fecha;
     private Asistente asistente;
     private Edicion edicion;
     private TRegistro tipo;
-    private Boolean patrocinio;
-    private Boolean asistencia;
+    private boolean patrocinio;
+    private boolean asistencia;
 
     public Registro(float costo, LocalDate fecha, Asistente asistente, Edicion edicion, TRegistro tipo, Boolean patrocinio) {
         this.costo = costo;
@@ -29,7 +29,9 @@ public class Registro{
     public Asistente getAsistente() { return asistente; }
 
     public DTRegistro getDatos(){
-        return new DTRegistro(costo, fecha, edicion.getEvento(), edicion.getNombre(), tipo.getNombre(), asistente.getNickname(), patrocinio, asistencia);
+        boolean esConfirmable = edicion.getFechaInicio().isBefore(LocalDate.now())
+                                || edicion.getFechaInicio().equals(LocalDate.now());
+        return new DTRegistro(costo, fecha, edicion.getEvento(), edicion.getNombre(), tipo.getNombre(), asistente.getNickname(), patrocinio, asistencia, esConfirmable);
     }
     
     public Edicion getEdicion( ) {

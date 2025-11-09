@@ -46,19 +46,25 @@
       </form>
       
       <br>
-      <form action="/webdinamica/ediciones/descargarConstancia" method="POST" style="margin-top: 20px;">
-          
-          <% 
-            String nombreEdicion = (String) request.getAttribute("edicion");
-            String nombreEvento = request.getParameter("evento");
-          %>
-          <input type="hidden" name="evento" value="<%= nombreEvento %>"/>
-          <input type="hidden" name="edicion" value="<%= nombreEdicion %>"/>
-          
-          <button type="submit" class="btn btn-success" style="background-color: #28a745; border-color: #28a745;">
-              Descargar Constancia de Asistencia (PDF)
-          </button>
-      </form>
+    <% 
+        if ((boolean) request.getAttribute("asistencia")) { %>
+        <form action="/webdinamica/ediciones/descargarConstancia" method="POST" style="margin-top: 20px;">
+            <% 
+              String nombreEdicion = (String) request.getAttribute("edicion");
+              String nombreEvento = request.getParameter("evento");
+            %>
+            <input type="hidden" name="evento" value="<%= nombreEvento %>"/>
+            <input type="hidden" name="edicion" value="<%= nombreEdicion %>"/>
+            
+              <button type="submit" class="btn btn-success" style="background-color: #28a745; border-color: #28a745;">
+                  Descargar Constancia de Asistencia (PDF)
+              </button>
+        </form>
+      <% } else if ((boolean) request.getAttribute("confirmable")) {%>
+        <button type="submit" class="btn btn-primary" style="background-color: #28a745; border-color: #28a745;">
+            Confirmar asistencia
+        </button>
+      <% } %>
       </div>
 
     <!--
@@ -68,8 +74,8 @@
             Edición
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               
-              <% 
-                String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
+              
+            String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
               %>
               
               <li>

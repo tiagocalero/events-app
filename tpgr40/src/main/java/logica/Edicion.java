@@ -137,4 +137,8 @@ public class Edicion {
     public String getVideo() {
     	return video;
     }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
 }
