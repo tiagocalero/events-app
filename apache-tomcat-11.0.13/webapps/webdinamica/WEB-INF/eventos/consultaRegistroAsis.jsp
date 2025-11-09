@@ -49,12 +49,12 @@
       </form>
       
       <br>
+      <% 
+        String nombreEdicion = (String) request.getAttribute("edicion");
+        String nombreEvento = request.getParameter("evento");
+      %>
+      <% if ((boolean) request.getAttribute("asistencia")) { %>
       <form action="/webdinamica/ediciones/descargarConstancia" method="POST" style="margin-top: 20px;">
-          
-          <% 
-            String nombreEdicion = (String) request.getAttribute("edicion");
-            String nombreEvento = request.getParameter("evento");
-          %>
           <input type="hidden" name="evento" value="<%= nombreEvento %>"/>
           <input type="hidden" name="edicion" value="<%= nombreEdicion %>"/>
           
@@ -62,6 +62,7 @@
               Descargar Constancia de Asistencia (PDF)
           </button>
       </form>
+      <% } %>
       </div>
 
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">

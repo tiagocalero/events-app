@@ -387,6 +387,7 @@ public class servletUsuario extends HttpServlet {
     		request.setAttribute("fecha", registro.getFecha());
     		request.setAttribute("tipo", registro.getTipo());
     		request.setAttribute("edicion", edicion);
+            request.setAttribute("asistencia", registro.isAsistencia());
     		    		
     		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
     	} else {

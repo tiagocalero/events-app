@@ -48,7 +48,7 @@
       <br>
     <% 
         if ((boolean) request.getAttribute("asistencia")) { %>
-        <form action="/webdinamica/ediciones/descargarConstancia" method="POST" style="margin-top: 20px;">
+        <form action="/webmovil/ediciones/descargarConstancia" method="POST" style="margin-top: 20px;">
             <% 
               String nombreEdicion = (String) request.getAttribute("edicion");
               String nombreEvento = request.getParameter("evento");
