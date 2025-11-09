@@ -30,14 +30,9 @@
             List<DtRegistro> lista = (List<DtRegistro>) request.getAttribute("regnc");
             for (DtRegistro reg : lista) {
               if (!reg.isAsistencia()){
-                String nombreEdicion = reg.getNombreEdicion(); // Assuming 'getNombreEdicion' is the getter method
-                String nombreEvento = reg.getNombreEvento();   // Assuming 'getNombreEvento' is the getter method
-                
-                // URL encode the parameters
-                String encodedEdicion = URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
-                String encodedEvento = URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8);
-                
-                String redirectUrl = request.getContextPath() +  "/usuarios/consultaRegistroAsis?evento=" + encodedEvento + "&edicion=" + encodedEdicion;
+                String nombreEdicion = reg.getNombreEdicion(); 
+                String nombreEvento = reg.getNombreEvento();             
+                String redirectUrl = request.getContextPath() +  "/usuarios/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
               
                 
           %>

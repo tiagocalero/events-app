@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import main.java.publicar.DtAsistenteModificado;
 import main.java.publicar.DtOrganizadorModificado;
 import main.java.publicar.DtUsuario;
@@ -378,6 +381,23 @@ public class servletUsuario extends HttpServlet {
     	request.getRequestDispatcher("/WEB-INF/usuarios/registrosNoConf.jsp").forward(request, response);
     }
 	
+	protected void confirmarAsistenciaPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession userSession = request.getSession(false);
+ 		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+		
+		PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+		String edicion = request.getParameter("edicion");
+		String evento = request.getParameter("evento");
+		if (usuario instanceof DtAsistente) {
+        		port.registrarAsistencia(usuario.getNickname(),edicion);
+        }
+		
+    	response.sendRedirect(request.getContextPath() + "/usuarios/consultaRegistroAsis?evento=" + URLEncoder.encode(evento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(edicion, StandardCharsets.UTF_8));
+
+    }
+
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -438,7 +458,10 @@ public class servletUsuario extends HttpServlet {
 					inicio_sesionPOST(request, response);
 				} else if (path.equals("/cambiar_contrasena")) {
 		        	cambiarContraPOST(request, response);
-		        } else {
+		        } else if (path.equals("/registrarAsistencia")) {
+					confirmarAsistenciaPOST(request, response);
+				}
+				else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
 		        }
