@@ -24,7 +24,6 @@
   <%@ include file="/components/header.jsp" %>
 
   <main>
-    <%@ include file="/components/sidebar.jsp" %>
     <% DtAsistente asistente = null;
        DtOrganizador organizador = null; %>
 
