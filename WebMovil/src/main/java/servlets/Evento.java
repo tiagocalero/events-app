@@ -182,124 +182,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaEdicion.jsp").forward(request, response);
 	}
 
-	//######  REGISTRO A EDICION DE EVENTO  ######
-
-	//GET
-	//muestra la pantalla para registrarse
-	protected void registroAEdicionEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombreEdicion = request.getParameter("edicion");
-		String nombreEvento = request.getParameter("evento");
-
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();		
-        
-		HttpSession userSession = request.getSession(false);
-		DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-
-		// No permitir que organizadores o visitantes accedan
-		if (usuario == null) {
-			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
-			return;
-		} else if (!(usuario instanceof DtAsistente)) {
-			response.sendRedirect("/webmovil");
-			return;
-		}
-
-		if (!port.existeEdicionEvento(nombreEvento, nombreEdicion)) {
-			response.sendRedirect("/webmovil");
-			return;
-		}
-
-		List<String> tiposRegistro = port.listarTipoRegistro(nombreEvento, nombreEdicion).getItem();
-		request.setAttribute("tiposRegistro", tiposRegistro);
-
-		request.setAttribute("nombreEvento", nombreEvento);
-		request.setAttribute("nombreEdicion", nombreEdicion);
-
-		// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/registroAEdicionEvento.jsp").forward(request, response);
-	}
-
-	//crea el registro al evento
-	// POST
-	protected void registroAEdicionEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombreEdicion = request.getParameter("edicion");
-		String nombreTRegistro = request.getParameter("tiposRegistro");
-		String evento = request.getParameter("evento");
-		
-
-		String codigoPatrocinio = request.getParameter("patrocinio"); // Renombrado para claridad
-
-		HttpSession userSession = request.getSession(false);
-		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-
-		// No permitir que organizadores o visitantes accedan
-		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
-			return;
-		} else if (!(usuarioLoggeado instanceof DtAsistente)) {
-			response.sendRedirect("/webmovil");
-			return;
-		}
-		
-		DtAsistente usuario = (DtAsistente) usuarioLoggeado;
-
-		String nickname = usuario.getNickname();
-		String nombreInstitucion = usuario.getInstitucion();
-
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-        
-		boolean conPatrocinio = false;
-		String mensajeError = null;
-
-		// A) Lógica de Validación de Patrocinio
-		if (codigoPatrocinio != null && !codigoPatrocinio.trim().isEmpty()) {
-			try {
-			    port.patrocinioEdicion(codigoPatrocinio, nombreEdicion, evento, nombreTRegistro, nombreInstitucion);
-			} catch (RegistroAEdicionException_Exception exc) {
-			    mensajeError = exc.getMessage();
-			}
-			
-			conPatrocinio = true;
-		}
-	    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-
-		// B) Si no hubo error en el patrocinio (o si no se usó) -> Proceder al alta
-		if (mensajeError == null) {
-			//le voy a poner en la fecha string como alta patrocinio, capaz hay que cambiar
-			if (port.darDeAltaRegistro(nickname, nombreEdicion, nombreTRegistro, evento, LocalDate.now().format(fmt), conPatrocinio)) {
-				mensajeError = "No hay cupos para el registro " + nombreTRegistro;
-			}
-		}
-
-		// C) Manejo de Resultados
-		if (mensajeError != null) {
-			// Si hay error (validación de patrocinio O cupo/ya registrado):
-
-			// 1. Guardar el mensaje de error en la solicitud (Request Scope)
-			request.setAttribute("errorRegistro", mensajeError);
-
-			// 2. Guardar datos para que el usuario pueda reintentar sin perderlos
-			request.setAttribute("nombreEdicion", nombreEdicion);
-			request.setAttribute("evento", evento);
-			StringArray tiposRegistro = port.listarTipoRegistro(evento, nombreEdicion);
-			request.setAttribute("tiposRegistro", tiposRegistro);
-			request.setAttribute("nombreTRegistro", nombreTRegistro);
-			// 3. Redirigir a una página de error o a la misma página de registro para mostrar el mensaje
-			// Lo más limpio es redirigir a una página de *feedback*
-			registroAEdicionEventoGET(request, response);
-
-		} else {
-			// Si fue exitoso:
-			request.setAttribute("nombreEdicion", nombreEdicion);
-			request.setAttribute("evento", evento);
-
-			// Redirigir al perfil del usuario o a una página de confirmación de registro
-			consultaEdicionGET(request, response);
-		}
-	}
-
 	//######  CONSULTA EVENTO  ######
 
 	// GET /ediciones/consultaEdicion
@@ -343,162 +225,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/consultaEvento.jsp").forward(request, response);
 	}
 
-	protected void altaTipoRegistroGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-        
-		String evento = request.getParameter("evento");
-		String edicion = request.getParameter("edicion");
-
-		// Si el evento/edición seleccionados no existen o la edición
-		// no existe para ese evento, redirigir a página principal
-		if (!port.existeEdicionEvento(evento, edicion)) {
-			response.sendRedirect("/webmovil");
-			return;
-		}
-
-		// Mostrar el HTML
-
-		request.getRequestDispatcher("/WEB-INF/eventos/altaTipoRegistro.jsp").forward(request, response);
-	}
-
-	protected void consultaTipoRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String evento = request.getParameter("evento");
-		String edicion = request.getParameter("edicion");
-		String tregistro = request.getParameter("tipoRegistro");
-
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-        
-		if (!port.existeEdicionEvento(evento, edicion) || !port.listarTipoRegistro(evento, edicion).getItem().contains(tregistro)) {
-			response.sendRedirect("/webmovil");
-			return;
-
-		}
-		DttRegistro dtr = port.mostrarTipoRegistro(evento, edicion, tregistro);
-		request.setAttribute("tipoRegistro", dtr);
-
-		request.getRequestDispatcher("/WEB-INF/eventos/consultaTipoRegistro.jsp").forward(request, response);
-	}
-
-	// POST /edicion/alta
-	// Crea una edicion con los parámetros pasados
-	protected void altaTipoRegistroPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombreEvento = request.getParameter("evento");
-		String nombreEdicion = request.getParameter("edicion");
-		String nombre = request.getParameter("nombre");
-		String desc = request.getParameter("descripcion");
-		float costo = Float.parseFloat(request.getParameter("costo"));
-		int cupo = Integer.parseInt(request.getParameter("cupo"));
-
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-        
-		boolean ok = port.crearTipoRegistro(nombreEvento, nombreEdicion, nombre, desc, costo, cupo);
-
-		if (!ok) {
-			request.setAttribute("nombreEvento", nombreEvento);
-			request.setAttribute("nombreEdicion", nombreEdicion);
-
-			request.setAttribute("nombre", nombre);
-			request.setAttribute("descripcion", desc);
-			request.setAttribute("costo", costo);
-			request.setAttribute("cupo", cupo);
-
-			request.setAttribute("error", "Ya existe un tipo registro con ese nombre");
-			request.getRequestDispatcher("/WEB-INF/eventos/altaTipoRegistro.jsp").forward(request, response);
-			return;
-		}
-
-		altaTipoRegistroGET(request, response);
-	}
-	
-	protected void buscar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-
-        List<DtEvento> eventos = port.buscarEventos(request.getParameter("b")).getItem();
-        List<DtEdicion> ediciones = port.buscarEdiciones(request.getParameter("b")).getItem();
-
-        String ordenar = request.getParameter("ordenar");
-        
-        if (ordenar != null && ordenar.equals("az")) {
-        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()));
-        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()));
-        } else if (ordenar != null && ordenar.equals("za")) {
-        	eventos.sort(Comparator.comparing((DtEvento e) -> e.getNombre()).reversed());
-        	ediciones.sort(Comparator.comparing((DtEdicion e) -> e.getNombre()).reversed());        	
-        }
-        
-		request.setAttribute("eventos", eventos);
-		request.setAttribute("ediciones", ediciones);
-
-		request.getRequestDispatcher("/WEB-INF/eventos/busqueda.jsp").forward(request, response);
-	}
-
-	//############################# 
-		
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
-		System.out.println("Entrando al servlet Evento...");
-		Categoria.listarCategorias(request, response);
-
-		if (servletPath.equals("/eventos")) {
-
-			String path = request.getPathInfo();
-
-			if (path == null || path.equals("/")) {
-				listarEventos(request, response);
-			} else if (path.equals("/consulta")) {
-				response.getWriter().println("Página de consulta");
-			} else if (path.equals("/consultaEvento")) {
-				consultaEventoGET(request, response);
-			} else {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				response.getWriter().println("404 - Página no encontrada");
-			}
-
-		} else if (servletPath.equals("/ediciones")) {
-
-			String path = request.getPathInfo();
-
-			if (path.equals("/consultaEdicion")){
-
-				consultaEdicionGET(request, response);
-
-			} else if (path.equals("/registroAEdicionEvento")) {
-
-				registroAEdicionEventoGET(request, response);
-			}
-			else {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				response.getWriter().println("404 - Página no encontrada");
-			}
-		} else if (servletPath.equals("/TipoRegistro")) {
-
-			String path = request.getPathInfo();
-			if (path.equals("/altaTipoRegistro")) {
-				altaTipoRegistroGET(request, response);
-			} else if (path.equals("/consultaTipoRegistro")){
-				consultaTipoRegistro(request, response);
-
-			} else {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				response.getWriter().println("404 - Página no encontrada");
-			}
-		} else if (servletPath.equals("/busqueda")) {
-			buscar(request, response);
-		} else {
-
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			response.getWriter().println("404 - Página no encontrada");
-		}
-	}
-	
 	protected void descargarConstanciaPOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    
 	    // 1. OBTENER DATOS DEL REGISTRO Y ASISTENTE 
@@ -595,18 +321,53 @@ public class Evento extends HttpServlet {
 	        
 	    }
 	}
-	
+
+	//############################# 
+		
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
+		System.out.println("Entrando al servlet Evento...");
+		Categoria.listarCategorias(request, response);
+
+		if (servletPath.equals("/eventos")) {
+			String path = request.getPathInfo();
+
+			if (path == null || path.equals("/")) {
+				listarEventos(request, response);
+			} else if (path.equals("/consulta")) {
+				response.getWriter().println("Página de consulta");
+			} else if (path.equals("/consultaEvento")) {
+				consultaEventoGET(request, response);
+			} else {
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				response.getWriter().println("404 - Página no encontrada");
+			}
+		} else if (servletPath.equals("/ediciones")) {
+			String path = request.getPathInfo();
+
+			if (path.equals("/consultaEdicion")){
+				consultaEdicionGET(request, response);
+			} else {
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				response.getWriter().println("404 - Página no encontrada");
+			}
+		} else {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			response.getWriter().println("404 - Página no encontrada");
+		}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String servletPath = request.getServletPath(); // Obtiene /evento o /ediciones
 		Categoria.listarCategorias(request, response);
 
 		if (servletPath.equals("/eventos")) {
-
 			String path = request.getPathInfo();
 
 			if (path == null || path.equals("/")) {
@@ -618,28 +379,14 @@ public class Evento extends HttpServlet {
 				response.getWriter().println("404 - Página no encontrada");
 			}
 		} else if (servletPath.equals("/ediciones")) {
-
 			String path = request.getPathInfo();
 
-			if (path.equals("/registroAEdicionEvento")) {
-				registroAEdicionEventoPOST(request, response);
-			} else if (path != null && path.equals("/descargarConstancia")) {
+			if (path != null && path.equals("/descargarConstancia")) {
 	            descargarConstanciaPOST(request, response);
-			}
-			else {
+			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
-		} else if (servletPath.equals("/TipoRegistro")) {
-			String path = request.getPathInfo();
-			if (path.equals("/altaTipoRegistro")) {
-				altaTipoRegistroPOST(request, response);
-			} else { 
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				response.getWriter().println("404 - Página no encontrada");
-			}
-		} else if (servletPath.equals("/busqueda")) {
-			buscar(request, response);
 		} else {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			response.getWriter().println("404 - Página no encontrada");

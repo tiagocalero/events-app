@@ -20,7 +20,6 @@
   <%@ include file="/components/header.jsp" %>
 
   <main>
-    <%@ include file="/components/sidebar.jsp" %>
     <div class="container py-3">
       <div class="row gy-3">
         <div class="list-group m-3 w-50">

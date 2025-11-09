@@ -31,7 +31,7 @@
     String videoUrl = (String) request.getAttribute("video");
     
     // URL de consulta de registro para el asistente
-    String urlConsultaAsistente = "/webmovil/eventos/consultaRegistroAsis?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
+    String urlConsultaAsistente = "/webmovil/usuarios/consultaRegistroAsis?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
     
     // Chequeos de rol y registro
     // Se asume que 'usuarioLoggeado' está disponible desde el header/session.
