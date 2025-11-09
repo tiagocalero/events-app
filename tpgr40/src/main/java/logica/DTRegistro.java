@@ -3,11 +3,14 @@ package main.java.logica;
 import java.time.LocalDate;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
+import main.java.publicar.LocalDateAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DTRegistro {
     private float costo;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fecha;
     private String nombreEvento;
     private String nombreEdicion;

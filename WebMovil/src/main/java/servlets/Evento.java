@@ -51,7 +51,7 @@ import net.java.dev.jaxb.array.StringArray;
  * Servlet implementation class Evento
  */
 
-@WebServlet({"/eventos/*", "/ediciones/*", "/patrocinios/*", "/TipoRegistro/*", "/busqueda"})
+@WebServlet({"/eventos/*", "/ediciones/*", "/TipoRegistro/*", "/busqueda"})
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024,     // 1 MB
 		maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -478,16 +478,6 @@ public class Evento extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
-
-		} else if (servletPath.equals("/patrocinios")) {
-			String path = request.getPathInfo();
-
-			if (path == null || path.equals("/")) {
-				consultaPatrocinio(request, response);
-			} else {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				response.getWriter().println("404 - Página no encontrada");
-			}
 		} else if (servletPath.equals("/TipoRegistro")) {
 
 			String path = request.getPathInfo();
@@ -637,15 +627,6 @@ public class Evento extends HttpServlet {
 	            descargarConstanciaPOST(request, response);
 			}
 			else {
-				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				response.getWriter().println("404 - Página no encontrada");
-			}
-		} else if (servletPath.equals("/patrocinios")) {
-			String path = request.getPathInfo();
-
-			if (path == null || path.equals("/")) {
-				consultaPatrocinio(request, response);
-			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
