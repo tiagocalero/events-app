@@ -50,8 +50,6 @@
           />
         </a>
         <ul class="dropdown-menu text-small">
-          <li><a class="dropdown-item" href="/webmovil/usuarios/consulta?nick=<%= usuarioLoggeado.getNickname() %>">Mi Perfil</a></li>
-          <li><hr class="dropdown-divider" /></li>
           <li><a class="dropdown-item" href="/webmovil/usuarios/fin_sesion">Cerrar Sesión</a></li>
         </ul>
       </div>
@@ -109,10 +107,10 @@
               <div class="collapse" id="account-collapse">
 
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  <li>
+                  <%-- <li>
                     <a href="/webmovil/usuarios/lista" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
                         >Usuarios</a>
-                  </li>
+                  </li> --%>
                 </ul>
               </div>
             </li>
