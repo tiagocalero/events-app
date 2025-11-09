@@ -1,83 +1,64 @@
 <%@ page import="java.util.List" %>
 <%@ page import="main.java.publicar.DtUsuario" %>
 <%@ page import="main.java.publicar.DtOrganizador" %>
-<div class="flex-shrink-0 p-3 mb-3" style="width: 280px">
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <button
-          class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-          data-bs-toggle="collapse"
-          data-bs-target="#home-collapse"
-          aria-expanded="true"
-        >
-          Categorías
-        </button>
-		<div class="collapse show" id="home-collapse">
-    		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-       			<%       			
-            		List<String> categoriasListado = (List<String>) request.getAttribute("categoriasListado");
-            		if (categoriasListado != null && !categoriasListado.isEmpty()) {
-                		for (String entry : categoriasListado) {
-        			%>
-                    		<li>
-                        		<a href="/webdinamica/eventos<%= entry.equals(request.getParameter("categoria")) ? "" : "?categoria=" + entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded <%= entry.equals(request.getParameter("categoria")) ? "active bg-warning text-black" : "" %>">
-                            		<%= entry %>
-                        		</a>
-                    		</li>
-        			<%
-                			}
-            			}
-        			%>
+<div class="container py-3">
+	<div class="flex-shrink-0 p-3 m-0" style="width: 100%;">
+	    <ul class="list-unstyled ps-0">
+	      <li class="mb-1">
+	        <button
+	          class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+	          data-bs-toggle="collapse"
+	          data-bs-target="#home-collapse"
+	          aria-expanded="true"
+	        >
+	          Categorías
+	        </button>
+			<div class="collapse show" id="home-collapse">
+	    		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+	       			<%       			
+	            		List<String> categoriasListado = (List<String>) request.getAttribute("categoriasListado");
+	            		if (categoriasListado != null && !categoriasListado.isEmpty()) {
+	                		for (String entry : categoriasListado) {
+	        			%>
+	                    		<li>
+	                        		<a href="/webmovil/eventos<%= entry.equals(request.getParameter("categoria")) ? "" : "?categoria=" + entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded <%= entry.equals(request.getParameter("categoria")) ? "active bg-warning text-black" : "" %>">
+	                            		<%= entry %>
+	                        		</a>
+	                    		</li>
+	        			<%
+	                			}
+	            			}
+	        			%>
+				</ul>
+			</div>
+	      </li>
+	      
+		  <% 
+		     HttpSession userSessionSidebar = request.getSession(false);
+		     DtUsuario usuarioLoggeadoSidebar = (DtUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
+		  %>
+	      <li class="border-top my-3"></li>
+	      <li class="mb-1">
+	        <button
+	          class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+	          data-bs-toggle="collapse"
+	          data-bs-target="#account-collapse"
+	          aria-expanded="false"
+	        >
+	          Acciones
+	        </button>
+	        <div class="collapse" id="account-collapse">
+
+			<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+			
+				<li>
+					<a href="/webmovil/usuarios/lista" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				      >Usuarios</a>
+				</li>
 			</ul>
-		</div>
-      </li>
-      
-	  <% 
-	     HttpSession userSessionSidebar = request.getSession(false);
-	     DtUsuario usuarioLoggeadoSidebar = (DtUsuario) ((userSessionSidebar != null) ? userSessionSidebar.getAttribute("usuario") : null);
-	  %>
-      <li class="border-top my-3"></li>
-      <li class="mb-1">
-        <button
-          class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-          data-bs-toggle="collapse"
-          data-bs-target="#account-collapse"
-          aria-expanded="false"
-        >
-          Acciones
-        </button>
-        <div class="collapse" id="account-collapse">
 
-		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-		
-			<li>
-				<a href="/webdinamica/usuarios/lista" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-			      >Usuarios</a>
-			</li>
-	  	  <% if (usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DtOrganizador)) { %>
-			  <li>
-			    <a
-			      href="/webdinamica/eventos/alta"
-			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-			      >Crear Evento</a>
-			  </li>
-			  <li>
-			    <a
-			      href="/webdinamica/instituciones/altaInstitucion"
-			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-			      >Crear Institución</a>
-			  </li>
-			  <li>
-			  	<a 
-			  		href="/webdinamica/eventos/finalizarEvento"
-			  		class="link-body-emphasis d-inline-flex text-decoration-none rounded">
-			  		Finalizar Evento
-			  	</a>
-			  </li>
-		  <% } %>
-		</ul>
-
-        </div>
-      </li>
-    </ul>
+	        </div>
+	      </li>
+	    </ul>
+	</div>
 </div>

@@ -22,8 +22,9 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="nombreEdicion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="tipo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="nicknameUsuario" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         <element name="patrocinio" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         <element name="asistencia" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         <element name="patrocinio" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         <element name="asistencia" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         <element name="confirmable" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -41,7 +42,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "tipo",
     "nicknameUsuario",
     "patrocinio",
-    "asistencia"
+    "asistencia",
+    "confirmable"
 })
 public class DtRegistro {
 
@@ -51,8 +53,9 @@ public class DtRegistro {
     protected String nombreEdicion;
     protected String tipo;
     protected String nicknameUsuario;
-    protected Boolean patrocinio;
-    protected Boolean asistencia;
+    protected boolean patrocinio;
+    protected boolean asistencia;
+    protected boolean confirmable;
 
     /**
      * Gets the value of the costo property.
@@ -193,49 +196,49 @@ public class DtRegistro {
     /**
      * Gets the value of the patrocinio property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
      */
-    public Boolean isPatrocinio() {
+    public boolean isPatrocinio() {
         return patrocinio;
     }
 
     /**
      * Sets the value of the patrocinio property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
      */
-    public void setPatrocinio(Boolean value) {
+    public void setPatrocinio(boolean value) {
         this.patrocinio = value;
     }
 
     /**
      * Gets the value of the asistencia property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
      */
-    public Boolean isAsistencia() {
+    public boolean isAsistencia() {
         return asistencia;
     }
 
     /**
      * Sets the value of the asistencia property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
      */
-    public void setAsistencia(Boolean value) {
+    public void setAsistencia(boolean value) {
         this.asistencia = value;
+    }
+
+    /**
+     * Gets the value of the confirmable property.
+     * 
+     */
+    public boolean isConfirmable() {
+        return confirmable;
+    }
+
+    /**
+     * Sets the value of the confirmable property.
+     * 
+     */
+    public void setConfirmable(boolean value) {
+        this.confirmable = value;
     }
 
 }

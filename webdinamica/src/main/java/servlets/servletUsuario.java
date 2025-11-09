@@ -173,7 +173,7 @@ public class servletUsuario extends HttpServlet {
     	
     	Part imgPart = request.getPart("foto");
     	String imgName = null;
-    	String uniqueFileName = null;
+    	String uniqueFileName = "";
     	if (imgPart != null && imgPart.getSize() > 0) {
     		imgName = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
 
@@ -387,6 +387,7 @@ public class servletUsuario extends HttpServlet {
     		request.setAttribute("fecha", registro.getFecha());
     		request.setAttribute("tipo", registro.getTipo());
     		request.setAttribute("edicion", edicion);
+            request.setAttribute("asistencia", registro.isAsistencia());
     		    		
     		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
     	} else {

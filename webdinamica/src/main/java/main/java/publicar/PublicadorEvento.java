@@ -35,6 +35,382 @@ public interface PublicadorEvento {
      */
     @WebMethod
     @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/listarEdicionesRequest", output = "http://publicar.java.main/PublicadorEvento/listarEdicionesResponse")
+    public StringArray listarEdiciones(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorEvento/finalizarEventoRequest", output = "http://publicar.java.main/PublicadorEvento/finalizarEventoResponse")
+    public void finalizarEvento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/listarEventosRequest", output = "http://publicar.java.main/PublicadorEvento/listarEventosResponse")
+    public StringArray listarEventos();
+
+    /**
+     * 
+     * @return
+     *     returns main.java.publicar.DtEventoArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/listarDTEventosRequest", output = "http://publicar.java.main/PublicadorEvento/listarDTEventosResponse")
+    public DtEventoArray listarDTEventos();
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns main.java.publicar.ArrayList
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/listarPatrociniosRequest", output = "http://publicar.java.main/PublicadorEvento/listarPatrociniosResponse")
+    public ArrayList listarPatrocinios(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/listarCategoriasRequest", output = "http://publicar.java.main/PublicadorEvento/listarCategoriasResponse")
+    public StringArray listarCategorias();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns main.java.publicar.DtEvento
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/informacionEventoRequest", output = "http://publicar.java.main/PublicadorEvento/informacionEventoResponse")
+    public DtEvento informacionEvento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns main.java.publicar.DtEdicion
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/obtenerEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/obtenerEdicionResponse")
+    public DtEdicion obtenerEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorEvento/incrementarVisitasRequest", output = "http://publicar.java.main/PublicadorEvento/incrementarVisitasResponse")
+    public void incrementarVisitas(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @param arg8
+     * @throws AltaPatrocinioException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorEvento/crearPatrocinioRequest", output = "http://publicar.java.main/PublicadorEvento/crearPatrocinioResponse", fault = {
+        @FaultAction(className = AltaPatrocinioException_Exception.class, value = "http://publicar.java.main/PublicadorEvento/crearPatrocinio/Fault/AltaPatrocinioException")
+    })
+    public void crearPatrocinio(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        TipoNivelPatrocinio arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        int arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        float arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7,
+        @WebParam(name = "arg8", partName = "arg8")
+        String arg8)
+        throws AltaPatrocinioException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/usuarioEnEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/usuarioEnEdicionResponse")
+    public boolean usuarioEnEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg10
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @param arg8
+     * @param arg9
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/altaEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/altaEdicionResponse")
+    public boolean altaEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7,
+        @WebParam(name = "arg8", partName = "arg8")
+        String arg8,
+        @WebParam(name = "arg9", partName = "arg9")
+        String arg9,
+        @WebParam(name = "arg10", partName = "arg10")
+        String arg10);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/listarTipoRegistroRequest", output = "http://publicar.java.main/PublicadorEvento/listarTipoRegistroResponse")
+    public StringArray listarTipoRegistro(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/crearTipoRegistroRequest", output = "http://publicar.java.main/PublicadorEvento/crearTipoRegistroResponse")
+    public boolean crearTipoRegistro(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        float arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        int arg5);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/darDeAltaRegistroRequest", output = "http://publicar.java.main/PublicadorEvento/darDeAltaRegistroResponse")
+    public boolean darDeAltaRegistro(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        boolean arg5);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns main.java.publicar.DtRegistroArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/registrosEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/registrosEdicionResponse")
+    public DtRegistroArray registrosEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorEvento/confirmarEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/confirmarEdicionResponse")
+    public void confirmarEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorEvento/rechazarEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/rechazarEdicionResponse")
+    public void rechazarEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @throws RegistroAEdicionException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorEvento/patrocinioEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/patrocinioEdicionResponse", fault = {
+        @FaultAction(className = RegistroAEdicionException_Exception.class, value = "http://publicar.java.main/PublicadorEvento/patrocinioEdicion/Fault/RegistroAEdicionException")
+    })
+    public void patrocinioEdicion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4)
+        throws RegistroAEdicionException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns main.java.publicar.DtEventoArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/buscarEventosRequest", output = "http://publicar.java.main/PublicadorEvento/buscarEventosResponse")
+    public DtEventoArray buscarEventos(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns main.java.publicar.DtEdicionArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorEvento/buscarEdicionesRequest", output = "http://publicar.java.main/PublicadorEvento/buscarEdicionesResponse")
+    public DtEdicionArray buscarEdiciones(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
     @Action(input = "http://publicar.java.main/PublicadorEvento/listarEdicionesIngresadasRequest", output = "http://publicar.java.main/PublicadorEvento/listarEdicionesIngresadasResponse")
     public StringArray listarEdicionesIngresadas(
         @WebParam(name = "arg0", partName = "arg0")
@@ -236,382 +612,6 @@ public interface PublicadorEvento {
     @WebResult(partName = "return")
     @Action(input = "http://publicar.java.main/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosRequest", output = "http://publicar.java.main/PublicadorEvento/listarDTEventosCategoriaNoFinalizadosResponse")
     public DtEventoArray listarDTEventosCategoriaNoFinalizados(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/listarEdicionesRequest", output = "http://publicar.java.main/PublicadorEvento/listarEdicionesResponse")
-    public StringArray listarEdiciones(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorEvento/finalizarEventoRequest", output = "http://publicar.java.main/PublicadorEvento/finalizarEventoResponse")
-    public void finalizarEvento(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/listarEventosRequest", output = "http://publicar.java.main/PublicadorEvento/listarEventosResponse")
-    public StringArray listarEventos();
-
-    /**
-     * 
-     * @return
-     *     returns main.java.publicar.DtEventoArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/listarDTEventosRequest", output = "http://publicar.java.main/PublicadorEvento/listarDTEventosResponse")
-    public DtEventoArray listarDTEventos();
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns main.java.publicar.ArrayList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/listarPatrociniosRequest", output = "http://publicar.java.main/PublicadorEvento/listarPatrociniosResponse")
-    public ArrayList listarPatrocinios(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/listarCategoriasRequest", output = "http://publicar.java.main/PublicadorEvento/listarCategoriasResponse")
-    public StringArray listarCategorias();
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns main.java.publicar.DtEvento
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/informacionEventoRequest", output = "http://publicar.java.main/PublicadorEvento/informacionEventoResponse")
-    public DtEvento informacionEvento(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/usuarioEnEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/usuarioEnEdicionResponse")
-    public boolean usuarioEnEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg10
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @param arg7
-     * @param arg8
-     * @param arg9
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/altaEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/altaEdicionResponse")
-    public boolean altaEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7,
-        @WebParam(name = "arg8", partName = "arg8")
-        String arg8,
-        @WebParam(name = "arg9", partName = "arg9")
-        String arg9,
-        @WebParam(name = "arg10", partName = "arg10")
-        String arg10);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns main.java.publicar.DtEdicion
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/obtenerEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/obtenerEdicionResponse")
-    public DtEdicion obtenerEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorEvento/incrementarVisitasRequest", output = "http://publicar.java.main/PublicadorEvento/incrementarVisitasResponse")
-    public void incrementarVisitas(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @param arg7
-     * @param arg8
-     * @throws AltaPatrocinioException_Exception
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorEvento/crearPatrocinioRequest", output = "http://publicar.java.main/PublicadorEvento/crearPatrocinioResponse", fault = {
-        @FaultAction(className = AltaPatrocinioException_Exception.class, value = "http://publicar.java.main/PublicadorEvento/crearPatrocinio/Fault/AltaPatrocinioException")
-    })
-    public void crearPatrocinio(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        TipoNivelPatrocinio arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        int arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        float arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7,
-        @WebParam(name = "arg8", partName = "arg8")
-        String arg8)
-        throws AltaPatrocinioException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/listarTipoRegistroRequest", output = "http://publicar.java.main/PublicadorEvento/listarTipoRegistroResponse")
-    public StringArray listarTipoRegistro(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/crearTipoRegistroRequest", output = "http://publicar.java.main/PublicadorEvento/crearTipoRegistroResponse")
-    public boolean crearTipoRegistro(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        float arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        int arg5);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/darDeAltaRegistroRequest", output = "http://publicar.java.main/PublicadorEvento/darDeAltaRegistroResponse")
-    public boolean darDeAltaRegistro(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        boolean arg5);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns main.java.publicar.DtRegistroArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/registrosEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/registrosEdicionResponse")
-    public DtRegistroArray registrosEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorEvento/confirmarEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/confirmarEdicionResponse")
-    public void confirmarEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorEvento/rechazarEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/rechazarEdicionResponse")
-    public void rechazarEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @throws RegistroAEdicionException_Exception
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorEvento/patrocinioEdicionRequest", output = "http://publicar.java.main/PublicadorEvento/patrocinioEdicionResponse", fault = {
-        @FaultAction(className = RegistroAEdicionException_Exception.class, value = "http://publicar.java.main/PublicadorEvento/patrocinioEdicion/Fault/RegistroAEdicionException")
-    })
-    public void patrocinioEdicion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4)
-        throws RegistroAEdicionException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns main.java.publicar.DtEventoArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/buscarEventosRequest", output = "http://publicar.java.main/PublicadorEvento/buscarEventosResponse")
-    public DtEventoArray buscarEventos(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns main.java.publicar.DtEdicionArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorEvento/buscarEdicionesRequest", output = "http://publicar.java.main/PublicadorEvento/buscarEdicionesResponse")
-    public DtEdicionArray buscarEdiciones(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 

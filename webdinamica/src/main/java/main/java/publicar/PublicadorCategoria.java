@@ -28,16 +28,6 @@ public interface PublicadorCategoria {
 
     /**
      * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorCategoria/categoriasRequest", output = "http://publicar.java.main/PublicadorCategoria/categoriasResponse")
-    public StringArray categorias();
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns boolean
@@ -48,5 +38,15 @@ public interface PublicadorCategoria {
     public boolean altaCategoria(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorCategoria/categoriasRequest", output = "http://publicar.java.main/PublicadorCategoria/categoriasResponse")
+    public StringArray categorias();
 
 }

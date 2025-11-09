@@ -291,7 +291,7 @@ public class ControladorEvento {
 		Evento evento = manejadorEv.obtenerEvento(nombreEvento);
 		Usuario organizador = manejadorU.obtener(nicknameOrganizador);
 
-		if (manejadorEv.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
+		if (evento.getFinalizado() || manejadorEv.existeEdicion(nombre) || fechaFin.isBefore(fechaFin))
 			return false;
 
 		Edicion edicion = new Edicion(evento, (Organizador) organizador, nombre, sigla, fechaInicio, fechaFin,

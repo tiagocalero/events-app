@@ -28,16 +28,6 @@ public interface PublicadorInstitucion {
 
     /**
      * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar.java.main/PublicadorInstitucion/listarInstitucionesResponse")
-    public StringArray listarInstituciones();
-
-    /**
-     * 
      * @param arg0
      * @param arg1
      * @param arg2
@@ -57,5 +47,15 @@ public interface PublicadorInstitucion {
         String arg2,
         @WebParam(name = "arg3", partName = "arg3")
         String arg3);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorInstitucion/listarInstitucionesRequest", output = "http://publicar.java.main/PublicadorInstitucion/listarInstitucionesResponse")
+    public StringArray listarInstituciones();
 
 }

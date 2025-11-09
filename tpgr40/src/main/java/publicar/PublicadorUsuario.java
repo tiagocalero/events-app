@@ -79,17 +79,23 @@ public class PublicadorUsuario {
     
     @WebMethod
     public boolean altaAsistenteInstitucion(String nick, String nombre, String correo, String cont, String img, String apellido, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate nac, String ins) {
-    	return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac, ins);
+    	if (img == "")
+            img = null;
+        return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac, ins);
     }
     
     @WebMethod
     public boolean altaAsistente(String nick, String nombre, String correo, String cont, String img, String apellido, @XmlJavaTypeAdapter(LocalDateAdapter.class) LocalDate nac) {
-    	return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac);
+    	if (img == "")
+            img = null;
+        return contUsuario.altaAsistente(nick, nombre, correo, cont, img, apellido, nac);
     }
     
     @WebMethod
     public boolean altaOrganizador(String nick, String nombre, String correo, String cont, String img, String desc, String link) {
-    	return contUsuario.altaOrganizador(nick, nombre, correo, cont, img, desc, link);
+    	if (img == "")
+            img = null;
+        return contUsuario.altaOrganizador(nick, nombre, correo, cont, img, desc, link);
     }
     
     @WebMethod

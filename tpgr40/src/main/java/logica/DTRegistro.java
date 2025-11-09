@@ -13,12 +13,13 @@ public class DTRegistro {
     private String nombreEdicion;
     private String tipo;
     private String nicknameUsuario;
-    private Boolean patrocinio;
-    private Boolean asistencia;
+    private boolean patrocinio;
+    private boolean asistencia;
+    private boolean confirmable;
 
     public DTRegistro() {}
 
-    public DTRegistro(float costo, LocalDate fecha, String nombreEvento, String nombreEdicion, String tipo, String nicknameUsuario, Boolean patrocinio, Boolean asistencia) {
+    public DTRegistro(float costo, LocalDate fecha, String nombreEvento, String nombreEdicion, String tipo, String nicknameUsuario, boolean patrocinio, boolean asistencia, boolean confirmable) {
         this.costo = costo;
         this.fecha = fecha;
         this.nombreEvento = nombreEvento;
@@ -27,6 +28,7 @@ public class DTRegistro {
         this.nicknameUsuario = nicknameUsuario;
         this.patrocinio = patrocinio;
         this.asistencia = asistencia;
+        this.confirmable = confirmable;
     }
 
     public float getCosto() { return costo; }
@@ -37,4 +39,5 @@ public class DTRegistro {
     public String getNombre() { return nicknameUsuario; }
     public boolean getPatrocinio( ) {return patrocinio;}
     public boolean getAsistencia() { return asistencia;}
+    public boolean getConfirmable() { return confirmable;}
 }
