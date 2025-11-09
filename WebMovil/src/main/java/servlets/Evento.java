@@ -70,6 +70,15 @@ public class Evento extends HttpServlet {
 
 	// GET /eventos
 	protected void listarEventos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession userSession = request.getSession(false);
+		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
+
+		// No permitir que asistentes o organizadores accedan
+		if (usuarioLoggeado == null || !(usuarioLoggeado instanceof DtAsistente)) {
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
+			return;
+		}
+
 		// Cargar eventos
         PublicadorEventoService service = new PublicadorEventoService();
         PublicadorEvento port = service.getPublicadorEventoPort();
@@ -91,115 +100,6 @@ public class Evento extends HttpServlet {
 	
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
-	// GET /patrocinios/alta
-	protected void altaPatrocinioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-
-		String evento = request.getParameter("evento");
-		String edicion = request.getParameter("edicion");
-
-		// Si el evento/edición seleccionados no existen o la edición
-		// no existe para ese evento, redirigir a página principal
-		if (evento == null || edicion == null || !port.existeEdicionEvento(evento, edicion)) {
-			response.sendRedirect("/webdinamica");
-			return;
-		}
-
-		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
-		HttpSession userSession = request.getSession(false);
-		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-
-		// No permitir que asistentes o visitantes accedan, ni organizadores
-		// de una edición distinta a la actual.
-		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
-			return;
-		} else if (!usuarioLoggeado.getNickname().equals(datosEdicion.getOrganizador())) {
-			response.sendRedirect("/webdinamica/");
-			return;
-		}
-
-		List<String> instituciones = 
-				port.listarInstituciones()
-				.getItem()
-				.stream()
-				.filter(e -> !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(e))
-				.collect(Collectors.toList());
-		request.setAttribute("instituciones", instituciones);
-
-		// Redirigir a ConsultaEdición si la edición ya
-		// está patrocinada por todas las instituciones
-		if (instituciones.equals(List.of())) {
-			request.setAttribute("error", "La edición ya está patrocinada por todas las instituciones en el sistema.");
-			consultaEdicionGET(request, response);
-			return;
-		}
-
-		List<String> tipoRegistros = port.listarTipoRegistro(evento, edicion).getItem();
-		request.setAttribute("tipoRegistros", tipoRegistros);
-
-		// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/patrocinios/alta.jsp").forward(request, response);
-	}
-
-	// POST /patrocinios/alta
-	// Crea un patrocinio con los parámetros pasados
-	protected void altaPatrocinioPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-
-		String evento = request.getParameter("evento");
-		String edicion = request.getParameter("edicion");
-		String institucion = request.getParameter("institucion");
-		TipoNivelPatrocinio nivel = TipoNivelPatrocinio.valueOf(request.getParameter("nivel").toUpperCase());
-		float monto = Float.parseFloat(request.getParameter("monto"));
-		int cantRegistros = Integer.parseInt(request.getParameter("cantRegistros"));
-		String tipoRegistro = request.getParameter("tipoRegistro");
-		String codigo = request.getParameter("codigo");
-
-		DtEdicion datosEdicion = port.obtenerEdicion(edicion, evento);
-		HttpSession userSession = request.getSession(false);
-		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-
-		// Si el evento/edición seleccionados no existen o la edición
-		// no existe para ese evento, redirigir a página principal
-		if (evento == null || edicion == null || !port.existeEdicionEvento(evento, edicion)) {
-			response.sendRedirect("/webdinamica");
-			return;
-		}
-
-		// No permitir que asistentes o visitantes accedan, ni organizadores
-		// de una edición distinta a la actual.
-		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
-			return;
-		} else if (!usuarioLoggeado.getNickname().equals(datosEdicion.getOrganizador())) {
-			response.sendRedirect("/webdinamica");
-			return;
-		}
-		
-	    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-
-		try {
-			port.crearPatrocinio(codigo, nivel, tipoRegistro, cantRegistros, monto, LocalDate.now().format(fmt), edicion, institucion, evento);
-		} catch(AltaPatrocinioException_Exception ex) {
-			request.setAttribute("error", ex.getMessage());
-
-			// Se incluyen todos los atributos para que se vuelvan a cargar y
-			// que el usuario no tenga que llenarlos de vuelta
-			request.setAttribute("institucion", institucion);
-			request.setAttribute("nivel", nivel.toString());
-			request.setAttribute("monto", monto);
-			request.setAttribute("cantRegistros", cantRegistros);
-			request.setAttribute("tipoRegistro", tipoRegistro);
-			request.setAttribute("codigo", codigo);
-		}
-
-		// Volver a AltaPatrocinio
-		altaPatrocinioGET(request, response);
-	}
-
 	// GET /patrocinios
 	// POST /patrocinios
 	protected void consultaPatrocinio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -216,7 +116,7 @@ public class Evento extends HttpServlet {
 		if (evento == null || edicion == null 
 				|| !port.existeEdicionEvento(evento, edicion)
 				|| !port.listarInstitucionesEdicionEvento(evento, edicion).getItem().contains(institucion)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 
@@ -225,161 +125,6 @@ public class Evento extends HttpServlet {
 
 		// Mostrar el HTML
 		request.getRequestDispatcher("/WEB-INF/patrocinios/consulta.jsp").forward(request, response);
-	}
-
-	// GET /eventos/alta
-	// Carga las categorías existentes en el formulario
-	protected void altaEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-
-		HttpSession userSession = request.getSession(false);
-		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-
-		// No permitir que asistentes o visitantes accedan
-		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
-			return;
-		} else if (!(usuarioLoggeado instanceof DtOrganizador)) {
-			response.sendRedirect("/webdinamica");
-			return;
-		}
-
-		List<String> categorias = port.listarCategorias().getItem();
-		request.setAttribute("categorias", categorias);
-
-		// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/alta.jsp").forward(request, response);
-	}
-
-	// POST /eventos/alta
-	// Crea un evento con los parámetros pasados
-	protected void altaEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession userSession = request.getSession(false);
-		DtUsuario usuarioLoggeado = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-
-		// No permitir que asistentes o visitantes accedan
-		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
-			return;
-		} else if (!(usuarioLoggeado instanceof DtOrganizador)) {
-			response.sendRedirect("/webdinamica");
-			return;
-		}
-
-		String nombre = request.getParameter("nombre");
-		String descripcion = request.getParameter("desc");
-		String sigla = request.getParameter("sigla");
-		String[] categoriasA = request.getParameterValues("categorias");
-		StringArray categorias = new StringArray();
-		categorias.getItem().addAll(Arrays.asList(categoriasA));
-		
-		// Obtener imagen
-		Part filePart = request.getPart("imagen");
-		boolean subioImagen = filePart != null && filePart.getSize() > 0;
-    	String fileName = "";
-    	
-		if (subioImagen) {
-			// Generar un nombre aleatorio para la imagen,
-			// guardarla en una carpeta temporal
-			fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
-			String uploadPath = getServletContext().getRealPath("/uploads");
-			File uploadDir = new File(uploadPath);
-
-			if (!uploadDir.exists()) uploadDir.mkdir();
-
-			filePart.write(uploadPath + File.separator + fileName);
-		}
-
-    	DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-        
-		boolean ok = port.ingresarDatosEvento(nombre, descripcion, sigla, LocalDate.now().format(fmt), categorias, fileName);
-
-		if (!ok) {
-			// Se incluyen todos los atributos para que se vuelvan a cargar y que el
-			// usuario no tenga que llenarlos de vuelta
-			request.setAttribute("nombre", nombre);
-			request.setAttribute("descripcion", descripcion);
-			request.setAttribute("sigla", sigla);
-			request.setAttribute("categoriasA", categoriasA);
-
-			request.setAttribute("error", "Ya existe un evento con ese nombre");
-		}
-		// Volver a AltaEvento
-		altaEventoGET(request, response);
-	}
-
-	//######  ALTA EDICION  ######
-
-	// GET /ediciones/altaEdicion
-	// Llama a la ventana de altaEdicion
-	protected void altaEdicionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombreEvento = request.getParameter("evento");
-
-		request.setAttribute("nombreEvento", nombreEvento);
-
-		// Mostrar el HTML
-		request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
-	}
-
-	// POST /ediciones/altaEdicion
-	// Crea una edicion con los parámetros pasados
-	protected void altaEdicionPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombre = request.getParameter("name");
-		String ciudad = request.getParameter("ciudad");
-		String sigla = request.getParameter("sigla");
-		String pais = request.getParameter("pais");
-		LocalDate fechaInicio = LocalDate.parse(request.getParameter("fecha-inicio"));
-		LocalDate fechaFin = LocalDate.parse(request.getParameter("fecha-fin"));
-		String nombreEvento = request.getParameter("evento");
-		String video = request.getParameter("video-url");
-		LocalDate fechaAlta = LocalDate.now();
-
-		HttpSession user = request.getSession(false);
-		DtUsuario usuario = (DtUsuario) user.getAttribute("usuario");
-		String nicknameOrganizador = usuario.getNickname();
-
-		// Obtener imagen
-		Part filePart = request.getPart("imagen");
-		boolean subioImagen = filePart != null && filePart.getSize() > 0;
-
-		String fileName = "";
-
-		if (subioImagen) {
-			// Generar un nombre aleatorio para la imagen,
-			// guardarla en una carpeta temporal
-			fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
-			String uploadPath = getServletContext().getRealPath("/uploads");
-			File uploadDir = new File(uploadPath);
-
-			if (!uploadDir.exists()) uploadDir.mkdir();
-
-			filePart.write(uploadPath + File.separator + fileName);
-		}
-
-		PublicadorEventoService service = new PublicadorEventoService();
-        PublicadorEvento port = service.getPublicadorEventoPort();
-        
-        boolean ok = port.altaEdicion(nombreEvento, nicknameOrganizador, nombre, sigla, fechaInicio.format(FORMATTER), fechaFin.format(FORMATTER), fechaAlta.format(FORMATTER), ciudad, pais, fileName, video);
-
-		if (!ok) {
-			request.setAttribute("name", nombre);
-			request.setAttribute("ciudad", ciudad);
-			request.setAttribute("sigla", sigla);
-			request.setAttribute("pais", pais); 
-			request.setAttribute("fecha-inicio", fechaInicio);
-			request.setAttribute("fecha-fin", fechaFin);
-
-			request.setAttribute("nombreEvento", nombreEvento); 
-
-			request.setAttribute("error", "El nombre de la edición '" + nombre + "' ya existe.");
-
-			request.getRequestDispatcher("/WEB-INF/eventos/altaEdicion.jsp").forward(request, response);
-		} else {
-			consultaEventoGET(request, response);
-		}
 	}
 
 	//######  CONSULTA EDICION  ######
@@ -394,7 +139,7 @@ public class Evento extends HttpServlet {
 		String edicion = request.getParameter("edicion");
 
 		if (!port.existeEdicionEvento(evento, edicion)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 		
@@ -477,15 +222,15 @@ public class Evento extends HttpServlet {
 
 		// No permitir que organizadores o visitantes accedan
 		if (usuario == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
 			return;
 		} else if (!(usuario instanceof DtAsistente)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 
 		if (!port.existeEdicionEvento(nombreEvento, nombreEdicion)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 
@@ -514,10 +259,10 @@ public class Evento extends HttpServlet {
 
 		// No permitir que organizadores o visitantes accedan
 		if (usuarioLoggeado == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
 			return;
 		} else if (!(usuarioLoggeado instanceof DtAsistente)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 		
@@ -579,9 +324,6 @@ public class Evento extends HttpServlet {
 		}
 	}
 
-
-
-
 	//######  CONSULTA EVENTO  ######
 
 	// GET /ediciones/consultaEdicion
@@ -596,7 +338,7 @@ public class Evento extends HttpServlet {
 		String evento = request.getParameter("evento");
 		
 		if (!port.listarEventos().getItem().contains(evento)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 
@@ -635,7 +377,7 @@ public class Evento extends HttpServlet {
 		// Si el evento/edición seleccionados no existen o la edición
 		// no existe para ese evento, redirigir a página principal
 		if (!port.existeEdicionEvento(evento, edicion)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 		}
 
@@ -654,7 +396,7 @@ public class Evento extends HttpServlet {
         PublicadorEvento port = service.getPublicadorEventoPort();
         
 		if (!port.existeEdicionEvento(evento, edicion) || !port.listarTipoRegistro(evento, edicion).getItem().contains(tregistro)) {
-			response.sendRedirect("/webdinamica");
+			response.sendRedirect("/webmovil");
 			return;
 
 		}
@@ -719,62 +461,6 @@ public class Evento extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/eventos/busqueda.jsp").forward(request, response);
 	}
 
-		// GET /eventos/finalizarEvento
-		// Permite finalizar un evento
-		protected void finalizarEventoGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			PublicadorEventoService service = new PublicadorEventoService();
-	        PublicadorEvento portE = service.getPublicadorEventoPort();
-	        
-	        PublicadorUsuarioService serviceU = new PublicadorUsuarioService();
-	        PublicadorUsuario portU = serviceU.getPublicadorUsuarioPort();
-	
-		    // 2. Obtener la sesión y el usuario (se mantiene la lógica original)
-		    HttpSession userSession = request.getSession(false);
-		    DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
-		    
-		    // 3. Obtener todas las ediciones del Organizador
-		    List<DtEdicion> ediciones = portU.consultaOrganizador().getItem();
-		    
-		    // 4. Crear un Set para almacenar nombres de eventos únicos
-		    Set<String> eventosUnicos = new HashSet<>();
-		    
-		    // 5. Recorrer las ediciones para extraer los nombres de eventos únicos
-		    for (DtEdicion edicion : ediciones) {
-		    	DtEvento ev = portE.informacionEvento(edicion.getEvento());
-		    	if (ev.isFinalizado() == false) {
-		    		eventosUnicos.add(edicion.getEvento()); 
-		    	}
-		    }
-		    
-		    // 6. Convertir el Set (único) a una List para enviarlo al JSP
-		    List<String> eventos = new ArrayList<>(eventosUnicos);
-		    
-		    // 7. Establecer los atributos para el JSP
-		    // Se envía la lista de ediciones por si el JSP la necesita (e.g., para el sidebar).
-		    request.setAttribute("ediciones", ediciones);
-		    
-		    // Se envía la nueva lista de nombres de eventos únicos.
-		    request.setAttribute("eventosCreados", eventos);
-		    
-		    String nombreEvento = request.getParameter("nombreEvento");
-		    request.setAttribute("evento", nombreEvento);
-		    
-		    // 8. Hacer el forward al JSP
-		    request.getRequestDispatcher("/WEB-INF/eventos/finalizarEvento.jsp").forward(request, response);
-		}
-		
-		protected void finalizarEventoPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			PublicadorEventoService service = new PublicadorEventoService();
-	        PublicadorEvento portE = service.getPublicadorEventoPort();
-
-		    // 1. Obtener el parámetro del formulario (nombreEvento)
-		    String nombreEvento = request.getParameter("nombreEvento");
-		    
-		    portE.finalizarEvento(nombreEvento);
-		    finalizarEventoGET(request, response);
-		}
-
-
 	//############################# 
 		
 	/**
@@ -793,14 +479,9 @@ public class Evento extends HttpServlet {
 				listarEventos(request, response);
 			} else if (path.equals("/consulta")) {
 				response.getWriter().println("Página de consulta");
-			} else if (path.equals("/alta")) {
-				altaEventoGET(request, response);
 			} else if (path.equals("/consultaEvento")) {
 				consultaEventoGET(request, response);
-			} else if (path.equals("/finalizarEvento")) {
-				finalizarEventoGET(request, response);
-			}
-			else {
+			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
@@ -809,11 +490,7 @@ public class Evento extends HttpServlet {
 
 			String path = request.getPathInfo();
 
-			if (path.equals("/altaEdicion")) {
-
-				altaEdicionGET(request, response);
-
-			} else if (path.equals("/consultaEdicion")){
+			if (path.equals("/consultaEdicion")){
 
 				consultaEdicionGET(request, response);
 
@@ -831,8 +508,6 @@ public class Evento extends HttpServlet {
 
 			if (path == null || path.equals("/")) {
 				consultaPatrocinio(request, response);
-			} else if (path.equals("/alta")) {
-				altaPatrocinioGET(request, response);
 			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
@@ -972,11 +647,7 @@ public class Evento extends HttpServlet {
 				listarEventos(request, response);
 			} else if (path.equals("/consulta")) {
 				response.getWriter().println("Página de consulta");
-			} else if (path.equals("/alta")) {
-				altaEventoPOST(request, response);
-			} else if (path.equals("/finalizarEvento")) {
-				finalizarEventoPOST(request, response);
-			}else {
+			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");
 			}
@@ -984,11 +655,7 @@ public class Evento extends HttpServlet {
 
 			String path = request.getPathInfo();
 
-			if (path.equals("/altaEdicion")) {
-				altaEdicionPOST(request, response);
-
-			} else if (path.equals("/registroAEdicionEvento")) {
-
+			if (path.equals("/registroAEdicionEvento")) {
 				registroAEdicionEventoPOST(request, response);
 			} else if (path != null && path.equals("/descargarConstancia")) {
 	            descargarConstanciaPOST(request, response);
@@ -1002,8 +669,6 @@ public class Evento extends HttpServlet {
 
 			if (path == null || path.equals("/")) {
 				consultaPatrocinio(request, response);
-			} else if (path.equals("/alta")) {
-				altaPatrocinioPOST(request, response);
 			} else {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				response.getWriter().println("404 - Página no encontrada");

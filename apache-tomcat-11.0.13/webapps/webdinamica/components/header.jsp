@@ -51,7 +51,7 @@
           <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="/webdinamica/usuarios/consulta?nick=<%= usuarioLoggeado.getNickname() %>">Mi Perfil</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="/webdinamica/usuarios/fin_sesion">Cerrar Sesin</a></li>
+            <li><a class="dropdown-item" href="/webdinamica/usuarios/fin_sesion">Cerrar Sesión</a></li>
           </ul>
         </div>
       </div>

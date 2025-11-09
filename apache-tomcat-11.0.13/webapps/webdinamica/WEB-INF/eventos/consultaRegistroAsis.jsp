@@ -7,6 +7,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eventos.uy - Consulta Registro</title>
   
   <link rel="stylesheet" href="/webdinamica/assets/styles.css"> 
@@ -70,9 +71,6 @@
             <ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               
               <% 
-                // Estas variables ya están definidas arriba, pero se dejan aquí para claridad del bloque Edición
-                // String nombreEdicion = (String) request.getAttribute("edicion"); 
-                // String nombreEvento = request.getParameter("evento"); 
                 String urlConsultaEdicion = "/webdinamica/ediciones/consultaEdicion?evento=" + URLEncoder.encode(nombreEvento, StandardCharsets.UTF_8) + "&edicion=" + URLEncoder.encode(nombreEdicion, StandardCharsets.UTF_8);
               %>
               

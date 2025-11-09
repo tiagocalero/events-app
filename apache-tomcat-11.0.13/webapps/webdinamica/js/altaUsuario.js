@@ -35,12 +35,6 @@ function validarSeleccionAltaUsuario() {
 		alert("Las contraseñas no coinciden.");
 		return false; // evita el submit
 	}
-
-    const nickStatus = document.getElementById('nick-status');
-
-    if (nickStatus.textContent == "No disponible. Elige otro.") {
-        return false;
-    }
 	
 	const nac = document.getElementById("nacimiento");
 	const tipo = document.getElementById('tipoUsuario');

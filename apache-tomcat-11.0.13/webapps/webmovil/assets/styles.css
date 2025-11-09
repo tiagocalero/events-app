@@ -88,7 +88,7 @@ header .boton-izq-hdr svg {
 
 /* LOGO CENTRAL */
 header .logo {
-  height: 40px;
+  height: 60px;
   object-fit: contain;
 }
 
@@ -499,6 +499,11 @@ body {
   border-radius: 4px;
   margin: 0 auto auto auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-signin .logo {
+  height: 70px;
+  margin-bottom: 10px;
 }
 
 .form-signin .form-floating:focus-within {

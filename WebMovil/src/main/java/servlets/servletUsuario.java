@@ -88,7 +88,7 @@ public class servletUsuario extends HttpServlet {
 
 		// No permitir que visitantes accedan
 		if (usuario == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
 			return;
 		}
 		
@@ -201,7 +201,7 @@ public class servletUsuario extends HttpServlet {
 
 		// No permitir que visitantes accedan
 		if (dtu == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
 			return;
 		}
 		
@@ -252,7 +252,7 @@ public class servletUsuario extends HttpServlet {
     	
 		dtu = port.elegirUsuario(nick);
 		userSession.setAttribute("usuario", dtu);
-    	response.sendRedirect("/webdinamica/usuarios/");
+    	response.sendRedirect("/webmovil/usuarios/");
     }
 
     protected void inicio_sesionGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -285,7 +285,7 @@ public class servletUsuario extends HttpServlet {
 
 		// No permitir que visitantes accedan
 		if (usuario == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
 			return;
 		}
 		
@@ -304,7 +304,7 @@ public class servletUsuario extends HttpServlet {
 
 		// No permitir que visitantes accedan
 		if (dtu == null) {
-			response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+			response.sendRedirect("/webmovil/usuarios/inicio_sesion");
 			return;
 		}
 		
@@ -317,7 +317,7 @@ public class servletUsuario extends HttpServlet {
  	    	    request.getRequestDispatcher("/WEB-INF/usuarios/cambiar_contrasena.jsp").forward(request, response);
  			} else {
  				port.setContrasena(dtu.getNickname(), nueva);
- 				response.sendRedirect("/webdinamica/usuarios/fin_sesion");
+ 				response.sendRedirect("/webmovil/usuarios/fin_sesion");
  			}
  		} else {
  			request.setAttribute("error", "Contraseña incorrecta.");
@@ -362,7 +362,7 @@ public class servletUsuario extends HttpServlet {
     		request.getRequestDispatcher("/WEB-INF/eventos/consultaRegistroAsis.jsp").forward(request, response);
     	} else {
     		// Error: Usuario no logueado o tipo desconocido
-    		response.sendRedirect("/webdinamica/usuarios/inicio_sesion");
+    		response.sendRedirect("/webmovil/usuarios/inicio_sesion");
     	}	    	
     }
  	
@@ -405,7 +405,7 @@ public class servletUsuario extends HttpServlet {
 		            if (session != null) {
 		                session.invalidate();
 		            }
-		            response.sendRedirect("/webdinamica/");
+		            response.sendRedirect("/webmovil/");
 		        } else {
 		            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		            response.getWriter().println("404 - Página no encontrada");
