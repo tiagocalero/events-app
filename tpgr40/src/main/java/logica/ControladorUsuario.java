@@ -146,8 +146,8 @@ public class ControladorUsuario{
 	public List<String> registrosNoConfirmados(String nickname){
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
 		assert usuario instanceof Asistente;
-		Asistente usuario = (Asistente) manejador.obtener(asistente);
-		return usuario.registrosNC();
+		Asistente usuario = (Asistente) manejador.obtener(nickname);
+		return usuario.registrosNoConfirmados();
 	}
 
 	

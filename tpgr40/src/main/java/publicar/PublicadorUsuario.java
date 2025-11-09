@@ -147,5 +147,10 @@ public class PublicadorUsuario {
     public boolean esSeguido(String nickSeguidor, String nickSeguido) {
     	return contUsuario.esSeguido(nickSeguidor, nickSeguido);
     }
+
+    @WebMethod
+    public String[] registrosNoConfirmados(String nickname){
+        return contUsuario.registrosNoConfirmados(nickname).toArray(new String[0]);
+    }
     
 }

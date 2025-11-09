@@ -67,12 +67,12 @@ build_module() {
 
 build_module "$TPGR40_DIR" "tpgr40"
 build_module "$BASE_DIR/webdinamica" "webdinamica"
-build_module "$BASE_DIR/webmovil" "webmovil"
+build_module "$BASE_DIR/WebMovil" "webmovil"
 
 # === DEPLOY A TOMCAT ===
 echo "📂 Copiando archivos .war a Tomcat..."
 cp "$BASE_DIR/webdinamica/target/webdinamica-0.0.1-SNAPSHOT.war" "$TOMCAT_DIR/webapps/webdinamica.war"
-cp "$BASE_DIR/webmovil/target/webmovil-0.0.1-SNAPSHOT.war" "$TOMCAT_DIR/webapps/webmovil.war"
+cp "$BASE_DIR/WebMovil/target/webmovil-0.0.1-SNAPSHOT.war" "$TOMCAT_DIR/webapps/webmovil.war"
 
 # === REINICIO DE TOMCAT ===
 echo "🛑 Apagando Tomcat..."

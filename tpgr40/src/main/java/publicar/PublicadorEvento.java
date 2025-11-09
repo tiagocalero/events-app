@@ -245,8 +245,4 @@ public class PublicadorEvento {
     	return contEvento.buscarEdiciones(str).toArray(new DTEdicion[0]);
     }
 
-    @WebMethod
-    public String[] registrosNoConfirmados(String nickname){
-        return contEvento.registrosNC(nickname).toArray(new String[0]);
-    }
 }

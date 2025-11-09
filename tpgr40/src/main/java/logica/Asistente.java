@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 public class Asistente extends Usuario {
 	private String apellido;
@@ -74,11 +75,11 @@ public class Asistente extends Usuario {
 		
 		List<String> registrosNC = new ArrayList<>();
 		
-		for (Map.Entry<String, Registro> entry : registros.entrySet()) {
-		    if (entry.getValue().getAsistencia() == false) {
-		        registrosNC.add(entry.getKey());
-		    }
-		}
+		for (Registro registro : registros) {
+        	if (!registro.getAsistencia()) {
+            	registrosNC.add(registro.getEdicion().getNombre());
+        	}
+   		}
 
 		return registrosNC;
 	}

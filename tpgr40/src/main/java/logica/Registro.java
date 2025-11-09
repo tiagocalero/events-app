@@ -39,6 +39,10 @@ public class Registro{
     public boolean getPatrocinio() {
     	return patrocinio;
     }
+
+    public boolean getAsistencia() {
+    	return asistencia;
+    }
     
     public void registrarAsistencia() {
     	this.asistencia = true;
