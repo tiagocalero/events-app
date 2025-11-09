@@ -91,11 +91,12 @@ public class ManejadorEvento {
 		Edicion edicion = obtenerEdicion(nombreEdicion, evento);
 		return edicion.getTipoRegistro(nombreTRegistro);
 	}
-	
+
 	public void finalizarEvento(String evento) {
 		Evento ev = obtenerEvento(evento);
 		ev.finalizar();
 	}
+
 	// Devuelve los datos de los eventos que contienen todas las palabras de
 	// str en su nombre o descripción
 	public List<DTEvento> buscarEventos(String str) {
@@ -108,7 +109,7 @@ public class ManejadorEvento {
 	    			    .allMatch(p -> normalizar(evento.getNombre()).contains(p)
     			                    || normalizar(evento.getDescripcion()).contains(p));
 	    	
-	    	if (contieneCadaPalabra)
+	    	if (contieneCadaPalabra && !evento.getFinalizado())
 	    		coincidencias.add(evento.getDatos());
 		}
 		
@@ -120,14 +121,15 @@ public class ManejadorEvento {
 	public List<DTEdicion> buscarEdiciones(String str) {
 		List<DTEdicion> coincidencias = new ArrayList<>();
 		String[] palabras = normalizar(str).split("\\s+");
-		
+
 		for (Evento evento : eventos.values()) {
 		    for (Edicion edicion : evento.getEdiciones().values()) {
+		    	boolean aceptada = edicion.getEstado() == TipoEstado.Aceptada;
 		    	boolean contieneCadaPalabra
 		    		= Arrays.stream(palabras)
 			    			.allMatch(p -> normalizar(edicion.getNombre()).contains(p));
-		    	
-		    	if (contieneCadaPalabra && edicion.getEstado() == TipoEstado.Aceptada)
+
+		    	if (contieneCadaPalabra && aceptada && !evento.getFinalizado())
 		    		coincidencias.add(edicion.getDatos());
 		    }
 		}
