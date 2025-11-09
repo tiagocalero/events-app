@@ -38,6 +38,27 @@ header {
   max-width: 100%;
   height: auto;
 }
+/* Fuerza quitar viñetas/markers dentro del offcanvas */
+#menuLateral .navbar-nav,
+#menuLateral .navbar-nav ul,
+#menuLateral .navbar-nav li {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* También quitar posibles markers con ::marker */
+#menuLateral .navbar-nav li::marker {
+  content: none !important;
+}
+
+/* Ajustes visuales: que cada enlace sea bloque y centrado */
+#menuLateral .nav-link {
+  display: block;
+  padding: .65rem 0;
+  text-align: center;
+  color: #222;
+}
 
 
 header .search {

@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import main.java.logica.ControladorEvento;
+import main.java.logica.DTEvento;
 
 public class AltaEdicionEvento extends JInternalFrame {
 	private static final long serialVersionUID = 7318556931431081324L;
@@ -96,8 +97,8 @@ public class AltaEdicionEvento extends JInternalFrame {
 		comboBoxEventos = new JComboBox<String>();
 		comboBoxEventos.setBounds(46, 90, 238, 27);
 		comboBoxEventos.addItem("Selecciona un Evento");
-        for (String evento: controlador.listarEventos()) {
-        	comboBoxEventos.addItem(evento);
+        for (DTEvento evento: controlador.listarDTEventosNoFinalizados()) {
+        	comboBoxEventos.addItem(evento.getNombre());
         }
 		panel.add(comboBoxEventos);
 		

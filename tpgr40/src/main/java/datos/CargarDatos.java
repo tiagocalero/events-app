@@ -83,7 +83,8 @@ public class CargarDatos {
 
 		fechaAlta = LocalDate.parse("01/01/2025", fmt);
 		List<String> cats8 = new ArrayList<>(Arrays.asList("Cultura"));
-		contE.ingresarDatosEvento("Global", "Aventureros en grupo", "GBL", fechaAlta, cats7, true);
+		// Aviso: El evento se finaliza más adelante para poder crear la edición
+		contE.ingresarDatosEvento("Global", "Aventureros en grupo", "GBL", fechaAlta, cats7, false);
 		contE.setVisitasEvento("Global", 20);	
 		
 		//Cargar Organizaciones
@@ -173,6 +174,8 @@ public class CargarDatos {
 		video = "https://www.youtube.com/watch?v=cnMa-Sm9H4k";
 		contE.altaEdicion("Global", "miseventos", "Descubre la Magia de Machu Picchu", "MAPI25", fechaInicio, fechaFin, fechaAlta, "Cusco", "Perú", "IMG-EDEV12.jpeg", video);
 		contE.confirmarEdicion("Global", "Descubre la Magia de Machu Picchu");
+		// El evento se puede finalizar recién acá para poder crear la edición
+		contE.finalizarEvento("Global");
 		
 		//Cargar Tipo Registro
 		contE.crearTipoRegistro("Montevideo Rock", "Montevideo Rock 2025", "General", "Acceso general a Montevideo Rock (2 días)", 1500, 2000);

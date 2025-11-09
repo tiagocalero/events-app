@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
  *         <element name="costo" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         <element name="fecha" type="{http://publicar.java.main/}localDate" minOccurs="0"/>
+ *         <element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="nombreEvento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="nombreEdicion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="tipo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -48,7 +48,7 @@ import jakarta.xml.bind.annotation.XmlType;
 public class DtRegistro {
 
     protected float costo;
-    protected LocalDate fecha;
+    protected String fecha;
     protected String nombreEvento;
     protected String nombreEdicion;
     protected String tipo;
@@ -78,10 +78,10 @@ public class DtRegistro {
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
@@ -90,10 +90,10 @@ public class DtRegistro {
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFecha(LocalDate value) {
+    public void setFecha(String value) {
         this.fecha = value;
     }
 
