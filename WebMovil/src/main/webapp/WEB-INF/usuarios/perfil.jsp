@@ -13,11 +13,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eventos.uy - Perfil</title>
-  <link rel="stylesheet" href="/webdinamica/assets/styles.css">
+  <link rel="stylesheet" href="/webmovil/assets/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
-  <script src="/webdinamica/js/consultaUsuario.js" type="text/javascript" defer></script>
-  <script src="/webdinamica/js/altaUsuario.js" type="text/javascript" defer></script>
+  <script src="/webmovil/js/consultaUsuario.js" type="text/javascript" defer></script>
+  <script src="/webmovil/js/altaUsuario.js" type="text/javascript" defer></script>
   <link rel="icon" type="image/png" href="assets/logoChico.png">
 </head>
 <body>
@@ -32,7 +32,7 @@
       <form id="modifyUserForm" class="content-form-modificar" action="modificar" method="post"  enctype="multipart/form-data">
 
         <div class="event-image">
-          <img id="profile-pic" src="/webdinamica/uploads/<%= usuarioLoggeado.getImagen() %>"  onerror="this.onerror=null; this.src='/webdinamica/assets/default_profile.jpg';"
+          <img id="profile-pic" src="/webmovil/uploads/<%= usuarioLoggeado.getImagen() %>"  onerror="this.onerror=null; this.src='/webmovil/assets/default_profile.jpg';"
           	alt="Foto Perfil de <%= usuarioLoggeado.getNickname() %>">
           <input id="file-input" type="file" name="imagenPerfil" accept="image/*" style="display: none"/>
         </div>
@@ -53,7 +53,7 @@
         <input type="text" id="correo" name="correo" value="<%= usuarioLoggeado.getCorreo() != null ? usuarioLoggeado.getCorreo() : "" %>" disabled /><br/>
 
         <label for="pass"><strong>Contraseña:</strong></label>
-        <a href="/webdinamica/usuarios/cambiar_contrasena" id="pass" >cambiar contraseña</a></br>
+        <a href="/webmovil/usuarios/cambiar_contrasena" id="pass" >cambiar contraseña</a></br>
 
 		<% if (usuarioLoggeado instanceof DtAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
@@ -91,7 +91,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
               		<% List<DtRegistro> registros = (List<DtRegistro>) request.getAttribute("registros");
     	      			for (DtRegistro reg : registros) { %>
-              			<li><a href="/webdinamica/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getNombreEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getNombreEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getNombreEdicion() %></a></li>
+              			<li><a href="/webmovil/usuarios/consultaRegistroAsis?edicion=<%= URLEncoder.encode(reg.getNombreEdicion(), StandardCharsets.UTF_8) %>&evento=<%= URLEncoder.encode(reg.getNombreEvento(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= reg.getNombreEdicion() %></a></li>
               		<% } %>
            		</ul>
             <% } else if (usuarioLoggeado instanceof DtOrganizador) { %>
@@ -99,7 +99,7 @@
             	<ul style="margin-top: 1em;" class="btn-toggle-nav list-unstyled fw-normal small">
             		<% List<DtEdicion> ediciones = (List<DtEdicion>) request.getAttribute("ediciones");	
     	      			for (DtEdicion ed : ediciones) { %>
-            			<li><a href="/webdinamica/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
+            			<li><a href="/webmovil/ediciones/consultaEdicion?evento=<%= URLEncoder.encode(ed.getEvento(), StandardCharsets.UTF_8) %>&edicion=<%= URLEncoder.encode(ed.getNombre(), StandardCharsets.UTF_8) %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded"><%= ed.getNombre() %></a></li>
             		<% } %>
             	</ul>
             <% } %>

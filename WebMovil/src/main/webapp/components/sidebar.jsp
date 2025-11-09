@@ -20,7 +20,7 @@
                 		for (String entry : categoriasListado) {
         			%>
                     		<li>
-                        		<a href="/webdinamica/eventos<%= entry.equals(request.getParameter("categoria")) ? "" : "?categoria=" + entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded <%= entry.equals(request.getParameter("categoria")) ? "active bg-warning text-black" : "" %>">
+                        		<a href="/webmovil/eventos<%= entry.equals(request.getParameter("categoria")) ? "" : "?categoria=" + entry %>" class="link-body-emphasis d-inline-flex text-decoration-none rounded <%= entry.equals(request.getParameter("categoria")) ? "active bg-warning text-black" : "" %>">
                             		<%= entry %>
                         		</a>
                     		</li>
@@ -51,25 +51,25 @@
 		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 		
 			<li>
-				<a href="/webdinamica/usuarios/lista" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+				<a href="/webmovil/usuarios/lista" class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Usuarios</a>
 			</li>
 	  	  <% if (usuarioLoggeadoSidebar != null && (usuarioLoggeadoSidebar instanceof DtOrganizador)) { %>
 			  <li>
 			    <a
-			      href="/webdinamica/eventos/alta"
+			      href="/webmovil/eventos/alta"
 			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Crear Evento</a>
 			  </li>
 			  <li>
 			    <a
-			      href="/webdinamica/instituciones/altaInstitucion"
+			      href="/webmovil/instituciones/altaInstitucion"
 			      class="link-body-emphasis d-inline-flex text-decoration-none rounded"
 			      >Crear Institución</a>
 			  </li>
 			  <li>
 			  	<a 
-			  		href="/webdinamica/eventos/finalizarEvento"
+			  		href="/webmovil/eventos/finalizarEvento"
 			  		class="link-body-emphasis d-inline-flex text-decoration-none rounded">
 			  		Finalizar Evento
 			  	</a>

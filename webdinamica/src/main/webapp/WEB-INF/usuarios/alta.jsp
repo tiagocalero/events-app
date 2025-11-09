@@ -5,12 +5,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/webdinamica/assets/styles.css">
   <title>Eventos.uy - Registrarse</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
   <script src="/webdinamica/js/altaUsuario.js" type="text/javascript" defer></script>
-  <link rel="icon" type="image/png" href="assets/logoChico.png">
+  <link rel="icon" type="image/png" href="/webdinamica/assets/logoChico.png">
+  <link rel="stylesheet" href="/webdinamica/assets/styles.css">
 </head>
 <body>
   <%@ include file="/components/header.jsp" %>
@@ -27,9 +27,13 @@
             <label for="tipoUsuario">Tipo de Usuario:</label>
             <button type="button" id="tipoUsuario" name="tipoUsuario" onclick="updateHiddenField()"><%= request.getAttribute("tipo") != null ? request.getAttribute("tipo") : "Asistente" %></button><br/>
 
-            <label for="nickname">Nickname:</label>
-            <input type="text" id="nickname" name="nickname" 
-            	value="<%= request.getAttribute("nickname") != null ? request.getAttribute("nickname") : "" %>" required/><br/>
+			<div class="form-row">
+            	<label for="nickname">Nickname:</label>
+            	<input type="text" id="nickname" name="nickname" autocomplete="off" required pattern="[A-Za-z0-9_]{3,20}"
+           		   	value="<%= request.getAttribute("nickname") != null ? request.getAttribute("nickname") : "" %>" 
+           		   	aria-live="polite"/>
+				<span id="nick-status" class="hint"></span>
+           	</div>
 
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" value="<%= request.getAttribute("name") != null ? request.getAttribute("name") : "" %>"/><br/>
@@ -92,5 +96,6 @@
 
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="/webdinamica/js/check-nickname.js"></script>
 </body>
 </html>
