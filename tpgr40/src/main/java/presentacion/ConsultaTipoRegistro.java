@@ -15,7 +15,6 @@ import main.java.logica.ControladorEvento;
 import main.java.logica.DTTRegistro;
 
 public class ConsultaTipoRegistro extends JInternalFrame {
-	private JInternalFrame frmConsultaEventos;
 	private JLabel lblEventos;
 	private JLabel lblDesc;
 	private JLabel lblCupo;
@@ -31,8 +30,6 @@ public class ConsultaTipoRegistro extends JInternalFrame {
 	private JTextField textFieldCupo;
 	private JTextField textFieldCosto;
 	private JButton btnCerrar;
-	
-	
 	
 	public ConsultaTipoRegistro() {
 		initComponents();

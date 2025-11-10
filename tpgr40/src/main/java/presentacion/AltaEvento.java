@@ -102,7 +102,7 @@ public class AltaEvento extends JInternalFrame {
 		
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) { crearEvento(event); }
+            public void actionPerformed(ActionEvent event) { crearEvento(); }
         });
 
 		btnCancelar = new JButton("Cancelar");
@@ -114,7 +114,7 @@ public class AltaEvento extends JInternalFrame {
 		panel_1.add(btnCrear);
 	}
 	
-	private void crearEvento(ActionEvent event) {
+	private void crearEvento() {
         String nombre = sacarEspacios(textNombre.getText());
         String desc = sacarEspacios(textDesc.getText());
         String sigla = sacarEspacios(textSigla.getText());
@@ -178,7 +178,7 @@ public class AltaEvento extends JInternalFrame {
                 default: // El usuario cierra el diálogo
                 	dispose();
                 	break;
-            };
+            }
 		} else {
         	JOptionPane.showMessageDialog(AltaEvento.this, "Ya existe un evento con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
 		}

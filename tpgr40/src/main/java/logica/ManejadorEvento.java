@@ -91,8 +91,7 @@ public class ManejadorEvento {
 	}
 
 	public void finalizarEvento(String evento) {
-		Evento ev = obtenerEvento(evento);
-		ev.finalizar();
+		obtenerEvento(evento).finalizar();
 	}
 
 	// Devuelve los datos de los eventos que contienen todas las palabras de

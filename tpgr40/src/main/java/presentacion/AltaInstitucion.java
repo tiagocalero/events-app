@@ -147,7 +147,7 @@ public class AltaInstitucion extends JInternalFrame{
                 default: // El usuario cierra el diálogo
                 	dispose();
                 	break;
-            };
+            }
         }
 	}
 

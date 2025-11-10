@@ -1,7 +1,6 @@
 package main.java.publicar;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

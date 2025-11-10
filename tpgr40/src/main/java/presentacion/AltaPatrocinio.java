@@ -21,7 +21,6 @@ import main.java.excepciones.PatrocinioSuperaMontoException;
 import main.java.excepciones.YaExistePatrocinioException;
 import main.java.logica.ControladorEvento;
 import main.java.logica.ControladorInstitucion;
-import main.java.logica.DTPatrocinio;
 import main.java.logica.TipoNivelPatrocinio;
 
 public class AltaPatrocinio extends JInternalFrame{

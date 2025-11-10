@@ -6,20 +6,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import main.java.logica.ControladorEvento;
 import main.java.logica.ControladorUsuario;
-import main.java.logica.DTAsistente;
-import main.java.logica.DTOrganizador;
-import main.java.logica.DTEdicion;
 import main.java.logica.DTRegistro;
-import main.java.logica.DTUsuario;
-import main.java.logica.TipoNivelPatrocinio;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import java.awt.GridLayout;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;

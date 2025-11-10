@@ -387,7 +387,7 @@ public class ConsultaEdicionDeEvento extends JInternalFrame {
 		txtFechaFin.setText("");
 		txtFechaAlta.setText("");
 		
-		comboBoxEdiciones.removeAllItems();;
+		comboBoxEdiciones.removeAllItems();
 		comboBoxAsistentes.removeAllItems();
 		comboBoxPatrocinios.removeAllItems();
 		comboBoxTipoRegistros.removeAllItems();

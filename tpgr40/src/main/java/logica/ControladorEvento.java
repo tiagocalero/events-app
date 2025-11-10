@@ -206,15 +206,15 @@ public class ControladorEvento {
 	}
 	
 	public void incrementarVisitas(String nombreEvento) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento e = m.obtenerEvento(nombreEvento);
-		e.incrementarVisitas();
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		Evento evento = manejador.obtenerEvento(nombreEvento);
+		evento.incrementarVisitas();
 	}
 
 	public void setVisitasEvento(String nombreEvento, int vis) {
-		ManejadorEvento m = ManejadorEvento.getInstance();
-		Evento e = m.obtenerEvento(nombreEvento);
-		e.setVisitas(vis);
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		Evento evento = manejador.obtenerEvento(nombreEvento);
+		evento.setVisitas(vis);
 	}
 
 	public void crearPatrocinio(String codigo, TipoNivelPatrocinio tipo, String nombreTipoRegistro, int cantRegistros, float monto, LocalDate fechaAlta, String nombreEdicion, String nombreInstitucion, String nombreEvento)

@@ -250,8 +250,7 @@ public class AltaEdicionEvento extends JInternalFrame {
                 default: // El usuario cierra el diálogo
                 	dispose();
                 	break;
-            };
-        
+            }
 		} else {
         	JOptionPane.showMessageDialog(this, "Ya existe una edición con ese nombre.", "Error", JOptionPane.ERROR_MESSAGE);
 		}

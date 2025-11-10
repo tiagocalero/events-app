@@ -25,7 +25,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 public class ConsultaEventos extends JInternalFrame {
-	private JInternalFrame frmConsultaEventos;
 	private JComboBox comboBoxEventos;
 	private JLabel lblNombre;
 	private JButton btnConsulta;

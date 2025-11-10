@@ -19,9 +19,6 @@ import main.java.datos.CargarDatos;
 public class Principal extends JFrame {
 
 	private JFrame frmPrincipal;
-	private AltaEvento altEventoInternalFrame;
-	private AltaPatrocinio altPatInternalFrame;
-    private AltaInstitucion altaInstInternalFrame;
     private JDesktopPane desktopPane;
 
 	public static void main(String[] args) {

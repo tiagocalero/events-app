@@ -206,7 +206,7 @@ public class AltaTipoRegistro extends JInternalFrame {
 	                default: // El usuario cierra el diálogo
 	                	dispose();
 	                	break;
-	            };
+	            }
 	        } else {
 	            JOptionPane.showMessageDialog(null, "Ya existe un tipo de registro con ese nombre en esta edición", "Error", JOptionPane.WARNING_MESSAGE);
 	            textField.requestFocus();

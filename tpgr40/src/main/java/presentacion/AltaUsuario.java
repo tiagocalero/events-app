@@ -264,7 +264,7 @@ public class AltaUsuario extends JInternalFrame {
                 default: // El usuario cierra el diálogo
                 	dispose();
                 	break;
-            };
+            }
         }
         else if (comboBox.getSelectedItem() == "Sin Institución" && controlador.altaAsistente(nickname, nombre, correo, cont, null, apellido, nacimiento)) {    
         	// Si se creó, dar la opción de agregar más usuarios o cerrar la ventana

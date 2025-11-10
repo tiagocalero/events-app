@@ -16,15 +16,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JDesktopPane;
 import java.awt.Dimension;
 
-import main.java.logica.Asistente;
-import main.java.logica.ControladorEvento;
 import main.java.logica.ControladorUsuario;
 import main.java.logica.DTAsistente;
 import main.java.logica.DTEdicion;
 import main.java.logica.DTOrganizador;
 import main.java.logica.DTRegistro;
 import main.java.logica.DTUsuario;
-import main.java.logica.Organizador;
 
 import javax.swing.JPanel;
 
@@ -48,10 +45,6 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblFecha_1;
 	private JTextArea Descripcion;
 	private DTUsuario u;
-	private String RegEdicion;
-	private String RegTipo;
-	private String RegFecha;
-	private float RegCosto;
 
 	private JButton btnCerrar;
 	private JTextField textInst;
@@ -267,7 +260,7 @@ public class ConsultaUsuario extends JInternalFrame {
 				    .filter(edicion -> edicion.getNombre().equals(edicionSeleccionada))
 				    .findFirst()
 				    .orElse(null);
-			String evento = (ed.getEvento());
+			String evento = ed.getEvento();
 			JInternalFrame c = new ConsultaEdicionDeEvento(desktopPane, evento, edicionSeleccionada);
 			desktopPane.add(c);
 	        centerInternalFrame(c);

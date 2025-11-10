@@ -104,7 +104,7 @@ public class AceptarRechazarEdEvento extends JInternalFrame {
         	public void actionPerformed(ActionEvent event) {
         		String edicionSeleccionada = (String) comboBoxEdiciones.getSelectedItem();
         		if ( edicionSeleccionada != null ) llamarVentanaEdicion(event);
-        	};
+        	}
         });
         panel.add(btnAmpliarDetalles);
         

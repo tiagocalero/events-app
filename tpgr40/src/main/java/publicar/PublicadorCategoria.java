@@ -1,7 +1,5 @@
 package main.java.publicar;
 
-import java.util.ArrayList;
-
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
@@ -9,7 +7,6 @@ import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.ws.Endpoint;
 import main.java.logica.ControladorCategoria;
-import main.java.logica.ControladorInstitucion;
 
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)

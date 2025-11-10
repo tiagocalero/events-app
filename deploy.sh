@@ -68,16 +68,25 @@ sleep 3
 echo "▶️ Iniciando Tomcat..."
 "$TOMCAT_DIR/bin/startup.sh"
 
-# 6️⃣ Mostrar URLs de despliegue
-IP=$(grep "^IP=" "$CONFIG_FILE" | cut -d'=' -f2)
-if [ -z "$IP" ]; then
-    IP="127.0.0.1"
-fi
+echo ""
+echo "Para correr Tests con cobertura:"
+echo "   cd tpgr40"
+echo "   mvn clean verify"
+echo "Para correr Checkstyle:"
+echo "   cd tpgr40"
+echo "   mvn clean checkstyle:checkstyle"
+echo "Para correr PMD:"
+echo "   cd tpgr40"
+echo "   mvn clean pmd:pmd"
+echo "Ver resultados en:"
+echo "   Cobertura: $TPGR40_DIR/target/site/jacoco/index.html"
+echo "   Checkstyle: $TPGR40_DIR/target/site/checkstyle.html"
+echo "   PMD: $TPGR40_DIR/target/site/pmd.html"
 
 echo ""
 echo "🌐 Aplicaciones disponibles en:"
-echo "   👉 http://$IP:8080/webdinamica"
-echo "   👉 http://$IP:8080/webmovil"
+echo "   👉 http://localhost:8080/webdinamica"
+echo "   👉 http://localhost:8080/webmovil"
 echo ""
 
 # 7️⃣ Mensaje o ejecución del servidor central

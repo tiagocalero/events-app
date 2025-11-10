@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.AbstractMap.SimpleEntry;
 
 import main.java.excepciones.PatrocinioSuperaMontoException;
 import main.java.excepciones.YaExistePatrocinioException;
@@ -18,8 +16,6 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import jakarta.xml.ws.Endpoint;
 
@@ -29,7 +25,6 @@ import main.java.logica.DTEvento;
 import main.java.logica.DTPatrocinio;
 import main.java.logica.DTRegistro;
 import main.java.logica.DTTRegistro;
-import main.java.logica.Evento;
 import main.java.logica.TipoNivelPatrocinio;
 
 @WebService

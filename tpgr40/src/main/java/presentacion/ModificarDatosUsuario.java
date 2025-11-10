@@ -22,8 +22,6 @@ import main.java.logica.DTOrganizador;
 import main.java.logica.DTUsuarioModificado;
 import main.java.logica.DTAsistenteModificado;
 import main.java.logica.DTOrganizadorModificado;
-import main.java.logica.DTRegistro;
-import main.java.logica.DTEdicion;
 
 import javax.swing.JPanel;
 
@@ -285,9 +283,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
             default: // El usuario cierra el diálogo
             	dispose();
             	break;
-        };
-        
-        
+        }
 	}
 	// Limpia todos los campos
 	private void borrarCampos() {
