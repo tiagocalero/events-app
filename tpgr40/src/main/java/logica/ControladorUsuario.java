@@ -103,6 +103,12 @@ public class ControladorUsuario{
 		Organizador organiza = (Organizador) usuario;
 		return organiza.consulta();
 	}
+
+	public List<DTEdicion> consultaOrganizadorNick(String nickname) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
+		Organizador organizador = (Organizador) manejador.obtener(nickname);
+		return organizador.consulta();
+	}
 	
 	public List<DTRegistro> consultaAsistente() {
 		assert usuario instanceof Asistente;
