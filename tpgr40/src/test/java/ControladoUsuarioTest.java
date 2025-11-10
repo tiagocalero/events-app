@@ -27,6 +27,7 @@ import main.java.logica.DTOrganizadorModificado;
 import main.java.logica.DTRegistro;
 import main.java.logica.ManejadorCategoria;
 import main.java.logica.ManejadorInstitucion;
+import main.java.logica.ManejadorEvento;
 import main.java.logica.ManejadorUsuario;
 import main.java.logica.Organizador;
 
@@ -62,6 +63,7 @@ class ControladorUsuarioTest {
 		ManejadorCategoria.borrarInstance();
 		ManejadorUsuario.getInstance().liberarMemoria();
 		ManejadorInstitucion.borrarInstance();
+		ManejadorEvento.borrarInstance();
 	}
 	
 	// Probar crear un usuario con nickname ya existente
