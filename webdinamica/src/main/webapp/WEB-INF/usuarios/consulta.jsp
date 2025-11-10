@@ -45,7 +45,7 @@
         </a>
 
         <a href="/webdinamica/usuarios/seguidos?nick=<%= URLEncoder.encode(usuario.getNickname(), StandardCharsets.UTF_8) %>" class="btn">
-          Seguidos <span class="badge text-bg-secondary"><%= request.getAttribute("seguidos") %></span>
+          Siguiendo <span class="badge text-bg-secondary"><%= request.getAttribute("seguidos") %></span>
         </a>
 
         <br><br>
