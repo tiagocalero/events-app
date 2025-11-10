@@ -47,6 +47,9 @@
     if (estaRegistrado == null) {
         estaRegistrado = false; // Valor por defecto seguro
     }
+
+    LocalDate fechaFin = (LocalDate) request.getAttribute("fecha-fin");
+    LocalDate fechaActual = LocalDate.now();
     
     // Chequeo si el usuario logueado es el organizador de ESTA edición
     boolean esElOrganizadorDeEstaEdicion = esOrganizador && 
@@ -129,7 +132,7 @@
                   Ver Detalles de mi Registro
                 </a>
           <% 
-              } else { 
+              } else if (!fechaFin.isBefore(fechaActual)) { 
                 // 3. Asistente NO Registrado: Botón para registrarse
           %>
                 <a href="<%= urlRegistroAsistente %>" class="btn btn-primary mt-3">

@@ -60,7 +60,9 @@
 
         <label for="costo-registro">Costo del Registro:</label>
         <input type="text" id="costo-registro" value="" readonly/><br/>
-
+         
+        <label for="asistencia-registro">Confirmo Asistencia:</label>
+        <input type="text" id="asistencia-registro" value="" readonly/><br/>
       </form>
     </div>
     
@@ -100,7 +102,8 @@
                   nicknameAsistente: '<%= registro.getNicknameUsuario() %>',
                   fecha: '<%= registro.getFecha() %>',
                   tipo: '<%= registro.getTipo() %>',
-                  costo: '<%= registro.getCosto() %>'
+                  costo: '<%= registro.getCosto() %>',
+                  asistencia: '<%= registro.isAsistencia() %>'
               });
     <%
           }
@@ -114,11 +117,14 @@
             document.getElementById('fecha-registro').value = registroSeleccionado.fecha;
             document.getElementById('tipo-registro').value = registroSeleccionado.tipo;
             document.getElementById('costo-registro').value = registroSeleccionado.costo;
+            let asistenciaTexto = registroSeleccionado.asistencia === 'true' ? 'Sí' : 'No';
+            document.getElementById('asistencia-registro').value = asistenciaTexto;
             document.getElementById('usuarioHeader').innerHTML = `Los datos del Registro de <strong>${nombreAsistente}</strong> son los siguientes:`;
         } else {
             document.getElementById('fecha-registro').value = '';
             document.getElementById('tipo-registro').value = '';
             document.getElementById('costo-registro').value = '';
+            document.getElementById('asistencia-registro').value = '';
             document.getElementById('usuarioHeader').innerHTML = `Los datos del Registro del Asistente son los siguientes:`;
         }
     }
