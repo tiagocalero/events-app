@@ -110,7 +110,7 @@ public class PublicadorUsuario {
     
     @WebMethod
     public DTEdicion[] consultaOrganizadorNick(String nickname) {
-        return contUsuario.consultaOrganizador(nickname).toArray(new DTEdicion[0]);
+        return contUsuario.consultaOrganizadorNick(nickname).toArray(new DTEdicion[0]);
     }
 
     @WebMethod
