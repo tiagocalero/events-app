@@ -28,202 +28,13 @@ public interface PublicadorUsuario {
 
     /**
      * 
-     * @param arg0
-     * @return
-     *     returns main.java.publicar.DtEdicionArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasResponse")
-    public DtEdicionArray consultaOrganizadorAceptadas(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns main.java.publicar.DtRegistro
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioResponse")
-    public DtRegistro datosRegistroUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaRequest", output = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaResponse")
-    public void registrarAsistencia(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @param arg7
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionRequest", output = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionResponse")
-    public boolean altaAsistenteInstitucion(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/agregarSeguidoRequest", output = "http://publicar.java.main/PublicadorUsuario/agregarSeguidoResponse")
-    public void agregarSeguido(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns main.java.publicar.DtUsuario
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/elegirUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/elegirUsuarioResponse")
-    public DtUsuario elegirUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/existeUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/existeUsuarioResponse")
-    public boolean existeUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/hashearContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/hashearContrasenaResponse")
-    public String hashearContrasena(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaResponse")
-    public boolean chequearContrasena(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/setContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/setContrasenaResponse")
-    public void setContrasena(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
      * @return
      *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/obtenerSeguidosRequest", output = "http://publicar.java.main/PublicadorUsuario/obtenerSeguidosResponse")
-    public StringArray obtenerSeguidos(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/esSeguidoRequest", output = "http://publicar.java.main/PublicadorUsuario/esSeguidoResponse")
-    public boolean esSeguido(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/eliminarSeguidoRequest", output = "http://publicar.java.main/PublicadorUsuario/eliminarSeguidoResponse")
-    public void eliminarSeguido(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresRequest", output = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresResponse")
+    public StringArray listarOrganizadores();
 
     /**
      * 
@@ -339,12 +150,227 @@ public interface PublicadorUsuario {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/existeUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/existeUsuarioResponse")
+    public boolean existeUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns main.java.publicar.DtUsuario
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/elegirUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/elegirUsuarioResponse")
+    public DtUsuario elegirUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/hashearContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/hashearContrasenaResponse")
+    public String hashearContrasena(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/chequearContrasenaResponse")
+    public boolean chequearContrasena(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/setContrasenaRequest", output = "http://publicar.java.main/PublicadorUsuario/setContrasenaResponse")
+    public void setContrasena(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
      * @return
      *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresRequest", output = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresResponse")
-    public StringArray listarOrganizadores();
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/obtenerSeguidosRequest", output = "http://publicar.java.main/PublicadorUsuario/obtenerSeguidosResponse")
+    public StringArray obtenerSeguidos(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/obtenerSeguidoresRequest", output = "http://publicar.java.main/PublicadorUsuario/obtenerSeguidoresResponse")
+    public StringArray obtenerSeguidores(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/esSeguidoRequest", output = "http://publicar.java.main/PublicadorUsuario/esSeguidoResponse")
+    public boolean esSeguido(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/agregarSeguidoRequest", output = "http://publicar.java.main/PublicadorUsuario/agregarSeguidoResponse")
+    public void agregarSeguido(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/eliminarSeguidoRequest", output = "http://publicar.java.main/PublicadorUsuario/eliminarSeguidoResponse")
+    public void eliminarSeguido(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns main.java.publicar.DtEdicionArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasResponse")
+    public DtEdicionArray consultaOrganizadorAceptadas(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns main.java.publicar.DtRegistro
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/datosRegistroUsuarioResponse")
+    public DtRegistro datosRegistroUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaRequest", output = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaResponse")
+    public void registrarAsistencia(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns main.java.publicar.DtRegistroArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrosNoConfirmadosRequest", output = "http://publicar.java.main/PublicadorUsuario/registrosNoConfirmadosResponse")
+    public DtRegistroArray registrosNoConfirmados(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionRequest", output = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionResponse")
+    public boolean altaAsistenteInstitucion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7);
 
 }
