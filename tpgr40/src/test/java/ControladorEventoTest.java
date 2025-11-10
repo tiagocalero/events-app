@@ -414,4 +414,33 @@ class ControladorEventoTest {
 	void testListarInstituciones() {
 		assertEquals(Set.of("Institución 1", "Institución 2"), new HashSet<>(c.listarInstituciones()));
 	}
+
+	@Test @Order(20)
+	void testVisitas() {
+		c.incrementarVisitas("Evento 1");
+		c.setVisitasEvento("Evento 1", 5);
+		c.incrementarVisitas("Evento 1");
+		c.incrementarVisitas("Evento 1");
+		DTEvento dte = c.informacionEvento("Evento 1");
+		assertEquals(7, dte.getVisitas());
+	}
+
+	@Test @Order(21)
+	void testBusqueda() {
+		assertEquals(Set.of("Evento 1"), c.buscarEventos("1").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(Set.of(), c.buscarEventos("10").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(Set.of("Edición 1"), c.buscarEdiciones("1").stream().map(DTEdicion::getNombre).collect(Collectors.toSet()));
+		assertEquals(c.listarEventos().stream().collect(Collectors.toSet()), c.buscarEventos("").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(c.listarEventos().stream().collect(Collectors.toSet()), c.buscarEventos("event").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+	}
+
+	@Test @Order(22)
+	void testFinalizar() {
+		c.finalizarEvento("Evento 1");
+		assertEquals(Set.of(), c.buscarEventos("1").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(Set.of("Evento 2"), c.listarDTEventosNoFinalizados().stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(Set.of("Evento 2"), c.listarDTEventosCategoriaNoFinalizados("c2").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(Set.of(), c.listarDTEventosCategoriaNoFinalizados("c1").stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+		assertEquals(Set.of("Evento 1", "Evento 2"), c.listarDTEventos().stream().map(DTEvento::getNombre).collect(Collectors.toSet()));
+	}
 }
