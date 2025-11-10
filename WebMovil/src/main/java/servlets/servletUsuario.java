@@ -149,6 +149,26 @@ public class servletUsuario extends HttpServlet {
 
     }
 
+    protected void consultaUsuarioGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+     	String nick = (String) request.getParameter("nick");
+    	if (nick != null && port.existeUsuario(nick)) {
+    		DtUsuario usuario = port.elegirUsuario(nick);
+        	
+        	if (usuario instanceof DtAsistente) {
+        		List<DtRegistro> registros = port.consultaAsistente().getItem();
+        		request.setAttribute("registros", registros);
+        	}
+        	
+    		request.setAttribute("datos", usuario);
+        	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
+    	} else {
+    		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    		response.getWriter().println("404 - Página no encontrada");
+    	}
+    }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -161,6 +181,8 @@ public class servletUsuario extends HttpServlet {
 		        	regNCGET(request, response);
 	    		} else if (path.equals("/inicio_sesion")) {
 					inicioSesionGET(request, response);
+	    		} else if (path.equals("/consulta")) {
+					consultaUsuarioGET(request, response);
 		        } else if (path.equals("/consultaRegistroAsis")) {
 		        	consultaRegistroGET(request, response);
 		        } else if (path.equals("/fin_sesion")) {

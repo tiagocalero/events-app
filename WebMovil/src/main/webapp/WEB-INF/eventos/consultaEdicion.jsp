@@ -12,6 +12,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Eventos.uy - Consulta de Edición Evento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="/webmovil/assets/styles.css"> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -42,9 +43,9 @@
     }
                                            
 	%>
-	
-    <div class="content">
-      <div class="edition-detail">
+	<div class="content">
+      <form class="content-form-consulta" method="get" action="registroAEdicionDeEvento.html">
+        <div class="edition-detail">
         
         <h3><%= request.getParameter("edicion") %></h3>
         
@@ -189,6 +190,7 @@
         <% } %>
         
       </div>
+      </form>
     </div>
     
     <%-- Se eliminó el bloque lateral derecho que contenía el Organizador, Tipos de Registro y Patrocinios. --%>
