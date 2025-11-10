@@ -21,8 +21,8 @@
     <%@ include file="/components/sidebar.jsp" %>
   	<div class="container py-3">
 	  	<div class="row gy-3">
-		<h3 class="mt-4">
-			Resultados de búsqueda para <b>"<%= request.getParameter("b") %>"</b>
+				<h3 class="mt-4">
+					Resultados de búsqueda para <b>"<%= request.getParameter("b") %>"</b>
 			
 		 	<div class="btn-group m-3">
 				<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

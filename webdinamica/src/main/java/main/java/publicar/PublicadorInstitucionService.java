@@ -1,5 +1,11 @@
-
 package main.java.publicar;
+
+import java.util.Properties;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,8 +35,23 @@ public class PublicadorInstitucionService
     static {
         URL url = null;
         WebServiceException e = null;
+        String ip = "", puerto = "";
+
+        Properties properties = new Properties();
+        // Cargar parámetros (ip y puerto) desde archivo de configuración
         try {
-            url = new URL("http://localhost:9130/webservices?wsdl");
+            properties.load(new FileInputStream(new File(System.getProperty("user.home") + "/.eventosUy/configuracion.properties")));
+
+            ip = (String) properties.get("IP");
+            puerto = (String) properties.get("PUERTO_INSTITUCION");
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            url = new URL("http://" + ip + ":" + puerto + "/webservices?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

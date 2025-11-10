@@ -31,18 +31,15 @@
               if (!reg.isAsistencia()){
                 String nombreEdicion = reg.getNombreEdicion(); 
                 String nombreEvento = reg.getNombreEvento();             
-                String redirectUrl = request.getContextPath() +  "/usuarios/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;
-              
-                
+                String redirectUrl = request.getContextPath() +  "/usuarios/consultaRegistroAsis?evento=" + nombreEvento + "&edicion=" + nombreEdicion;   
           %>
-          
-          <div class="list-group-item list-group-item-action align-items-center item-usuario" style="display:flex;">
-            <a class="text-black text-decoration-none" href="<%= redirectUrl %>" style="width:400px;">
-              <%= nombreEdicion %>
-            </a>
-          </div>
-          
-          <% }} %>
+            <div class="list-group-item list-group-item-action align-items-center item-usuario" style="display:flex;">
+              <a class="text-black text-decoration-none" href="<%= redirectUrl %>" style="width:400px;">
+                <%= nombreEdicion %>
+              </a>
+            </div>
+          <%  }
+            } %>
         </div>
       </div>
     </div>
