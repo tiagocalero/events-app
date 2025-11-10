@@ -144,15 +144,15 @@ public class ControladorUsuario{
 	
 	public void registrarAsistencia(String asistente, String edicion) {
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
-		assert usuario instanceof Asistente;
 		Asistente usuario = (Asistente) manejador.obtener(asistente);
+		assert usuario instanceof Asistente;
 		usuario.registrarAsistencia(edicion);
 	}
 
 	public List<DTRegistro> registrosNoConfirmados(String nickname){
-		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
-		assert usuario instanceof Asistente;
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
 		Asistente usuario = (Asistente) manejador.obtener(nickname);
+		assert usuario instanceof Asistente;
 		return usuario.registrosNoConfirmados();
 	}
 

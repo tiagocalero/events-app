@@ -38,6 +38,30 @@
 	      <mainClass>main.java.publicar.Main</mainClass>
 	    </configuration>
 	  </plugin>
+    
+      <!-- JaCoCo (análisis de cobertura) -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <!-- Se inyecta el agente antes de correr los tests -->
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+
+          <!-- Genera el reporte al final (fase verify) -->
+          <execution>
+            <id>report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
 	    <groupId>org.apache.maven.plugins</groupId>

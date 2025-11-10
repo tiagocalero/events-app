@@ -69,7 +69,7 @@ class ControladorUsuarioTest {
 	void testCrearUsuario() {
 		// chequeo asistente
 		assertEquals(true, c.altaAsistente("as2", "Asistente 2", "a2", "cont", null, "prueba2", LocalDate.parse("12/12/2012", fmt), "Institución 1"));
-				
+		assertEquals(true, c.existeUsuario("as2"));
 		DTAsistente dta = (DTAsistente) c.elegirUsuario("as2");
 		// Tomar el dt y asegurarse que cada campo sea correcto
 		assertEquals("as2", dta.getNickname());
@@ -106,6 +106,7 @@ class ControladorUsuarioTest {
 		
 		// chequeo correo
 		assertEquals(false, c.altaAsistente("as3", "Asistente 2", "a", "cont", null, "prueba", LocalDate.parse("12/12/2012", fmt)));
+		assertEquals(false, c.existeUsuario("as3"));
 		dtu = (DTAsistente) c.elegirUsuario("as");
 		// Tomar el dt y asegurarse que cada campo sea correcto
 		assertEquals("Asistente 1", dtu.getNombre());
@@ -233,6 +234,15 @@ class ControladorUsuarioTest {
 			compararDTEdiciones(oget0, cono1);
 			compararDTEdiciones(oget1, cono0);
 		}
+		cono0 = c.consultaOrganizadorNick("org").get(0);
+		cono1 = c.consultaOrganizadorNick("org").get(1);
+		if (oget0.getNombre() == cono0.getNombre()) {
+			compararDTEdiciones(oget0, cono0);
+			compararDTEdiciones(oget1, cono1);
+		} else {
+			compararDTEdiciones(oget0, cono1);
+			compararDTEdiciones(oget1, cono0);
+		}
 	}
 
 	@Test @Order(5)
@@ -251,4 +261,23 @@ class ControladorUsuarioTest {
 		assertEquals(Set.of("org", "org2"), c.listarOrganizadores().stream().collect(Collectors.toSet()));
 	}
 	
+	@Test @Order(7)
+	void testSeguirUsuarios() {
+		c.seguirUsuario("as", "org");
+		c.seguirUsuario("as2", "org");
+		c.seguirUsuario("as", "org2");
+		assertEquals(true, c.esSeguido("as", "org2"));
+		c.dejarDeSeguirUsuario("as", "org2");
+		assertEquals(false, c.esSeguido("as", "org2"));
+		assertEquals(Set.of("as", "as2"), c.obtenerSeguidores("org").stream().collect(Collectors.toSet()));
+		assertEquals(Set.of(), c.obtenerSeguidores("org2").stream().collect(Collectors.toSet()));
+		assertEquals(Set.of("org"), c.obtenerSeguidos("as").stream().collect(Collectors.toSet()));
+	}
+
+	@Test @Order(8)
+	void testAsistencia() {
+		assertEquals(true, c.registrosNoConfirmados("as").stream().map(DTRegistro::getEdicion).collect(Collectors.toList()).contains("Edición test 1"));
+		c.registrarAsistencia("as", "Edición test 1");
+		assertEquals(false, c.registrosNoConfirmados("as").stream().map(DTRegistro::getEdicion).collect(Collectors.toList()).contains("Edición test 1"));
+	}
 }
