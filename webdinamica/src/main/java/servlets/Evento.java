@@ -733,7 +733,7 @@ public class Evento extends HttpServlet {
 		    DtUsuario usuario = (DtUsuario) ((userSession != null) ? userSession.getAttribute("usuario") : null);
 		    
 		    // 3. Obtener todas las ediciones del Organizador
-		    List<DtEdicion> ediciones = portU.consultaOrganizadorNick(usuario.getNickname).getItem();
+		    List<DtEdicion> ediciones = portU.consultaOrganizadorNick(usuario.getNickname()).getItem();
 		    
 		    // 4. Crear un Set para almacenar nombres de eventos únicos
 		    Set<String> eventosUnicos = new HashSet<>();
