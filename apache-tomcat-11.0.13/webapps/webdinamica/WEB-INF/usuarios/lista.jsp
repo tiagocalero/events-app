@@ -24,7 +24,7 @@
   	<div class="container py-3">
 	  	<div class="row gy-3">
 		
-				<div class="list-group m-3 w-50">
+				<div class="list-group m-3 w-75">
 			 <% main.java.publicar.PublicadorUsuarioService service = new main.java.publicar.PublicadorUsuarioService();
 					main.java.publicar.PublicadorUsuario port = service.getPublicadorUsuarioPort();
 					List<String> lista = (List<String>) request.getAttribute("lista");
@@ -37,7 +37,7 @@
 							  <%= dtus instanceof DtAsistente ? ((DtAsistente) dtus).getApellido() : "" %> (<%= dtus.getNickname() %>)
 							</a>
 							<% if (usuarioLoggeado != null && !esEl) { %>
-								<form id="seguirUsuario" method="post">
+								<form id="seguirUsuario" class="ms-auto" method="post">
 									<input type="hidden" name="usuarioASeguir" value="<%= dtus.getNickname() %>">
 	        						<% if (port.esSeguido(usuarioLoggeado.getNickname(), dtus.getNickname())) { %>
 	    						  		<button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>

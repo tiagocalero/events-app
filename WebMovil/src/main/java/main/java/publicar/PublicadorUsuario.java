@@ -28,125 +28,50 @@ public interface PublicadorUsuario {
 
     /**
      * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresRequest", output = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresResponse")
-    public StringArray listarOrganizadores();
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar.java.main/PublicadorUsuario/listarAsistentesResponse")
-    public StringArray listarAsistentes();
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar.java.main/PublicadorUsuario/listarUsuariosResponse")
-    public StringArray listarUsuarios();
-
-    /**
-     * 
      * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaAsistenteRequest", output = "http://publicar.java.main/PublicadorUsuario/altaAsistenteResponse")
-    public boolean altaAsistente(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaOrganizadorRequest", output = "http://publicar.java.main/PublicadorUsuario/altaOrganizadorResponse")
-    public boolean altaOrganizador(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6);
-
-    /**
-     * 
-     * @return
-     *     returns main.java.publicar.DtEdicionArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorResponse")
-    public DtEdicionArray consultaOrganizador();
-
-    /**
-     * 
-     * @param arg0
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/modificarDatosUsuarioResponse")
-    public void modificarDatosUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuarioModificado arg0);
-
-    /**
-     * 
      * @return
      *     returns main.java.publicar.DtRegistroArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaAsistenteRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaAsistenteResponse")
-    public DtRegistroArray consultaAsistente();
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrosNoConfirmadosRequest", output = "http://publicar.java.main/PublicadorUsuario/registrosNoConfirmadosResponse")
+    public DtRegistroArray registrosNoConfirmados(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionRequest", output = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionResponse")
+    public boolean altaAsistenteInstitucion(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7);
 
     /**
      * 
@@ -286,16 +211,49 @@ public interface PublicadorUsuario {
 
     /**
      * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarAsistentesRequest", output = "http://publicar.java.main/PublicadorUsuario/listarAsistentesResponse")
+    public StringArray listarAsistentes();
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarUsuariosRequest", output = "http://publicar.java.main/PublicadorUsuario/listarUsuariosResponse")
+    public StringArray listarUsuarios();
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns main.java.publicar.DtEdicionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasResponse")
-    public DtEdicionArray consultaOrganizadorAceptadas(
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorNickRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorNickResponse")
+    public DtEdicionArray consultaOrganizadorNick(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaRequest", output = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaResponse")
+    public void registrarAsistencia(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
 
     /**
      * 
@@ -316,26 +274,13 @@ public interface PublicadorUsuario {
     /**
      * 
      * @param arg0
-     * @param arg1
-     */
-    @WebMethod
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaRequest", output = "http://publicar.java.main/PublicadorUsuario/registrarAsistenciaResponse")
-    public void registrarAsistencia(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
      * @return
-     *     returns main.java.publicar.DtRegistroArray
+     *     returns main.java.publicar.DtEdicionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/registrosNoConfirmadosRequest", output = "http://publicar.java.main/PublicadorUsuario/registrosNoConfirmadosResponse")
-    public DtRegistroArray registrosNoConfirmados(
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorAceptadasResponse")
+    public DtEdicionArray consultaOrganizadorAceptadas(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -348,14 +293,13 @@ public interface PublicadorUsuario {
      * @param arg4
      * @param arg5
      * @param arg6
-     * @param arg7
      * @return
      *     returns boolean
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionRequest", output = "http://publicar.java.main/PublicadorUsuario/altaAsistenteInstitucionResponse")
-    public boolean altaAsistenteInstitucion(
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaAsistenteRequest", output = "http://publicar.java.main/PublicadorUsuario/altaAsistenteResponse")
+    public boolean altaAsistente(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
@@ -369,8 +313,77 @@ public interface PublicadorUsuario {
         @WebParam(name = "arg5", partName = "arg5")
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
-        String arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7);
+        String arg6);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/altaOrganizadorRequest", output = "http://publicar.java.main/PublicadorUsuario/altaOrganizadorResponse")
+    public boolean altaOrganizador(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6);
+
+    /**
+     * 
+     * @return
+     *     returns main.java.publicar.DtRegistroArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaAsistenteRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaAsistenteResponse")
+    public DtRegistroArray consultaAsistente();
+
+    /**
+     * 
+     * @return
+     *     returns main.java.publicar.DtEdicionArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorRequest", output = "http://publicar.java.main/PublicadorUsuario/consultaOrganizadorResponse")
+    public DtEdicionArray consultaOrganizador();
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/modificarDatosUsuarioRequest", output = "http://publicar.java.main/PublicadorUsuario/modificarDatosUsuarioResponse")
+    public void modificarDatosUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuarioModificado arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresRequest", output = "http://publicar.java.main/PublicadorUsuario/listarOrganizadoresResponse")
+    public StringArray listarOrganizadores();
 
 }
