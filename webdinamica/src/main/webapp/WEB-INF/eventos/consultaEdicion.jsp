@@ -53,7 +53,6 @@
                                            ((DtOrganizador) usuarioLoggeado).getNickname().equals(organizadorNickname);
                                            
 	%>
-	
     <div class="content">
       <form class="content-form-consulta" method="get" action="registroAEdicionDeEvento.html">
         <div class="edition-detail">

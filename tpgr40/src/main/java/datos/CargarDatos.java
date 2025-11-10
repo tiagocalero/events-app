@@ -84,7 +84,7 @@ public class CargarDatos {
 		fechaAlta = LocalDate.parse("01/01/2025", fmt);
 		List<String> cats8 = new ArrayList<>(Arrays.asList("Cultura"));
 		// Aviso: El evento se finaliza más adelante para poder crear la edición
-		contE.ingresarDatosEvento("Global", "Aventureros en grupo", "GBL", fechaAlta, cats7, false);
+		contE.ingresarDatosEvento("Global", "Aventureros en grupo", "GBL", fechaAlta, cats8, false);
 		contE.setVisitasEvento("Global", 20);	
 		
 		//Cargar Organizaciones
@@ -229,7 +229,7 @@ public class CargarDatos {
 		//Cargar Registros
         fechaAlta = LocalDate.parse("14/05/2025", fmt);
 		contE.darDeAltaRegistro("sofirod", "Montevideo Rock 2025", "VIP", "Montevideo Rock", fechaAlta, false);
-		contU.registrarAsistencia("sofirod", "Montevideo Rock 2025");
+		//contU.registrarAsistencia("sofirod", "Montevideo Rock 2025");
 
         fechaAlta = LocalDate.parse("30/07/2024", fmt);
 		contE.darDeAltaRegistro("sofirod", "Maratón de Montevideo 2024", "Corredor 21K", "Maratón de Montevideo", fechaAlta, false);
