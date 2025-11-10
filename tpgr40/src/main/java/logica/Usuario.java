@@ -11,6 +11,7 @@ public abstract class Usuario {
 	private String contrasena;
 	private String imagen;
 	private Set<String> seguidos;
+	private Set<String> seguidores;
 	
 	public Usuario(String nick, String nom, String correo, String contrasena, String img) {
 		ControladorUsuario controlador = ControladorUsuario.getInstance();
@@ -20,6 +21,7 @@ public abstract class Usuario {
 		this.contrasena = controlador.hashearContrasena(contrasena);
 		this.imagen = img;
 		this.seguidos = new java.util.HashSet<>();
+		this.seguidores = new java.util.HashSet<>();
 	}
 	
 	public String getNickname() {
@@ -42,6 +44,10 @@ public abstract class Usuario {
 		return seguidos.stream().collect(Collectors.toList());
 	}
 
+	public List<String> getSeguidores() {
+		return seguidores.stream().collect(Collectors.toList());
+	}
+
 	public boolean chequearContrasena(String pass) {
 		ControladorUsuario controlador = ControladorUsuario.getInstance();
 		return contrasena.equals(controlador.hashearContrasena(pass));
@@ -62,6 +68,10 @@ public abstract class Usuario {
 		this.contrasena = controlador.hashearContrasena(contrasena);
 	}
 	
+	public void agregarSeguidor(String nickSeguido) {
+		seguidores.add(nickSeguido);
+	}
+	
 	public void agregarSeguido(String nickSeguido) {
 		seguidos.add(nickSeguido);
 	}
@@ -70,6 +80,10 @@ public abstract class Usuario {
 		return seguidos.contains(nickSeguido);
 	}
 	
+	public void eliminarSeguidor(String nickSeguido) {
+		seguidores.remove(nickSeguido);
+	}
+
 	public void eliminarSeguido(String nickSeguido) {
 		seguidos.remove(nickSeguido);
 	}

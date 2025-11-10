@@ -153,14 +153,18 @@ public class ControladorUsuario{
 	
 	public void seguirUsuario(String seguidor, String seguido) {
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
-		Usuario userSeguidor = manejador.obtener(seguidor);
+		Usuario userSeguidor = manejador.obtener(seguidor);		
+		Usuario userSeguido = manejador.obtener(seguido);
 		userSeguidor.agregarSeguido(seguido);
+		userSeguido.agregarSeguidor(seguidor);
 	}
 	
 	public void dejarDeSeguirUsuario(String seguidor, String seguido) {
-		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();
 		Usuario userSeguidor = manejador.obtener(seguidor);
+		Usuario userSeguido = manejador.obtener(seguido);
 		userSeguidor.eliminarSeguido(seguido);
+		userSeguido.eliminarSeguidor(seguidor);
 	}
 	
 	public boolean esSeguido(String seguidor, String seguido) {
@@ -173,5 +177,11 @@ public class ControladorUsuario{
 		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
 		Usuario user = manejador.obtener(nickname);
 		return user.getSeguidos();
+	}
+
+	public List<String> obtenerSeguidores(String nickname) {
+		ManejadorUsuario manejador = ManejadorUsuario.getInstance();		
+		Usuario user = manejador.obtener(nickname);
+		return user.getSeguidores();
 	}
 }

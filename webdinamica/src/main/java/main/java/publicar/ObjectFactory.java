@@ -50,6 +50,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtRegistro }
+     * 
+     * @return
+     *     the new instance of {@link DtRegistro }
+     */
+    public DtRegistro createDtRegistro() {
+        return new DtRegistro();
+    }
+
+    /**
      * Create an instance of {@link DtUsuario }
      * 
      * @return
@@ -107,16 +117,6 @@ public class ObjectFactory {
      */
     public DtOrganizadorModificado createDtOrganizadorModificado() {
         return new DtOrganizadorModificado();
-    }
-
-    /**
-     * Create an instance of {@link DtRegistro }
-     * 
-     * @return
-     *     the new instance of {@link DtRegistro }
-     */
-    public DtRegistro createDtRegistro() {
-        return new DtRegistro();
     }
 
     /**

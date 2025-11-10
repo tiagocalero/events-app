@@ -116,6 +116,8 @@ public class servletUsuario extends HttpServlet {
         	}
         	
     		request.setAttribute("datos", usuario);
+            request.setAttribute("seguidores", port.obtenerSeguidores(nick).getItem().size());
+            request.setAttribute("seguidos", port.obtenerSeguidos(nick).getItem().size());
         	request.getRequestDispatcher("/WEB-INF/usuarios/consulta.jsp").forward(request, response);
     	} else {
     		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -432,7 +434,36 @@ public class servletUsuario extends HttpServlet {
         }
         response.sendRedirect("/webdinamica/usuarios/lista");
 	}
-	
+    
+    protected void listarSeguidoresGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        String nick = (String) request.getParameter("nick");
+        if (nick == null || !port.existeUsuario(nick)) {
+            response.sendRedirect("/webdinamica/");
+            return;
+        }
+
+        List<String> seguidores = port.obtenerSeguidores(nick).getItem();
+        
+        request.setAttribute("seguidores", seguidores);
+        request.getRequestDispatcher("/WEB-INF/usuarios/seguidores.jsp").forward(request, response);
+    }
+
+    protected void listarSeguidosGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PublicadorUsuarioService service = new PublicadorUsuarioService();
+        PublicadorUsuario port = service.getPublicadorUsuarioPort();
+        String nick = (String) request.getParameter("nick");
+        if (nick == null || !port.existeUsuario(nick)) {
+            response.sendRedirect("/webdinamica/");
+            return;
+        }
+
+        List<String> seguidos = port.obtenerSeguidos(nick).getItem();
+        
+        request.setAttribute("seguidos", seguidos);
+        request.getRequestDispatcher("/WEB-INF/usuarios/seguidos.jsp").forward(request, response);
+    }
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -446,8 +477,12 @@ public class servletUsuario extends HttpServlet {
 		            perfilUsuarioGET(request, response);
 		        } else if (path.equals("/alta")) {
 		        	altaUsuarioGET(request, response);
-		        } else if (path.equals("/consulta")) {
-		        	consultaUsuarioGET(request, response);
+                } else if (path.equals("/consulta")) {
+                    consultaUsuarioGET(request, response);
+                } else if (path.equals("/seguidores")) {
+                    listarSeguidoresGET(request, response);
+                } else if (path.equals("/seguidos")) {
+                    listarSeguidosGET(request, response);
 		        } else if (path.equals("/lista")) {
 		        	listaGET(request, response);
 	    		} else if (path.equals("/inicio_sesion")) {

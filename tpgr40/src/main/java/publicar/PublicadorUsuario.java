@@ -140,6 +140,11 @@ public class PublicadorUsuario {
     }
     
     @WebMethod
+    public String[] obtenerSeguidores(String nickname) {
+        return contUsuario.obtenerSeguidores(nickname).toArray(new String[0]);
+    }
+
+    @WebMethod
     public void agregarSeguido(String nickSeguidor, String nickSeguido) {
     	contUsuario.seguirUsuario(nickSeguidor, nickSeguido);
     }

@@ -40,6 +40,16 @@
           	alt="Foto Perfil de <%= usuario.getNickname() %>">
         </div>
 
+        <a href="/webdinamica/usuarios/seguidores?nick=<%= URLEncoder.encode(usuario.getNickname(), StandardCharsets.UTF_8) %>" class="btn">
+          Seguidores <span class="badge text-bg-secondary"><%= request.getAttribute("seguidos") %></span>
+        </a>
+
+        <a href="/webdinamica/usuarios/seguidos?nick=<%= URLEncoder.encode(usuario.getNickname(), StandardCharsets.UTF_8) %>" class="btn">
+          Seguidos <span class="badge text-bg-secondary"><%= request.getAttribute("seguidos") %></span>
+        </a>
+
+        <br><br>
+
         <label for="nombre"><strong>Nombre:</strong></label>
         <input type="text" id="nombre" value="<%= usuario.getNombre() != null ? usuario.getNombre() : "" %>" disabled/><br/>
 
@@ -55,7 +65,7 @@
         <label for="correo"><strong>Email:</strong></label>
         <input type="text" id="correo" value="<%= usuario.getCorreo() != null ? usuario.getCorreo() : "" %>" disabled /><br/>
 
-		<% if (usuario instanceof DtAsistente) { %>
+		    <% if (usuario instanceof DtAsistente) { %>
         	<label for="nac" class="nacimiento"><strong>Fecha de Nacimiento:</strong></label>
         	<input type="date" id="nacimiento"  value="<%= asistente.getNacimiento() != null ? asistente.getNacimiento() : "" %>" disabled/><br/>
 
@@ -69,16 +79,16 @@
         	<label for="desc" class="lblDesc"><strong>Descripción:</strong></label>
         	<textarea type="text" id="desc" disabled><%= organizador.getDescripcion() != null ? organizador.getDescripcion() : "" %></textarea><br/>
         <% } %>
-        
+
         <% if (usuarioLoggeado != null) {
-        	if (usuarioLoggeado.getNickname().equals(usuario.getNickname())) { %>
-				<button id="modifyBtn" type="submit" name="accion" value="editar" class="btn_login">Editar Perfil</button>
-        	<% } else if (port.esSeguido(usuarioLoggeado.getNickname(), usuario.getNickname())) { %>
-    			<button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
-    		<% } else { %>
+        	   if (usuarioLoggeado.getNickname().equals(usuario.getNickname())) { %>
+				    <button id="modifyBtn" type="submit" name="accion" value="editar" class="btn_login">Editar Perfil</button>
+          <% } else if (port.esSeguido(usuarioLoggeado.getNickname(), usuario.getNickname())) { %>
+    			  <button type="submit" name="accion" value="dejar" class="btn btn-danger">Dejar de Seguir</button>
+    		  <% } else { %>
         		<button type="submit" name="accion" value="seguir" class="btn btn-primary">Seguir</button>
-        	<% }
-         } %>
+          <% }
+           } %>
       </form>
     </div>
     <div class="flex-shrink-0 p-3 m-3" style="width: 280px">
