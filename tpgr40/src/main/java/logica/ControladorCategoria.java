@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ControladorCategoria {
 	private static volatile ControladorCategoria instance;
-	private ControladorCategoria(){};
+	private ControladorCategoria() {}
 	
 	public static ControladorCategoria getInstance() {
 		if (instance == null) {

@@ -49,7 +49,7 @@ public class Evento {
 
 		List<String> nomEdiciones = new ArrayList<>(ediciones.keySet());
 		
-		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen,finalizado, visitas);
+		return new DTEvento(nombre, sigla, descripcion, fechaAlta, nomCategorias, nomEdiciones, imagen, finalizado, visitas);
 	}
 	
 	public DTEvento getDatosAceptadas() {

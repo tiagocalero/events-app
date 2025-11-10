@@ -40,7 +40,7 @@ public class DTRegistro {
     public String getEdicion() { return nombreEdicion; }
     public String getTipo() { return tipo; }
     public String getNombre() { return nicknameUsuario; }
-    public boolean getPatrocinio( ) {return patrocinio;}
-    public boolean getAsistencia() { return asistencia;}
-    public boolean getConfirmable() { return confirmable;}
+    public boolean getPatrocinio( ) {return patrocinio; }
+    public boolean getAsistencia() { return asistencia; }
+    public boolean getConfirmable() { return confirmable; }
 }

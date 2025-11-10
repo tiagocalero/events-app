@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class ControladorInstitucion{
 	private static volatile ControladorInstitucion instance;
-	private ControladorInstitucion(){};
+	private ControladorInstitucion() {}
 	
 	public static ControladorInstitucion getInstance() {
 		if (instance == null) {

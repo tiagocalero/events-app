@@ -20,7 +20,7 @@ public class Registro {
         tipo.agregarRegistro(this);
         this.patrocinio = patrocinio;
         this.asistencia = false;
-    };
+    }
 
     public String getNicknameAsistente(){
         return asistente.getNickname();

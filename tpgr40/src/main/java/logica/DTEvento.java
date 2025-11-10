@@ -23,7 +23,7 @@ public class DTEvento {
 	
 	public DTEvento() {}
 	
-	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, List<String> ediciones, String imagen,boolean finalizado, int visitas) {
+	public DTEvento(String nombre, String sigla, String descripcion, LocalDate fechaAlta, List<String> categorias, List<String> ediciones, String imagen, boolean finalizado, int visitas) {
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.descripcion = descripcion;

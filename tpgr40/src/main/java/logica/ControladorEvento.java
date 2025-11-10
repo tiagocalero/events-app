@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.stream.Collectors;
 
 import main.java.excepciones.PatrocinioSuperaMontoException;
@@ -472,20 +471,21 @@ public class ControladorEvento {
 	}
 	
 	public List<DTEvento> buscarEventos(String str) {
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		return me.buscarEventos(str);
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		return manejador.buscarEventos(str);
 	}
 	
 	public List<DTEdicion> buscarEdiciones(String str) {
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		return me.buscarEdiciones(str);
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		return manejador.buscarEdiciones(str);
 	}
+	
 	public List<Evento> obtenerEventosMasVisitados(){
-		ManejadorEvento me = ManejadorEvento.getInstance();
-		Map<String, Evento> eventos = me.eventos();
+		ManejadorEvento manejador = ManejadorEvento.getInstance();
+		Map<String, Evento> eventos = manejador.eventos();
 		
 		return eventos.values().stream()
-	            .sorted((e1, e2) -> Integer.compare(e2.getVisitas(), e1.getVisitas())) // de mayor a menor
+	            .sorted((ev1, ev2) -> Integer.compare(ev2.getVisitas(), ev1.getVisitas())) // de mayor a menor
 	            .limit(5)
 	            .collect(Collectors.toList());
 	}

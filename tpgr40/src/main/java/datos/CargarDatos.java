@@ -12,7 +12,6 @@ import main.java.logica.ControladorCategoria;
 import main.java.logica.ControladorEvento;
 import main.java.logica.ControladorInstitucion;
 import main.java.logica.ControladorUsuario;
-import main.java.logica.DTPatrocinio;
 import main.java.logica.TipoNivelPatrocinio;
 
 public class CargarDatos {

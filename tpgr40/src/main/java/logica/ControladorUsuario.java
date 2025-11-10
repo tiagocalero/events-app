@@ -10,7 +10,7 @@ public class ControladorUsuario{
 	private Usuario usuario;
 
 	private static volatile ControladorUsuario instance;
-	private ControladorUsuario(){};
+	private ControladorUsuario() {}
 	
 	public static ControladorUsuario getInstance() {
 		if (instance == null) {
@@ -60,12 +60,12 @@ public class ControladorUsuario{
             
             // Convert bytes to hex
             StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                hexString.append(String.format("%02x", b));
+            for (byte byt : hash) {
+                hexString.append(String.format("%02x", byt));
             }
             hashedcont = hexString.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
+        } catch (NoSuchAlgorithmException exc) {
+            throw new RuntimeException(exc);
         }
 		return hashedcont;
 	}
