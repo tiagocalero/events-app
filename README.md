@@ -1,17 +1,18 @@
 # Event Ticketing Platform
 
-A full-stack web platform for managing events, editions, organizers, sponsoring institutions and ticket sales — with a companion Java desktop app for administrators that pushes privileged changes to the live site in real time.
+A full-stack web platform for managing events, editions, organizers, sponsoring institutions and ticket sales. With a companion Java desktop app for administrators that pushes privileged changes to the live site in real time.
 
 > University project — Universidad de la República (UDELAR), team of 5.
 
-<!-- TODO: add 2–3 screenshots here (home page, event detail, admin desktop app). Screenshots are the first thing a recruiter looks at. -->
-<!-- ![Event list](docs/screenshots/events.png) -->
+![Event list](assets/images/event-list.png)
+![User](assets/images/user-organizer.png)
+![Event edition](assets/images/event-edition.png)
 
 ## Features
 
 - Browse events and their editions, each with an organizer and a sponsoring institution
 - Buy and sell tickets per edition
-- Dynamic pages with AJAX (no full page reloads)
+- Dynamic pages with AJAX
 - **Admin desktop app** (Java) connected remotely to the web server: privileged changes made there are reflected on the website in real time
 
 ## Architecture
@@ -20,7 +21,7 @@ A full-stack web platform for managing events, editions, organizers, sponsoring 
 flowchart LR
     B[Browser<br/>HTML5 · CSS3 · JS · AJAX] -->|HTTP| S[Java Servlets<br/>Jakarta EE on Apache Tomcat]
     S --> L[Business logic<br/>domain model]
-    A[Admin desktop app<br/>Java] -->|remote connection| S
+    A[Admin desktop app<br/>Java, Swing] -->|remote connection| S
 ```
 
 **Domain model:** Event → Edition → Ticket, with Organizer and Sponsoring Institution.
@@ -31,25 +32,23 @@ flowchart LR
 |---|---|
 | Backend | Java, Jakarta EE (Servlets), Apache Tomcat |
 | Frontend | HTML5, CSS3, JavaScript, AJAX |
-| Admin client | Java desktop application |
+| Admin client | Java desktop application, Swing |
 
 ## Getting started
 
+Dependencies to run the proyect:
+- Java (version 21)
+- Maven
+
+To start, first download the latest release or the "entrega3" tag,
+then you will find a 'deploy.sh' executable script in the files, which automatically
+compiles and runs everything and tells you all the information you need to know.
+The app runs on http://localhost:8080/webdinamica
+and http://localhost:8080/webmovil for the mobile app.
+The script also prints instructions to run the admin desktop app, which are:
 ```bash
-# TODO: replace with the real build/run steps
-git clone https://github.com/<your-user>/event-ticketing-platform.git
-cd event-ticketing-platform
-# build the WAR (e.g. mvn package) and deploy it to Tomcat
+cd "<proyect-folder>/tpgr40"
+java -cp "target/tpgr40-0.0.1-SNAPSHOT.jar:target/dependency/*" main.java.publicar.Main
 ```
 
-Data is loaded dynamically at startup for testing (no external database required).
-
-## My contribution
-
-<!-- TODO: be specific — this is what interviewers ask about. Example: -->
-- Implemented <!-- e.g. the ticket purchase flow servlets and AJAX endpoints -->
-- Built <!-- e.g. the remote connection between the desktop admin app and the server -->
-
-## Team
-
-Developed by a team of 5 students at UDELAR: <!-- teammates' GitHub handles, with their permission -->
+Data is loaded dynamically for testing (no external database required). From the admin desktop app: Sistema → Cargar Datos.
