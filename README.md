@@ -41,7 +41,7 @@ Dependencies to run the proyect:
 - Maven
 
 To start, first download the latest release or the "entrega3" tag,
-then you will find a 'deploy.sh' executable script in the files, which automatically
+then you will find a `deploy.sh` executable script in the files, which automatically
 compiles and runs everything and tells you all the information you need to know.
 The app runs on http://localhost:8080/webdinamica
 and http://localhost:8080/webmovil for the mobile app.
